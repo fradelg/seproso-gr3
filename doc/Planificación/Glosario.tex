@@ -1,0 +1,192 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO.\\ Glosario.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 7/11/08 & Recopilación de Primeras definiciones. & Grupo III\\
+\hline
+1.0 & 20/11/08 & Primera versión completa del glosario. & Grupo III\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent Incluye la terminología clave del proyecto. Se desarrolla el docuemtno en la fase de inico y se completará en la fase de elaboración. Es de gran ayuda recopilando todas las definicioes de los múltiples documentos del proyecto.
+
+\chapter{Definiciones.}
+
+\begin{itemize}
+\item \textbf{Línea base}: artefacto del proyecto revisado y aceptado por todas las partes involucradas.
+	
+	\item \textbf{Entregable}: artefacto que debe ser entregado al cliente.
+	
+	\item  \textbf{Actividad }Unidad de trabajo que puede ejecutar un individuo o varios en un rol específico. Tiene un propósito claro y se expresa en términos de actualizar artefactos.
+
+	\item \textbf{Actividad actual} Aquella que ha comenzado y aún sigue desarrollándose actualmente.
+
+	\item \textbf{Artefacto} Es una pieza de información utilizada o producida mediante un proceso de desarrollo de software. Puede ser un modelo, una descripción o un software. No siempre es un entregable.
+
+	\item \textbf{Etapa del proceso} Conjunto de actividades orientadas a la consecución de una serie de objetivos, que se denominan objetivos de la etapa.
+
+	\item \textbf{Hito} Evento de relevancia durante el proceso. A menudo surgen de la consecución de algún objetivo.
+
+	\item \textbf{Modelo de proceso} Conjunto de técnicas que definen como el proceso software debe llevarse a cabo en todas sus distintas etapas, así como cuales han de ser dichas etapas. Un modelo de proceso es una abstracción, de manera que cada proceso se convierte en una instanciación del modelo al que pertenece.
+
+	\item \textbf{Planificación} Se compone del plan general de ejecución del proyecto, así como del desarrollo real de dicho plan, incluyendo información detallada sobre el tiempo que requerirá cada actividad y los recursos que se destinarán (o destinaron) a la misma.
+
+	\item \textbf{Planificación inicial} Es la estimación a priori de los tiempos y recursos que requerirá cada una de las actividades a desempeñar en el proceso. Se trata de la planificación teórica del proceso, y los tiempos y recursos que establece no tienen por qué coincidir con los que finalmente requiere el proyecto.
+
+	\item \textbf{Proceso} Es el flujo de acciones que llevarán a la consecución de los objetivos del proyecto.
+
+	\item \textbf{Proyecto Esfuerzo} temporal emprendido para elaborar un producto software. Se trata de la unidad lógica de gestión dentro del entorno de la aplicación: cada proyecto requiere una planificación que se lleva a cabo siguiendo un modelo de proceso y es gestionado por un único jefe de proyecto.
+
+	\item \textbf{Proyecto finalizado} Aquel que ha alcanzado todos los objetivos que se plantearon inicialmente. Para llegar a su finalización, un proyecto requiere haber pasado y finalizado con éxito todas las etapas del proceso que fueran planificadas en el origen.
+
+	\item \textbf{Recurso} Cada uno de los elementos que proporcionan un servicio necesario para la ejecución del proceso. Deben estar disponibles para su utilización. Pueden ser humanos, económicos o físicos.
+
+	\item \textbf{Stakeholder} Toda persona o entidad que está directamente vinculada en el proceso o tiene intereses reales en el proyecto.
+
+	\item \textbf{Tarea} Es la granularidad mínima en la que se dividen las acciones que integran cada etapa del proceso software.
+ 
+\end{itemize}
+
+
+\chapter{Acrónimos.}
+
+Listado de acrónimos utilizado en la documentación
+
+\begin{itemize}
+	\item \textbf{SEPROSO}: SEguimiento de PROyectos SOftware.
+	\item \textbf{UPEDU}: Proceso Unificado para Educación. Modelo de desarrollo software que sigue este proyecto. Para más información http://yoopeedoo.com
+	\item \textbf{IEEE}: Instituto de Ingenieros Eléctricos y Electrónicos, corresponde a las siglas de The Institute of Electrical and Electronics Engineers.
+	\item \textbf{UML}: Lenguaje Unificado de Modelado, por sus siglas en inglés, Unified Modeling Language.
+	\item \textbf{OMG}: Grupo de Gestión de Objetos de sus siglas Object Management Group, consorcio dedicado al establecimiento de diversos estándares, entre ellos UML.
+	\item \textbf{GUI}: Interfaz Gráfica de Usuario.
+	\item \textbf{CU}: Caso de Uso.
+	\item \textbf{PHP}: PHP Hypertext Pre-processor.
+	\item \textbf{HTML}: HyperText Markup Language. 
+	\item \textbf{API}: Interfaz de Programación de Aplicaciones.
+	\item \textbf{OMT}: Técnica de modelado orientada a objetos.
+	\item \textbf{SRS}: Especificación de requisitos Software.
+	\item \textbf{RAD}: Documento de Análisis de Requisitos.
+	\item \textbf{SDD}: Documento de Diseño de Sistema.
+	\item \textbf{SPMP}: Plan de Gestión de Proyectos Software.
+	\item \textbf{ISO II}: Ingeniería del Software II.
+	\item \textbf{UVA}: Universidad de Valladolid.
+\end{itemize}
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}

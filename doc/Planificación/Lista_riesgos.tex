@@ -1,0 +1,273 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO.\\ Lista de Riesgos.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 16/11/08 & Primera versión de la Lista de Riesgos. & Grupo III\\
+\hline
+0.2 & 17/11/08 & Revisión de la Lista de Riesgos. & Grupo III\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent Este documento captura todos aquellos riesgos que ponen en peligro el éxito del proyecto. En él se identifican en orden decreciente de prioridad los eventos que pueden ocasionar problemas durante el desarrollo. Sirve de referencia durante todo el proceso para detectar fuentes de problemas antes de que estos sucedan. 
+
+\section{Ámbito.}
+
+\indent \indent La lista de riesgos se actualiza a lo largo del proyecto. Se establece en la fase de inicio y se actualiza continuamente añadiendo riesgos nuevos y eliminando riesgos ya cubiertos o irrelevantes. Es revisada al final de cada iteración.
+
+\section{Definiciones.}
+
+\indent  \indent Véase el \textbf{\textsl{Glosario}}.
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item UPEDU "Risk List Artefact": http://www.upedu.org/upedu/.
+	\item Plan de iteraciones (iteración 1 en fase de inicio). 
+	\item Asignatura Ingeniería de Software II, profesor: Pablo Lucio de la Fuente. Web: http://aulas.inf.uva.es
+\end{enumerate}
+
+\section{Visión general.}
+
+\indent \indent La lista de riesgos se recoge en forma de tabla (un riego por cada fila) en la cual se recogen los siguientes atributos: importancia, descripción, impacto, indicador y estrategias de contingencia. 
+
+\chapter{Riesgos.}
+
+\indent \indent Utilizaremos las siguientes definiciones y convenios para describir cada riesgo:\\
+
+\begin{itemize}
+	\item \textbf{Magnitud}: califica el nivel de riesgo de 1 a 10 basándonos en la probabilidad de ocurrencia y en la criticidad del mismo. Ordena la lista de riesgos.
+	\item \textbf{Descripción}: breve frase que describe el posible problema.
+	\item \textbf{Impacto}: \\
+			\indent \indent \indent C - \textbf{Crítico}: afecta a toda la funcionalidad del proyecto y la línea base.\\
+	    \indent \indent \indent A - \textbf{Alto}: afecta a las necesidades del usuario y a la funcionalidad.\\
+	    \indent \indent \indent M - \textbf{Medio}: se puede contener pero la mayoría de las veces es evitable.\\
+	    \indent \indent \indent B - \textbf{Bajo}: se puede aceptar y convivir con él pero también mitigar rápidamente.\\
+	\item \textbf{Indicador}: métrica o detector del riesgo a monitorizar.
+	\item \textbf{Estrategia mitigación / contingencia}: plan para convivir o evitar / transferir el riego.
+\end{itemize}
+
+
+\begin{tabla}{Descripción de Riesgos.}{DRiesgo}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multicolumn{5}{|c|}{RIESGO - ID. Nombre descriptivo.}\\
+\hline
+\textbf{Magnitud} & \textbf{Descripción} & \textbf{Impacto} & \textbf{Indicador} & \textbf{Estrategia} \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\section{RIESGO - 01}
+
+RIESGO - 01\\
+\textbf{Magnitud}: 6\\
+\textbf{Descripción}: inexperiencia con el modelo de proceso UPEDU.\\
+\textbf{Impacto}: A\\
+\textbf{Indicador}: baja calidad del desarrollo, pérdida de esfuerzo, malos artefactos.\\
+\textbf{Mitigación} / \textbf{contingencia}: establecer una fuente de consulta (como el cliente y profesor de ISO II) y fuentes bibliográficas suficientes para saber qué pasos seguir. \\
+
+\section{RIESGO - 02}
+
+RIESGO - 02 \\
+\textbf{Magnitud}: 3 \\
+\textbf{Descripción}: insuficiente personal en alguna de las fases. \\
+\textbf{Impacto}: C \\
+\textbf{Indicador}: trabajo atrasado, retrasos constantes, baja calidad. \\
+\textbf{Mitigación} / \textbf{contingencia}: mejorar la organización del trabajo y eliminar objetivos secundarios en esa iteración. \\
+
+\section{RIESGO - 03}
+
+RIESGO - 03 \\
+\textbf{Magnitud}: 1 \\
+\textbf{Descripción}: algún miembro del equipo abandone el proyecto. \\
+\textbf{Impacto}: C \\
+\textbf{Indicador}: actividades sin realizar a tiempo, falta de comunicación. \\
+\textbf{Mitigación / contingencia}: revisar líneas base rápidamente. Revisar los requisitos funcionales y redistribuir el trabajo restante.  \\
+
+\section{RIESGO - 04}
+
+RIESGO - 04 \\
+\\textbf{textbf{Magnitud}: 7 \\
+\textbf{Descripción}: fecha de entrega del proyecto demasiado temprana. \\
+\textbf{Impacto}: C \\
+\textbf{Indicador}: 10 \% de actividades del proyecto pendientes 7 días antes de la fecha. \\
+\textbf{Mitigación / contingencia}: realizar horas extra, subcontratar personal eventual. \\
+
+\section{RIESGO - 05}
+
+RIESGO - 05 \\
+\textbf{Magnitud}: 5 \\
+\textbf{Descripción}: mala comprensión de la especificación de las necesidades del cliente. \\
+\textbf{Impacto}: A \\
+\textbf{Indicador}: objetivos de las entrevistas mal planteados, pérdidas de tiempo en ellas, confusión y discusiones entre miembros del equipo de desarrollo en fase de elaboración. \\
+\textbf{Mitigación / contingencia}: replanteamiento de los requisitos a partir de la especificación, concretar nueva entrevista con el cliente planteando todas las dudas. \\
+
+\section{RIESGO - 06}
+
+RIESGO - 06 \\
+\textbf{Magnitud}: 6 \\
+\textbf{Descripción}: coste (horas de trabajo) del proyecto superior al planificado. \\
+\textbf{Impacto}: M \\
+\textbf{Indicador}: requisitos y necesidades del cliente muy exigentes, mala planificación, retraso acumulado en las actividades iniciales. \\
+\textbf{Mitigación / contingencia}: realización de horas extra, replanificación optimizada. \\
+
+\section{RIESGO - 07}
+
+RIESGO - 07 \\
+\textbf{Magnitud}: 5 \\
+\textbf{Descripción}: baja calidad de la interfaz gráfica de usuario final del proyecto. \\
+\textbf{Impacto}: A \\
+\textbf{Indicador}: dificultad para interactuar con el producto, para encontrar en la pantalla las acciones más habituales y para interpretar los informes obtenidos. \\
+\textbf{Mitigación / contingencia}: realización de prototipo no operativo evaluable por el cliente, revisión desde diferentes puntos de vista del aspecto, creación de múltiples interfaces. \\
+
+\section{RIESGO - 08}
+
+RIESGO - 08 \\
+\textbf{Magnitud}: 3 \\
+\textbf{Descripción}: incompatibilidad del producto con el navegador web y hardware cliente. \\
+\textbf{Impacto}: M \\
+\textbf{Indicador}: errores de procesamiento o presentación al ejecutar la herramienta. \\
+\textbf{Mitigación / contingencia}: utilizar durante el desarrollo tecnologías  cruzadas entre navegadores y hojas CSS de nivel 3 máximo. Utilizar tecnologías aprobadas por W3C. \\
+
+\section{RIESGO - 09}
+
+RIESGO - 09 \\
+\textbf{Magnitud}: 4 \\
+\textbf{Descripción}: falta de comunicación entre miembros del equipo durante mucho tiempo. \\
+Impacto: C \\
+\textbf{Indicador}: más de 10 días desde última reunión, falta de informes semanales y charlas diarias informales. \\
+\textbf{Mitigación / contingencia}: concertar reunión urgente mediante videoconferencia, chat o lista de correo para poner en común los avances e informar de actividades. \\
+
+\section{RIESGO - 10}
+
+RIESGO - 10 \\
+\textbf{Magnitud}: 2 \\
+\textbf{Descripción}: cambios en el entorno de desarrollo software (PHP, MySQL). \\
+\textbf{Impacto}: B \\
+\textbf{Indicador}: cambio de versión en drivers, software o IDE en las máquinas de trabajo. Adición de nueva funcionalidad aprovechable para nuestro producto. \\
+\textbf{Mitigación / contingencia}: mantener actualizada la gestión de configuraciones y volver hacia atrás en el proyecto. Si hay tiempo, reconstruir los componentes afectados actualizando la planificación. Como última posibilidad, volver a las versiones anteriores en el entorno o intentar cambiar de máquina de trabajo. \\
+
+
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
