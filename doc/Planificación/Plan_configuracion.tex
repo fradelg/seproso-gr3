@@ -98,7 +98,7 @@
 \hline
 VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
-0.1 & 17/11/08 & Recopilación de Información Inicial. & Grupo III\\
+0.1 & 17/11/08 & Recopilación de Información Inicial. & Francisco\\
 \hline
 \end{tabular}
 
@@ -121,8 +121,10 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \chapter{Introducción.} 
 
 \section{Propósito.}
+\indent \indent Este documento describe todas las actividades necesarias para la Gestión del Control de Configuraciones y Cambios en el proyecto SEPROSO. Más concretamente se especifican la planificación de actividades, la asignación de responsabilidades, y los recursos necesarios (incluyendo herramientas y personal).
 
 \section{Ámbito.}
+\indent \indent Este documento es un complemento necesario para que el Plan de Desarrollo Software según UPEDU cumpla con el estándar de la IEEE. Contiene la especificación de todos los detalles relacionados con el control de versions del proyecto y la gestión de los cambios. Establece las actividades que el Gestor de Configuraciones debe realizar para mantener una versión estable de todos los artefactos  durante el curso del proyecto. Para más información sobre el equipo, las responsabilidades, etc, ir al Plan de Desarrollo (ver Referencias). 
 
 \section{Definiciones.}
 
@@ -130,38 +132,171 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 \section{Referencias.}
 
+\begin{itemize}
+	\item Glosario, Grupo 3, 2008
+	\item Plan de Desarrollo, Grupo 3, 2008
+	\item UPEDU Configuration Management Plan, http://www.upedu.org/upedu/
+\end{itemize}
+
+
 \section{Visión general.}
+\indent \indent En las siguientes secciones se detallan todos los aspectos relativos al control de versiones en el proyecto. Al principio se especifican las características del entorno de gestión de configuraciones. Dspués se explica el funcionamiento del programa (incluye identificación, control de versiones y cambios, estado y cuentas). Finalmente se añade información auxiliar en los últimos apartados con los hitos, el entrenamiento y recursos necesarios y el entorno de desarrollo externo.\\
 
 
 \chapter{Software de gestión de la configuración.}
 
 \section{Organización, responsabilidades e interfaces.}
+\indent \indent El responsable de realizar las actividades de Gestión de Configuraciones es el Gestor de Configuraciones. Debido al reducido equipo de desarrollo este rol será adquirido eventualmente por varios  miembros con lo que todos participan en las actividades de Gestión de Configuraciones. A efectos oficiales, se le asigna el rol de Gestor de Configuraciones a Francisco Javier Delgado del Hoyo.
 
 \section{Herramientas, medio ambiente e infraestructura.}
+\indent \indent Puesto que el equipo de desarrollo necesita total disponibilidad de los artefactos para trabajar con ellos en diferentes ubicaciones remotas, utilizaremos un servidor SVN para crear un repositorio con  control de versiones. \\
+
+\begin{itemize}
+	\item \textbf{Subversion} es un sistema de control de versiones que resuelve algunas de las deficiencias presentadas por el antiguo y popular CVS: los artefactos versionados no tienen ahora un número de versión independiente, sino que todos los artefactos del repositorio tienen un único identificador de versión que identifica un estado común único del proyecto en un instante de tiempo. Es software libre (licencia Apache/BSD)  y el nombre SVN le viene de svn, nombre de la herramienta en línea de comandos. 
+\end{itemize}
+
+Para que cada miembro acceda a las versiones solo se necesita un cliente SVN. El servidor SVN es de dominio público y gratuito, con el espacio de almacenamiento limitado a 100 Mb. Todos los artefactos del producto con su última versión y los cambios producidos hasta ella estarán disponibles en cualquier momento en la siguiente cuenta SVN para cada miembro del equipo:\\
+\begin{itemize}
+	\item \textbf{Account}: https://seproso-gr3.googlecode.com/svn/
+	\item \textbf{Password}: Yr8RX6MV7nH7
+\end{itemize}
+
+Periódicamente el Gestor de Configuraciones realiza una copia de seguridad en su cuenta del Laboratorio de Informática de E.T.S.I. Informática.
+
 
 \chapter{Plan de gestión de configuración.}
 
 \section{Identificación de configuración.}
-
 \subsection{Métodos de identificación.}
+\indent \indent En la nomenclatura de las versiones de los artefactos almacenados se sigue el siguiente esquema:\\
+
+\begin{center}
+SEPROSO-gr3-[Abreviatura del Artefacto]-[Versión].[Extensión]\\
+\end{center}
+
+La abreviatura de los artefactos está formada por tres letras. La primera letra de una palabra del  nombre del artefacto se escribe en mayúsculas y el resto (si se necesitan) en minúsculas obligatoriamente.\\
+
+Los artefactos que se desarrollarán para  este producto y que exigen un control de versión, con su correspondiente abreviatura, se detallan en la siguiente tabla \ref{Artef}. Todos ellos se almacenan en la estructura de directorios del producto que se especifica en la siguiente sección.
+
+
+\begin{tabla}{Lista de artefactos.}{Artef}
+\begin{tabular}{|p{9cm}|p{2cm}|}
+\hline
+\textbf{LISTA DE ARTEFACTOS} & \textbf{Abreviatura}\\
+\hline
+Informe de Peticiones de Cambio & IPC.  \\
+\hline
+Componente & Com.  \\
+\hline
+Plan de Gestión de Configuraciones & PGC.  \\
+\hline
+Diagrama de Casos de Uso & DCU.  \\
+\hline
+Diagrama de Clases de Análisis & DCA.  \\
+\hline
+Diagrama de Clases de Diseño & DCD.  \\
+\hline
+IModelo de Diseño & MoD.  \\
+\hline
+Glosario & Glo.  \\
+\hline
+Modelo de Implementación & MoI.  \\
+\hline
+Plan de Iteración \# & Pl\#.  \\
+\hline
+Plan de Mediciones & PlM.  \\
+\hline
+Plan de Desarrollo Software & PDS.  \\
+\hline
+Plan de Pruebas & PlP.  \\
+\hline
+Especificación Suplementaria & SSS.  \\
+\hline
+Especificación de Requisitos & SRS.  \\
+\hline
+Especificación de Casos de Uso & ECU.  \\
+\hline
+Realización de Casos de Uso & RCU.  \\
+\hline
+Casos de Prueba & CaP.  \\
+\hline
+Resultados de Pruebas & ReP.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
 \subsection{Estructura de directorios.}
+\indent \indent Los artefactos versionables van a quedar almacenados clasificados en distintos directorios para facilitar su búsqueda y navegación. Dentro del repositorio se crea una estructura de directorios cuyos nombres corresponden al grupo de artefacto que almacenan. Si el nombre del grupo está compuesto por más de dos palabras, estas se concatenan. En la imagen \ref{directorio} se muestra el árbol con la estructura de directorios.
+
+\figura{images/direc.png}{width=8cm,height=5cm,angle=0}{Listado de directorios}{directorio} 
+
+
+\subsection{Espacio de trabajo.}
+\indent \indent El espacio de trabajo de cada miembro de equipo se puede dividir en dos tipos: de desarrollo y de integración.\\
+\begin{itemize}
+	\item \textbf{Espacio de desarrollo}: es personal y privado para cada miembro del equipo y está formado por su propio PC, con el IDE y las herramientas auxiliares incluidas. Éste accede al espacio de integración gracias al soporte SVN. En las reuniones del equipo se usa un PC de los laboratorios de la ETSII de Informática.
+	\item \textbf{Espacio de integración}: el host en el que se almacena el repositorio del proyecto actúa como espacio de integración del trabajo particular de cada miembro. Se crea en la primera iteración cuando aparecen los primeros artefactos. Todos los artefactos están accesibles para cualquier miembro en cualquier momento. En este espacio es donde se gesta el producto completo.
+\end{itemize}
+
+
 \subsection{Línea base.}
+\indent \indent Consiste en establecer una misma versión para todos los artefactos considerada como estable en ese momento. Este trabajo es realizado por el Gestor de Configuraciones.\\
+
+Se creará una línea base o versión nueva al final de cada iteración, cuando se compruebe que se cumplieron los objetivos.\\
+
+Todos los miembros del equipo pueden actualizar y cambiar los artefactos si en ese momento actúan bajo el rol correspondiente. No se puede cambiar un artefacto que no haya sido revisado y aprobado previamente. Para las pruebas existe un directorio dentro de `Code´ llamado ´Current´ que contiene los último ficheros de código desarrollados, no revisado y en formato descomprimido.
+
 
 \section{Configuración y control de cambios.}
+
 \subsection{Tramitación de solicitudes de cambio y aprobación.}
-\subsection{Junta de control de cambio.}
+\indent \indent El  protocolo para la  emisión de peticiones de cambios y posterior aprobación y notificación  de cambios consta de los siguientes pasos:\\
+\begin{enumerate}
+	\item Cualquier miembro del equipo notifica el problema / cambio al resto de miembros del equipo tras depositar el artefacto en el repositorio.
+	\item Los miembros del equipo afectados por el problema o que conozcan una solución aplican los cambios necesarios sobre el artefacto.
+	\item Este miembro del equipo notifica al resto la resolución del problema y la necesidad de una posible revisión.
+	\item Si necesita revisión, el Revisor comprueba la calidad de la solución y notifica su aprobación o rechazo. Si se rechaza se vuele al paso 2 hasta que sea aprobado.
+\end{enumerate}
+
 
 \section{Configuración del estado de la contabilidad.}
 \subsection{Médios de almacenamiento y proceso de liberación.}
+\indent \indent Periódicamente, al final de cada semana de trabajo, el Gestor de Configuraciones realizará una copia de todos los artefactos en su última versión estable en la cuenta de los laboratorios de la ETSII de Informática en formato empaquetado y comprimido. Si se produce algún fallo en el host del repositorio externo (bastante improbable) se recupera la copia de seguridad.\\
+
+Esta cuenta está disponible on-line mediante SSH en el host de los laboratorios (jair.lab.fi.uva.es:23) para el Gestor de Configuraciones.
+
 \subsection{Informes y auditorías.}
+
+\indent \indent Los únicos informes que utilizaremos en este proyecto son los de Petición de Cambio. Indican que un miembro del equipo  ha detectado un problema grave en el proyecto, que requiere un cambio significativo a aprobar por el Gestor de Proyecto. Cualquier informe con el que realizar una Petición de Cambio debe contener los siguientes datos:\\
+\begin{itemize}
+	\item \textbf{Identificación}: título, ID, emisor, fecha y prioridad / estado (asignados por el Gestor)
+	\item \textbf{Problema}: descripción, fallo crítico producido, origen, mejora / nuevo requisito.
+	\item \textbf{Propuesta de cambio del emisor}: descripción.
+	\item \textbf{Propuesta de cambio del revisor}: descripción.
+	\item \textbf{Resolución}: aprobación, descripción, esfuerzo (horas), trabajador y artefacto afectado.
+\end{itemize}
+
+Los fallos o problemas detectados se clasifican por su criticidad para el proyecto (alta, media o baja). Este nivel se detecta atendiendo a cuanto tiempo ha estado presente el error desde que se inicio el proyecto o a la concentración de errores de algún tipo concreto. Según esa prioridad se atienden las Peticiones de Cambio.
 
 \chapter{Hitos.}
 
+\indent \indent Este plan se actualiza después de cada iteración, tras realizar la copia de seguridad. Al finalizar el proyecto el cliente obliga a que se realice una copia del producto empaquetada en un servidor Web para que sea públicamente accesible y revisable.\\
+
+Véase el Plan de Desarrollo para más información sobre los hitos principales.
+
 \chapter{Capacitación y recursos.}
+
+\indent \indent Utilizaremos como herramientas software: Tortoise, Microsoft Office y Project.\\
+
+Todos los miembros del equipo pueden cambiar y actualizar un artefacto si previamente ha sido revisado.\\
+
+Se han revisado varios tutoriales y manuales sobre SVN y se ha trabajado sobre ejemplos más básicos con SVN.
+
 
 \chapter{Entorno externo de desarrollo.}
 
-\appendix % Apéndices 
+\indent \indent Utilizaremos" Tortoise", que es un cliente gráfico para SVN, que se integra con los navegadores del sistema de ficheros para hacer transparente la situación remota del repositorio de versiones. Es muy sencillo así conseguir enlazar el espacio de trabajo de desarrollo con el espacio de trabajo integrado
 
 
 % Parte final de la memoria
