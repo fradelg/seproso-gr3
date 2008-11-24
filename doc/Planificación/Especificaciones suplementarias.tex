@@ -26,7 +26,7 @@
 %    \end{center}
 %  \end{figure}
 %\end{titlepage} \\
-\Huge \textbf{SEPROSO. \\Plan de iteracion.\\}}
+\Huge \textbf{SEPROSO. \\Especificaciones suplementarias (SSS).\\}}
 \author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
 	\huge \textit{Yuri Torres de la Sierra} \and 
 	\huge \textit{Rubén Martínez García} \and
@@ -98,9 +98,7 @@
 \hline
 VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
-0.1 & 7/11/08 & Recopilación de Información Inicial. & Grupo III\\
-\hline
-0.2 & 17/11/08 & Primera versión del plan de proyecto. & Grupo III\\
+0.1 & 24/11/08 & Recopilación de Información Inicial. & Rubén\\
 \hline
 \end{tabular}
 
@@ -123,10 +121,10 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \chapter{Introducción.} 
 
 \section{Propósito.}
-
+\indent \indent El objetivo principal de las especificaciones suplementarias es capturar aquellos requisitos dificilmente definibles dentro del modelo de casos de uso. Requisitos cómo estándares legales, aspectos de calidad, fiabilidad y criterios de ejecución del software.
 
 \section{Ámbito.}
-
+\indent  \indent Estas especificaciones corresponden a requisitos complementarios asociados a la herramienta SEPROSO, de control de proyectos software. Es un documento complementario para el diseñador a la hora de realizar el diseño software y las pruebas más convenientes para el sistema, y surge de los requisitos no reconocidos en el modelo de casos de uso.
 
 \section{Definiciones.}
 
@@ -134,33 +132,81 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 \section{Referencias.}
 
-\section{Visión general.}
+\begin{itemize}
+	\item Glosario, Grupo 3.
+	\item Especificación de casos de uso, Grupo 3.
+	\item SRS, Grupo 3.
+	\item Plan de desarrollo software, Grupo 3.
+	\item Upedu www.upedu.org
+\end{itemize}
 
+\section{Visión general.}
+\indent \indent Este documento presenta los requisitos no asociados al documento SRS, y que no pueden ser recogidos en los modelos de casos de uso. Principalmente contempla requisitos no funcionales y normas legales.
 
 \chapter{Supuestos y dependencias.}
 
-\chapter{Usabilidad.}
-\section{<Usabilidad Requisito Uno>}
+\section{Usabilidad.}
+\subsection{Us01}
+\indent \indent La aplicación deberá permitir el registro de datos durante todo la jornada de trabajo de los usuarios.
 
-\chapter{Fiabilidad.}
-\section{<Fiabilidad Requisito Uno>}
+\subsection{Us02}
+\indent \indent La interfaz de usuario debe ser diseñada para un uso sencillo e intuitivo, y debe estar realizado para usuarios sin formación adicional en el sistema.
 
-\chapter{Rendimiento.}
-\section{<Rendimiento Requisito Uno>}
+\subsection{Us03}
+\indent \indent Se construirá un manual de usuario en línea cn las instrucciones paso a paso del uso del sistema. La ayuda en línea incluirá definiciones y acrónimos utilizados en la aplicación.
 
-\chapter{Limitaciones de diseño.}
-\section{<Restricción de diseño Uno>}
+\section{Fiabilidad.}
+\subsection{Fi01}
+\indent \indent La aplicación será capaz de capturar, ejecutar y dirigir al servidor PHP cualquier petición del usuario. Cualquier entrada falsa debe ser capturada, validada y retornar al usuario con un mensaje de error.
+
+\subsection{Fi02}
+\indent \indent El MTBF (Tiempo Medio Entre Fallos) será definido en la siguiente iteración. 
+
+\subsection{Fi02}
+\indent \indent La aplicación debe proveer un uso continuado y no debe permitir \textbf{bloqueos} frente a entradas malintencionadas por los usuarios.
+
+\subsection{Fi03}
+\indent \indent El sistema debe mantenerse en un estado consistente en cuanto a información almacenada.
+
+\section{Rendimiento.}
+\subsection{Re01}
+\indent \indent La aplicación servidor debe funcionar sobre el servidor de la universidad: jair.lab.fi.uva.es.
+
+\subsection{Re02}
+\indent \indent La aplicación será capaz de soportar diferentes usuarios trabajando a la vez en diferentes partes de un proyecto o en proyectos diferentes, manteniendo la consistencia en la base de datos.
+
+\section{Soporte.}
+\subsection{So01}
+\indent \indent El cliente debe funcionar en cualquier servidor web corriente: Mozilla Firefox, Internet Explorer, Opera o Google Chrome.
+
+\section{Limitaciones de diseño.}
+\subsection{Di01}
+\indent \indent Los lenguajes de programación utilizados serán los siguientes: PHP, CSS y HTML para todo el contenido web de la aplicación, y SQL para la gestión de bases de datos.
 
 \chapter{Seguridad.}
 
+\indent \indent El acceso al sistema debe ser personalizado mediante nombre de usuario y contraseña. Cualquier usuario no identificado en el sistema no debe ser capaz de acceder a las funcionalidades globales del mismo. Para la obtención de un nombre de usuario se deberá rellenar una plantilla predeterminada que será revisada por el administrador del sistema quién validará si el usuario es correcto, y le añadiría a la base de datos de usuarios, asociándole una clave por defecto que después puede ser modificada.\\
+
+
 \chapter{Interfaces.}
 \section{Interfaz de usuario.}
+\indent \indent Las interacciones entre usuario y sistema se realizarán via interfaz gráfica. Toda la funcionalidad del sistema será accesible mediante teclado y ratón. La interfaz de usuario será una interfaz amigable en color basada en web con menus de acceso rápido de cómo máximo 2 niveles. Los usuarios serán capaces de elgir cualquier opción permitida de la interfaz y obtendrán resultados por pantalla.
+
 \section{Interfaces hardware.}
+\indent \indent El sistema no necesitará interacción con ninguna interfaz hardware desconocida, únicamente necesitará teclado, ratón y pantalla.
+
 \section{Interfaces software.}
+\indent \indent El sistema necesitará el acceso externo a una base de datos SQL, mediante el uso del gestor de bases de datos MySQl v4.0 presente en la Universidad. Todo el acceso se gestionará mediante un API genérico q soporte el acceso a la base de datos que será programada aparte de la aplicación web.
+
 \section{Interfaces de comunicación.}
+\indent \indent Se definirán en la siguiente iteración.
 
 \chapter{Normas aplicables.}
-
+\begin{itemize}
+	\item LICENCIA PÚBLICA GENERAL GNU. \\
+Versión 3, 29 de junio de 2007. \\
+2007 \copyright Free Software Foundation, Inc.
+\end{itemize}
 
 % Parte final de la memoria
 \backmatter 
