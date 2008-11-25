@@ -1,0 +1,935 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Especificación de Requisitos Software.\\(SRS).\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 17/11/08 & Recopilación de Información Inicial. & Rubén y Abel\\
+\hline
+0.2 & 21/11/08 & Primera revisión de requisitos funcionales. & Yuri y Abel\\
+\hline
+0.3 & 24/11/08 & Recopilación de requisitos completa. Adicción de anexos. & Francisco y Abel\\
+\hline
+1.0 & 25/11/08 & Utilización de la plantilla de UPEDU. & Rubén\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent El propósito del presente documento es explicitar todos los requisitos del software que se desprenden de la documentación entregada por el cliente y de las reuniones con el mismo. Los distintos requisitos han sido identificados, separados, redactados, valorados y clasificados para hacerlos más fácilmente localizables, legibles y verificables.
+Este documento está dirigido a todos los miembros del equipo de desarrollo de la práctica así como al profesor de la asignatura.
+
+
+\section{Ámbito.}
+
+\indent \indent SEPROSO es una aplicación web dirigida a facilitar las actividades de los jefes de proyectos de desarrollo software en el seguimiento de la planificación y consultar informes de seguimieto, tanto del proyecto a controlar como de proyectos anteriores.
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario para más información.
+
+\begin{itemize}
+	\item \textbf{Actividad}: unidad de trabajo que puede ejecutar un individuo o varios en un rol específico. Tiene un propósito claro y se expresa en términos de actualizar artefactos. 
+	\item \textbf{Actividad actual}: aquella que ha comenzado y que aún sigue desarrollándose.
+	\item \textbf{Artefacto}: pieza de información utilizada o producida mediante un proceso de desarrollo de software. Puede ser un modelo, una descripción o un software.
+	\item \textbf{Etapa del proceso}: Conjunto de actividades orientadas a la consecuón de una serie de objetivos, que se denominan objetivos de la etapa.
+	\item \textbf{Hito}: evento de relevancia durante el proceso. A menudo surgen de la concesión de algún objetivo.
+	\item \textbf{Modelo de proceso}: Conjunto de técnicas que definen cómo el proceso de software debe llevarse a cabo en todas sus distintas fases, así como cuáles han de ser dichas fases. Un modelo de proceso es una abstracción, de manera que cada proceso se convierte en una instalación del modelo al que pertenece.
+	\item \textbf{Proceso}: Es el flujo de acciones que llevarán a la consecución de los objetivos del proyecto.
+	\item \textbf{Proyecto}: Esfuerzo temporal emprendido para elaborar un producto software. Se trata de la unidad lógica de gestión dentro del entorno de la aplicación: cada proyecto requiere una planificación que se lleva a cabo siguiendo un modelo de proceso y es gestionado por un único jefe de proyecto.
+	\item \textbf{Proyecto finalizado}: Aquel que ha alcanzado todos los objetivos que se plantearon inicialmente. Para llegar a su finalización, un proyecto requiere haber pasado y finalizado con éxito todas las fases del proceso que fueran planificadas en el origen.
+	\item \textbf{Recurso}: Cada uno de los elementos que proporcionan un servicio necesario para la ejecución del proceso. Deben estar disponibles para su utilización. Pueden ser humanos, económicos o físicos.
+	\item \textbf{Stakeholder}: Toda persona o entidad que está directamente vinculada en el proceso o tiene intereses reales en el proyecto.
+	\item \textbf{Tarea}: Es la granularidad mínima en la que se dividen las acciones que integran cada etapa del proceso software.
+\end{itemize}
+
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item \label{SPMP} Plan de Desarrollo Software [PDF], Grupo III. 
+	\item IEEE Computer Society. IEEE Recommended Practice for Software Requirements Specifications [PDF]. 1998. USA: IEEE Computer Society, 25 junio 1998.
+	\item De  La  Fuente  Redondo,  Pablo  Lucio.  Practica  ISO  II.  Curso  2008-2009 [PDF]. Valladolid: ETSI  Informática  (Universidad  de  Valladolid).
+	\item \label{CU} Modelo de Casos de Uso [PDF], Grupo III.
+\end{enumerate}
+
+\section{Visión general.}
+
+\indent \indent El resto de este documento contiene los requisitos que aportan funcionalidad al producto asi como restricciones y otro tipo de requisitos. Se utiliza una clasificacion por tipos de usuario, ya que la funcionalidad varía dependiendo del rol del usuario en la aplicación.
+
+\chapter{Descripción general.}
+
+\section{Perspectiva del producto.}
+
+\indent \indent La planificación de un proyecto debe afrontarse de manera adecuada para que al final del mismo se pueda hablar de éxito. No se trata de una etapa independiente abordable en un momento concreto del ciclo del proyecto. Es decir, no se puede hablar de un antes y un después al proceso de planificación puesto que según avance el proyecto será necesario modificar tareas, reasignar recursos, etc.\\
+
+Planificar es armonizar dos tipos de elementos muy diferentes entre sí: \textbf{Objetivos} (exigentes, múltiples y difíciles) y \textbf{Recursos} (limitados, costosos y rígidos).\\
+
+Cuando se planifican proyectos software, aparte de una correcta planificación, es muy importante el seguimiento del proyecto debido a los posibles retrasos de algunas fases y/o actividades, y la necesidad de replanificación de las mismas, y la consiguiente replanificación de todo el proyecto. Estas tareas no son sencillas, de ahí la importancia de una herramienta capaz de facilitar todas las tareas descritas.\\
+
+El producto software se desarrollará desde cero, sin utilizar como base ningún otro sistema existente. Así mismo, el sistema no deberá interactuar con otros sistemas informáticos del entorno.\\
+
+\section{Funcionalidades del producto.}
+
+\indent \indent SEPROSO permite a un gestor de proyecto el seguimiento temporal de las actividades que se realizan en un proyecto asociado a él, durante el desarrollo del mismo. La herramienta permite al gestor de proyecto la generación de diversidad de informes, a partir de los datos introducidos por los trabajadores. También permitirá obtener informes de los proyectos ya finalizados.\\
+
+En el caso de un proyecto en curso, la herramiente permite la gestión de infomes de seguimiento y uso eficiente del tiempo por los diferentes recursos humanos de los que se dispone. Todo ello se basa en una herramienta web para la facilidad de uso por parte de los trabajadores.\\
+
+Las principales funciones que el producto ha de abordar son las siguientes:
+\begin{itemize}
+	\item Registro de planificaciones de proyectos.
+	\item Seguimiento de la realización efectiva de las actividades planificadas.
+	\item Control de los recursos empleados en los proyectos.
+	\item Obtención de informes de seguimiento de proyectos en curso.
+	\item Obtención de informes resumen de los proyectos finalizados.
+\end{itemize}
+
+
+\section{Características del usuario.}
+
+\indent \indent Se deberán considerar cuatro tipos de usuarios en relación a cada proyecto contemplado en el sistema: 
+\begin{itemize}
+	\item \textbf{\textsl{Administrador}}: Será el mismo para todo el sistema y se encargará de la administración del sistema y los privilegios de acceso. Deberá ser un usuario avanzado con amplios conocimientos generales de informático y cierta familiaridad con conceptos de permisos de acceso, seguridad en sistemas informáticos y administración de sistemas.
+	\item \textbf{\textsl{Jefe de proyecto}}: Cada proyecto del sistema deberá tener un jefe de proyecto. Tendrá acceso completo a la información de dicho proyecto, así como a las operaciones de gestión del proyecto. Dicho usuario deberá tener conocimientos de gestión de proyectos de software y de la terminología asociada.
+	\item \textbf{\textsl{Desarrollador}}: Será un usuario no privilegiado que sólo tendrá acceso a la información estrictamente relacionada con su trabajo actual en el proyecto y a información general de otros proyectos. Un desarrollador deberá tener conocimientos básicos de seguimiento de planes de proyectos.
+	\item \textbf{\textsl{Responsable de personal}}: Será un usuario que tenga los permisos suficientes para obtener informes del trabajo realizado por cada persona en las distintas actividades en las que participe a lo largo de cada semana o mes. Sólo existirá un responsable de personal para todos los proyectos del sistema.
+\end{itemize}
+
+\section{Restricciones.}
+
+\indent \indent El sistema software a implementar debe ser entregado en la fecha estipulada (ver \ref{SPMP}).
+
+
+\section{Dependencias y suposiciones.}
+
+\indent \indent Los requisitos del software se han extraído a partir de la versión primera del enunciado de la práctica (ver[3]). Dependen por tanto de dicho documento y cualquier cambio en el mismo hará necesario revisar y corregir este documento.\\
+
+Además, la información obtenida en las reuniones con el cliente ha servido para completar y ampliar el enunciado de la práctica. Los requisitos dependen por tanto, de los comentarios efectuados por el cliente en dichas reuniones. Dicho cliente es el profesor de la asignatura, cuyos conocimientos del proceso de desarrollo de software son superiores a los de un cliente tipo. Por ello, se supondrá que toda la información extraída en las reuniones con el cliente es precisa y que no hay posibilidad de malinterpretar al cliente o de que éste proporciones información errónea por el desconocimiento de las posibles consecuencias de sus decisiones. Reuniones posteriores podrán provocar cambios en los requisitos.
+
+\chapter{Requisitos funcionales.}
+
+\indent \indent Debido a la disponibilidad de diferentes roles se tendrán en cuenta una división de requisitos según el rol al cuál afecten.\\
+
+Los distintos requisitos software identificados se clasificarán en una función del tipo de usuario del sistema que los requiere. Además, se valorará la importancia y la urgencia de cada requisito siguiendo el baremo del estándar de IBM OOTC 1997.\\
+
+\textbf{Importancia}:
+\begin{itemize}
+	\item Vital.
+	\item Importante.
+	\item Quedaría bien.
+\end{itemize}
+
+\textbf{Urgencia}:
+\begin{itemize}
+	\item "	Inmediata.
+	\item Hay presión.
+	\item Puede esperar.
+\end{itemize}
+
+\section{Administrador}
+
+\indent \indent Los requisitos asociados al desarrollador se definen con la abreviatura: ReqAdm-\%\%.
+
+\begin{tabla}{Ficha de requisito ReqAdm-01.}{ReqAdm-01}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqAdm-01} & \textbf{Dar de alta nuevos proyectos} \\
+\hline
+\textbf{Descripción} & El administrador deberá poder dar de alta nuevos proyectos. \\
+\hline
+\textbf{Motivación} & La creación de nuevos proyectos es una tarea poco frecuente que debe ser realizada por el administrador del sistema. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+
+\begin{tabla}{Ficha de requisito ReqAdm-02.}{ReqAdm-02}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqAdm-02} & \textbf{Dar de alta nuevos usuarios} \\
+\hline
+\textbf{Descripción} & El administrador deberá poder dar de alta nuevos usuarios. \\
+\hline
+\textbf{Motivación} & Para que los demás usuarios puedan utilizar el sistema, deben ser dados de alta en el sistema software por el administrador. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+
+\begin{tabla}{Ficha de requisito ReqAdm-03.}{ReqAdm-03}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqAdm-03} & \textbf{Cargar datos} \\
+\hline
+\textbf{Descripción} & El administrador cargará los datos iniciales. \\
+\hline
+\textbf{Motivación} & El administrador establecerá los datos iniciales comunes a cada proyecto al crearlos. \\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} & Debemos concretar más los datos iniciales a cargar. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqAdm-04.}{ReqAdm-04}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqAdm-04} & \textbf{Asignar Jefe de Proyecto} \\
+\hline
+\textbf{Descripción} & El administrador deberá poder asignar jefes de proyecto a los distintos proyectos. Cada proyecto deberá tener asignado un jefe de proyecto y sólo uno. \\
+\hline
+\textbf{Motivación} & Todo proyecto necesita un jefe de proyecto para designar sus principales características y asignar personal al mismo. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqAdm-05.}{ReqAdm-05}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqAdm-05} & \textbf{Limitar proyectos por persona} \\
+\hline
+\textbf{Descripción} & El administrador podrá indicar el número de proyectos en los que, a lo sumo, puede estar implicada una persona.. \\
+\hline
+\textbf{Motivación} & Aunque por defecto será tres, dinámicamente se podrá modificar el número máximo de proyectos en los que trabajará simultáneamente un empleado. \\
+\hline
+\textbf{Importancia} & Quedaría bien.. \\
+\hline
+\textbf{Urgencia} & Puede esperar. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\newpage 
+\section{Jefe de Proyecto}
+
+\indent \indent Los requisitos asociados al Jefe de Proyecto se definen con la abreviatura: ReqJef-\%\%.
+
+\begin{tabla}{Ficha de requisito ReqJef-01.}{ReqJef-01}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-01} & \textbf{Elegir modelo de proceso} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto será el encargado de determinar, en el momento de la definición del proyecto que lidera, el modelo de proceso que éste deberá seguir. Podrá elegir entre una serie de modelos preestablecidos o construir uno a medida, especificando las fases y actividades a utilizar. \\
+\hline
+\textbf{Motivación} & Una de las principales elecciones que debe realizar un jefe de proyecto es especificar cuál será el modelo de proceso a seguir por su equipo, y el sistema deberá reflejar dicha elección y sus consecuencias. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqJef-02.}{ReqJef-02}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-02} & \textbf{Asignación de personal al proyecto} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto será el encargado de seleccionar las personas asignadas a su proyecto e indicar qué rol desempeña cada una de ellas. El número máximo de proyectos por persona está limitado (véase ReqAdm-05) \\
+\hline
+\textbf{Motivación} & Para asignar actividades a un desarrollador, ha de estar previamente asignado al proyecto. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqJef-03.}{ReqJef-03}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-03} & \textbf{Cerrar proyecto} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto será el encargado de cerrar un proyecto. Al hacerlo recibirá automáticamente un resumen sobre la planificación del mismo. \\
+\hline
+\textbf{Motivación} & Un proyecto sólo puede cerrarse por el responsable del mismo. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqJef-04.}{ReqJef-04}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-04} & \textbf{Introducir planificación inicial} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto introducirá la planificación inicial del proyecto. \\
+\hline
+\textbf{Motivación} & Para efectuar el seguimiento de la planificación es imprescindible que ésta haya sido introducida en el sistema. Este papel le corresponde al jefe de proyecto. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqJef-05.}{ReqJef-05}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-05} & \textbf{Obtener informes del proyecto} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá recibir informes con datos relativos a trabajadores y sus actividades asignadas e informes de actividad pendientes, así como el estado de las actividades en una fecha dada y el estado de asignación de recursos. \\
+\hline
+\textbf{Motivación} & Los informes de seguimiento son lo que permite al jefe de proyecto comprobar y controlar cómo se está llevando a cabo la planificación. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} & Ver apéndice A. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqJef-06.}{ReqJef-06}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-06} & \textbf{Obtener resumen de un proyecto cerrado} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá obtener resúmenes de todos los proyectos ya finalizados o cerrados, así como del actual cuando lo dé por finalizado. \\
+\hline
+\textbf{Motivación} & La experiencia en proyectos pasados permite al jefe de proyecto realizar mejores estimaciones en proyectos futuros. \\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Puede esperar. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqJef-07.}{ReqJef-07}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-07} & \textbf{Asignar actividades al personal} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá asignar las actividades pendientes al personal del proyecto, siempre y cuando la persona asignada no esté de vacaciones en el período en que se fuera a asignar.  \\
+\hline
+\textbf{Motivación} & La asignación de actividades a personas es una parte vital para la ejecución y el seguimiento de una planificación. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} & La asignación puede haberse realizado durante la planificación. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqJef-08-1.}{ReqJef-08-1}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-08-1} & \textbf{Revisar informes de actividad} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá aceptar o rechazar los informes de actividad presentados por los distintos miembros del personal del proyecto que dirige. Hasta que lo haga, los informes figurarán como pendientes de supervisión. \\
+\hline
+\textbf{Motivación} & Corresponde al jefe de proyecto comprobar si las actividades asignadas a los miembros del equipo del proyecto han llegado a un grado aceptable de realización. \\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqJef-08-2.}{ReqJef-08-2}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-08-2} & \textbf{Aprobar informes de actividad} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá aprobar o no los informes de actividad. Hasta que lo haga, los informes figurarán como pendientes de aprobación. \\
+\hline
+\textbf{Motivación} & El jefe de proyecto debe confirmar su aprobación tras la supervisión. \\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqJef-09.}{ReqJef-09}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-09} & \textbf{Asignar porcentaje de participación} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto decidirá qué porcentaje de participación deben tener cada una de las personas que asocie a alguna actividad de su proyecto. El porcentaje total de ocupación de una persona, teniendo en cuenta que todos los proyectos en los que participa, nunca excederá del 100\%. \\
+\hline
+\textbf{Motivación} & Cada persona puede estar implicada en varios proyectos. Es importante que el jefe de proyecto pueda decidir cuánta dedicación necesita de una persona y si su ocupación laboral le permitirá cumplir dicha expectativa. \\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqJef-10.}{ReqJef-10}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqJef-10} & \textbf{Registrar actividades} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá registrar las actividades que se están realizando e indicar cuáles de ellas ya han finalizado o están pendientes de empezar. \\
+\hline
+\textbf{Motivación} & Se ha de describir el trabajo realizado en cada actividad e indicar cuándo se ha finalizado. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\newpage 
+\section{Desarrollador}
+
+\indent \indent Los requisitos asociados al desarrollador se definen con la abreviatura: ReqDes-\%\%.
+
+\begin{tabla}{Ficha de requisito ReqDes-01.}{ReqDes-01}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqDes-01} & \textbf{Registrar actividades} \\
+\hline
+\textbf{Descripción} & Un desarrollador podrá introducir los datos referentes a las actividades a las que ha sido asignado. En particular deberá poder registrar el tiempo empleado en cada tarea realizada. \\
+\hline
+\textbf{Motivación} & Cada desarrollador deberá hacer un seguimiento de cada tarea asignada. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqDes-02.}{ReqDes-02}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqDes-02} & \textbf{Obtener resumen de proyectos anteriores.} \\
+\hline
+\textbf{Descripción} & Un desarrollador podrá consultar la planificación y seguimiento de proyectos ya finalizados sin haber participado en ellos. \\
+\hline
+\textbf{Motivación} & Un desarrollador podrá obtener feedback de las actividades en proyectos anteriores, para el desempeño de la tarea actual. \\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqDes-03.}{ReqDes-03}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqDes-03} & \textbf{Obtener informe de actividades.} \\
+\hline
+\textbf{Descripción} & Un desarrollador podrá consultar informes de sus actividades en un periodo de tiempo especificado, por semanas, en los que conste el estado de las mismas (aceptadas, rechazadas o pendientes de aprobación). \\
+\hline
+\textbf{Motivación} & Cada desarrollador podrá contrastar las actividades realizadas en el proyecto actual. \\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} & No se podrá pedir un informe de una fecha anterior al inicio del proyecto ni posterior a la actual. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\newpage 
+\section{Responsable de personal}
+
+\indent \indent Los requisitos asociados al Responsable de personal se definen con la abreviatura: ReqPer-\%\%.
+
+
+\begin{tabla}{Ficha de requisito ReqPer-01.}{ReqPer-01}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqPer-01} & \textbf{Obtener informes de ocupación del personal.} \\
+\hline
+\textbf{Descripción} & El responsable de personal podrá obtener informes de la acumulación del trabajo de cada trabajador en las diferentes actividades, independientemente de los proyectos en los que participan, por semanas o meses. \\
+\hline
+\textbf{Motivación} & El responsable de personal controla la ocupación de todos los trabajadores.\\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqPer-02.}{ReqPer-02}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqPer-02} & \textbf{Obtener informe de situación de trabajador} \\
+\hline
+\textbf{Descripción} & El responsable de personal deberá obtener un informe para cada trabajador en el que se refleje, para un periodo de tiempo especificado, los proyectos en los que está implicado, su participación y las vacaciones asignadas. \\
+\hline
+\textbf{Motivación} & El responsable de personal ha de conocer la situación en cada momento de todos los trabajadores.\\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\newpage 
+\section{Otros requisitos funcionales}
+
+\indent \indent Los otros requisitos funcionales se definen con la abreviatura: ReqOtr-\%\%.
+
+\begin{tabla}{Ficha de requisito ReqOtr-01.}{ReqOtr-01}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqOtr-01} & \textbf{Gestionar planificación.} \\
+\hline
+\textbf{Descripción} & El sistema debe ser capaz de establecer la duración de las actividades, la fecha de inicio y la fecha de finalización reales a partir de los registros de seguimiento introducidos por los trabajadores. \\
+\hline
+\textbf{Motivación} & Una de las acciones más importantes en una aplicación de gestión de proyectos es el control del tiempo invertido frente al planificado.\\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqOtr-02.}{ReqOtr-02}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqOtr-02} & \textbf{Establecer vacaciones.} \\
+\hline
+\textbf{Descripción} & Cada empleado deberá poder fijar sus períodos vacacionales (hasta 3 períodos y un máximo de 4 semanas), no pudiendo elegir para ello días en los que tiene ya asignadas actividades. \\
+\hline
+\textbf{Motivación} & Según el cliente cada empleado podrá configurar su calendario laboral. Esto será así siempre que no afecte negativamente a un proyecto.\\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Puede esperar. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\chapter{Requisitos no funcionales}
+
+\indent \indent Los requisitos no funcionales se definen con la abreviatura: ReqNoFun-\%\%.
+
+\begin{tabla}{Ficha de requisito ReqNoFun-01.}{ReqNoFun-01}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-01} & \textbf{Tipo de interfaz cliente.} \\
+\hline
+\textbf{Descripción} & La interacción con el sistema se realizará a través de una página Web. \\
+\hline
+\textbf{Motivación} & SSe ha especificado por parte del cliente que sea una herramienta web.\\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqNoFun-02.}{ReqNoFun-02}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-01} & \textbf{Fechas para el registro de actividades.} \\
+\hline
+\textbf{Descripción} & Los datos de las actividades del proyecto únicamente podrán introducirse entre lunes y viernes. Así mismo, solamente podrán introducirse datos de actividades pertenecientes a la fase y el periodo de tiempo en que se encuentre el proyecto y asignadas al rol del usuario actual. \\
+\hline
+\textbf{Motivación} & SLos datos sólo se podrán introducir en el horario de trabajo.\\
+\hline
+\textbf{Importancia} & Quedaría bien. \\
+\hline
+\textbf{Urgencia} & Importante. \\
+\hline
+\textbf{Comentarios} & Probablemente se refiere más al modelo de datos y no a su inserción. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqNoFun-03.}{ReqNoFun-03}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-03} & \textbf{Proyectos activos.} \\
+\hline
+\textbf{Descripción} & El sistema ha de permitir la existencia de varios proyectos activos con distintos modelos de proceso en cada uno. \\
+\hline
+\textbf{Motivación} & El sistema no debe limitarse a la gestión de un solo proyecto.\\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} & Es un requisito del modelo de datos. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqNoFun-04.}{ReqNoFun-04}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-04} & \textbf{Informes de seguimiento.} \\
+\hline
+\textbf{Descripción} & El sistema generará informes de seguimiento del proyecto a través de los datos introducidos por los trabajadores durante el registro de actividad. \\
+\hline
+\textbf{Motivación} & Permiten al Jefe de Proyecto realizar el seguimiento del proyecto y monitorizar que se lleva a cabo la planificación.\\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Importante. \\
+\hline
+\textbf{Comentarios} & En el apéndice A se detallan los distintos tipos de informes a generar. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqNoFun-05.}{ReqNoFun-05}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-05} & \textbf{Límite de actividades.} \\
+\hline
+\textbf{Descripción} & El número máximo de actividades semanales que pueden ser asignadas a una persona entre todos los proyectos en los que ésta participa es 100.. \\
+\hline
+\textbf{Motivación} & Se ha especificado así por parte del cliente..\\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Inmediata. \\
+\hline
+\textbf{Comentarios} &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqNoFun-06.}{ReqNoFun-06}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-06} & \textbf{Proyectos asignados a un jefe de proyecto.} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá tener asignado otro proyecto más, en calidad de desarrollador. Dicho proyecto nunca podrá ser el mismo del cual es jefe. \\
+\hline
+\textbf{Motivación} & Un empleado puede ser jefe de un proyecto y tener otro rol en otro proyecto. El sistema debe permitirlo..\\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Puede esperar. \\
+\hline
+\textbf{Comentarios} & \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Ficha de requisito ReqNoFun-07.}{ReqNoFun-07}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-07} & \textbf{Consultar actividades.} \\
+\hline
+\textbf{Descripción} & El jefe de proyecto podrá tener asignado otro proyecto más, en calidad de desarrollador. Dicho proyecto nunca podrá ser el mismo del cual es jefe. \\
+\hline
+\textbf{Motivación} & Un empleado puede ser jefe de un proyecto y tener otro rol en otro proyecto. El sistema debe permitirlo..\\
+\hline
+\textbf{Importancia} & Importante. \\
+\hline
+\textbf{Urgencia} & Puede esperar. \\
+\hline
+\textbf{Comentarios} & \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\begin{tabla}{Ficha de requisito ReqNoFun-08.}{ReqNoFun-08}
+\begin{tabular}[t]{|p{3cm}|p{8cm}|}
+\hline
+\textbf{ReqNoFun-08} & \textbf{El modelo de proceso está formado por varias fases.} \\
+\hline
+\textbf{Descripción} & Un desarrollador podrá consultar los datos relativos a las actividades pertenecientes a los proyectos en que participa. \\
+\hline
+\textbf{Motivación} & Cada desarrollador podrá consultar la evolución de las actividades de sus proyectos.\\
+\hline
+\textbf{Importancia} & Vital. \\
+\hline
+\textbf{Urgencia} & Hay presión. \\
+\hline
+\textbf{Comentarios} & \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\chapter{Especificación de casos de uso.}
+
+\indent \indent Durante la elaboración del plan de desarrollo del proyecto, el equipo de análisis ha estado trabajando ya en la identificación de unos casos de uso preliminares sobre los cuáles se desarrollará el resto del proyecto, variándolos como sea necesario. Esta primera lista de CU se especifica más detalladamente en el documento \textit{\textbf{Modelo de Casos de Uso} \ref{CU}}.\\
+
+A continuación se muestra la primera lista de casos de uso predefinidos que necesitará una revisión posterior:
+
+\begin{itemize}
+	\item Login.
+	\item Logout.
+	\item Editar roles.
+	\item Editar de proyecto.
+	\item Editar perfil.
+	\item Editar usuarios.
+	\item Editar parámetros.
+	\item Obtener informe.
+	\item Planificar proyecto.
+	\item Introducir datos.
+	\item Seguir actividad.
+	\item Planificar calendario.
+\end{itemize}
+
+
+\appendix % Apéndices 
+
+\chapter{Informes para el proyecto}
+
+\indent \indent A continuación \ref{informe} se muestra la tablade referencia de los informes de la aplicación.\\
+
+\begin{tabla}{Informes para el proyecto}{informe}
+\begin{tabular}[t]{|p{5cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Informe} & \textbf{Criterios de selección} & \textbf{Campos} \\
+\hline
+Trabajadores activos & De fecha a fecha & Trabajador \\
+\hline
+Asignación de actividades. &De fecha a fecha. & Trabajador. Actividad. \\
+\hline
+Actividades a supervisar. & & Trabajador. Informe de actividad. Fecha del informe. \\
+\hline
+Actividades a aprobar & & Trabajador. Informe de actividad. Fecha del informe. \\
+\hline
+Actividades en curso & Fecha.De fecha a fecha. & Actividad. Tiempo planificado. Tiempo realizado. \\
+\hline
+Actividades planificadas & Fecha (por defecto hoy)& Actividad. Tiempo planificado. Tiempo realizado. \\
+\hline
+Actividades retrasadas & & Actividad. Tiempo planificado. Tiempo realizado. Retraso. \\
+\hline
+Actividades pendientes. & De hoy a fecha.& Actividad. Recursos. \\
+\hline
+Trabajadores en futuras actividades & De hoy a fecha.& Trabajador. Actividad. Tiempo planificado.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\chapter{Informes para el Jefe de Personal}
+
+\indent \indent A continuación \ref{informeJefe} se muestra la tabla de informes para el jefe de proyecto.\\
+
+\begin{tabla}{Informes para el jefe de personal}{informeJefe}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Informe} & \textbf{Criterios de selección} & \textbf{Campos} \\
+\hline
+Ocupación de trabajadores & De fecha a fecha (semanal). & Trabajador. Proyecto. Actividad. Esfuerzo. \\
+\hline
+Situación de trabajador. & De fecha a fecha. & Proyecto. Participación. Vacaciones. \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\chapter{Informes para el Desarrollador}
+
+\indent \indent A continuación \ref{informeDes} se muestra la tabla de informes para el desarrollador.\\
+
+\begin{tabla}{Informes para el desarrollador}{informeDes}
+\begin{tabular}[t]{|p{5cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Informe} & \textbf{Criterios de selección} & \textbf{Campos} \\
+\hline
+Actividades & De fecha a fecha. & Semana. Proyecto. Actividad. Estado. \\
+\hline
+\end{tabular}
+\end{tabla}
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
