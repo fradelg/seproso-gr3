@@ -1,0 +1,763 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Modelo de Casos de Uso.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|p{2cm}|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 18/11/08 & Primera revisión de casos de uso. & Rubén y Yuri\\
+\hline
+0.5 & 21/11/08 & Versión 0.5 de casos de uso. & Francisco, Abel y Rubén\\
+\hline
+1.0 & 22/11/08 & Versión preliminar de los casos de uso basados en el documento del enunciado de la práctica. & Grupo III\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent El objetivo del siguiente documento es la descripción de los primera versión de la definición de Casos de Uso del sistema de SEguimiento de PROyectos SOftware (SEPROSO). Este documento será referencia para el uso posterior por los desarrolladores y en consecuencia por más documentos de planificación, análisis y desarrollo de la apicación.
+
+\section{Ámbito.}
+
+\indent \indent El sistema a desarrollar se denominará SEPROSO. Es una herramienta para la gestión y seguimiento de proyectos software. La interación con la herramienta depende del rol a desempeñar por el usuario de la aplicación, distinguiéndose los siguientes roles:
+\begin{itemize}
+	\item Administrador.
+	\item Jefe de Proyecto.
+	\item Desarrollador.
+	\item Responsable de personal.\\
+\end{itemize}
+
+El sistema atenderá las peticiones de cada uno de ellos en función del trabajo que desempeñana\\.
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item Plantilla de elicitación de requisitos para Proceso Unificado UPEDU. www.upedu.org
+	\item Documento del estandar IEEE 830 sobre recomendaciones para la especifiación de requisitos software secciones 4, 5 y anexo A.3.
+	\item Visión general de la herramienta propuesta por el profesor de la asignatura.
+	\item Plan de Proyecto Software.
+	\item Documento de especificación de recursos software, SRS.
+\end{enumerate}
+
+\section{Visión general.}
+
+El resto de este documento contiene los casos de uso definidos, y el diagrama inicial de casos de uso.
+
+\chapter{Análisis funcional.}
+
+\section{Diagrama de casos de uso.}
+
+\indent \indent El siguiente diagrama \ref{dCU} muestra los casos de uso identificados en el sistema. \\
+
+\figura{images/DCU.jpg}{width=15cm,height=14cm,angle=0}{Diagrama de Casos de Uso.}{dCU} 
+  
+\newpage
+\section{Especificación de casos de uso.}
+
+\subsection{Casos de uso del administrador del sistema}
+
+\subsubsection{CU: Administrar Proyectos}
+
+\textbf{Descripción}\\
+\indent 	El administrador crea un nuevo proyecto o lo elimina.\\
+\textbf{Precondiciones}\\
+\indent 	El administrador debe estar identificado en el sistema.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1. El administrador selecciona "Administración de proyectos".
+	\item 2. El sistema muestra una lista con todos los proyectos existentes.
+	\item 3. El administrador selecciona un proyecto.
+	\item 4. El sistema muestra la información sobre ese proyecto.
+	\item 5. El administrador modifica los contenidos como desee.
+	\item 6. El sistema almacena las modificaciones realizadas.
+\end{description}
+\textbf{Flujo Alternativo 1}: Borrado
+\begin{description}
+	\item 3. El administrador selecciona un proyecto de la lista.
+	\item 4. El administrador selecciona Borrar Proyecto.
+	\item 5. El sistema pide confirmación de la acción al usuario.
+	\item 6. Si el administrador confirma, el sistema elimina el proyecto.
+	\item 7. El caso de uso continua en el paso 2 del flujo normal.
+\end{description}
+\textbf{Flujo Alternativo 2}: Creación
+\begin{description}
+	\item 2. El administrador selecciona Crear Proyecto.
+	\item 3. El sistema solicita un nombre y una descripción para el proyecto.
+	\item 4. El administrador introduce el nombre y la descripción.
+	\item 5. El sistema ofrece una lista de los Jefes de Proyecto registrados en el sistema, salvo los que ya son jefes de otros proyectos.
+	\item 6. El administrador elige el que va a ser jefe de este proyecto.
+	\item 7. El caso de uso continua en el paso 2 del flujo normal.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+
+\subsubsection{CU: Administrar Usuarios}
+
+\textbf{Descripción}\\
+\indent 	El administrador crea una cuenta nueva para un empleado o la elimina.\\
+\textbf{Precondiciones}\\
+\indent 	El administrador debe estar identificado en el sistema.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1. El administrador selecciona "Administración de Usuarios".
+	\item 2. El sistema muestra todas las cuentas de usuario existentes.
+	\item 3. El administrador selecciona una cuenta.
+	\item 4. El sistema muestra los datos asociados a esa cuenta.
+	\item 5. El administrador cambia los datos asociados a esa cuenta.
+	\item 6. El sistema almacena los cambios.
+\end{description}
+\textbf{Flujo Alternativo 1}: Borrado
+\begin{description}
+	\item 4. El administrador selecciona Borrar Cuenta.
+	\item 5. El sistema elimina la cuenta si el usuario no tiene asignada ninguna actividad. En caso contrario advierte al administrador del posible error.
+	\item 6. El caso de uso continua en el paso 2 del flujo normal.
+\end{description}
+\textbf{Flujo Alternativo 2}: Creación
+\begin{description}
+	\item 2. El administrador selecciona Crear Cuenta.
+	\item 3. El sistema solicita al administrador los datos del usuario y su rol.
+	\item 4. El administrador introduce y confirma todos los datos.
+	\item 5. El sistema almacena los valores en una nueva cuenta.
+	\item 6. El caso de uso continua en el paso 2 del flujo normal.
+\end{description}
+\textbf{Flujo Alternativo 3}: Cancelación
+\begin{description}
+	\item 2. El administrador selecciona Cancelar..
+	\item 3. El sistema no guarda ninguno de los cambios realizados
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Configurar Sistema}
+
+\textbf{Descripción}\\
+\indent 	El administrador puede establecer el valor de parámetros del sistema.\\
+\textbf{Precondiciones}\\
+\indent 	El administrador debe estar identificado en el sistema.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El administrador selecciona Modificar Configuración del Sistema.
+	\item 2.	El sistema muestra al administrador el valor actual de todos los parámetros configurables.
+	\item 3.	El administrador modifica y confirma el valor de los parámetros.
+	\item 4.	El sistema almacena los cambios.
+\end{description}
+\textbf{Flujo Alternativo}\\
+\indent Ninguno. \\
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+
+
+\subsection{Casos de uso del jefe de proyecto}
+
+\subsubsection{CU: Planificar proyecto}
+
+\textbf{Descripción}\\
+\indent 	El jefe de proyecto necesita elaborar el plan de proyecto antes de comenzar a realizar el seguimiento que permite esta herramienta.\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto debe estar identificado en el sistema.\\
+\indent 	El proyecto debe estar creado previamente.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona "Planificar Proyecto".
+	\item 2.	El sistema muestra los proyectos sin planificar de los que es jefe.
+	\item 3.	El jefe de proyecto selecciona el proyecto a planificar.
+	\item 4.	El sistema muestra la información general del proyecto.
+	\item 5.	Se realiza el caso de uso "Definir proceso"
+	\item 6.	\textbf{Hacer}\\
+		 a.	El jefe de proyecto elige una fase del proyecto.\\
+		 b.	El sistema muestra las actividades planificadas en esa fase.\\
+		 c.	Se realiza el caso de uso "Definir actividad".
+	\item 7.	Mientras el jefe de proyecto no confirme y active el proyecto.
+\end{description}
+\textbf{Flujo Alternativo}\\
+\indent Ninguno. \\
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+
+\subsection{Casos de uso del jefe de proyecto}
+
+\subsubsection{CU: Definir proceso}
+
+\textbf{Descripción}\\
+\indent 	El jefe de proyecto debe elegir el modelo de proceso de desarrollo que se ajusta mejor a las necesidades de su equipo y su proyecto. Puede elegir entre unas plantillas predefinidas y uno personalizado que puede almacenar.\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto debe estar en el caso de uso "Planificar proyecto"\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona "Definir Modelo de Proceso".
+	\item 2.	El sistema muestra todas las plantillas para modelos de proceso que tiene registradas actualmente.
+	\item 3.	El jefe de proyecto elige la que desea aplicar en este proyecto.
+	\item 4.	El sistema muestra el esquema de fases de esa plantilla.
+	\item 5.	El jefe de proyecto confirma que el modelo es el adecuado.
+	\item 6.	El sistema almacena la información de fases del proyecto.
+\end{description}
+\textbf{Flujo Alternativo 1}: : Modificar modelo de proceso
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona "Modificar Modelo de Proceso".
+	\item 2.	El sistema muestra el esquema de fases.
+	\item 3.	Si el jefe de proyecto selecciona "Modificar" sobre una fase. \\
+			a.	El sistema muestra la información que contiene esa fase en modo editable. \\
+			b.	El jefe de proyecto cambia los datos oportunos y los confirma. \\
+			c.	El caso de uso continúa en el paso 5.
+	\item 4.	Si el jefe de proyecto selecciona "Eliminar" sobre una fase. \\
+			a.	El sistema muestra la información de fase y solicita confirmación. \\
+			b.	Si el jefe de proyecto confirma la eliminación \\
+					i.	El sistema borra la fase del modelo de proceso.
+	\item 5.	El sistema vuelve a mostrar el esquema de fases actualizado.
+	\item 6.	El caso de uso continua en el paso 5 del flujo normal.
+\end{description}
+\textbf{Flujo Alternativo 2}: Definir modelo de proceso personalizado
+\begin{description}
+	\item 3.	El jefe de proyecto selecciona la plantilla "Personalizado".
+	\item 4.	\textbf{Hacer} \\
+			a.	El sistema muestra la información requerida por cada fase. \\
+			b.	El jefe de proyecto introduce y confirma la información.
+	\item 5.	Mientras el jefe de proyecto no seleccione "Finalizar plantilla".
+	\item 6.	El sistema muestra el esquema de fases introducido.
+	\item 7.	Si el jefe de proyecto elige "Añadir como plantilla estándar". \\
+			a.	El sistema solicita un nombre y una descripción al jefe de proyecto. \\
+			b.	El jefe de proyecto configura estos datos y los confirma. \\
+			c.	El sistema comprueba que el nombre es único y almacena la plantilla junto a las existentes. \\
+			d.	El caso de uso vuelve al paso 6.
+	\item 8.	El caso de uso continua en el paso 5 del flujo normal.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Definir actividad}
+
+\textbf{Descripción}\\
+\indent 	Una vez elegido un esquema de fases, al definir el modelo de proceso, el jefe de proyecto debe asignar actividades a cada fase. Además en cada actividad debe introducir la duración, trabajadores  encargados y artefacto generado como producto del trabajo.\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto está planificando un proyecto que tiene asignado ya un modelo de proceso.\\
+\indent 	El sistema está mostrando las actividades para una fase del proyecto.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona "Añadir actividad".
+	\item 2.	El sistema muestra la información que debe introducirse: precedentes, inicio, duración, esfuerzo y artefacto resultante.
+	\item 3.	El jefe de proyecto introduce y confirma los datos solicitados.
+	\item 4.	El sistema comprueba los datos de la actividad. A continuación muestra la lista de trabajadores participantes en el proyecto.
+	\item 5.	El jefe de proyecto selecciona los encargados de la actividad.
+	\item 6.	El sistema almacena toda la información de la actividad.
+\end{description}
+\textbf{Flujo Alternativo 1}: : Modificar actividad
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona "Modificar" sobre una actividad.
+	\item 2.	El sistema muestra sus datos en modo editable.
+	\item 3.	El jefe de proyecto cambia los datos que desea y los confirma.
+	\item 4.	El caso de uso continua en el paso 4 del flujo normal.
+\end{description}
+\textbf{Flujo Alternativo 2}: Eliminar actividad
+\begin{description}
+	\item 5.	El jefe de proyecto selecciona "Eliminar" sobre una actividad.
+	\item 6.	El sistema solicita confirmación y avisa del riesgo.
+	\item 7.	Si el jefe de proyecto confirma su decisión
+			a.	El sistema elimina la información sobre esta actividad.
+	\item 8.	El caso de uso continua en el paso 4 del flujo normal.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Selecionar trabajadores}
+
+\textbf{Descripción}\\
+\indent 	El jefe de proyecto debe tener la posibilidad de seleccionar el personal de la empresa registrado en el sistema que necesita para su proyecto, especificando también el rol que van a tener y el porcentaje de participación.\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto está identificado en el sistema.\\
+\indent 	El proyecto seleccionado está dado de alta en el sistema pero aún no ha sido activado.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona la opción "Selección de personal".
+	\item 2.	El sistema muestra los trabajadores asociados a este proyecto.
+	\item 3.	El jefe de proyecto selecciona "Añadir trabajador"
+	\item 4.	El sistema muestra todos los trabajadores disponibles en alguna semana, indicando su rol más alto.
+	\item 5.	El jefe de proyecto selecciona uno de ellos.
+	\item 6.	El sistema muestra los roles disponibles y permite indicar la participación en el proyecto
+	\item 7.	El jefe de proyecto elige el rol y la participación. Confirma.
+	\item 8.	El sistema actualiza los datos del proyecto y trabajador.
+	\item 9.	Mientras el jefe de proyecto no seleccione "Fin de selección"
+			a.	El caso de uso vuelve al paso 4
+\end{description}
+\textbf{Flujo Alternativo 1}: : Eliminar trabajador
+\begin{description}
+	\item 5.	El jefe de proyecto selecciona "Eliminar" sobre un trabajador.
+	\item 6.	El sistema muestra la información sobre el trabajador en el proyecto y solicita confirmación al jefe de proyecto.
+	\item 7.	Si el jefe de proyecto confirma la decisión
+			a.	El sistema elimina del proyecto a ese trabajador.
+	\item 8.	El caso de uso continua en el paso 4.
+\end{description}
+\textbf{Flujo Excepcional 1}: Trabajador en 3 proyectos actualmente
+\begin{description}
+	\item 4.	El sistema detecta que un trabajador tiene ya otros 3 proyectos y decide no mostrarlo al jefe de proyecto.
+	\item 5.	El caso de uso continua en el paso 5.
+\end{description}
+\textbf{Flujo Excepcional 2}: Jefe de proyecto y desarrollador actualmente.
+\begin{description}
+	\item 4.	El sistema detecta que un trabajador es jefe de proyecto en uno y desarrollador en otro, por lo que no lo muestra disponible.
+	\item 5.	El caso de uso continua en el paso 5.
+\end{description}
+\textbf{Flujo Excepcional 3}: Porcentaje de ocupación.
+\begin{description}
+	\item 4.	El sistema detecta que la suma de los porcentajes de ocupación de un trabajador entre todos los proyectos excede del 100\%, con lo que lo elimina de los trabajadores disponibles.
+	\item 5.	El caso de uso continua en el paso 5.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Cerrar actividad}
+
+\textbf{Descripción}\\
+\indent 	Confirma la finalización de una actividad para la cual no podrán registrar trabajo más desarrolladores. Si es la última actividad del proyecto éste se dará por cerrado y finalizado.\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto debe estar identificado en el sistema.\\
+\indent 		El proyecto seleccionado está activo y él es el jefe.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona "Cerrar actividad".
+	\item 2.	El sistema muestra la(s) actividad(es) activas y su información.
+	\item 3.	El jefe de proyecto elige "Cerrar" sobre la actividad.
+	\item 4.	El sistema da por finalizada la actividad, almacenando datos. Si es la última actividad del proyecto da por cerrado el proyecto.
+\end{description}
+\textbf{Flujo Alternativo}\\
+\indent Ninguno. \\
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Revisar actividad}
+
+\textbf{Descripción}\\
+\indent 	El jefe de personal debe supervisar el trabajo en las actividades activas realizado por trabajadores de su proyecto, como paso previo a su aprobación.\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto debe estar autentificado en el sistema.\\
+\indent 		El jefe de proyecto ha seleccionado un proyecto del que es jefe.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona la opción "Revisar Actividad".
+	\item 2.	El sistema muestra los registros de actividades de desarrolladores pendientes de supervisión todavía.
+	\item 3.	El jefe de proyecto selecciona un registro de actividad.
+	\item 4.	El sistema muestra toda la información registrada por el desarrollador.
+	\item 5.	El jefe de proyecto lee y comprueba esa información.
+	\item 6.	El sistema actualiza el registro a "pendiente de aprobación".
+\end{description}
+\textbf{Extensión}:: si el jefe de proyecto considera oportuno aprobar la actividad el caso de uso se extiende a "Aprobar actividad".\\
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Aprobar actividad}
+
+\textbf{Descripción}\\
+\indent 	El jefe de personal se toma un tiempo para revisar un registro de trabajo de actividad que permanece en estado "pendiente de aprobación". Tras un tiempo, el jefe de proyecto debe establecer el siguiente estado: "aprobada" o "rechazada".\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto debe estar autentificado en el sistema.\\
+\indent 		El jefe de proyecto ha seleccionado un proyecto del que es jefe.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El sistema muestra los registros de actividades de desarrolladores pendientes de aprobación todavía.
+	\item 2.	El jefe de proyecto selecciona un registro de actividad.
+	\item 3.	El sistema muestra toda la información registrada.
+	\item 4.	El jefe de proyecto aprueba este registro al desarrollador.
+	\item 5.	El sistema actualiza el estado del registro a "aprobado".
+\end{description}
+\textbf{Flujo alternativo 1}: Rechazar actividad.
+\begin{description}
+	\item 4.	El jefe de proyecto rechaza este registro.
+	\item 5.	El sistema actualiza el estado del registro a "rechazado".
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Obtener informe de control}
+
+\textbf{Descripción}\\
+\indent 	El jefe de proyecto necesita consultar cierta información sobre la evolución del proyecto para realizar el seguimiento y control del mismo. Esta información se presenta en forma de informes de diferente índole a los que el jefe de proyecto accede de la misma forma.\\
+\textbf{Precondiciones}\\
+\indent 	El jefe de proyecto debe estar identificado en el sistema.\\
+\indent 	El jefe de proyecto ha seleccionado un proyecto del que es jefe.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El jefe de proyecto selecciona "Obtener Informe"
+	\item 2.	El sistema muestra la relación de informes disponibles (véase la sección comentarios).
+	\item 3.	El jefe de proyecto selecciona el informe que desea consultar.
+	\item 4.	El sistema recolecta datos del proyecto y genera el informe final. A continuación se lo muestra al jefe de proyecto. Los datos varían según el tipo de informe.
+	\item 5.	El jefe de proyecto acepta el informe generado.
+\end{description}
+\textbf{Flujo alternativo 1}: Selección de fechas.
+\begin{description}
+	\item 4.	El sistema muestra un calendario donde elegir el periodo de tiempo del plan a consultar
+	\item 5.	El jefe de proyecto selecciona una o dos fechas según el tipo de informe necesite fecha o periodo. A continuación las confirma.
+	\item 6.	El sistema filtra los datos del proyecto según el criterio y genera el informe final. A continuación lo muestra.
+	\item 7.	El caso de uso continua en el paso 5 del flujo normal.
+\end{description}
+\textbf{Flujo alternativo 2}: Enlace a información más detallada.
+\begin{description}
+	\item 5.	El jefe de proyecto selecciona un dato seleccionable del informe.
+	\item 6.	El sistema muestra la información sobre ese dato en el proyecto.
+	\item 7.	El jefe de proyecto acepta la información.
+	\item 8.	El caso de uso continua en el paso 5 del flujo normal.
+\end{description}
+\textbf{Flujo alternativo 2}: Enlace a registros de actividad.
+\begin{description}
+	\item 5.	El jefe de proyecto selecciona un registro actividad en un informe del tipo "Actividades sin supervisar" o "Actividades sin aprobar".
+	\item 6.	El caso de uso continua en el paso 4 del caso de uso "Revisar actividad".
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+\textbf{Comentarios}\\
+\indent Los diferentes tipos de informe se muestra en el apéndice A del documento SRS. \\
+
+
+
+
+\subsection{Casos de uso del desarrollador}
+
+\subsubsection{CU: Crear registro de actividad}
+
+\textbf{Descripción}\\
+\indent 	Cada desarrollador deberá rellenar semanalmente un informe por cada actividad que tiene asignada en cualquiera de los proyectos que participa.\\
+\textbf{Precondiciones}\\
+\indent 	El desarrollador debe estar identificado en el sistema.\\
+\indent 	El desarrollador ha seleccionado un proyecto en el que participa.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El desarrollador selecciona "Rellenar registro de actividad".
+	\item 2.	El sistema muestra las actividades y semanas para las que no ha introducido un registro de trabajo hasta la fecha actual.  También le indica los registros rechazados por el jefe de proyecto.
+	\item 3.	El desarrollador selecciona una actividad y semana concreta. 
+	\item 4.	El sistema muestra la información que necesita introducirse. 
+	\item 5.	El desarrollador completa los datos basándose en su trabajo.
+	\item 6.	El sistema confirma el registro de trabajo.
+\end{description}
+\textbf{Flujo alternativo}\\
+\indent Ninguno. \\
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+
+\subsubsection{CU: Establecer vacaciones}
+
+\textbf{Descripción}\\
+\indent El desarrollador rellenará su propio calendario. Establece cuales son sus como máximo 3 períodos de vacaciones en los que disfrutar de 4 semanas.\\
+\textbf{Precondiciones}\\
+\indent El desarrollador debe estar identificado en el sistema.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El desarrollador solicita "Establecer vacaciones".
+	\item 2.	El sistema muestra los periodos de vacaciones ya establecidos.
+	\item 3.	El desarrollador selecciona "Añadir periodo"
+	\item 4.	El sistema muestra el calendario con las fechas disponibles (sin actividades asignadas por algún jefe de proyecto).
+	\item 5.	El desarrollador selecciona un período de vacaciones, indicando la fecha de inicio y final. El desarrollador confirma la selección.
+	\item 6.	El sistema almacena el período de vacaciones escogido.
+	\item 7.	\textit{Si} el número de periodos es menor que 3 el caso de uso vuelve al paso 2.
+\end{description}
+\textbf{Flujo alternativo 1}: Vacaciones completas.
+\begin{description}
+	\item 3.	El sistema detecta que el desarrollador ya ha alcanzado el límite de vacaciones y se lo comunica.
+	\item 4.	El desarrollador acepta los vacaciones establecidos.
+\end{description}
+\textbf{Flujo alternativo 2}: Las vacaciones añadidas superan las 4 semanas.
+\begin{description}
+	\item 4.	El sistema detecta que el desarrollador está superando el límite de vacaciones y se lo comunica.
+	\item 5.	El caso de uso continúa en el paso 2 del flujo normal.
+\end{description}
+\textbf{Flujo alternativo 3}: Vacaciones en fechas con actividades.
+\begin{description}
+	\item 4.	El sistema detecta que algún día del periodo elegido coincide con fechas en las que tiene tareas asignadas y se lo comunica al usuario.
+	\item 5.	Continua el caso de uso en el paso 2 del flujo normal.
+\end{description}
+\textbf{Flujo alternativo 4}: Límite de periodos.
+\begin{description}
+	\item 3.	El sistema detecta que el desarrollador ya ha establecido sus 3 periodos vacacionales y se lo comunica.
+	\item 4.	El desarrollador acepta los periodos vacacionales establecidos.
+\end{description}
+\textbf{Flujo alternativo 5}: : Último periodo vacacional.
+\begin{description}
+	\item 6.	El sistema comprueba que este es el 3er periodo vacacional. Calcula el total de días de vacaciones entre los 3 periodos. 
+	\item 7.	Si el número de días supera las 4 semanas o no las alcanza.
+			a.	El sistema muestra al desarrollador un mensaje de aviso.
+			b.	El desarrollador acepta el mensaje.
+			c.	El caso de uso vuelve al paso 4 del flujo normal.
+\end{description}
+\textbf{Flujo excepcional 1}: : Cancelación.
+\begin{description}
+	\item 3.	El desarrollador cancela la operación.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Obtener informe de actividad}
+
+\textbf{Descripción}\\
+\indent Un desarrollador podrá consultar datos de un proyecto activo sobre sus actividades y los registros de trabajo asociados.  En los proyectos ya finalizados sólo podrá consultar resúmenes globales sobre la duración de actividades.\\
+\textbf{Precondiciones}\\
+\indent El desarrollador debe estar identificado en el sistema.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El desarrollador elige "Obtener Informe".
+	\item 2.	El sistema muestra dos tipos: "Informe de Actividades" y "Resumen de otro proyecto".
+	\item 3.	El desarrollador selecciona "Informe de actividades"
+	\item 4.	El sistema muestra un calendario.
+	\item 5.	El desarrollador selecciona la fecha de inicio y final del periodo.
+	\item 6.	El sistema muestra las actividades en las que participa, agrupadas por semanas, para todos los proyectos activos.  Cada una indica el estado del registro de trabajo asociado.
+	\item 7.	El desarrollador selecciona una actividad .
+	\item 8.	El sistema muestra el registro de trabajo detallado y su estado.
+\end{description}
+\textbf{Flujo alternativo 1}: Resúmenes de actividades finalizadas.
+\begin{description}
+	\item 3.	El desarrollador selecciona "Resumen de otro proyecto".
+	\item 4.	El sistema muestra el conjunto de proyectos ya finalizados.
+	\item 5.	El desarrollador selecciona un proyecto a consultar.
+	\item 6.	El sistema muestra un resumen completo de la realización por actividades, mostrando el tiempo dedicado a cada una.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+
+
+
+\subsection{Casos de uso del responsables de personal}
+
+\subsubsection{CU: Obtener informe de personal}
+
+\textbf{Descripción}\\
+\indent El responsable de personal podrá consultar en cualquier momento la situación de la plantilla de la empresa y en particular de un trabajador único.\\
+\textbf{Precondiciones}\\
+\indent El responsable de personal debe estar identificado en el sistema.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El responsable de personal selecciona "Obtener Informe"
+	\item 2.	El sistema muestra dos tipos de informe: "Ocupación de trabajadores" y "Situación de trabajador".
+	\item 3.	El responsable de personal elige "Situación de trabajador".
+	\item 4.	El sistema muestra la plantilla de trabajadores actual.
+	\item 5.	El responsable de personal selecciona un empleado concreto.
+	\item 6.	El sistema muestra un calendario para elegir el periodo.
+	\item 7.	El responsable de personal elige dos fechas y las confirma.
+	\item 8.	El sistema recoge toda la información de este empleado y genera un informe que muestra las actividades agrupadas por proyectos, su participación en éstos y, si hubiera, vacaciones.
+\end{description}
+\textbf{Flujo alternativo 1}: Informe de ocupación.
+\begin{description}
+	\item 3.	El responsable de personal elige "Ocupación de trabajadores".
+	\item 4.	El sistema muestra un calendario para elegir periodo de trabajo.
+	\item 5.	El responsable de personal elige dos fechas y las confirma.
+	\item 6.	El sistema recoge información de cada trabajador y de sus actividades, generando un informe que muestra las actividades de cada persona, agrupadas por proyecto, y el trabajo realizado
+	\item 7.	Si El responsable de personal selecciona algún trabajador del informe, el caso de uso continua en el paso 6 del flujo normal.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsection{Casos de uso de un usuario genérico}
+
+\subsubsection{CU: Seleccionar proyecto}
+
+\textbf{Descripción}\\
+\indent ECada usuario sin privilegios de administrador deberá elegir un proyecto para poder acceder a las operaciones de gestión y control propias del mismo.\\
+\textbf{Precondiciones}\\
+\indent El usuario debe estar identificado en el sistema.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El usuario selecciona "Cambiar de proyecto"
+	\item 2.	El sistema muestra los proyectos en que el usuario es trabajador.
+	\item 3.	El usuario selecciona el proyecto sobre el que desea trabajar.
+	\item 4.	En el estado del sistema queda registrado ese proyecto como al que van a referirse los casos de uso realizados posteriormente.
+\end{description}
+\textbf{Flujo alternativo}\\
+\indent Ninguno. \\
+\textbf{Postcondiciones}\\
+\indent Ninguna. \\
+
+\subsubsection{CU: Login}
+
+\textbf{Descripción}\\
+\indent Cualquier usuario que desee acceder a la funcionalidad de la aplicación necesita identificarse en el sistema previamente.\\
+\textbf{Precondiciones}\\
+\indent Ninguna.\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El usuario accede a la página principal de la herramienta.
+	\item 2.	El sistema solicita el nombre de usuario y contraseña de acceso.
+	\item 3.	El usuario proporciona al sistema su nombre de usuario y clave.
+	\item 4.	El sistema valida que los datos son correctos: han sido previamente registrados por el administrador.
+	\item 5.	El usuario obtiene acceso al sistema.
+\end{description}
+\textbf{Flujo alternativo 1}: Reintento.
+\begin{description}
+	\item 4.	El sistema detecta un error: bien el usuario no existe o bien la contraseña no es válida (no coincide con la registrada).
+	\item 5.	El caso de uso vuelve al paso 2.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent El usuario se encuentra identificado en el sistema. \\
+
+\subsubsection{CU: Logout}
+
+\textbf{Descripción}\\
+\indent Cualquier usuario debe finalizar sesión en el sistema cuando finaliza todas las operaciones y deja de utilizar las funcionalidades.\\
+\textbf{Precondiciones}\\
+\indent El usuario debe estar identificado en el sistema..\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El usuario selecciona "Cerrar sesión".
+	\item 2.	El sistema cambia el estado del usuario internamente y le impide volver a utilizar la aplicación si no se realiza el caso de uso "Login"
+\end{description}
+\textbf{Flujo alternativo 1}: Logout desordenado.
+\begin{description}
+	\item 1.	El sistema realiza consultas periódicamente para comprobar que el usuario se mantiene conectado.
+	\item 2.	El usuario cierra o destruye su sesión accidentalmente.
+	\item 3.	El sistema detecta que el usuario ya no conserva la sesión.
+	\item 4.	El caso de uso continua en el paso 2 del flujo normal.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent El usuario no está identificado en el sistema. \\
+
+
+\subsubsection{CU: Generar informe}
+
+\textbf{Descripción}\\
+\indent El sistema permite a los diferentes usuarios generar informes que presentan de forma ordenada información relativa al proyecto almacenada.\\
+\textbf{Precondiciones}\\
+\indent El usuario debe estar identificado en el sistema..\\
+\textbf{Flujo normal}
+\begin{description}
+	\item 1.	El usuario selecciona "Obtener Informe"
+	\item 2.	El sistema muestra los distintos tipos de informes que puede generar para este tipo de usuario.
+	\item 3.	El usuario elige el informe deseado.
+	\item 4.	El sistema muestra un calendario al usuario.
+	\item 5.	El usuario selecciona el día inicial y final del periodo solicitado.
+	\item 6.	El sistema recolecta los datos que debe contener este informe, lo genera y lo muestra al usuario.
+\end{description}
+\textbf{Flujo alternativo 1}: Periódo no válido.
+\begin{description}
+	\item 1.	El sistema comprueba que el periodo es posterior a la fecha actual, o para algunos tipos de informes, el periodo de tiempo es anterior al comienzo del proyecto.
+	\item 2.	El sistema muestra un aviso al usuario del error introducido.
+	\item 3.	El usuario acepta el aviso.
+	\item 4.	El caso de uso continúa en el paso 4 del flujo normal.
+\end{description}
+\textbf{Postcondiciones}\\
+\indent El informe queda visible al usuario hasta que este decida pasar a realizar otro caso de uso en algún momento. \\
+\textbf{Postcondiciones}\\ 
+\indent \textit{Véase} Apéndice A del documento SRS. \\
+
+
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}

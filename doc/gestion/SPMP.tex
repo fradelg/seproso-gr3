@@ -1,0 +1,632 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% SPMP
+% 7/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO.\\ Seguimiento de Proyectos Software.\\ SPMP.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Signature} % Firmas
+
+Rubén Martínez García \indent \indent Yuri Torres de la Sierra \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+Abel Lozoya de Diego \indent \indent Francisco Javier Delgado del Hoyo
+
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 7/11/08 & Recopilación de Información Inicial. & Grupo III\\
+\hline
+0.2 & 17/11/08 & Primera versión del plan de proyecto. & Grupo III\\
+\hline
+1.0 & 28/11/08 & Completar plan de proyecto. & Grupo III\\
+\hline
+\end{tabular}
+
+\chapter{Prólogo}
+
+\indent \indent El propósito de este documento es especificar el plan de desarrollo del proyecto software SEPROSO (Seguimiento de Proyectos Software). Este documento presenta el plan de proyecto inicial que especifica los objetivos, los planes de gestión de proyecto, el presupuesto y la organización de los miembros del equipo. Las actualizaciones de este documento se producirán a medida que el proyecto avance, sirviendo esta especificación inicial como linea base para la comprobación del desarrollo del proyecto.\\
+
+Este Plan de Desarrollo del Software es una versión preliminar preparada para ser incluida en la propuesta elaborada como respuesta al proyecto de prácticas de la asignatura de Ingenieria del Software II de la Escuela Técnica Superior de Ingeniería Informática de Valladolid. Este documento provee una visión global del enfoque de desarrollo propuesto. \\
+
+La metodología básica sobre la que se sustenta el proyecto será Proceso Unificado, RUP (Rational Unified Process). El enfoque de desarrollo propuesto constituye una configuración de UPEDU, seleccionando los roles de los participantes, las actividades a realizar y los artefactos (entregables) que serán generados. Este documento es a su vez uno de los propios artefactos del Proceso Unificado.\\
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent El \textbf{\textsl{propósito}} del Plan de Desarrollo de Software es proporcionar la información necesaria para controlar el proyecto. En él se describe el enfoque de desarrollo del software.\\
+
+Los usuarios del Plan de Desarrollo del Software son: 
+\begin{itemize}
+	\item El jefe del proyecto lo utiliza para organizar la agenda y necesidades de recursos, y para realizar su seguimiento. 
+	\item Los miembros del equipo de desarrollo lo utilizab para el conocimiento de la labor de cada uno, cuándo se debe hacer y qué otras actividades dependen de dicho trabajo.\\
+\end{itemize}
+
+
+\section{Alcance.}
+
+\indent \indent El plan de desarrollo software describe el plan global que será utilizado por el grupo de desarrollo de la herramienta SEPROSO. Los detalles de cada una de las iteraciones se encuentran descritos en el plan de iteraciones. El plan de desarrollo descrito en en este documento se basa en los requisitos propuestos para le herramienta SEPROSO, definidos en el documento SRS.
+
+\section{Acrónimos y definiciones.}
+
+\indent  \indent Véase el \textbf{\textsl{Glosario}}.
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item [IEEE 1058] Software Project Management Plans. ANSI/IEEE Std 1058-1998.
+	\item [IEEE 828] IEEE Standard for Software Configuration Management Plans, ANSI/IEEE Std. 828-199. 
+	\item [IEEE 1074] IEEE Standard for Developing Software Life Cycle Processes, ANSI/IEEE Std. 1074-1991.
+	\item [IEEE 830]Estándar de documentación IEEE/ANSI 830-1993..
+	\item Definición de Roles y Responsabilidades de proceso unificado:  http://www-128.ibm.com/developerworks/rational/library/sep06/collaris\_dekker\_warmer/index.html.
+	\item Asignatura Ingeniería de Software II, profesor: Pablo Lucio de la Fuente. Web: http://aulas.inf.uva.es
+\end{enumerate}
+
+
+
+\chapter{Visión General del Proyecto}
+
+\section{Propósito, ámbito y objetivos.}
+ 
+\indent \indent El \textbf{\textsl{propósito}} del proyecto es analizar los requisitos, diseñar e implementar una herramienta web para el Seguimiento de Proyectos Software, SEPROSO, de acuerdo a los requisitos especificados en el enunciado de la práctica de Ingeniería del Software. La herramienta debe facilitar a un gestor de proyectos software la realización de un seguimiento temporal de las actividades que se realizan en sus proyectos, y ayudar a los trabajadores del proyecto a informar de sus progresos.\\
+
+SEPROSO es una aplicación web, orientada a ofrecer un servicio específico a distintos grupos de usuarios en función del rol que dichos usuarios llevarán a
+cabo dentro del proyecto. La herramienta permitirá la generación de informes para el gestor del proyecto, y la consulta de proyectos ya finalizados cómo sistema de ayuda para proyectos nuevos. Esta herramienta permitirá gestionar cualquier tipo de Proyecto Software. \\
+
+Actualmente esta labor de seguimiento es muy necesario puesto que el software existente se centra en la planificación inicial. El proyecto no se relaciona con proyectos anteriores, sino que su desarrollo parte de cero.\\
+
+La idea del desarrollo de la herramienta es que los gestores de proyectos utilicen los datos de los proyectos finalizados (cerrados) para ayudar a planifiar y presupuestar los nuevos y para analizar las prácticas de trabajo seguidas con el fin de ayudar en un proceso de mejora del software.\\
+
+En el \textbf{\textsl{ámbito}} del proyecto se incluyen todas las actividades relacionadas directamente para conseguir el propósito. Están fuera del ámbito del proyecto actividades como el desarollo del hardware o el mantenimiento de la red soporte de la herramienta.\\
+
+Los \textbf{\textsl{objetivos}} del proyecto son los siguientes:
+\begin{itemize}
+\item Finalizar el proyecto antes de la fecha indicada.
+\item Ajustar al máximo el desarrollo posterior a este plan inicial.
+\item Entegar todos los artefactos de la sección 1.3.
+\item Cumplir todos los requisitos establecidos en el enunciado, recogidos en el documento SRS, en la heramienta entregada.
+\item Adquirir conocimientos de planificación y desarrollo de software mediante métodos de ingeniería.
+\end{itemize}
+
+
+\section{Suposiciones y restricciones.}
+
+\indent \indent El proyecto se desarrolla basándonos en las siguientes \textbf{suposiciones}:
+\begin{itemize}
+\item El equipo de trabajo está formado por 4 personas que pueden emplear múltiples roles.
+\item Todos los miembros del equipo tendrán el mismo nivel de implicación y trabajo.
+\item La plataforma cliente para la herramienta será un navegador web, y el servidor soportará PHP 5.0
+\item El sistema gestor de bases de datos en línea estará operativo cuando se utilice la herramienta.
+\item La documentación se elabora siguiendo los estándares de la IEEE.\\
+\end{itemize}
+
+
+Las \textbf{principales restricciones} de la herramienta son las siguientes:
+\begin{itemize}
+	\item Presupuesto: el número total de horas de trabajo de todos los trabajadores no superará xxx.
+	\item Tiempo: el proyecto deberá estar finalizado y entregado antes del examen de la asignatura ISO II. Una vez entregado deberá presentarse al profesor de la asignatura.
+	\item Equipo: ocupará el mismo lugar de trabajo en los días lectivos de la UVA.
+	\item Arquitectura: será abierta, de manera que se puede añadir posteriormente funcionalidad adicional.
+	\item Software: utilizará tecnologías abiertas de programación web y software de dominio público.
+	\item Documentación: deberá incluirse manual de usuario y de instalación.
+	\item Plataforma: deberá poder ejecutarse sobre el servidor jair.lab.fi.uva.es
+	\item Control: se realizará un análisis y seguimiento de riesgos.
+	\item Requisitos: la funcionalidad de la aplicación debe cubrir todos los requisitos del enunciado de la práctica. 
+\end{itemize}
+
+
+
+\section{Entregables del proyecto.}
+
+\indent \indent Es preciso destacar que de acuerdo a la filosofía del Proceso Unificado (y de todo proceso iterativo e incremental), todos los artefactos son objeto de modificaciones a lo largo del proceso de desarrollo, con lo cual, sólo al término del proceso podríamos tener una versión definitiva y completa de cada uno de ellos. Sin embargo, el resultado
+de cada iteración y los hitos del proyecto están enfocados a conseguir un cierto grado de completitud y estabilidad de los artefactos. Esto será indicado más adelante cuando se presenten los objetivos de cada iteración. \\
+
+Los principales entregables que se gestionarán durante el proceso de desarrollo son los siguientes:
+
+\textbf{Plan de Desarrollo Software (SPMP)} Incluye la planificación detallada del proyecto, así como el análisis de riesgos, visión general del proyecto, asignación de roles, etc.\\
+
+\textbf{Documento de Especificación de Requisitos (SRD)} Se recogen los requisitos funcionales y no funcionales del sistema, clasificados en función de su naturaleza.\\
+
+ \textbf{Documento de Análisis del Proyecto} Ofrece una definición arquitectónica del sistema, así como la estructuración del mismo en subsistemas. Incluirá los diagramas necesarios de casos de uso y clases de análisis.\\
+
+\textbf{Prototipo de Interfaz} Se desarrollará un prototipo con el fin de definir y validar con el cliente la interfaz del sistema.\\
+
+\textbf{Documento de Diseño} Detallado Incluye el diseño arquitectónico, de modelo de datos y de componentes. Incluirá todos los diagramas necesarios en dichas descripciones.\\
+
+\textbf{Documento de Plan de Pruebas} Define detalladamente el procedimiento a seguir para probar el sistema.\\
+
+\textbf{Solución Software} El sistema finalmente implementado y listo para su instalación.\\
+
+\textbf{Manual de Usuario} Describe el modo de empleo de la aplicación web desde el punto de vista del usuario final.\\
+
+\textbf{Manual de Administrador} Describe el modo de empleo de la aplicación web desde el punto de vista del administrador.\\
+
+\textbf{Manual de Instalación} Detalla cómo debe desplegarse el sistema para su correcta utilización.\\
+
+\textbf{Documento de Implementación} Describe someramente las tecnologías empleadas en la implementación del sistema.\\
+
+La lista completa de entregables del proyecto, que serán entregados junto con el código fuente del proyecto, son las siguientes:
+
+\begin{itemize}
+\item Documentación.
+	\item Plan de Proyecto.
+	\begin{itemize}
+		\item Plan de desarrollo software.
+		\item Planes de iteracion.
+		\item Ordenes de trabajo.
+		\item Registros de revisión.
+	\end{itemize}
+	\item Especificación de Requisitos del Sistema.
+	\begin{itemize}
+		\item Especificación anexa.
+		\item Modelo de Casos de Uso.
+		\item Especificación de Casos de Uso.
+		\item Glosario.
+		\item Prototipo de la interfaz.
+	\end{itemize}
+	\item Documentación de Análisis.
+	\begin{itemize}
+		\item Modelos y métodos.
+		\item Diagramas UML.
+	\end{itemize}
+	\item Documentación de Diseño Softwate.
+	\begin{itemize}
+		\item Estructuras de Datos.
+		\item Acceso a la Base de Datos.
+		\item Diagramas UML. 
+	\end{itemize}
+	\item Documentación de Desarrollo.
+	\begin{itemize}
+		\item Modelo de implementación.
+		\item Componentes.
+		\item Herramientas de Desarrollo.
+	\end{itemize}
+	\item Documentación de Pruebas.
+	\begin{itemize}
+		\item Plan de pruebas.
+		\item Resultados de las pruebas.
+		\item Test de componentes.
+		\item Documento de evaluación de pruebas.  
+	\end{itemize}
+	\item Gestión de configuraciones.
+	\begin{itemize}
+		\item Plan de Gestión de Configuraciones.
+		\item Espacio de trabajo.
+		\item Informes de cambios.
+	\end{itemize}
+	\item Manuales.
+	\begin{itemize}
+		\item Manual de usuario
+		\item Manual de desarrollo  
+	\end{itemize}
+	\item Documento final de estudio.
+\item Solución Software.
+\end{itemize}
+
+En la figura \ref{deliver} se muestran las fechas de generación de cada entregable del proyecto. Cada uno coincide con la consecución de un hito, que marca el final de una tarea.\\
+
+\begin{tabla}{Fechas previstas de generación de entregables.}{deliver}
+\begin{tabular}{|c|c|}
+\hline
+ITEM ENTREGABLE & FECHA \\
+\hline
+Plan de desarrollo Software (este documento) & Diciembre, 08, 2008\\
+\hline
+Especificación de Requisitso & Diciembre, 08, 2008\\
+\hline
+Documento de análisis & Diciembre, 19, 2008\\
+\hline
+Documento de diseño software & Enero, 08, 2009\\
+\hline
+Documentación de desarrollo & Enero, 20, 2009\\
+\hline
+Plan de validación del software & Enero, 20, 2009\\
+\hline
+Actualización SPMP & Enero, 29, 2009\\
+\hline
+Plan de pruebas de unidades & Diciembre, 30, 2008\\
+\hline
+Plan de pruebas de integración & Diciembre, 30, 2008\\
+\hline
+Documentación de pruebas & Enero, 19, 2009\\
+\hline
+Documento final de estudio & Enero, 30, 2009\\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\section{Evolución del Plan.}
+
+\indent \indent La naturaleza reducida del grupo de trabajo facilita sobremanera el seguimiento del desarrollo de las actividades del plan. El plan se considera un documento dinámico que muestra las estrategias y contenidos del proyecto, por lo que se actualizará y revisará (por defecto) al final de cada iteración y cuando sea necesario de forma imprevista.\\
+
+Toda actualización o cambio será notificado a los miembros del grupo mediante correo electrónico. Cuando se produzca una modificación, ésta será registrada en el historial de cambios, actualizándose el número de versión del documento y añadiendo el autor de dicha modificación.\\
+
+Cuando este plan inicial sea completado se creará una línea base del proyecto, sobre la que se desarrollarán los posteriores cambios. No se creará otra línea base si el ámbito del proyecto no sufre cambios significativos.\\
+ 
+El plan inicial de proyecto se considerará obtenido tras la aprobación definitiva del profesor de la asignatura en la fecha acordada en (\
+
+\ref{deliver}), y después se deberán seguir las fechas y planes establecidos en él.
+
+
+
+\chapter{Organización del Proyecto.}
+
+\section{Estructura de la Organización.}
+
+\indent \indent Debido al pequeño equipo de personas encargado del proyecto y para conseguir el máximo aprovechamiento de los recursos disponibles cada miembro puede desempeñar varios roles distintos, aunque no a la vez. El gestor de proyecto es el encargado de recoger los informes de actividad de los otros roles y hacer el seguimiento de este plan de proyecto.\\
+
+En la siguiente diagrama se muestran los roles (sin miembros del equipo asignados) necesarios para que el equipo desarrolle el proyecto, así como las relaciones con el gestor de proyecto principal.\\
+
+% Figura: relación de roles en el equipo de desarrollo para este proyecto
+%\figura{images/tabla.png}{width=15cm,height=10cm,angle=0}{Prestaciones del proyecto.}{tab} 
+
+Cuando haya necesidad de más de un miembro del mismo rol, uno de ellos tomará las funciones de líder para hacer de interfaz con el gestor de proyecto cuando sea necesario.
+
+\section{Interfaces Externas.}
+
+\indent \indent El equipo de desarrollo de SEPROSO interactuará activamente con dos entidades ajenas a la práctica: 
+
+\begin{itemize}
+	\item El \textbf{profesor de prácticas} que ejercerá el rol de cliente de la aplicación, por tanto los ingenieros de requisitos deberán entrevistarse con él. Se mantendrán reuniones periódicas para informar del progreso del proyecto y discutir posibles cambios y refinamientos de los requisitos iniciales. \\
+
+	\item El segundo actor serán los \textbf{técnicos del laboratorio} de la escuela ETSI Informática que nos proporcionarán el soporte y restricciones para su posterior desarrollo. Los técnicos del laboratorio también tendrán un papel importante cuando surjan problemas en el despliegue de la práctica. 
+\end{itemize}
+
+
+\section{Roles y Responsabilidades.}
+
+\indent \indent Las tres etapas principales donde clasificamos los roles son la de Análisis, Diseño e Implementación. En nuestro equipo, y sin asociar con nombres, este es el listado de roles y sus responsabilidades asociadas:
+
+\begin{itemize}
+
+\item \textbf{Gestor de Proyecto}: estudia inicialmente el proyecto, estableciendo el plan de proyecto y el ámbito del mismo. Supervisa todas las fases del proyecto establecidas en el plan inicial para controlar que se cumplan las actividades en el tiempo establecido y con el coste indicado. Coordina todos los procesos y distribuye las actividades entre los miembros del equipo de trabajo.
+\item \textbf{Gestor de configuraciones}: apoya a la actividad de desarrollo de software dotándola de un entorno de trabajo para construir y probar los componentes del sistema. Garantiza la constante disponibilidad de una versión estable de cada artefacto del proceso para todos los miembros del equipo. Gestiona el entorno de control de configuraciones para facilitar las actividades de revisión, cambio y seguimiento. Es también el responsable de redactar el Plan de Gestión de Configuraciones, de gestionar e informar de las Peticiones de Cambio.
+
+\item \textbf{ANÁLISIS}:
+\begin{itemize}
+	\item \textbf{Analista}: realiza entrevistas para obtener nuevos requisitos y necesidades del cliente o completar los existentes. Determina cuando los requisitos son incompletos, ambiguos, inconsistentes o contradictorios y los resuelve. Documenta de varias formas los requisitos. Define la arquiectura del sistema a muy alto nivel. Elabora diagramas de clases y secuencia para mostrar los bloques que estarán relacionados y se comunicarán entre sí. Dichos diagramas facilitarán la comprensión de los casos de uso de los usuarios.
+	\item \textbf{Revisor}: controla la calidad del software desarrollado y del proceso de desarrollo. 
+\end{itemize}
+
+\item \textbf{DISEÑO}:
+\begin{itemize}
+	\item \textbf{Diseñador Software}: Establece la arquitectura software para la herramienta. Estudia la interoperabilidad con otros sistemas y la posibilidad de reutilización de software existente. Aprovecha las últimas tecnologías disponibles. Desarrolla componentes a bajo nivel, estructuras de datos eficientes y algortimos adecuados. También participa en detalles de la arquitectura a bajo nivel. Elabora documentación en forma de diagramas.
+	\item \textbf{Ingeniero de bases de datos}: diseña y construye todas las tablas de la base de datos. Establece la interfaz de acceso a datos desde la herramienta.
+\end{itemize}
+\item \textbf{IMPLEMENTACIÓN}:
+\begin{itemize}	
+	\item \textbf{Programador}: construye los componentes diseñados en el lenguaje de programación establecido. Elabora código fuente y su documentación asociada.
+	\item \textbf{Ingeniero de pruebas}: verifican el trabajo de los programadoresmediante pruebas de los casos de uso de la herramienta usando test unitarios y de integración. Prueba formalmente algunas porciones de código y revisa otras. Se encarga de la documentación de pruebas.
+\end{itemize}
+\end{itemize}
+
+En la tabla \ref{roles} de establecen los miembros del equipo a los que se pueden asignar cada uno de los roles definidos y en \ref{respons} se ilustran la distribución de responsabilidades entre los diferentes roles .
+
+\begin{tabla}{Roles asignados a miembros del equipo}{roles}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+ROL & \begin{sideways}Rubén.\end{sideways} & \begin{sideways}Fran.\end{sideways} &  
+\begin{sideways}Yuri.\end{sideways} & \begin{sideways}Abel.\end{sideways}\\
+\hline
+Gestor de Proyecto & X & X & X & X \\
+\hline
+Analista & & X & & X\\
+\hline
+Revisor & X & & X &\\
+\hline
+Ingeniero de pruebas & & & X & X\\
+\hline
+Ingeniero de bases de datos & X & X & &\\
+\hline
+Diseñador Software & & & X & X\\
+\hline
+Programador & X & X & &\\
+\hline
+Gestor de configuraciones & X & & & X\\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Responsabilidades asignadas a cada rol}{respons}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+ROL & \begin{sideways}Requisitos.\end{sideways} & \begin{sideways}Análisis.\end{sideways} &  
+\begin{sideways}Diseño.\end{sideways} & \begin{sideways}Implementación.\end{sideways}& 
+\begin{sideways}Integración.\end{sideways} & \begin{sideways}Pruebas.\end{sideways} &  
+\begin{sideways}Gestor Cambios.\end{sideways} & \begin{sideways}Gestor config.\end{sideways}
+& \begin{sideways}Revisiones.\end{sideways}& \begin{sideways}Cualquiera.\end{sideways}\\
+\hline
+Gestor de Proyecto & & & & & & & & X & X & X \\
+\hline
+Analista & X & X & & & & & & & &  \\
+\hline
+Revisor & & X & & & & & X & & X &  \\
+\hline
+Ingeniero de pruebas & & & & & X & X & & & &  \\
+\hline
+Ingeniero de bases de datos & & & X & & & & & & & \\
+\hline
+Diseñador Software & & & X & X & & & & & &  \\
+\hline
+Programador & & & & X & & & & & &  \\
+\hline
+Gestor de configuraciones & & & & & & & X & X & &  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\chapter{Proceso de Gestión.}
+
+\section{Resumen de la planificación y el presupuesto.}
+
+\indent \indent El presupuesto en este proyecto no existe pues se trata de una actividad académica sin ánimo de lucro.\\
+
+Se desarrollará el proyecto siguiendo el modelo de Proceso Unificado dirigido por los casos de uso e intentado distribuir el trabajo equitativamente durante el desarrollo de la herramienta. El planteamiento de las iteraciones se detalla en el punto 6.1. El plan de proyecto se puede consultar en el punto 5.1.\\
+
+A un alto nivel, el proyecto tiene la planificación mostrada en la tabla \ref{planHL}.\\
+
+\begin{tabla}{Resumen de las etapas del plan de desarrollo.}{planHL}
+\begin{tabular}{|c|c|c|}
+\hline
+ETAPA & INICIO & DURACIÓN\\
+\hline
+Planificación & 03-11-2008 & 1 mes\\
+\hline
+Análisis & 11-11-2008 & 28 días\\
+\hline
+Diseño & 18-12-2008 & 15 días\\
+\hline
+Implementación & 26-12-2008 & 25 días\\
+\hline
+Pruebas & 26-12-2008 & 1 mes\\
+\hline
+Implantación & 25-01-2008 & Varios días\\
+\hline
+\end{tabular}
+\end{tabla}
+
+La planificación y el posterior seguimiento de fechas y costes se realiza mediante la herramienta Microsoft \copyright Project.
+Las valoraciones de tiempo han sido estimadas teniendo en cuenta los ejemplos vistos en clase y en UPEDU, así como nuestra experiencia en a lo largo de la carrera.\\
+
+
+\section{Plan de Proyecto.}
+\subsection{Plan de fases.}
+
+\indent \indent La duración del proyecto constará de 14 semanas, sin embargo 3 de ellas correspnden al período navideño y el trabajo en dichas semanas disminuirá, aunque se seguirá con el trabajo en un número menor de días laborables.\\
+
+El proyecto se realizará en 4 iteraciones y la etapa de Inicio, que también se contabilizará como una iteración y por ello tendrá su propio plan de iteración.
+
+\begin{enumerate}
+	\item \textbf{Inicio}: define el ámbito del proyecto y los recursos iniciales, planifica las actividades del proyecto teniendo en cuenta los requisitos, y elaborando el primer esbozo del modelo de casos de uso. El resultado de esta fase es el plan de desarrollo software.
+	\item \textbf{Elaboración}: extrae todos los requisitos funcionales y no funcionales del decumento de especificación del problema. Diseño y especificación de los casos de uso. Se comenzará con la parte inicial de análisis y diseño de la aplicación (definiendo la arquitectura). Desarrollo del plan de pruebas.
+	\item \textbf{Construcción 1}: se procede a la implementación de las funcionalidades más importantes y proseguir con la actividad de diseño del sistema, se desarrolla la base de datos y se completa la arquitectura de sistema. Se realizarán pruebas de los componentes implementados. Completar el diseño del plan de pruenas, con nuevos casos de prueba necesarios.
+	\item \textbf{Construcción 2}: se completará la implementación cumpliendo la totalidad de los requisitos. La modificaciones sobre el diseño serán mínimas. Se realizarán pruebas de los componentes implementados. Se comenzará la elaboración del manual del usuario final.
+	\item \textbf{Transición}: se llevarán a acabo las pruebas de integración, y la redacción completa del manual de usuario. Obtendremos un producto estable.
+\end{enumerate}
+ 
+En la imagen anexa \ref{ite} se muestra un diagrama reducido donde se delimita la duración de estas iteraciones.
+
+\figura{images/iteraciones.png}{width=15cm,height=8cm,angle=90}{Duración de la planificación de las iteraciones.}{ite} 
+
+\subsection{Objetivos de las iteraciones.}
+
+La tabla que se indica a continuación \ref{iterac} muestra los objetivos y los hitos que han de realizarse en cada iteración. 
+
+\begin{tabla}{Hitos y objetivos de las iteraciones.}{iterac}
+\begin{tabular}{|c|p{6 cm}|p{4 cm}|}
+\hline
+ITERACION & OBJETIVO & HITOS\\
+\hline
+Inicio & Realizar la planificación  & Plan de Proyecto\\
+\hline
+Elaboración & Análisis de Casos de Uso y Requisitos. & Documento de arquitectura SW.\\
+\hline
+Construcción 1 & Implementar funciones principales. & Versión Alfa\\
+\hline
+Construcción 2 & Pruebas de la versión alfa. Implementación de toda la funcionalidad. & Versión Beta\\
+\hline
+Transición & Pruebas beta. Finalizar documentación. Entrega. & Producto final\\
+\hline
+\end{tabular}
+\end{tabla}
+
+\subsection{Plan de iteración.}
+
+\indent \indent El plan de iteracción para cada una de las etapas de desarrollo, se recogen en los documentos de iteracion.
+
+\subsection{Calendario del proyecto.}
+
+\indent \indent El calendario laboral será el mismo para todo el personal del proyecto. Se tendrán en cuenta los días festivos y las vacaciones de fin de año. El calendario laboral será: lunes a viernes de 16:00 a 18:00 y sábados de 10:00 a 12:00. El resumen de las características es el siguiente:
+
+\begin{itemize}
+\item 2 horas diarias. 
+\item 12 horas semanales. 
+\item 20 días al mes.
+\end{itemize}
+
+\subsection{Recursos del proyecto.}
+
+\indent \indent La defición de recursos se resume en la siguiente tabla \ref{recs}. Tendremos en cuenta que cada rol necesario no se corresponde con una persona diferente en la realidad, una misma persona puede asumir varios roles simultáneamente.
+
+\begin{tabla}{Recursos del proyecto.}{recs}
+\begin{tabular}{|c|p{6 cm}|p{4 cm}|}
+\hline
+ITERACION & RECURSOS & NÚMERO\\
+\hline
+Inicio & Gestor de Proyecto. & 3 \\
+ & Analista. & 1 \\
+ & Revisor. & 1 \\
+\hline
+Elaboración & Gestor Proyecto & 1 \\
+ & Analista. & 2 \\
+ & Revisor. & 1 \\
+ & Gestor de configuraciones. & 1 \\
+\hline
+Construcción & Gestor Proyecto & 1 \\
+ & Analista. & 1 \\
+ & Ingeniero de bases de datos. & 2 \\
+ & Diseñador Software. & 2 \\
+ & Programador. & 2 \\
+ & Ingeniero de pruebas & 2 \\
+ & Gestor de configuraciones. & 1 \\
+ & Revisor. & 1 \\
+\hline
+Transición & Gestor Proyecto & 1\\
+ & Gestor de configuraciones & 1\\ 
+ & Revisor. & 1 \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\section{Monitorización y control.}
+
+\subsection{Gestión de Requisitos.}
+
+\indent \indent Los requisitos se encuentran recogidos y clasificados en los documentos SRS y SSS. A cada requisito se le asocian atributos como importancia, estado, etc, que permiten realizar un seguimiento de cada uno. \\
+
+Los cambios en algún requisito serán gestionados mediante una Solicitud de Cambio, la cual debe distribuirse al equipo y evaluarse para conseguir la integridad del sistema y el buen funcionamiento del proceso de gestión de configuraciones.
+
+\subsection{Control de Calidad.}
+
+\indent \indent Todos los artefactos pasarán por un proceso de revisión por parte de todos los miembros del equipo. Los defectos detectados durante la revisión se formalizarán mediante una Solicitud de Cambio tendrán un seguimiento posterior para asegurar la solución de esas deficiencias. Para la revisión se utilizan las líneas guía y "checklist" de UPEDU que garantizan que todos los artefactos tienen una aceptable calidad.
+
+\subsection{Informes y mediciones.}
+
+\indent \indent Cada semana todos los miembros del equipo deben realizar un informe de actividades realizadas que entregan al jefe de proyecto. Se empleará esfuerzo y tiempo planificado para llevar a cabo el seguimiento del proyecto. \\
+
+El jefe de proyecto compara la situación actual con la planificada para medir el progreso del proyecto y actualizar el plan de desarrollo si fuese necesario.
+
+
+\subsection{Gestión de Riesgos.}
+
+\indent \indent Los riesgos se identifican durante la fase de inicio, en la que se elabora una lista de riesgos asociados al proyecto y las acciones establecidas para mitigarlos o contenerlos si no es posible eliminarlos. En las siguientes fases se seguirá y monitorizará su evolución durante cada iteración, realizando al menos una comprobación al final de ella.\\
+
+La lista inicial, así como todas las revisiones y cambios están documentados en la \textbf{Lista de Riesgos}.
+
+
+\subsection{Gestión de Configuraciones.}
+
+\indent \indent Elegiremos la herramienta más apropiada para el control del repositorio de versiones de todos los artefactos del proyecto. Estos incluyen: código fuente, documentación y datos. Todos ellos se incluyen en líneas base del proyecto (registros del estado de artefactos, una versión concreta). La documentación del código fuente también se incluye como documentación específica de diseño.
+También se incluirá la gestión de las Solicitudes de Cambio y de las modificaciones que ocasionen, notificando e informando de ellas a todos los miembros del equipo. \\
+
+Al final de cada iteración se creará una línea base de referencia para la siguiente iteración que incluya también todos los artefactos a entregar al cliente y que sólo podría ser alterada por alguna Solicitud de Cambio formalmente aprobada.
+
+
+\appendix % Apéndices 
+
+\chapter{Anexos} 
+
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}

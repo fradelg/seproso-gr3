@@ -1,0 +1,329 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Plan de medidas.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 16/11/08 & Recopilación de Información Inicial. & Francisco\\
+\hline
+0.5 & 18/11/08 & Asociación del documento al Plan de Proyecto. & Rubén\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+\indent \indent El propósito de este Plan de Medición de Software es detallar cuales son las métricas (formas de medir el software) primitivas que serán recogidas, así como las métricas asociadas a la revisión de calidad del proyecto. Además se especifica una colección  de objetivos del proyecto que permite monitorizar el progreso del mismo.
+
+\section{Ámbito.}
+\indent \indent Este plan define un programa simple de métricas, incluyendo los objetivos de la medición, las métricas utilizadas, y las métricas primitivas necesarias para realizar el seguimiento del progreso. \\
+
+El plan está basado en los requisitos software especificados en el documento SRS.
+
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item Artefactos: SRS, SSS, Plan de Desarrollo Software, Glosario. Grupo III.
+	\item UPEDU Measurement Plan: http://www.upedu.org/upedu/
+\end{enumerate}
+
+
+\section{Visión general.}
+\indent \indent A lo largo del resto de este documento especificaremos todos los detalles del Plan de Medición de Software, divido en las siguientes partes o temas:
+\begin{itemize}
+	\item \textbf{Objetivos de la medición}: objetivos del programa de medición en este proyecto, en cuanto a logros, mejoras y calidad.
+	\item \textbf{Métricas}: medidas a obtener a intervalos regulares de tiempo del proyecto para lograr los objetivos.
+	\item \textbf{Métricas primitivas}: medidas recogidas automáticamente o manualmente para calcular las métricas anteriores.
+\end{itemize}
+
+
+
+\chapter{Gestión de objetivos y subobjetivos.}
+\indent \indent Hay dos aproximaciones para garantizar buena calidad en el producto final. La primera consiste en garantizar el proceso de desarrollo (secuencia de actividades) y otra en evaluar la calidad del producto obtenido (artefactos del proceso, incluyendo software, documentos y modelos). Mediante la medición pretendemos asegurar en ambos casos una calidad suficiente.\\
+
+Más concretamente, los objetivos del programa de medición para este proyecto son los siguientes:
+\begin{itemize}
+	\item Evaluar la calidad del producto (en todos los artefactos).
+	\item Asegurar un seguimiento pormenorizado del proyecto (progreso de las fases según lo estimado y estado de las actividades realizadas)
+	\item Evaluar aspectos de los requisitos: impacto de los cambios, tareas implicadas y nivel de realización.
+	\item Facilitar la planificación y estimación para los nuevos proyectos: comparar relativamente las distintas fases realizadas y la importancia de cada actividad en ellas. 
+\end{itemize}
+
+\chapter{Métricas.}
+\indent \indent A continuación se enumeran las métricas que serán recogidas del proyecto a intervalos regulares para conseguir los objetivos de la sección anterior. Como también vimos, las métricas se pueden dividir entre las que permiten evaluar el producto o el proyecto, para conseguir calidad en el producto final.\\
+
+\textbf{\textsl{PRODUCTO}}\\
+
+Estableceremos algunas métricas para evaluar diferentes atributos de los tres elementos fundamentales del producto: el código, los documentos y los modelos.\\
+\begin{itemize}
+	\item Código: tamaño (SLOC), tamaño para control de configuraciones (SLOCc), profundidad del árbol de herencia (DIT)
+	\item Documento: tamaño (número de páginas), esfuerzo (horas de tiempo del equipo para producir y cambiar), volatilidad (número de páginas cambiadas), trazabilidad (checklist en revisión)
+	\item Modelo: tamaño (número de casos de uso, casos de prueba, actores, clases o paquetes, WMC)
+\end{itemize}
+
+\textbf{\textsl{PROCESO}}\\
+
+Para asegurar la calidad del proceso necesitamos realizar las mediciones sobre las actividades de más bajo nivel. Mantendremos un registro de cada actividad con los valores del esfuerzo empleado y las estimaciones iniciales planificadas, lo que nos permite medir la calidad de la planificación inicial.\\
+\begin{itemize}
+	\item Esfuerzo: horas de esfuerzo del equipo.
+	\item Duración: tiempo transcurrido desde el inicio.
+	\item Salida: cantidad y tamaño de los artefactos (incluidos los defectos detectados)
+	\item Esfuerzo aplicado: tipo de esfuerzo empleado para la actividad.
+\end{itemize}
+
+
+\section{Métricas.}
+
+Las principales métricas son las siguientes:
+\begin{itemize}
+	\item WMC \ref{WMC}.
+	\item Duración \ref{Durac}.
+	\item DIT \ref{Dit}.
+\end{itemize}
+
+\begin{tabla}{Métricas WMC.}{WMC}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{Nombre} & \textbf{WMC (Weighted Methods for Class)}\\
+\hline
+\textbf{Definición} & Número de métodos implementados en una clase.  \\
+\hline
+\textbf{Objetivo	} & Indica el esfuerzo y tiempo necesario para desarrollar y mantener la clase. Aquella clase con más métodos es la que presenta un mayor impacto potencial en sus hijos, ya que heredan todos los métodos. Al mismo tiempo limitan su reutilización ya que son más específicas de la aplicación. Por lo tanto con esta métrica medimos la usabilidad y la reutilización de las clases.  \\
+\hline
+\textbf{Proceso de análisis} & Se debe recoger cuando una actividad produzca un Modelo de Clases de Diseño.
+Se calculará con la herramienta CASE de modelado utilizada. Será añadida a la Base de Datos de Medidas del proyecto.  \\
+\hline
+\textbf{Responsabilidad} & Equipo de desarrollo.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\begin{tabla}{Métricas Duración.}{Durac}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{Nombre} & \textbf{Duración.}\\
+\hline
+\textbf{Definición} & Diferencia entre la fecha de finalización y la de comienzo de una actividad. Se expresa en minutos y las fechas se utilizan con una resolución de 15 minutos.  \\
+\hline
+\textbf{Objetivo	} & Nos indica el esfuerzo y coste empleado en la realización de una actividad. El esfuerzo se utiliza tanto en la medición del proceso como del producto.  \\
+\hline
+\textbf{Proceso de análisis} & Cada trabajador rellena la misma plantilla de estimación de esfuerzo (incluida en la sección 5.1) cada vez que termina una actividad. Además es una de las entidades fundamentales del proyecto. Se creará rellenando la plantilla manualmente y será entregada al Gestor de Proyecto, que las recogerá una vez por semana y que posteriormente las añadirá a la Base de Datos de Medidas del proyecto.  \\
+\hline
+\textbf{Responsabilidad} & Cada trabajador encargado de una actividad.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+
+\begin{tabla}{Métricas DIT.}{Dit}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{Nombre} & \textbf{DIT (Deep Inheritance Tree).}\\
+\hline
+\textbf{Definición} & Máxima longitud del camino desde una clase hasta su clase raíz en el sistema.    \\
+\hline
+\textbf{Objetivo	} & Nos indica el número de super-clases que afectan a la clase, midiendo el nivel de dependencia y con ello la reusabilidad, mantenimiento, portabilidad, etc... \\
+\hline
+\textbf{Proceso de análisis} & Se calcula manualmente estudiando los diagramas de clases de la herramienta, comenzando por la clase base y ascendiendo por el árbol hasta la clase raíz. Se hace cada vez que una actividad actualice el Diagrama de Clases. Se recoge para cada clase con herencia y posteriormente se añade a la Base de Datos de Medidas del proyecto.  \\
+\hline
+\textbf{Responsabilidad} & Equipo de desarrollo.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\chapter{Métricas primitivas.}
+\indent \indent Las siguientes métricas son básicas o primitivas porque se recogen y calculan manualmente para calcular otras métricas de la sección 3.3.
+
+\begin{tabla}{Métricas SLOC.}{SLOC}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{Nombre} & \textbf{SLOC (Source Line of Code).}\\
+\hline
+\textbf{Definición} & Número de líneas de código desarrolladas.   \\
+\hline
+\textbf{Proceso de análisis} & Se recogen mediante la herramienta de desarrollo utilizada, justo al final de cada iteración, detallando el módulo o fichero específico al que pertenecen. Es un número entero que se almacena en la Base de Datos de Medidas.  \\
+\hline
+\textbf{Responsabilidad} & Equipo de desarrollo.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+
+\begin{tabla}{Métricas SLOCc.}{SLOCc}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{Nombre} & \textbf{SLOC (Source Line of Code).}\\
+\hline
+\textbf{Definición} & Número de líneas de código desarrolladas para la línea base actual. \\
+\hline
+\textbf{Proceso de análisis} & Se cuentan mediante la herramienta de desarrollo utilizada. Se recogen cada vez que la línea base de desarrollo cambia, detallando el módulo o fichero específico al que pertenecen. Es un número entero que se almacena en la Base de Datos de Medidas. \\
+\hline
+\textbf{Responsabilidad} & Equipo de desarrollo.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+
+\begin{tabla}{Métricas Número de Casos de Uso.}{NumCU}
+\begin{tabular}{|p{3cm}|p{8cm}|}
+\hline
+\textbf{Nombre} & \textbf{Número de Casos de Uso.}\\
+\hline
+\textbf{Definición} & Número de casos de uso identificados en el modelo.  \\
+\hline
+\textbf{Proceso de análisis} & Son recogidos por la herramienta de modelado UML utilizada. Se hace una vez por cada actividad que actualice el Modelo de Casos de Uso del proyecto. Es un número entero que se almacena en la Base de Datos de Medidas. \\
+\hline
+\textbf{Responsabilidad} & Equipo de desarrollo.  \\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\section{Plantilla para una métrica primitiva.}
+\indent \indent 
+
+\appendix % Apéndices 
+
+\chapter{Plantilla de registro de esfuerzo por actividad}
+
+\indent \indent Se deben rellenar manualmente y con una breve descripción los siguientes campos:
+\begin{itemize}
+	\item \textbf{Nombre}: persona que desarrolló la actividad.
+	\item \textbf{Trabajador}: rol que desempeñaba en el proceso.
+	\item \textbf{Actividad}: nombre o ID de la actividad que ha finalizado.
+	\item \textbf{Artefacto}: salidas producidas de la actividad (código, documento o modelo).
+	\item \textbf{Fecha}: fecha del informe.
+	\item \textbf{Fecha de inicio}: día y hora de comienzo de la actividad (resolución de 15 min)
+	\item \textbf{Fecha de finalización}: día y hora de terminación de la actividad (resolución de 15 min)
+	\item \textbf{Duración}: horas empleadas en total.
+\end{itemize}
+
+\chapter{Herramientas}
+
+\indent \indent Utilizaremos PRADO IDE como herramienta de desarrollo para PHP y StarUML como herramienta de modelado UML para realizar automáticamente algunas mediciones.
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
