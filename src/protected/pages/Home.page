@@ -1,0 +1,20 @@
+<html>
+
+<head>
+<title>SEPROSO: SEguimiento de PROyectos SOftware.</title>
+</head>
+
+<body>
+
+<com:TForm>
+<fieldset style="color: #F0000F; font-size: 15pt"><legend>Login</legend>
+<label>Nombre de usuario:</label><br/>
+<com:TTextBox ID="Username"/><br/>
+<label>Password:</label><br/>
+<com:TTextBox ID="Password" TextMode="Password"/><br/>
+<com:TButton Text="Login" OnClick="loginClicked" />
+</fieldset>
+</com:TForm>
+
+</body>
+</html>
