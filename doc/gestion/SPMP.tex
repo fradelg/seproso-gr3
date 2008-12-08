@@ -110,6 +110,8 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
 1.0 & 28/11/08 & Completar plan de proyecto. & Grupo III\\
 \hline
+1.01 & 08/12/08 & Revisión antes de la entrega. & Rubén\\
+\hline
 \end{tabular}
 
 \chapter{Prólogo}
@@ -162,9 +164,13 @@ Los usuarios del Plan de Desarrollo del Software son:
 	\item [IEEE 1058] Software Project Management Plans. ANSI/IEEE Std 1058-1998.
 	\item [IEEE 828] IEEE Standard for Software Configuration Management Plans, ANSI/IEEE Std. 828-199. 
 	\item [IEEE 1074] IEEE Standard for Developing Software Life Cycle Processes, ANSI/IEEE Std. 1074-1991.
-	\item [IEEE 830]Estándar de documentación IEEE/ANSI 830-1993..
+	\item Estándar de documentación UPEDU: más información visitar www.upedu.org.
 	\item Definición de Roles y Responsabilidades de proceso unificado:  http://www-128.ibm.com/developerworks/rational/library/sep06/collaris\_dekker\_warmer/index.html.
-	\item Asignatura Ingeniería de Software II, profesor: Pablo Lucio de la Fuente. Web: http://aulas.inf.uva.es
+	\item Asignatura Ingeniería de Software II, profesor: Pablo Lucio de la Fuente. Web: http://aulas.inf.uva.es.
+	\item Lista de Riesgos, SEPRORO, Grupo III, Universidad de Valladolid.
+	\item Planes de iteración, SEPROSO, Grupo III, Universidad de Valladolid.
+	\item Plan de mediciones, SEPROSO, Grupo III, Universidad de Valladolid.
+	\item Plan de Gestión de Configuración, Grupo III, Universidad de Valladolid.
 \end{enumerate}
 
 
@@ -208,7 +214,7 @@ Los \textbf{\textsl{objetivos}} del proyecto son los siguientes:
 
 Las \textbf{principales restricciones} de la herramienta son las siguientes:
 \begin{itemize}
-	\item Presupuesto: el número total de horas de trabajo de todos los trabajadores no superará xxx.
+	\item Presupuesto: el número total de horas de trabajo de todos los desarrolladores no superará las 15 horas semanales.
 	\item Tiempo: el proyecto deberá estar finalizado y entregado antes del examen de la asignatura ISO II. Una vez entregado deberá presentarse al profesor de la asignatura.
 	\item Equipo: ocupará el mismo lugar de trabajo en los días lectivos de la UVA.
 	\item Arquitectura: será abierta, de manera que se puede añadir posteriormente funcionalidad adicional.
@@ -226,7 +232,7 @@ Las \textbf{principales restricciones} de la herramienta son las siguientes:
 \indent \indent Es preciso destacar que de acuerdo a la filosofía del Proceso Unificado (y de todo proceso iterativo e incremental), todos los artefactos son objeto de modificaciones a lo largo del proceso de desarrollo, con lo cual, sólo al término del proceso podríamos tener una versión definitiva y completa de cada uno de ellos. Sin embargo, el resultado
 de cada iteración y los hitos del proyecto están enfocados a conseguir un cierto grado de completitud y estabilidad de los artefactos. Esto será indicado más adelante cuando se presenten los objetivos de cada iteración. \\
 
-Los principales entregables que se gestionarán durante el proceso de desarrollo son los siguientes:
+Los principales entregables que se gestionarán durante el proceso de desarrollo son los siguientes:\\
 
 \textbf{Plan de Desarrollo Software (SPMP)} Incluye la planificación detallada del proyecto, así como el análisis de riesgos, visión general del proyecto, asignación de roles, etc.\\
 
@@ -349,9 +355,7 @@ Toda actualización o cambio será notificado a los miembros del grupo mediante co
 
 Cuando este plan inicial sea completado se creará una línea base del proyecto, sobre la que se desarrollarán los posteriores cambios. No se creará otra línea base si el ámbito del proyecto no sufre cambios significativos.\\
  
-El plan inicial de proyecto se considerará obtenido tras la aprobación definitiva del profesor de la asignatura en la fecha acordada en (\
-
-\ref{deliver}), y después se deberán seguir las fechas y planes establecidos en él.
+El plan inicial de proyecto se considerará obtenido tras la aprobación definitiva del profesor de la asignatura en la fecha acordada en (\ref{deliver}), y después se deberán seguir las fechas y planes establecidos en él.
 
 
 
@@ -513,11 +517,11 @@ El proyecto se realizará en 4 iteraciones y la etapa de Inicio, que también se c
  
 En la imagen anexa \ref{ite} se muestra un diagrama reducido donde se delimita la duración de estas iteraciones.
 
-\figura{images/iteraciones.png}{width=15cm,height=8cm,angle=90}{Duración de la planificación de las iteraciones.}{ite} 
+\figura{images/iteraciones.png}{width=20cm,height=8cm,angle=90}{Duración de la planificación de las iteraciones.}{ite} 
 
 \subsection{Objetivos de las iteraciones.}
 
-La tabla que se indica a continuación \ref{iterac} muestra los objetivos y los hitos que han de realizarse en cada iteración. 
+\indent \indent La tabla que se indica a continuación \ref{iterac} muestra los objetivos y los hitos que han de realizarse en cada iteración. 
 
 \begin{tabla}{Hitos y objetivos de las iteraciones.}{iterac}
 \begin{tabular}{|c|p{6 cm}|p{4 cm}|}
@@ -603,6 +607,7 @@ Los cambios en algún requisito serán gestionados mediante una Solicitud de Cambi
 
 El jefe de proyecto compara la situación actual con la planificada para medir el progreso del proyecto y actualizar el plan de desarrollo si fuese necesario.
 
+Los informes y mediciones, así como todas las revisiones y cambios están documentados en el \textbf{Plan de Mediciones}.
 
 \subsection{Gestión de Riesgos.}
 
@@ -618,10 +623,7 @@ También se incluirá la gestión de las Solicitudes de Cambio y de las modificacio
 
 Al final de cada iteración se creará una línea base de referencia para la siguiente iteración que incluya también todos los artefactos a entregar al cliente y que sólo podría ser alterada por alguna Solicitud de Cambio formalmente aprobada.
 
-
-\appendix % Apéndices 
-
-\chapter{Anexos} 
+Los informes sobre la gestión de configuraciones, así como todas las revisiones y cambios están documentados en el \textbf{Plan de Gestión de Configuración}.
 
 
 % Parte final de la memoria
