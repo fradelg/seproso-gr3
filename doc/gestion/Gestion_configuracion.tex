@@ -102,6 +102,9 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
 0.2 & 20/11/08 & Revisión del documento. & Grupo III\\
 \hline
+0.5 & 9/12/08 & Revisión previa a la entrega. & Rubén.\\
+ &  &  & Francisco.\\
+\hline
 \end{tabular}
 
 
@@ -137,7 +140,7 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \begin{enumerate}
 	\item Glosario, Grupo III, 2008
 	\item Plan de Desarrollo Software, SPMP, Grupo III, 2008
-	\item UPEDU Configuration Management Plan, http://www.upedu.org/upedu/
+	\item UPEDU Configuration Management Plan, http://www.upedu.org
 \end{enumerate}
 
 
@@ -264,10 +267,17 @@ Todos los miembros del equipo pueden actualizar y cambiar los artefactos si en e
 
 
 \section{Configuración del estado de la contabilidad.}
-\subsection{Médios de almacenamiento y proceso de liberación.}
+\subsection{Médios de almacenamiento y proceso de release.}
 \indent \indent Periódicamente, al final de cada semana de trabajo, el Gestor de Configuraciones realizará una copia de todos los artefactos en su última versión estable en la cuenta de los laboratorios de la ETSII de Informática en formato empaquetado y comprimido. Si se produce algún fallo en el host del repositorio externo (bastante improbable) se recupera la copia de seguridad.\\
 
-Esta cuenta está disponible on-line mediante SSH en el host de los laboratorios (jair.lab.fi.uva.es:23) para el Gestor de Configuraciones.
+Esta cuenta está disponible on-line mediante SSH en el host de los laboratorios (jair.lab.fi.uva.es:23) para el Gestor de Configuraciones.\\
+
+En la release final se incluyen los siguientes artefactos: 
+\begin{itemize}
+	\item Los ficheros con el código fuente PHP para alojar en el servidor Web.
+	\item Los scripts de SQL para crear todas las tablas e insertar los datos iniciales y pruebas del sistema en la base de datos. Se ejecutan en el Sistema Gestor de Bases de Datos para MySQL.
+	\item Los manuales de usuario, de administrador y de instalación que ayudan a la puesta en funcionamiento de la herramienta.
+\end{itemize}
 
 \subsection{Informes y auditorías.}
 
@@ -280,11 +290,11 @@ Esta cuenta está disponible on-line mediante SSH en el host de los laboratorios 
 	\item \textbf{Resolución}: aprobación, descripción, esfuerzo (horas), trabajador y artefacto afectado.
 \end{itemize}
 
-Los fallos o problemas detectados se clasifican por su criticidad para el proyecto (alta, media o baja). Este nivel se detecta atendiendo a cuanto tiempo ha estado presente el error desde que se inicio el proyecto o a la concentración de errores de algún tipo concreto. Según esa prioridad se atienden las Peticiones de Cambio.
+Los fallos o problemas detectados se clasifican por su criticidad para el proyecto (alta, media o baja). Este nivel se asiga atendiendo a cuanto tiempo ha estado presente el error desde que se inicio el proyecto o a la concentración de errores de algún tipo concreto. Según esa prioridad se atienden las Peticiones de Cambio.
 
 \chapter{Hitos.}
 
-\indent \indent Este plan se actualiza después de cada iteración, tras realizar la copia de seguridad. Al finalizar el proyecto el cliente obliga a que se realice una copia del producto empaquetada en un servidor Web para que sea públicamente accesible y revisable.\\
+\indent \indent Este plan se actualiza después de cada iteración, tras realizar la copia de seguridad. Al finalizar el proyecto el cliente obliga a que se realice una copia del producto empaquetado en el servidor Web del repositorio para que sea públicamente accesible y revisable.\\
 
 Véase el Plan de Desarrollo para más información sobre los hitos principales.
 
@@ -294,12 +304,14 @@ Véase el Plan de Desarrollo para más información sobre los hitos principales.
 
 Todos los miembros del equipo pueden cambiar y actualizar un artefacto si previamente ha sido revisado.\\
 
-Se han revisado varios tutoriales y manuales sobre SVN y se ha trabajado sobre ejemplos más básicos con SVN.
+Se han revisado varios tutoriales y manuales sobre SVN y se ha trabajado sobre ejemplos básicos de SVN.
 
 
 \chapter{Entorno externo de desarrollo.}
 
-\indent \indent Utilizaremos" Tortoise", que es un cliente gráfico para SVN, que se integra con los navegadores del sistema de ficheros para hacer transparente la situación remota del repositorio de versiones. Es muy sencillo así conseguir enlazar el espacio de trabajo de desarrollo con el espacio de trabajo integrado
+\indent \indent Utilizaremos" Tortoise", que es un cliente gráfico para SVN, que se integra con el navegador del sistema de ficheros para hacer transparente la situación remota del repositorio de versiones. Así es muy sencillo conseguir vincular el espacio de trabajo de desarrollo personal con el espacio de trabajo integrado del grupo.\\
+
+Es muy sencillo añadir ficheros y carpetas al repositorio, así como descargar las últimas actualizaciones o actualizar la versión de los artefactos en el repositorio remoto. Todo se hace mediante menú contextual sobre el fichero o directorio.
 
 
 % Parte final de la memoria

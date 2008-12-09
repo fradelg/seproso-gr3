@@ -112,8 +112,6 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 \tableofcontents % Tabla de contenido 
 \newpage 
-\listoffigures % Índice de figuras 
-\newpage 
 \listoftables % Índice de tablas 
 \newpage 
 
@@ -154,7 +152,7 @@ El plan está basado en los requisitos software especificados en el documento SRS
 
 
 \chapter{Gestión de objetivos y subobjetivos.}
-\indent \indent Hay dos aproximaciones para garantizar buena calidad en el producto final. La primera consiste en garantizar el proceso de desarrollo (secuencia de actividades) y otra en evaluar la calidad del producto obtenido (artefactos del proceso, incluyendo software, documentos y modelos). Mediante la medición pretendemos asegurar en ambos casos una calidad suficiente.\\
+\indent \indent Hay dos aproximaciones para garantizar buena calidad en el producto final. La primera consiste en garantizar el proceso de desarrollo (secuencia de actividades) y segunda en garantizar la calidad del producto obtenido (artefactos del proceso, incluyendo software, documentos y modelos). Mediante la medición pretendemos asegurar en ambos casos una calidad suficiente.\\
 
 Más concretamente, los objetivos del programa de medición para este proyecto son los siguientes:
 \begin{itemize}
@@ -165,25 +163,24 @@ Más concretamente, los objetivos del programa de medición para este proyecto son
 \end{itemize}
 
 \chapter{Métricas.}
-\indent \indent A continuación se enumeran las métricas que serán recogidas del proyecto a intervalos regulares para conseguir los objetivos de la sección anterior. Como también vimos, las métricas se pueden dividir entre las que permiten evaluar el producto o el proyecto, para conseguir calidad en el producto final.\\
+\indent \indent A continuación se enumeran las métricas que serán recogidas del proyecto a intervalos regulares para conseguir los objetivos de la sección anterior. Como también vimos, las métricas se pueden dividir entre las que permiten evaluar el producto o el proyecto, para conseguir calidad en el desarrollo.\\
 
 \textbf{\textsl{PRODUCTO}}\\
 
 Estableceremos algunas métricas para evaluar diferentes atributos de los tres elementos fundamentales del producto: el código, los documentos y los modelos.\\
 \begin{itemize}
-	\item Código: tamaño (SLOC), tamaño para control de configuraciones (SLOCc), profundidad del árbol de herencia (DIT)
-	\item Documento: tamaño (número de páginas), esfuerzo (horas de tiempo del equipo para producir y cambiar), volatilidad (número de páginas cambiadas), trazabilidad (checklist en revisión)
-	\item Modelo: tamaño (número de casos de uso, casos de prueba, actores, clases o paquetes, WMC)
+	\item \textbf{Código}: tamaño (SLOC), tamaño para control de configuraciones (SLOCc), profundidad del árbol de herencia (DIT)
+	\item \textbf{Documento}: tamaño (número de páginas), esfuerzo (horas de tiempo del equipo para producir y cambiar), volatilidad (número de páginas cambiadas), trazabilidad (checklist en revisión)
+	\item \textbf{Modelo}: tamaño (número de casos de uso, casos de prueba, actores, clases o paquetes, WMC)
 \end{itemize}
 
 \textbf{\textsl{PROCESO}}\\
 
 Para asegurar la calidad del proceso necesitamos realizar las mediciones sobre las actividades de más bajo nivel. Mantendremos un registro de cada actividad con los valores del esfuerzo empleado y las estimaciones iniciales planificadas, lo que nos permite medir la calidad de la planificación inicial.\\
 \begin{itemize}
-	\item Esfuerzo: horas de esfuerzo del equipo.
-	\item Duración: tiempo transcurrido desde el inicio.
-	\item Salida: cantidad y tamaño de los artefactos (incluidos los defectos detectados)
-	\item Esfuerzo aplicado: tipo de esfuerzo empleado para la actividad.
+	\item \textbf{Esfuerzo}: horas de esfuerzo del equipo.
+	\item \textbf{Duración}: tiempo transcurrido desde el inicio.
+	\item \textbf{Salida}: cantidad y tamaño de los artefactos (incluidos los defectos detectados)
 \end{itemize}
 
 
@@ -249,7 +246,7 @@ Se calculará con la herramienta CASE de modelado utilizada. Será añadida a la Ba
 \end{tabla}
 
 \chapter{Métricas primitivas.}
-\indent \indent Las siguientes métricas son básicas o primitivas porque se recogen y calculan manualmente para calcular otras métricas de la sección 3.3.
+\indent \indent Las siguientes métricas son básicas o primitivas porque se recogen y calculan manual o automáticamente para calcular otras métricas de la sección 3.3.
 
 \begin{tabla}{Métricas SLOC.}{SLOC}
 \begin{tabular}{|p{3cm}|p{8cm}|}
@@ -270,11 +267,11 @@ Se calculará con la herramienta CASE de modelado utilizada. Será añadida a la Ba
 \begin{tabla}{Métricas SLOCc.}{SLOCc}
 \begin{tabular}{|p{3cm}|p{8cm}|}
 \hline
-\textbf{Nombre} & \textbf{SLOC (Source Line of Code).}\\
+\textbf{Nombre} & \textbf{SLOCc (Source Line of Code).}\\
 \hline
 \textbf{Definición} & Número de líneas de código desarrolladas para la línea base actual. \\
 \hline
-\textbf{Proceso de análisis} & Se cuentan mediante la herramienta de desarrollo utilizada. Se recogen cada vez que la línea base de desarrollo cambia, detallando el módulo o fichero específico al que pertenecen. Es un número entero que se almacena en la Base de Datos de Medidas. \\
+\textbf{Proceso de análisis} & Se calculan con la herramienta de desarrollo utilizada. Se recogen cada vez que la línea base de desarrollo cambia, detallando el módulo o fichero específico al que pertenecen. Es un número entero que se almacena en la Base de Datos de Medidas. \\
 \hline
 \textbf{Responsabilidad} & Equipo de desarrollo.  \\
 \hline
@@ -290,22 +287,18 @@ Se calculará con la herramienta CASE de modelado utilizada. Será añadida a la Ba
 \hline
 \textbf{Definición} & Número de casos de uso identificados en el modelo.  \\
 \hline
-\textbf{Proceso de análisis} & Son recogidos por la herramienta de modelado UML utilizada. Se hace una vez por cada actividad que actualice el Modelo de Casos de Uso del proyecto. Es un número entero que se almacena en la Base de Datos de Medidas. \\
+\textbf{Proceso de análisis} & Son recogidos manualmente por simple inspección visual del Diagrama de Casos de Uso. Se hace una vez por cada actividad que actualice el Modelo de Casos de Uso del proyecto. Es un número entero que se almacena en la Base de Datos de Medidas. \\
 \hline
 \textbf{Responsabilidad} & Equipo de desarrollo.  \\
 \hline
 \end{tabular}
 \end{tabla}
 
-
-\section{Plantilla para una métrica primitiva.}
-\indent \indent 
-
 \appendix % Apéndices 
 
 \chapter{Plantilla de registro de esfuerzo por actividad}
 
-\indent \indent Se deben rellenar manualmente y con una breve descripción los siguientes campos:
+\indent \indent Se utiliza para recoer la métrica que permite evaluar la calidad del proceso de desarrollo:
 \begin{itemize}
 	\item \textbf{Nombre}: persona que desarrolló la actividad.
 	\item \textbf{Trabajador}: rol que desempeñaba en el proceso.
@@ -319,7 +312,7 @@ Se calculará con la herramienta CASE de modelado utilizada. Será añadida a la Ba
 
 \chapter{Herramientas}
 
-\indent \indent Utilizaremos PRADO IDE como herramienta de desarrollo para PHP y StarUML como herramienta de modelado UML para realizar automáticamente algunas mediciones.
+\indent \indent Utilizaremos Eclipse (PDT) PHP como herramienta de desarrollo para PHP y StarUML como herramienta de modelado UML para realizar manualmente algunas mediciones.
 
 % Parte final de la memoria
 \backmatter 
