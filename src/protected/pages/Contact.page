@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<title>Grupo 3 - Ingenier&iacute;a del Software 2</title>
+	<style type="text/css">
+		html {
+			background: url(background.png) repeat-x top;
+			background-color: #eef;
+		}
+		body {
+			margin: 0 auto;
+			padding: 2em;
+			max-width: 60em;
+			font-family: Tahoma, Arial, Helvetica, sans-serif;
+		}
+		h1, h2, h3, h4 { color: #6495ED; }
+		a {	color: #04b; }
+		table {	border-collapse:collapse; }
+		td, th {
+			border:1px solid black;
+			padding: 10px;
+		}
+		th { text-align:left; }		
+	</style>
+</head>
+<body>
+	<h1>GRUPO 3 - ISO2 - UNIVERSIDAD DE VALLADOLID</h1>
+	<p>
+		Gracias por visitar <strong>Seproso</strong>. El grupo de desarrollo lo formamos 4 alumnos de la 
+		Universidad de Valladolid y forma parte del trabajo pr&aacute;ctico de la asignatura Ingenier&iacute;a del 
+		Software 2 de la titulaci&oacute;n Ingenier&iacute;a en Inform&aacute;tica. 
+	</p>
+	<p>
+		El "grupo 3" consta de estos 4 alumnos:
+	<ul>
+		<li><b><a href="mailto:dante.aureon@gmail.com">Rub&eacute;n Mart&iacute;nez Garc&iacute;a</a></b></li>
+		<li><b><a href="mailto:abellozoya@gmail.com">Abel Lozoya Ramos</a></b></li>
+		<li><b><a href="mailto:civilizacion1976@gmail.com">Yuri Torres de la Sierra</a></b></li>
+		<li><b><a href="mailto:frandelhoyo@gmail.com">Francisco Javier Delgado del Hoyo</a></b></li>
+	</ul>
+	</p>
+	<hr />
+	
+	<h2>M&aacute;s informaci&oacute;n del proyecto Seproso</h2>
+	<p>
+		Si deseas obtener m&aacute;s informaci&oacute;n sobre el equipo y el proceso de desarrollo del 
+		proyecto puedes visitar el repositorio del mismo en el servidor de Google: 
+		<a href="http://seproso-gr3.googlecode.com">Seproso SVN</a>. 
+	</p>
+	<hr />
+	
+	<h3> Un saludo y gracias por visitarnos! :-) </h3>
+</body>
+</html>
