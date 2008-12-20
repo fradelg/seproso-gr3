@@ -1,0 +1,295 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Realización de Casos de Uso.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|p{2cm}|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 18/12/08 & Primera versión de los diagramas de secuencia. & Rubén y Yuri\\
+\hline
+0.5 & 19/12/08 & Versión 0.5 de la realización de casos de uso. & Francisco, Abel y Rubén\\
+\hline
+1.0 & 20/12/08 & Versión completa del modelo dinámico de análisis. & Grupo III\\
+\hline
+1.1 & 20/12/08 & Adición de especificaciones en cada Casos de Uso. & Rubén.\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent El objetivo de este documento es la especificación del modelo de análisis del sistema de SEguimiento de PROyectos SOftware (SEPROSO). En dicho documento se definen los diagramas relacionados con la especificación de casos de uso, y los diagramas que completen las especificaciones dinámicas de análisis. Este documento será referencia para el uso posterior por los desarrolladores y en consecuencia por más documentos de planificación, diseño software y desarrollo de la aplicación.
+
+\section{Ámbito.}
+
+\indent \indent El sistema a desarrollar se denominará SEPROSO. Es una herramienta para la gestión y seguimiento de proyectos software. La interación con la herramienta depende del rol a desempeñar por el usuario de la aplicación, distinguiéndose los siguientes roles:
+\begin{itemize}
+	\item Administrador.
+	\item Jefe de Proyecto.
+	\item Desarrollador.
+	\item Responsable de personal.\\
+\end{itemize}
+
+El sistema atenderá las peticiones de cada uno de ellos en función del trabajo que desempeñana\\.
+
+El documento de realización de casos de uso provee una visión de la interación entre usuario y la aplicación dentro de la herramienta SEPROSO.
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item Plantilla de elicitación de requisitos para Proceso Unificado UPEDU. www.upedu.org
+	\item Documento del estandar IEEE 830 sobre recomendaciones para la especifiación de requisitos software secciones 4, 5 y anexo A.3.
+	\item Visión general de la herramienta propuesta por el profesor de la asignatura.
+	\item Plan de Proyecto Software.
+	\item Documento de especificación de recursos software, SRS.
+	\item Modelo de Casos de Uso.
+	\item Diagramas de análisis realizados en la herramienta StarUML.
+\end{enumerate}
+
+\section{Visión general.}
+
+El resto de este documento contiene la realización de la especificación de cada uno de los casos de uso.
+
+\chapter{Realización de Casos de Uso.}
+
+\section{Diagrama de casos de uso.}
+
+\indent \indent El siguiente diagrama \ref{dCU} muestra los casos de uso identificados en el sistema. \\
+
+\figura{images/DCU.jpg}{width=15cm,height=14cm,angle=0}{Diagrama de Casos de Uso.}{dCU} 
+  
+\newpage
+\section{Realización de casos de uso.}
+
+\subsection{Casos de uso del administrador del sistema}
+
+\subsubsection{CU: Administrar Proyectos}
+
+\figura{images/AdminProy.jpg}{width=14cm,height=10cm,angle=0}{Administrar Proyectos.}{admP} 
+\figura{images/AdminProyCreate.jpg}{width=18cm,height=15cm,angle=90}{Administrar Proyectos: Creación.}{admPC} 
+\figura{images/AdminProyDelete.jpg}{width=14cm,height=10cm,angle=0}{Administrar Proyectos: Borrado.}{admPB} 
+
+\newpage
+\subsubsection{CU: Administrar Usuarios}
+
+
+\figura{images/AdministrarUsuario.jpg}{width=12cm,height=11cm,angle=0}{Administrar Usuarios.}{admU} 
+\figura{images/AdministrarUsuarioCancel.jpg}{width=10cm,height=7cm,angle=0}{Administrar Usuarios: Cancelación.}{admUC} 
+\figura{images/AdministrarUsuarioBorrado.jpg}{width=13cm,height=10cm,angle=0}{Administrar Usuarios: Borrado.}{admUB} 
+
+\newpage
+\subsubsection{CU: Configurar Sistema}
+
+\figura{images/ConfigurarSistema.jpg}{width=8cm,height=11cm,angle=0}{Configurar Sistema.}{confSist} 
+
+\newpage
+\subsection{Casos de uso del jefe de proyecto}
+
+\subsubsection{CU: Planificar proyecto}
+
+\figura{images/PlanificarProyecto.jpg}{width=18cm,height=17cm,angle=90}{Planificar Proyecto.}{planProy} 
+
+\newpage
+\subsubsection{CU: Definir proceso}
+
+\figura{images/DefinirModeloProceso.jpg}{width=16cm,height=10cm,angle=0}{Definir modelo de Proceso.}{defModProc} 
+\figura{images/DefinirNuevoProceso.jpg}{width=16cm,height=16cm,angle=0}{Definir nuevo proceso.}{defModProc} 
+
+\newpage
+\subsubsection{CU: Definir actividad}
+
+\figura{images/DefinirActividad.jpg}{width=13cm,height=16cm,angle=0}{Definir Actividad.}{defAct} 
+
+\newpage
+\subsubsection{CU: Selecionar trabajadores}
+
+\figura{images/SeleccionarTrabajadores.jpg}{width=14cm,height=20cm,angle=0}{Seleccionar trabajadores.}{selecTrabaj} 
+
+\newpage
+\subsubsection{CU: Cerrar actividad}
+
+\figura{images/CerrarActividad2.jpg}{width=14cm,height=11cm,angle=0}{Cerrar Actividad.}{cerrarActividad} 
+
+\newpage
+\subsubsection{CU: Revisar actividad}
+
+\figura{images/RevisarActividad.jpg}{width=19cm,height=11cm,angle=90}{Revisar Actividad.}{revAct} 
+
+\newpage
+\subsubsection{CU: Aprobar actividad}
+
+\figura{images/AprobarActividad.jpg}{width=19cm,height=11cm,angle=90}{Aprobar Actividad.}{apAct} 
+
+\newpage
+\subsubsection{CU: Obtener informe de control}
+
+\figura{images/ObtenerInformeControl.jpg}{width=18cm,height=16cm,angle=90}{Obtener Informe de Control.}{obtInformeControl} 
+
+
+\newpage
+\subsection{Casos de uso del desarrollador}
+
+\subsubsection{CU: Crear registro de actividad}
+
+\figura{images/CrearRegistroActividad.jpg}{width=16cm,height=14cm,angle=0}{Crear Registro Actividad.}{regAct} 
+
+\newpage
+\subsubsection{CU: Establecer vacaciones}
+
+\figura{images/EstablecerVacaciones.jpg}{width=16cm,height=12cm,angle=0}{Establecer vacaciones.}{estVacances} 
+
+\newpage
+\subsubsection{CU: Obtener informe de actividad}
+
+\figura{images/ObtenerInformeActividades.jpg}{width=16cm,height=15cm,angle=0}{Obtener Informe de actividades.}{infAct} 
+\figura{images/ObtenerInformeActividadesAlt.jpg}{width=16cm,height=10cm,angle=0}{Obtener Informe de actividades Alternativo.}{infActAlt} 
+
+\newpage
+\subsection{Casos de uso del responsables de personal}
+
+\subsubsection{CU: Obtener informe de personal}
+
+\figura{images/ObtenerInformePersonal.jpg}{width=18cm,height=17cm,angle=0}{Obtener Informe Personal.}{infPersonal} 
+
+\newpage
+\subsection{Casos de uso de un usuario genérico}
+
+\subsubsection{CU: Seleccionar proyecto}
+
+\figura{images/SeleccionarProyecto.jpg}{width=16cm,height=10cm,angle=0}{Seleccionar Proyecto.}{selProy} 
+
+\subsubsection{CU: Login}
+
+\figura{images/Login.jpg}{width=13cm,height=11cm,angle=0}{Login.}{confSist} 
+
+\subsubsection{CU: Logout}
+
+\figura{images/Logout.jpg}{width=11cm,height=11cm,angle=0}{Logout.}{logout} 
+\figura{images/Logout.jpg}{width=12cm,height=11cm,angle=0}{Logout Alternativo.}{logoutAlt} 
+
+\subsubsection{CU: Generar informe}
+
+\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{genInf} 
+
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
