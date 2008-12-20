@@ -105,7 +105,7 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
 1.0 & 20/12/08 & Versión completa del modelo dinámico de análisis. & Grupo III\\
 \hline
-1.1 & 20/12/08 & Adición de especificaciones en cada Casos de Uso. & Rubén.\\
+1.1 & 20/12/08 & Adición de especificaciones en cada Caso de Uso. & Rubén.\\
 \hline
 \end{tabular}
 
@@ -118,8 +118,6 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \tableofcontents % Tabla de contenido 
 \newpage 
 \listoffigures % Índice de figuras 
-\newpage 
-\listoftables % Índice de tablas 
 \newpage 
 
 % Parte central de la memoria
@@ -180,6 +178,25 @@ El resto de este documento contiene la realización de la especificación de cada 
 
 \subsubsection{CU: Administrar Proyectos}
 
+\indent \indent \textbf{Descripción}\\
+
+El administrador será capaz de gesitonar los proyetos, permitiéndo su creación, borrado o simplemente mostrar la información de proyectos.\\
+
+\textbf{Flujo de Eventos}\\
+
+El administrador inicia la petición sobre la pagina web, esta mostrará los proyectos existente.\\
+El administrador seleccionará la operación a realizar, creación de proyecto, borrado o modificación.\\
+La pagina web recupera la información necesaria y almacena los nuevos datos introducidos por el administrador.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Administrar proyecto [\ref{admP}].
+	\item Creación de proyectos [\ref{admPC}].
+	\item Borrado de proyectos [\ref{admPB}].
+\end{itemize}
+
 \figura{images/AdminProy.jpg}{width=14cm,height=10cm,angle=0}{Administrar Proyectos.}{admP} 
 \figura{images/AdminProyCreate.jpg}{width=18cm,height=15cm,angle=90}{Administrar Proyectos: Creación.}{admPC} 
 \figura{images/AdminProyDelete.jpg}{width=14cm,height=10cm,angle=0}{Administrar Proyectos: Borrado.}{admPB} 
@@ -187,6 +204,24 @@ El resto de este documento contiene la realización de la especificación de cada 
 \newpage
 \subsubsection{CU: Administrar Usuarios}
 
+\indent \indent \textbf{Descripción}\\
+
+El administrador será capaz de gesitonar los usuarios, permitiéndo su creación, borrado o simplemente la modificación de información de los usuarios.\\
+
+\textbf{Flujo de Eventos}\\
+
+El administrador inicia la petición sobre la pagina web, esta mostrará los usuarios existente.\\
+El administrador seleccionará la operación a realizar, creación de usuarios, borrado o modificación.\\
+La pagina web recupera la información necesaria y almacena los nuevos datos introducidos por el administrador.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Administrar usuario [\ref{admU}].
+	\item Creación de usuarios [\ref{admUC}].
+	\item Borrado de usuarios [\ref{admUB}].
+\end{itemize}
 
 \figura{images/AdministrarUsuario.jpg}{width=12cm,height=11cm,angle=0}{Administrar Usuarios.}{admU} 
 \figura{images/AdministrarUsuarioCancel.jpg}{width=10cm,height=7cm,angle=0}{Administrar Usuarios: Cancelación.}{admUC} 
@@ -195,6 +230,22 @@ El resto de este documento contiene la realización de la especificación de cada 
 \newpage
 \subsubsection{CU: Configurar Sistema}
 
+\indent \indent \textbf{Descripción}\\
+
+El administrador podrá modificar los parámetros básicos del sistema.\\
+
+\textbf{Flujo de Eventos}\\
+
+El administrador inicia la petición sobre la pagina web, que mostrará los valores actuales de los parámetros básicos.\\
+El administrador modifica los valores de los parámetros y la pagina web los almacenará.
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Configurar Sistema [\ref{confSist}].
+	\end{itemize}
+
 \figura{images/ConfigurarSistema.jpg}{width=8cm,height=11cm,angle=0}{Configurar Sistema.}{confSist} 
 
 \newpage
@@ -202,41 +253,182 @@ El resto de este documento contiene la realización de la especificación de cada 
 
 \subsubsection{CU: Planificar proyecto}
 
+\indent \indent \textbf{Descripción}\\
+
+El jefe de proyecto necesita elaborar el plan de proyecto antes de comenzar a realizar el seguimiento del proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de planificación de proyecto y la pagina web muestra los proyectos de los cuáles es jefe.
+Se debe seleccionar la opción de planificación, y la pagina web mostrará los formularios pertinentes para la planificación de un proyecto.
+El jefe de proyecto definirá todas las fases de un proyecto.
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Planificar proyecto [\ref{planProy}].
+\end{itemize}
+
 \figura{images/PlanificarProyecto.jpg}{width=18cm,height=17cm,angle=90}{Planificar Proyecto.}{planProy} 
 
 \newpage
 \subsubsection{CU: Definir proceso}
 
+\indent \indent \textbf{Descripción}\\
+
+El jefe de proyecto deberá elaborar el modelo de proceso que definirá un proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de definir modelo de proyecto, bien mediante plantillas existentes o definir un nuevo modelo de proceso.\\
+El sistema mostrará la plantilla adecuada para la opción elegida.\\
+El jefe de proyecto completa la plantilla y el sistema almacenará la información introducida.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Definir modelo de proceso a partir de plantilla [\ref{defModProc}].
+	\item Definir nuevo modelo de proceso [\ref{defModProcNue}].
+\end{itemize}
+
 \figura{images/DefinirModeloProceso.jpg}{width=16cm,height=10cm,angle=0}{Definir modelo de Proceso.}{defModProc} 
-\figura{images/DefinirNuevoProceso.jpg}{width=16cm,height=16cm,angle=0}{Definir nuevo proceso.}{defModProc} 
+\figura{images/DefinirNuevoProceso.jpg}{width=16cm,height=16cm,angle=0}{Definir nuevo proceso.}{defModProcNue} 
 
 \newpage
 \subsubsection{CU: Definir actividad}
+
+\indent \indent \textbf{Descripción}\\
+
+El jefe de proyecto permite definir las actividades relacionadas con las fases de un proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de definición de actividades.\\
+El sistema mostrará la plantilla adecuada para la opción elegida.\\
+El jefe de proyecto completa la plantilla y el sistema almacenará la información introducida.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Definir actividad [\ref{defAct}].
+\end{itemize}
 
 \figura{images/DefinirActividad.jpg}{width=13cm,height=16cm,angle=0}{Definir Actividad.}{defAct} 
 
 \newpage
 \subsubsection{CU: Selecionar trabajadores}
 
+\indent \indent \textbf{Descripción}\\
+
+El jefe de proyecto debe tener la posibilidad de seleccionar el personal de la empresa registrado en el sistema que necesita para su proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de seleción de trabajadores.\\
+El sistema mostrará los trabajadores que se encuentran registrados en el sistema para el proyecto actual.\\
+El jefe de proyecto selecciona una actividad y un trabajador para asignarlo a dicha actividad.\\
+El sistema registra la opción de trabajo.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Seleccionar trabajadores [\ref{selecTrabaj}].
+\end{itemize}
+
 \figura{images/SeleccionarTrabajadores.jpg}{width=14cm,height=20cm,angle=0}{Seleccionar trabajadores.}{selecTrabaj} 
 
 \newpage
 \subsubsection{CU: Cerrar actividad}
 
+\indent \indent \textbf{Descripción}\\
+
+Confirmación de la finalización de una actividad.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de cerrar actividad.\\
+El sistema muestra las actividades que existen.\\
+El jefe de proyecto selecciona una actividad para cerrarla.\\
+El sistema da por finalizada la actividad.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Cerrar actividad [\ref{cerrarActividad}].
+\end{itemize}
 \figura{images/CerrarActividad2.jpg}{width=14cm,height=11cm,angle=0}{Cerrar Actividad.}{cerrarActividad} 
 
 \newpage
 \subsubsection{CU: Revisar actividad}
+
+\indent \indent \textbf{Descripción}\\
+
+Revisión de una actividad concreta por parte del jefe de proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de revisar actividad.\\
+El sistema muestra las actividades que existen.\\
+El jefe de proyecto selecciona una actividad para revisarla.\\
+El sistema da por revisada la actividad, y modifica su información asociada.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Revisar actividad [\ref{revAct}].
+\end{itemize}
 
 \figura{images/RevisarActividad.jpg}{width=19cm,height=11cm,angle=90}{Revisar Actividad.}{revAct} 
 
 \newpage
 \subsubsection{CU: Aprobar actividad}
 
+\indent \indent \textbf{Descripción}\\
+
+Aprobar una actividad concreta por parte del jefe de proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de aprobar actividad.\\
+El sistema muestra las actividades que existen.\\
+El jefe de proyecto selecciona una actividad para aprobarla.\\
+El sistema almacena los nuevos datos.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Aprobar actividad [\ref{apAct}].
+\end{itemize}
+
 \figura{images/AprobarActividad.jpg}{width=19cm,height=11cm,angle=90}{Aprobar Actividad.}{apAct} 
 
 \newpage
 \subsubsection{CU: Obtener informe de control}
+
+\indent \indent \textbf{Descripción}\\
+
+Generación del informe de control por parte del jefe de proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de generar el informe.\\
+El sistema muestra los informes preparados para el jefe de proyecto.\\
+El jefe de proyecto selecciona el informe que quiere generar.\\
+El sistema recolecta la información del informe y la muestra al usuario.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Obtener informe de control [\ref{obtInformeControl}].
+\end{itemize}
 
 \figura{images/ObtenerInformeControl.jpg}{width=18cm,height=16cm,angle=90}{Obtener Informe de Control.}{obtInformeControl} 
 
@@ -246,15 +438,72 @@ El resto de este documento contiene la realización de la especificación de cada 
 
 \subsubsection{CU: Crear registro de actividad}
 
+\indent \indent \textbf{Descripción}\\
+
+Cada desarrollador deberá rellenar semanalmente un informe por cada actividad que tiene asignada en cualquiera de los proyectos que participa.\\
+
+\textbf{Flujo de Eventos}\\
+
+El desarrollador selecciona la opción de crear registro de actividad.\\
+El sistema muestra las actividades y semanas asociadas a ellas.\\
+El desarrollador selecciona actividad y semana concreta.\\
+El sistema prepara la plantilla de introducción de datos.\\
+El desarrollador rellena la plantilla de registro de actividad y el sistema almacena la información.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Crear registro de actividad [\ref{regAct}].
+\end{itemize}
+
 \figura{images/CrearRegistroActividad.jpg}{width=16cm,height=14cm,angle=0}{Crear Registro Actividad.}{regAct} 
 
 \newpage
 \subsubsection{CU: Establecer vacaciones}
 
+\indent \indent \textbf{Descripción}\\
+
+El desarrollador rellenará su propio calendario. Establece cuales son sus como máximo 3 períodos de vacaciones en los que disfrutar de 4 semanas.\\
+
+\textbf{Flujo de Eventos}\\
+
+El desarrollador selecciona la opción de establecer vacaciones.\\
+El sistema muestra los períodos de vacaciones ya establecidos.\\
+El desarrollador selecciona el nuevo periodo de vacaciones que quiere establecer.\\
+El sistema muestra el calendario con los espacios preparados para poder seleccionar actividades.\\
+El desarrollador pide el nuevo periodo de vacaciones y el sistema almacena la información.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Establecer vacaciones [\ref{estVacances}].
+\end{itemize}
+
 \figura{images/EstablecerVacaciones.jpg}{width=16cm,height=12cm,angle=0}{Establecer vacaciones.}{estVacances} 
 
 \newpage
 \subsubsection{CU: Obtener informe de actividad}
+
+\indent \indent \textbf{Descripción}\\
+
+Generación del informe de actividad por parte del jefe de proyecto.\\
+
+\textbf{Flujo de Eventos}\\
+
+El desarrollador selecciona la opcion de generar el informe.\\
+El sistema muestra los informes preparados para el jefe de proyecto.\\
+El desarrollador de proyecto selecciona el informe que quiere generar.\\
+El sistema recolecta la información del informe y la muestra al usuario.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Obtener informe de actividad [\ref{infAct}].
+	\item Obtener informe de actividad alternativo [\ref{infActAlt}].
+\end{itemize}
 
 \figura{images/ObtenerInformeActividades.jpg}{width=16cm,height=15cm,angle=0}{Obtener Informe de actividades.}{infAct} 
 \figura{images/ObtenerInformeActividadesAlt.jpg}{width=16cm,height=10cm,angle=0}{Obtener Informe de actividades Alternativo.}{infActAlt} 
@@ -264,25 +513,114 @@ El resto de este documento contiene la realización de la especificación de cada 
 
 \subsubsection{CU: Obtener informe de personal}
 
-\figura{images/ObtenerInformePersonal.jpg}{width=18cm,height=17cm,angle=0}{Obtener Informe Personal.}{infPersonal} 
+\indent \indent \textbf{Descripción}\\
+
+Generación del informe de personal por parte del usuario.\\
+
+\textbf{Flujo de Eventos}\\
+
+El responsable de personal selecciona la opcion de generar el informe.\\
+El sistema muestra los informes preparados para el jefe de proyecto.\\
+El responsable de personal de proyecto selecciona el informe que quiere generar asociado al proyecto que necesite.\\
+El sistema recolecta la información del informe y la muestra al usuario.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Obtener informe de personal [\ref{infPersonal}].
+\end{itemize}
+
+\figura{images/ObtenerInformePersonal.jpg}{width=16cm,height=15cm,angle=0}{Obtener Informe Personal.}{infPersonal} 
 
 \newpage
 \subsection{Casos de uso de un usuario genérico}
 
 \subsubsection{CU: Seleccionar proyecto}
 
+\indent \indent \textbf{Descripción}\\
+
+Selección de proyecto para su utilización.\\
+
+\textbf{Flujo de Eventos}\\
+
+El usuario la opcion de cambio de proyecto.\\
+El sistema muestra los proeyctos asociados a este usuario.\\
+El usuario selecciona el proyecto que quiere abrir.\\
+El sistema carga los datos necesarios.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Obtener informe de control [\ref{genInf}].
+\end{itemize}
+
 \figura{images/SeleccionarProyecto.jpg}{width=16cm,height=10cm,angle=0}{Seleccionar Proyecto.}{selProy} 
 
 \subsubsection{CU: Login}
 
-\figura{images/Login.jpg}{width=13cm,height=11cm,angle=0}{Login.}{confSist} 
+\indent \indent \textbf{Descripción}\\
+
+Identificación en el sistema.\\
+
+\textbf{Flujo de Eventos}\\
+
+El usuario selecciona la opción de Login.\\
+El usuario se identifica con Nick y password.\\
+El sistema identifica al usuario.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Login [\ref{login}].
+\end{itemize}
+
+\figura{images/Login.jpg}{width=13cm,height=11cm,angle=0}{Login.}{login} 
 
 \subsubsection{CU: Logout}
+
+\indent \indent \textbf{Descripción}\\
+
+Salida del sistema.\\
+
+\textbf{Flujo de Eventos}\\
+
+El usuario selecciona la opción de Logout.\\
+El sistema desenlaza al usuario identificado.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Logout [\ref{logout}].
+	\item Logout Alternativo [\ref{logoutAlt}].
+\end{itemize}
+
 
 \figura{images/Logout.jpg}{width=11cm,height=11cm,angle=0}{Logout.}{logout} 
 \figura{images/Logout.jpg}{width=12cm,height=11cm,angle=0}{Logout Alternativo.}{logoutAlt} 
 
 \subsubsection{CU: Generar informe}
+
+\indent \indent \textbf{Descripción}\\
+
+Generación del informe por parte del usuario.\\
+
+\textbf{Flujo de Eventos}\\
+
+El jefe selecciona la opcion de generar el informe.\\
+El sistema muestra los informes preparados para el jefe de proyecto.\\
+El jefe de proyecto selecciona el informe que quiere generar asociado al proyecto que necesite.\\
+El sistema recolecta la información del informe y la muestra al usuario.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Obtener informe de control [\ref{genInf}].
+\end{itemize}
 
 \figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{genInf} 
 
