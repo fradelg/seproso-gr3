@@ -100,6 +100,10 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
 0.1 & 19/11/08 & Objetivos y visión general. & Francisco\\
 \hline
+1.0 & 01/11/08 & Estandarización según el modelo de UPEDU. & Rubén\\
+\hline
+1.5 & 01/11/08 & Diagrama de despliegue añadido. & Rubén y Francisco\\
+\hline
 \end{tabular}
 
 
@@ -197,7 +201,53 @@ Véase el documento de Realización de Casos de Uso para más información.
 \indent \indent En esta sección se describen las partes del modelo de diseño del sistema que son significativas para la arquitectura,  como son sus subsistemas internos y paquetes. Por cada paquete significativo se muestra su composición interna. Para las elementos internos más relevantes y complejos se realiza  una descripción de responsabilidad, relaciones con otras, operaciones y atributos. \\
 
 \section{Visión general.}
-\indent \indent En la siguiente imagen se muestra la vista lógica del sistema descomponiendo el modelo de diseño en una colección de paquetes relacionados jerárquicamente. Agrupando los paquetes desde un punto de vista lógico (funcional) y según las dependencias que muestra la jerarquía, tenemos las capas de la arquitectura
+\indent \indent En la siguiente imagen se muestra la vista lógica del sistema descomponiendo el modelo de diseño en una colección de paquetes relacionados jerárquicamente. Agrupando los paquetes desde un punto de vista lógico (funcional) y según las dependencias que muestra la jerarquía, tenemos las capas de la arquitectura.\\
+
+\section{Diagrama de despliegue.}
+
+\indent \indent El diagrama anexo \ref{despliegue} muestra los nodos disponibles y los sistemas que los soportarán:
+
+\figura{images/DiagramaDespliegue.jpg}{width=18cm,height=8cm,angle=90}{Diagrama de despliegue.}{despliegue} 
+
+\subsection{Nodos}
+
+\textbf{Nodo:} 	 PC Cliente.\\
+\textbf{Sistemas soportados: }	Navegador web.\\
+\textbf{Dependencias:} 	Nodo Servidor Aplicación: JAIR.\\
+\textbf{Descripción:} 	Es un ordenador de sobremesa con cualquier sistema operativo capaz de ejecutar un navegador web mozilla o compatible, y conexión a una redcon acceso al nodo servidor. \\ \\
+
+\textbf{Nodo:} 	 Servidor aplicación.\\
+\textbf{Sistemas soportados: }	Aplicación y servidor web.\\
+\textbf{Dependencias:} 	Base de datos MySQL.\\
+\textbf{Descripción:} 	Un equipo informático servidor donde almacenar y ejecutar la aplicación. Deberá disponer de un servidor web.  \\ \\
+
+\textbf{Nodo:} 	 Servidor de Base de datos.\\
+\textbf{Sistemas soportados: }Base de datos.\\
+\textbf{Dependencias:} 	--\\
+\textbf{Descripción:} 	Un equípo informático servidor que ejecuta un servicio de base de datos. \\ \\
+
+\subsection{Componentes}
+
+\textbf{Componente:} 	 Navegador WEB.\\
+\textbf{Dependencias:} 	Componente de Servidor WEB.\\
+\textbf{Descripción:} 	Software de pasarela entre la aplicación y el Navegador WEB. Debe soportar el protocolo HTTP.\\
+\textbf{Implementaciones:}	Apache 2.0.\\
+
+\textbf{Componente:} 	 Navegador WEB.\\
+\textbf{Dependencias:} 	Componente de Servidor WEB.\\
+\textbf{Descripción:} 	Software de visualización de páginas web a través de una red ip. Dicho software soportará las tecnologías HTML, XHTML, CSS y PHP.\\
+\textbf{Implementaciones:}	Firefox, Internet y Opera.\\
+
+\textbf{Componente:} 	 Aplicación.\\
+\textbf{Dependencias:} 	Componente de Servidor WEB.\\
+\textbf{Descripción:} 	Sistema software a implementar que cumple la totatildad de requisitos especificados por el cliente. Aplicación basada en PHP realizada con Prado PHP.\\
+
+
+\textbf{Componente:} 	 Base de datos.\\
+\textbf{Dependencias:} 	--.\\
+\textbf{Descripción:} 	Software de base de datos para el almacenamiento persistente de la información.\\
+\textbf{Implementaciones:} Utilizaremos MySQL Community Server.\\
+
 
 \section{Paquetes de diseño significativos.}
 \indent \indent A continuación se especifica más detalladamente la composición de cada uno de los paquetes del modelo de diseño presentado en la sección anterior. Para cada uno se incluye una nueva subsección que contiene una breve descripción del paquete y un diagrama de contenidos que muestra sus clases y subpaquetes. Después se describe también las clases más significativas internas al paquete.
