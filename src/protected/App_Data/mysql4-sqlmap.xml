@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <sqlMapConfig>
 		
-	<typeHandler type="TimeTrackerUser" class="TimeTrackerUserTypeHandler"/>
+	<typeHandler type="SeprosoUser" class="SeprosoUserTypeHandler"/>
 	<typeHandler type="DateTime" class="DateTimeTypeHandler" />
 
 	<connection class="TDbConnection"
 		ConnectionString="mysql:host=localhost;dbname=seproso"
 		Username="grupo3" Password="grupo3" />
 
+<!-- JAIR MySQL DataBase Connection
+	<connection class="TDbConnection"
+		ConnectionString="mysql:host=jair.lab.fi.uva.es;dbname=grupo03"
+		Username="grupo03" Password="nnLx9jpr" />
+-->
 	<sqlMap resource="MySQL4/users.xml"/>
 	<sqlMap resource="MySQL4/projects.xml"/>
 	<sqlMap resource="MySQL4/category.xml" />

@@ -37,7 +37,7 @@ class UserManager extends TModule implements IUserManager
 	{
 		if($username===null)
 		{
-			$user = new TimeTrackerUser($this);
+			$user = new SeprosoUser($this);
 			$user->setIsGuest(true);
 			return $user;
 		}

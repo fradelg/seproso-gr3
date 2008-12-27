@@ -1,4 +1,4 @@
-timetracker_user_readonly_id 	= Time tracker user ID is read-only.
+seproso_user_readonly_id 		= SEPROSO user ID is read-only.
 invalid_creator_and_manager		= Unable to find time tracker usernames '{1}' and '{2}' for project '{0}'.
 project_exists					= Project '{0}' already exists.
 daomanager_connection_required	= An TSqlMapper connection is required by Dao Manager.

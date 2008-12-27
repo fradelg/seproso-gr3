@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap>
 
-<resultMap id="time-tracker-user" class="TimeTrackerUser" GroupBy="Name">
+<resultMap id="seproso-user" class="SeprosoUser" GroupBy="Name">
 	<result property="Name" column="Name" />
 	<result property="Project" column="Project" />
 	<result property="EmailAddress" column="EmailAddress" />
@@ -36,7 +36,7 @@
 	SELECT Project FROM users WHERE Username = #value#
 </select>
 
-<select id="GetUserByName" parameterClass="string" resultMap="time-tracker-user">
+<select id="GetUserByName" parameterClass="string" resultMap="seproso-user">
 	SELECT 
 		users.Username as Name,
 		users.Project as Project,
@@ -51,7 +51,7 @@
 		Disabled = 0
 </select>
     
-<select id="GetAllUsers" resultMap="time-tracker-user">
+<select id="GetAllUsers" resultMap="seproso-user">
 	SELECT
 		users.Username as Name,
 		users.Project as Project,
@@ -93,7 +93,7 @@
 		(#token#, #username#, NOW())
 </insert>
 
-<select id="ValidateAutoSignon" resultMap="time-tracker-user">
+<select id="ValidateAutoSignon" resultMap="seproso-user">
 	SELECT
 		users.Username as Name,
 		users.Project as Project,

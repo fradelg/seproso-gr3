@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<application id="Time-Tracker" Mode="Debug">
+<application id="SEPROSO" Mode="Debug">
 
-  <!--Use Quickstart theme directory -->
   <paths>
-	<alias id="Quickstart" path="../../quickstart" />
-	<using namespace="Quickstart.protected.controls.*" />
 	<using namespace="System.Data.*" />
 	<using namespace="System.Security.*" />
 	<using namespace="Application.App_Code.*" />
 	<using namespace="Application.App_Code.Dao.*" />
 	<using namespace="Application.App_Data.*" />
+	<using namespace="Application.controls.*" />
   </paths>
   <modules>
 
@@ -31,6 +29,6 @@
 
   </modules>
   <services>
-    <service id="page" class="TPageService" DefaultPage="TimeTracker.ProjectList"/>
+    <service id="page" class="TPageService" DefaultPage="Seproso.ProjectList"/>
   </services>
  </application>
