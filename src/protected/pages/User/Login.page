@@ -1,0 +1,37 @@
+<%@ Title="SEPROSO - Acceder" %>
+<com:TContent ID="Main">
+<h2>Acceda a SEPROSO</h2>
+
+<fieldset class="login"><legend>Entrar al sitio Web</legend>
+  <div class="username">
+	<com:TLabel ForControl="username" Text="Usuario:" />
+	<span class="required">*</span>
+	<com:TTextBox ID="username" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="username"
+		ErrorMessage="Por favor, introduzca su nombre de usuario."
+		ControlCssClass="required-field" />
+  </div>
+  <div class="password">
+  	<com:TLabel ForControl="password" Text="Password:" />
+  	<span class="required">*</span>
+  	<com:TTextBox ID="password" TextMode="Password" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="password"
+		ErrorMessage="Por favor, introduzca su contrase&ntilde;a."
+		ControlCssClass="required-field" />
+  </div>
+  <div class="remember">
+  	<com:TCheckBox ID="remember" Text="Recordarme en este equipo" />
+  </div>
+  <com:TCustomValidator
+	ControlToValidate="password"
+	Display="Dynamic"
+	Text="Alg&uacute;n dato introducido es err&oacute;neo. Por favor, int&eacute;ntelo otra vez."
+	OnServerValidate="validateUser" />
+  <div class="signin">
+  	<com:TButton Text="Entrar" OnClick="doLogin" />
+		<prop:tests asd />
+  </div>
+</fieldset>
+</com:TContent>

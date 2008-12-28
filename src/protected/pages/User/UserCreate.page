@@ -1,0 +1,98 @@
+<com:TContent ID="Main">
+<h2>Registro de nuevo usuario</h2>
+
+<fieldset class="signup"><legend>Detalles del usuario</legend>
+<com:TWizard ID="CreateUserWizard"
+	UseDefaultLayout="false"
+	NavigationStyle.CssClass="wizardNav"
+	OnCompleteButtonClick="createNewUser"
+	ShowSideBar="false" >
+  <com:TWizardStep>
+		<h4>Registro de nueva cuenta de usuario</h4>
+		<div class="username">
+			<com:TLabel ForControl="username" Text="Nombre de usuario" />
+			<span class="required">*</span>
+			<com:TTextBox ID="username" />
+		<com:TRequiredFieldValidator
+			ControlToValidate="username"
+			Display="Dynamic"
+			ErrorMessage="Por favor, introduzca un nombre de usuario."
+			ControlCssClass="required-field" />
+	  	<com:TCustomValidator
+			ControlToValidate="username"
+			Display="Dynamic"
+			OnServerValidate="checkUsername" />	
+		</div>
+		<div class="password">
+			<com:TLabel ForControl="password" Text="Contrase&ntilde;a:" />
+			<span class="required">*</span>
+			<com:TTextBox ID="password" TextMode="Password" />
+		<com:TRequiredFieldValidator
+			ControlToValidate="password"
+			Display="Dynamic"
+			ErrorMessage="Por favor, introduzca su contrase&ntilde;a (6 caracteres m&iacute;nimo)."
+			ControlCssClass="required-field" />	
+		<com:TRegularExpressionValidator
+			ControlToValidate="password"
+			Display="Dynamic"
+			RegularExpression="\w{6,}"
+			ErrorMessage="Por favor, introduzca un m&iacute;nimo 6 caracteres."
+			ControlCssClass="required-field" />			
+		</div>	
+		<div class="password">
+			<com:TLabel ForControl="password2" Text="Confirmaci&oacute;n:" />
+			<span class="required">*</span>
+			<com:TTextBox ID="password2" TextMode="Password" />
+		<com:TCompareValidator
+			ControlToValidate="password"
+			ControlToCompare="password2"
+			ErrorMessage="La contrase&ntilde;a no coincide con la anterior"
+			ControlCssClass="required-field" />		
+		</div>	
+		<div class="email">
+			<com:TLabel ForControl="email" Text="E-Mail:" />
+			<span class="required">*</span>
+			<com:TTextBox ID="email" Style="width:20em"/>
+		<com:TRequiredFieldValidator
+			ControlToValidate="email"
+			Display="Dynamic"
+			ErrorMessage="Por favor, introduzca su correo electr&oacute;nico"
+			ControlCssClass="required-field" />			
+		<com:TEmailAddressValidator
+			ControlToValidate="email"
+			Display="Dynamic"
+			ErrorMessage="La direcci&oacute;n no parece correcta"
+			ControlCssClass="required-field" />		
+		</div>
+	</com:TWizardStep>
+	<com:TWizardStep>
+		<com:TLabel ForControl="role" Text="Rol del usuario:" />
+		<span class="required">*</span>
+		<com:TDropDownList ID="role">
+			<com:TListItem Text="Administrador" 
+			Value="admin" />
+			<com:TListItem Text="Jefe de personal" 
+			Value="personal" />
+			<com:TListItem Text="Jefe de proyecto" 
+			Value="manager,analyst,designer,analyst-programer,test-manager,programer,tester" />
+			<com:TListItem Text="Analista"
+			Value="analyst,designer,analyst-programer,test-manager,programer,tester" />
+			<com:TListItem Text="Dise&ntilde;ador"
+			Value="designer,programer,tester" />
+			<com:TListItem Text="Analista-Programador"
+			Value="analyst-programer,programer,tester" />
+			<com:TListItem Text="Jefe de pruebas"
+			Value="test-manager,programer,tester" />
+			<com:TListItem Text="Programador"
+			Value="programer" />
+			<com:TListItem Text="Probador"
+			Value="tester" />
+		</com:TDropDownList>		
+	</com:TWizardStep>
+	<com:TWizardStep StepType="Complete">
+		El nuevo usuario ha sido creado con &eacute;xito.
+	</com:TWizardStep>
+</com:TWizard>
+</fieldset>
+
+</com:TContent>

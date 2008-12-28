@@ -1,0 +1,30 @@
+<com:TContent ID="Main">
+<h1>Resumen de situaci&oacute;n de <%= h($this->User->Project) %></h1>
+
+<fieldset class="resource-report">
+	<legend>Actividades</legend>
+	<div class="date-range">
+	</div> 
+	<com:TRepeater ID="workers">
+	 	<div class="resource">
+	 	<prop:HeaderTemplate>
+			<table class="project">
+		 	<tr>
+		 		<th class="user">Trabajador</th>
+		 		<th class="category">Actividad</th>
+		 		<th class="description">Descripci&oacute;n</th>
+		 	</tr>
+		 </prop:HeaderTemplate>
+		 <prop:FooterTemplate>
+		 	</table>
+		 </prop:FooterTemplate>
+		 <prop:ItemTemplate>
+		 	<tr>
+		 		<td class="user"><%# h($this->DataItem->UserName) %></td>
+		 		<td class="category"><%# h($this->DataItem->ActivityName) %></td>
+		 		<td class="description"><%# h($this->DataItem->Description) %></td>
+		 	</tr>
+		 </prop:ItemTemplate>
+	</com:TRepeater>
+	</fieldset>
+</com:TContent>

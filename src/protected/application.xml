@@ -4,9 +4,9 @@
   <paths>
 	<using namespace="System.Data.*" />
 	<using namespace="System.Security.*" />
-	<using namespace="Application.App_Code.*" />
-	<using namespace="Application.App_Code.Dao.*" />
-	<using namespace="Application.App_Data.*" />
+	<using namespace="Application.code.*" />
+	<using namespace="Application.code.DAO.*" />
+	<using namespace="Application.data.*" />
 	<using namespace="Application.controls.*" />
   </paths>
   <modules>
@@ -15,12 +15,12 @@
 	<module id="cache" class="System.Caching.TMemCache" />
 -->
 	<module id="daos" class="DaoManager" EnableCache="true"
-  		configFile="Application.App_Data.mysql4-sqlmap">
-		<dao id="UserDao" class="Application.App_Code.Dao.UserDao" />
-		<dao id="ProjectDao" class="Application.App_Code.Dao.ProjectDao" />
-		<dao id="TimeEntryDao" class="Application.App_Code.Dao.TimeEntryDao" />
-		<dao id="CategoryDao" class="Application.App_Code.Dao.CategoryDao" />
-		<dao id="ReportDao" class="Application.App_Code.Dao.ReportsDao" />
+  		configFile="Application.data.mysql4-sqlmap">
+		<dao id="UserDao" class="Application.code.DAO.UserDao" />
+		<dao id="ProjectDao" class="Application.code.DAO.ProjectDao" />
+		<dao id="TimeEntryDao" class="Application.code.DAO.TimeEntryDao" />
+		<dao id="CategoryDao" class="Application.code.DAO.CategoryDao" />
+		<dao id="ReportDao" class="Application.code.DAO.ReportsDao" />
   	</module>
 
 	<module id="globalization"
@@ -29,6 +29,6 @@
 
   </modules>
   <services>
-    <service id="page" class="TPageService" DefaultPage="Seproso.ProjectList"/>
+    <service id="page" class="TPageService" DefaultPage="User.UserList"/>
   </services>
  </application>
