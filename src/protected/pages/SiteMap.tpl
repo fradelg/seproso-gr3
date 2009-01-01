@@ -36,9 +36,9 @@
 		<img src="<%= $this->Page->Theme->BaseUrl %>/bell.gif" width="16" height="16" alt="">
 		<span>Proyecto</span></a>
 		<ul class="level2">
-			<li><a href="?page=User.UserList">Fases</a></li>
-			<li><a href="?page=User.UserCreate">Actividades</a></li>
-			<li><a href="?page=User.UserList">Trabajadores</a></li>
+			<li><a href="?page=Project.Phases">Fases</a></li>
+			<li><a href="?page=Project.Activities">Actividades</a></li>
+			<li><a href="?page=Project.Workers">Trabajadores</a></li>
 		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ActManagementMenu" />">
@@ -46,8 +46,8 @@
 		<img src="<%= $this->Page->Theme->BaseUrl %>/time.gif" width="16" height="16" alt="">
 		<span>Actividades</span></a>
 		<ul class="level2">
-			<li><a href="?page=User.UserList">Supervisar</a></li>
-			<li><a href="?page=User.UserCreate">Aprobar</a></li>
+			<li><a href="?page=Project.ReviewAct">Supervisar</a></li>
+			<li><a href="?page=Project.ApproveAct">Aprobar</a></li>
 		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ReportManagerMenu" />">
@@ -61,26 +61,19 @@
 <ul class="level1">
 	<com:TPlaceHolder Visible=<%= $this->isDeveloperViewVisible() %> >
 	<li class="<com:TPlaceHolder ID="ActRegisterMenu" />">
-		<a class="menuitem" href="?page=User.UserList">
+		<a class="menuitem" href="?page=Project.WorkRegister">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/info.gif" width="16" height="16" alt="">
 		<span>Actividades</span></a>
-		<ul class="level2">
-			<li><a href="?page=User.UserList">Nuevo registro</a></li>
-			<li><a href="?page=User.UserCreate">Consultar estado</a></li>
-		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ReportDeveloperMenu" />">
-		<a class="menuitem" href="?page=User.UserList">
+		<a class="menuitem" href="?page=Report.WorkRegisters">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
 		<span>Informe de actividades</span></a>
 	</li>
-	<li class="<com:TPlaceHolder ID="HolydaysMenu" />">
-		<a class="menuitem" href="?page=User.UserList">
+	<li class="<com:TPlaceHolder ID="HolidaysMenu" />">
+		<a class="menuitem" href="?page=User.Holidays">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/time.gif" width="16" height="16" alt="">
 		<span>Vacaciones</span></a>
-		<ul class="level2">
-			<li><a href="?page=User.UserList">A&nbsp;adir periodo vacacional</a></li>
-		</ul>
 	</li>
 	</com:TPlaceHolder>
 
@@ -88,12 +81,12 @@
 <ul class="level1">
 	<com:TPlaceHolder Visible=<%= $this->User->isInRole('personal') %> >
 	<li class="<com:TPlaceHolder ID="ReportPersonalMenu" />">
-		<a class="menuitem" href="?page=Report.ReportProject">
+		<a class="menuitem" href="?page=Report.Worker">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
-		<span>Informe de personal</span></a>
+		<span>Situaci&oacute;n de personal</span></a>
 	</li>
 	<li class="<com:TPlaceHolder ID="ReportWorkerMenu" />">
-		<a class="menuitem" href="?page=Report.ReportResource">
+		<a class="menuitem" href="?page=Report.Activities">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
 		<span>Informe de ocupaci&oacute;n</span></a>
 	</li>

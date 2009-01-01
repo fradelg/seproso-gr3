@@ -1,0 +1,58 @@
+<com:TContent ID="Main">
+<h2>Situaci&oacute;n de Trabajadores</h2>
+<fieldset class="selection-page">
+  <legend>Informe de trabajador</legend>
+
+ 	<div class="menu" align="center">
+	<h2>Trabajador y periodo de tiempo</h2>
+	<com:TLabel ForControl="workerList" 
+		Text="Seleccione el trabajador del que obtener el informe:"/>
+	<span class="required">*</span><br/>
+	<com:TListBox ID="workerList" CssClass="items" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="workerList"
+		ErrorMessage="Por favor, seleccione un trabajador de la lista."
+		ValidationGroup="worker-report"
+		ControlCssClass="required-input"
+		Display="None" />
+	
+	<br/><br/>
+	<com:TLabel ForControl="workerList"	Text="Indique periodo a consultar:"/>
+	<span class="required">*</span><br/><br/>
+	<div class="date-from">
+	<com:TLabel ForControl="dateFrom" Text="Desde:"/>
+	<com:TDatePicker id="dateFrom" 
+		DateFormat="dd/MM/yyyy"
+		TimeStamp=<%= strtotime("-1 year") %>
+		InputMode="DropDownList" />
+	</div>
+	<div class="date-to">
+	<com:TLabel ForControl="dateTo" Text="Hasta:"/>
+	<com:TDatePicker id="dateTo" DateFormat="dd/MM/yyyy" InputMode="DropDownList"/>
+	<com:TCompareValidator
+		ControlToValidate="dateTo"
+		ControlToCompare="dateFrom"
+		DataType="Date"
+		Display="None"
+		ControlCssClass="required-input"
+		DateFormat="dd/MM/yyyy"
+		Operator="GreaterThanEqual"
+		ValidationGroup="worker-report"
+		ErrorMessage="La fecha final debe ser mayor o igual que la inicial." />
+	</div>
+	</div>
+
+	<div class="list">
+	<h2>Proyectos en que participa</h2> 
+	<h2>Vacaciones</h2> 
+	<h2>Actividades que desarrolla</h2>
+	</div>
+	
+	<div class="actions"> &nbsp;
+	<div class="buttons">
+		<com:TValidationSummary AutoUpdate="false" ValidationGroup="worker-report" />
+		<com:TButton Text="Generar informe" ValidationGroup="worker-report" Onclick="viewReport" />
+	</div>	
+	</div>
+</fieldset>
+</com:TContent>

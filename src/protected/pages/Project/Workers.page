@@ -1,0 +1,106 @@
+<com:TContent ID="Main">
+<h2>Gesti&oacute;n de trabajadores del proyecto</h2>
+
+<com:TMultiView ID="views" ActiveViewIndex="0">
+
+<!-- Project workers general presentation -->
+<com:TView>
+<fieldset><legend>Trabajadores participantes</legend>	
+  <com:TRepeater ID="participants" EnableViewState="false">
+  <prop:HeaderTemplate>
+	<table cellpadding="2">
+	<tr class="header">
+	<th>Nombre de usuario</th>
+	<th>E-Mail</th>
+	<th>&Uacute;ltimo proyecto</th>
+	</tr>
+  </prop:HeaderTemplate>
+  <prop:ItemTemplate>
+	<tr class="row0">	<td><%# h($this->DataItem->Name) %></td>	<td><%# h($this->DataItem->EmailAddress) %></td>
+	<td><%# h($this->DataItem->Project) %></td>	</tr>  </prop:ItemTemplate>  <prop:AlternatingItemTemplate>	<tr class="row1">	<td><%# h($this->DataItem->Name) %></td>
+	<td><%# h($this->DataItem->EmailAddress) %></td>
+	<td><%# h($this->DataItem->Project) %></td>
+	</tr>  </prop:AlternatingItemTemplate>  <prop:FooterTemplate>	</table>  </prop:FooterTemplate>
+</com:TRepeater>
+<br/><com:TButton Text="Nuevo participante" Onclick="newWorkerInProject" />
+</fieldset>
+</com:TView>
+
+<!-- Add worker to project form -->
+<com:TView>
+<fieldset class="selection-page"><legend>Nuevo participante</legend>
+	<div class="menu">
+	<h2>Trabajadores disponibles</h2>
+	<com:TLabel ForControl="workerList" 
+		Text="Seleccione el trabajador que desea agregar al proyecto"/>
+	<com:TListBox ID="workerList" CssClass="items" 
+		AutoPostBack="True" OnSelectedIndexChanged="userSelected" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="workerList"
+		ErrorMessage="Por favor, seleccione un trabajador de la lista."
+		ValidationGroup="addWorker"
+		ControlCssClass="required-input"
+		Display="None" />
+	</div>
+	<div class="list" align="center">
+	<h2>Rol y Participaci&oacute;n</h2>
+	<com:TLabel Text="Indique el porcentaje de participaci&oacute;n y el rol en el proyecto."/>
+	<br /><br /><br /><br />
+	<com:TLabel ForControl="roles" Text="Rol: "/>
+	<span class="required">*</span>
+	<com:TDropDownList ID="roles" CssClass="sheetfor"/>
+	<com:TRequiredFieldValidator
+		ControlToValidate="roles"
+		Display="None"
+		CssClass="validator"
+		ValidationGroup="addWorker"
+		ControlCssClass="required-input"
+		ErrorMessage="Por favor, seleccione un rol para el proyecto." />
+	
+	<br /><br /><br />
+	<com:TLabel ForControl="part" Text="Participaci&oacute;n: "/>
+	<span class="required">*</span>
+	<com:TTextBox ID="part" />
+		<com:TRequiredFieldValidator
+	  		ControlToValidate="part"
+	  		Display="None"
+	  		CssClass="validator"
+	  		ValidationGroup="addWorker"
+	  		ControlCssClass="required-input"
+	  		ErrorMessage="Por favor, introduzca un porcentaje de participaci&oacute;n." />
+  		<com:TRangeValidator 
+	  		ControlToValidate="part"
+	  		DataType="Float"
+	  		MinValue="1"
+	  		MaxValue="100"
+	  		CssClass="validator"
+	  		Display="None"
+	  		ValidationGroup="addWorker"
+	  		ControlCssClass="required-input1"
+	  		ErrorMessage="El porcentaje debe estar comprendido entre 1 y 100" />
+	</div>
+	
+	<div class="actions"> &nbsp;
+	<div class="buttons">
+		<com:TValidationSummary 
+			AutoUpdate="false" 
+			ValidationGroup="addWorker" />
+		<com:TButton 
+			Text="Agregar trabajador" 
+			ValidationGroup="addWorker" 
+			Onclick="linkWorkerToProject" />
+	</div>	
+	</div>
+</fieldset>
+</com:TView>
+
+<!-- Success confirmation message -->
+<com:TView>
+	<fieldset>
+		<legend>Nuevo participante</legend>
+		<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
+		El trabajador ha sido incluido como partipante en el proyecto con &eacute;xito.
+	</fieldset>
+</com:TView>
+</com:TMultiView>
+</com:TContent>

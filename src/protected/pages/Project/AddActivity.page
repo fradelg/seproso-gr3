@@ -1,0 +1,138 @@
+<com:TContent ID="Main">
+<h2>A&ntilde;adir actividad al proyecto</h2>
+
+<fieldset class="selection-page"><legend>Configurar actividad</legend>
+<com:TMultiView ID="views" ActiveViewIndex="0">
+  <!-- Resource and precedent activities Selection -->
+  <com:TView>
+	<div class="menu" align="center">
+	<h2>Actividades predecesoras</h2>
+	<com:TLabel ForControl="actList" 
+		Text="Seleccione las actividades a finalizar para comenzar esta. 
+		Use Ctrl+clic para seleccionar varias."/>
+	<com:TListBox ID="actList" CssClass="items" SelectionMode="Multiple" />
+	</div>
+	
+	<div class="list" align="center">
+	<h2>Trabajadores implicados</h2>
+	<com:TLabel ForControl="workerList" 
+		Text="Seleccione los trabajadores del proyecto que realizar&aacute;n la actividad. 
+		Use Ctrl+clic para seleccionar varios."/>
+	<span class="required">*</span><br/>
+	<com:TListBox ID="workerList" CssClass="items" SelectionMode="Multiple" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="workerList"
+		ErrorMessage="Por favor, seleccione al menos un trabajador"
+		ValidationGroup="worker"
+		CssClass="validator"
+		ControlCssClass="required-input"
+		Display="None" />
+	</div>
+	
+	<div class="actions"> &nbsp;
+	<div class="buttons">
+		<com:TValidationSummary AutoUpdate="false" ValidationGroup="worker" />
+		<com:TButton Text="Siguiente" ValidationGroup="worker" Onclick="nextStep"/>
+	</div>	
+	</div>
+  </com:TView>
+  
+  <!-- Information data introduction -->
+  <com:TView>
+  	<div class="loghours">
+	<h2>Datos de Actividad</h2>
+	
+	<div class="category">
+	<com:TLabel ForControl="type" Text="Tipo:" />
+	<span class="required">*</span><br/>
+	<com:TDropDownList ID="type" />
+	</div>
+	
+	<div class="category">
+	<com:TLabel ForControl="phase" Text="Fase:" />
+	<span class="required">*</span><br/>
+	<com:TDropDownList ID="phase" />
+	</div>
+	
+	<div class="day">
+	<com:TLabel ForControl="dateIni" Text="Inicio:" />
+	<span class="required">*</span><br/>
+	<com:TDatePicker ID="dateIni" DateFormat="dd/MM/yyyy" InputMode="DropDownList" />
+	</div>
+	<div class="day">
+	<com:TLabel ForControl="dateEnd" Text="Final:" />
+	<span class="required">*</span><br/>
+	<com:TDatePicker ID="dateEnd" DateFormat="dd/MM/yyyy" 
+		TimeStamp=<%= strtotime("+1 day") %> InputMode="DropDownList" />
+	<com:TCompareValidator
+		ControlToValidate="dateEnd"
+		ControlToCompare="dateIni"
+		ValidationGroup="act-add"
+		DataType="Date"
+		Display="None"
+		ControlCssClass="required-input"
+		DateFormat="dd/MM/yyyy"
+		Operator="GreaterThanEqual"
+		ErrorMessage="La fecha de finalizaci&oacute;n debe ser posterior a la de inicio" />
+	</div>
+	
+	<div class="hours">
+	<com:TLabel ForControl="hours" Text="Horas:" />
+	<span class="required">*</span><br/>
+	<com:TTextBox ID="hours" />
+	 	<com:TRequiredFieldValidator
+	  		ControlToValidate="hours"
+	  		Display="None"
+	  		CssClass="validator"
+	  		ValidationGroup="act-add"
+	  		ControlCssClass="required-input"
+	  		ErrorMessage="Por favor, introduzca la duraci&oacute;n de la actividad." />
+	  	<com:TRangeValidator 
+	  		ControlToValidate="hours"
+	  		DataType="Float"
+	  		MinValue="0"
+	  		MaxValue="9999"
+	  		CssClass="validator"
+	  		Display="None"
+	  		ValidationGroup="act-add"
+	  		ControlCssClass="required-input1"
+	  		ErrorMessage="La duraci&oacute;n debe estar entre 0 y 9999." />
+	</div>
+	
+	<div class="name">
+	<com:TLabel ForControl="name" Text="Nombre:" />
+	<span class="required">*</span><br/>
+	<com:TTextBox ID="name" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="name"
+		CssClass="validator"
+		Display="None" 
+		ControlCssClass="required-input"
+		ValidationGroup="act-add"
+		ErrorMessage="Por favor, introduzca el nombre de la actividad." />
+	</div>
+	
+	<div class="description">
+	<com:TLabel ForControl="description" Text="Descripci&oacute;n:" /><br/>
+	<com:TTextBox ID="description" TextMode="MultiLine" />
+	</div>
+	
+	<div class="actions"> &nbsp;
+	<div class="buttons">
+		<com:TValidationSummary AutoUpdate="false" ValidationGroup="act-add" />
+		<com:TButton Text="Anterior" Onclick="prevStep"/>
+		<com:TButton Text="Agregar actividad" ValidationGroup="act-add" Onclick="addNewActivity"/>
+	</div>	
+	</div>
+	
+	</div>
+  </com:TView>
+  
+  <!-- Success proccess confirmation -->
+  <com:TView>
+  	<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
+  	La actividad fue creada e introducida con &eacute;xito en el sistema.
+  </com:TView>
+</com:TMultiView>
+</fieldset>
+</com:TContent>

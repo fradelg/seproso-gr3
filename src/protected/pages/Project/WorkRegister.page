@@ -1,0 +1,64 @@
+<com:TContent ID="Main">
+<h2>Registrar informe de actividad</h2>
+
+<div class="loghours">
+
+<fieldset>
+<legend>Introduzca los datos semanales de la actividad</legend>
+
+<com:TMultiView ID="views" ActiveViewIndex="0">
+<com:TView>
+
+<div class="category">
+<com:TLabel ForControl="activityList" Text="Actividad:" />
+<span class="required">*</span><br />
+<com:TDropDownList ID="activityList" />
+</div>
+
+<div class="day">
+<com:TLabel ForControl="day" Text="Fecha:" />
+<span class="required">*</span><br />
+<com:TDatePicker ID="day" InputMode="DropDownList" />
+</div>
+
+<div class="hours">
+<com:TLabel ForControl="hours" Text="Horas de trabajo:" />
+<span class="required">*</span><br />
+<com:TTextBox ID="hours" />
+ 	<com:TRequiredFieldValidator
+  		ControlToValidate="hours"
+  		Display="None"
+  		CssClass="validator"
+  		ValidationGroup="hours-add"
+  		ControlCssClass="required-input"
+  		ErrorMessage="Por favor, introduzca el número de horas empleado." />
+  	<com:TRangeValidator 
+  		ControlToValidate="hours"
+  		DataType="Float"
+  		MinValue="0"
+  		MaxValue="9999"
+  		CssClass="validator"
+  		Display="None"
+  		ValidationGroup="hours-add"
+  		ControlCssClass="required-input1"
+  		ErrorMessage="El número de horas debe ser un valor entre 0 y 9999" />
+  </div>
+
+<div class="description">
+<com:TLabel ForControl="comment" Text="Comentarios" /><br/>
+<com:TTextBox ID="comment" TextMode="MultiLine" />
+</div>
+
+<div class="addEntry">
+<com:TValidationSummary AutoUpdate="false" ValidationGroup="hours-add" />
+<com:TButton Text="Registrar informe" ValidationGroup="hours-add" OnClick="addNewEntry" />
+</div>
+
+</com:TView>
+<com:TView>
+	El informe de actividad ha sido creado con &eacute;xito.
+</com:TView>
+
+</fieldset>
+</div>
+</com:TContent>

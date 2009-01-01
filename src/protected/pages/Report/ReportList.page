@@ -10,7 +10,7 @@
 		</tr>
 		<tr><td/><td/></tr>
 		<tr>
-			<td><a href="?page=Report.ActiveWorkers">Trabajadores activos</a></td>
+			<td><a href="?page=Report.Resources">Trabajadores activos</a></td>
 			<td>Trabajadores con actividades asignadas durante un periodo de tiempo.</td>
 		</tr>
 		<tr>

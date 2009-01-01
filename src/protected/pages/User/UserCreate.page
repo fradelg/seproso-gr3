@@ -46,7 +46,7 @@
 		<com:TCompareValidator
 			ControlToValidate="password"
 			ControlToCompare="password2"
-			ErrorMessage="La contrase&ntilde;a no coincide con la anterior"
+			ErrorMessage="La contrase&ntilde;a no coincide con la anterior."
 			ControlCssClass="required-field" />		
 		</div>	
 		<div class="email">
@@ -56,12 +56,12 @@
 		<com:TRequiredFieldValidator
 			ControlToValidate="email"
 			Display="Dynamic"
-			ErrorMessage="Por favor, introduzca su correo electr&oacute;nico"
+			ErrorMessage="Por favor, introduzca su correo electr&oacute;nico."
 			ControlCssClass="required-field" />			
 		<com:TEmailAddressValidator
 			ControlToValidate="email"
 			Display="Dynamic"
-			ErrorMessage="La direcci&oacute;n no parece correcta"
+			ErrorMessage="La direcci&oacute;n no parece correcta."
 			ControlCssClass="required-field" />		
 		</div>
 	</com:TWizardStep>

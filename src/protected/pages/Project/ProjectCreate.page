@@ -1,0 +1,86 @@
+<com:TContent ID="Main">
+<h2>Crear nuevo proyecto</h2>
+
+<fieldset class="project"><legend>Configuraci&oacute;n</legend>
+<com:TMultiView ID="views" ActiveViewIndex="0">
+<com:TView>
+  	<h2>Informaci&oacute;n general del proyecto</h2>
+  	  <p>Introduzca la informaci&oacute;n m&aacute;s general del nuevo proyecto.
+         El jefe de proyecto ser&aacute; el encargado de desarrollar la
+         planificaci&oacute;n y asignar recursos disponibles posteriormente.
+         Presione el bot&oacute;n <tt>Guardar</tt> al terminar para almacenar 
+         los datos.
+      </p>
+    
+    <div class="loghours">
+    
+  	<div class="name">
+  	<com:TLabel ForControl="projectName" Text="Nombre del proyecto"/>
+  	<span class="required">*</span><br />
+  	<com:TTextBox ID="projectName" />
+  	<com:TRequiredFieldValidator
+  		ControlToValidate="projectName"
+  		Display="None"
+  		CssClass="validator"
+  		ValidationGroup="project-add"
+  		ControlCssClass="required-input"
+  		ErrorMessage="Por favor, introduzca un nombre para el proyecto."/>
+  	</div>
+  	
+  	<div class="category">
+  	<com:TLabel ForControl="manager" Text="Jefe de proyecto" />
+  	<span class="required">*</span><br />
+  	<com:TDropDownList ID="manager" />
+  	</div>
+  	
+  	<div class="day">
+  	<com:TLabel ForControl="completionDate" Text="Fecha aproximada de final:"/>
+  	<span class="required">*</span><br />
+  	<com:TDatePicker ID="completionDate" InputMode="DropDownList" />
+  	</div>
+  	
+  	<div class="hours">
+  	<com:TLabel ForControl="estimateHours" Text="Duraci&oacute;n estimada:"/>
+  	<span class="required">*</span><br />
+  	<com:TTextBox ID="estimateHours" />
+  	<com:TRequiredFieldValidator
+  		ControlToValidate="estimateHours"
+  		Display="None"
+  		CssClass="validator"
+  		ValidationGroup="project-add"
+  		ControlCssClass="required-input"
+  		ErrorMessage="Por favor, introduzca una duraci&oacute;n aproximada" />
+  	<com:TRangeValidator 
+  		ControlToValidate="estimateHours"
+  		DataType="Float"
+  		MinValue="0"
+  		MaxValue="9999"
+  		CssClass="validator"
+  		Display="None"
+  		ValidationGroup="project-add"
+  		ControlCssClass="required-input1"
+  		ErrorMessage="La duraci&oacute;n debe estar comprendida entre 0 y 9999" />
+  	</div>
+  	
+  	<div class="description">
+  	<com:TLabel ForControl="description" Text="Descripci&oacute;n:" /><br />
+  	<com:TTextBox ID="description" TextMode="MultiLine" />
+  	</div>
+  </div>
+    
+  <div class="actions">
+    <com:TValidationSummary AutoUpdate="false" ValidationGroup="project-add" />
+  	<p>Presione el bot&oacute;n <tt>Guardar</tt> para consolidar el nuevo proyecto.</p>
+  	<div class="buttons">
+  	<com:TButton Text="Guardar" CssClass="save"
+  		OnClick="saveProject" ValidationGroup="project-add"/>
+  	</div>
+  </div>
+  </com:TView>
+  
+  <com:TView>
+  	<h3>Enhorabuena. El proyecto fue creado con &eacute;xito.</h3>
+  </com:TView>
+ </fieldset>
+
+</com:TContent>

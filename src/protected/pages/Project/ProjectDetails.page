@@ -74,7 +74,7 @@
   	You can <strong>COPY</strong> categories that already have been defined in 
   	another project to this project. </p>
   	  	  	
-	<com:Application.pages.Seproso.CategoryDataList ID="categories" />
+	<com:Application.pages.Project.CategoryDataList ID="categories" />
 	
 	<div class="fromProject">
 		<com:TLabel ForControl="projectList" Text="Add categories from another project:" />

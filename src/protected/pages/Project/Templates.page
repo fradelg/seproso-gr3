@@ -1,0 +1,49 @@
+<com:TContent ID="Main">
+<h1>Selecci&oacute;n de modelo de proceso</h1>
+
+<fieldset class="selection-page">
+	<legend>Plantillas</legend>
+	<div class="menu" align="center">
+	<h2>Seleccione modelo de proceso</h2>
+	<com:TLabel ForControl="templateList" 
+		Text="Seleccione una plantilla de la lista para ver su estructura de fases."/>
+	<com:TListBox ID="templateList" CssClass="items" AutoPostBack="True" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="templateList"
+		ErrorMessage="Por favor, seleccione una plantilla."
+		ValidationGroup="templateSel"
+		ControlCssClass="required-input"
+		Display="None" />
+	</div>
+	
+	<div class="list">
+	<h2>Esquema de fases</h2>
+	<com:TRepeater ID="phaseList" OnItemCreated="itemCreated" EnableViewState="false">
+	 	<prop:HeaderTemplate>
+	 		<table class="project">
+	 			<tr>
+	 				<th class="category">Fase</th>
+	 				<th class="description">Descripci&oacute;n</th>
+	 			</tr>
+	 	</prop:HeaderTemplate>
+	 	<prop:FooterTemplate>
+	 		</table>
+	 	</prop:FooterTemplate>
+	 	<prop:ItemTemplate>
+	 	<tr>
+	 		<td class="category"><%# h($this->DataItem->CategoryName) %></td>
+	 		<td class="description"><%# h($this->DataItem->Description) %></td>
+	 	</tr>
+	 	</prop:ItemTemplate>
+	</com:TRepeater>
+	</div>
+	
+	<div class="actions"> &nbsp;
+	<div class="buttons">
+		<com:TValidationSummary AutoUpdate="false" ValidationGroup="templateSel" />
+		<com:TButton Text="Definir personalizada" Onclick="customization"/>
+		<com:TButton Text="Usar plantilla" ValidationGroup="templateSel" Onclick="useTemplate"/>
+	</div>	
+	</div>
+</fieldset>
+</com:TContent>

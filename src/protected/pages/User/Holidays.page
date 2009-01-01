@@ -1,0 +1,142 @@
+<com:TContent ID="Main">
+<h1>Gesti&oacute;n de periodos vacacionales</h1>
+
+<com:TMultiView ID="views" ActiveViewIndex="0">
+
+<!-- Holidays data report -->
+<com:TView>
+<fieldset><legend>Periodos vacacionales actuales</legend>
+	<div class="resource">
+	<com:TDataList ID="periodList"
+	RepeatLayout="Raw"
+	DataKeyField="ID"
+	OnEditCommand="editEntryItem"
+	OnCancelCommand="refreshEntryList"
+	OnUpdateCommand="updateEntryItem"
+	OnDeleteCommand="deleteEntryItem"
+	OnItemCreated="EntryItemCreated" >
+	
+	<prop:HeaderTemplate>
+	  <table class="time-entries">
+	  	<tr>
+	  		<th>Descripcion</th>
+	  		<th>Fecha de inicio</th>
+	  		<th>Fecha de final</th>
+	  		<th>Editar/Borrar</th>
+	  	</tr>
+	</prop:HeaderTemplate>
+
+	<prop:FooterTemplate>
+	  </table>
+	</prop:FooterTemplate>
+	
+	<prop:ItemTemplate>
+	  <tr>
+	  	<td class="description"><%# h($this->DataItem->Description) %></td>
+	  	<td class="date">
+	  		<com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->ReportDate %> />
+		</td>
+		<td class="date">
+	  		<com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->ReportDate %> />
+		</td>
+	  	<td class="edit">
+	  		<com:TButton Text="Editar" CommandName="edit"/>	  			
+	  		<com:TButton Text="Borrar" CommandName="delete"
+	  			Attributes.onclick="if(!confirm('Est&aacute; seguro?')) return false;" />
+	  	</td>
+	  </tr>
+	</prop:ItemTemplate>
+	
+	<prop:EditItemTemplate>
+	  <tr>
+	  	<td class="categoryName">
+	  		<com:TDropDownList ID="category" />
+	  	</td>
+	  	<td class="description">
+	  		<com:TTextBox ID="description" Text=<%# $this->DataItem->Description %> />
+	  	</td>
+	  	<td class="edit">
+	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
+	  		<com:TButton Text="Cancelar" CommandName="cancel" />
+	  	</td>
+	  </tr>
+	</prop:EditItemTemplate>	
+	
+	</com:TDataList>
+	
+	<br /><com:TButton Text="Nuevo periodo" OnClick="newPeriod" />
+	
+	</div>
+</fieldset>
+</com:TView>
+
+<!-- Add new user holiday period form -->
+<com:TView>
+<fieldset><legend>Datos y fechas del nuevo periodo</legend>
+	<div class="loghours">
+	<div class="day">
+	<com:TLabel ForControl="dateIni" Text="Inicio:" />
+	<span class="required">*</span><br/>
+	<com:TDatePicker ID="dateIni" DateFormat="dd/MM/yyyy" InputMode="DropDownList" />
+	</div>
+	<div class="day">
+	<com:TLabel ForControl="dateEnd" Text="Final:" />
+	<span class="required">*</span><br/>
+	<com:TDatePicker ID="dateEnd" DateFormat="dd/MM/yyyy" 
+		TimeStamp=<%= strtotime("+1 week") %> InputMode="DropDownList" />
+	<com:TCompareValidator
+		ControlToValidate="dateEnd"
+		ControlToCompare="dateIni"
+		DataType="Date"
+		Display="None"
+		ControlCssClass="required-input"
+		DateFormat="dd/MM/yyyy"
+		Operator="GreaterThanEqual"
+		ErrorMessage="La fecha de finalizaci&oacute;n debe ser posterior a la de inicio" />
+	</div>
+	
+	<div class="name">
+	<com:TLabel ForControl="name" Text="Nombre:" />
+	<span class="required">*</span><br/>
+	<com:TTextBox ID="name" />
+	<com:TRequiredFieldValidator
+		ControlToValidate="name"
+		CssClass="validator"
+		Display="None" 
+		ControlCssClass="required-input"
+		ErrorMessage="Por favor, introduzca un nombre identificador del periodo." />
+	</div>
+	
+	<div class="description">
+	<com:TLabel ForControl="description" Text="Justificaci&oacute;n:" /><br/>
+	<com:TTextBox ID="description" TextMode="MultiLine" />
+	</div>
+	
+	<div class="addEntry">
+		<com:TValidationSummary AutoUpdate="false" />
+		<com:TButton Text="A&ntilde;adir periodo" OnClick="addPeriod" />
+	</div>
+	
+	</fieldset>
+	</div>
+</com:TView>
+
+<!-- Confirmation message page-->
+<com:TView>
+	<fieldset><legend>Confirmaci&oacute;n de solicitud</legend>
+		<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
+		El periodo introducido ha sido comprobado y asignado como vacaciones.
+	</fieldset>
+</com:TView>
+
+<!-- Error message page-->
+<com:TView>
+	<fieldset><legend>Denegaci&oacute;n de solicitud</legend>
+		<img src="<%= $this->Page->Theme->BaseUrl %>/error.gif" width="32" height="32" alt="">
+		El periodo introducido no es v&aacute;lido y no puede ser utilizado como vacaciones.
+		<br/><br/>Motivos: <com:TLabel ID="reason" Text="Error en el sistema" />
+	</fieldset>
+</com:TView>
+</com:TContent>
