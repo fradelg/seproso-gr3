@@ -1,0 +1,350 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Realización de los Casos de Uso.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|p{2cm}|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 28/12/08 & Primera versión de diseño. & Rubén y Yuri\\
+\hline
+0.5 & 29/12/08 & Versión 0.5 de los diagramas de interacción. & Francisco, Abel y Rubén\\
+\hline
+1.0 & 30/12/08 & Versión completa del modelo dinámico de diseño. & Grupo III\\
+\hline
+1.1 & 30/12/08 & Adición de especificaciones en cada Caso de Uso. & Rubén.\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent El objetivo de este documento es la especificación del funcionamiento dinámico del sistema: SEguimiento de PROyectos SOftware (SEPROSO). En dicho documento se definen los diagramas relacionados con la realización de casos de uso, y los diagramas que completen las especificaciones dinámicas de diseño. Este documento será referencia para el uso posterior por los desarrolladores y en consecuencia por más documentos de planificación, diseño software y desarrollo de la aplicación.
+
+\section{Ámbito.}
+
+\indent \indent El sistema a desarrollar se denominará SEPROSO. Es una herramienta para la gestión y seguimiento de proyectos software. La interación con la herramienta depende del rol a desempeñar por el usuario de la aplicación, distinguiéndose los siguientes roles:
+\begin{itemize}
+	\item Administrador.
+	\item Jefe de Proyecto.
+	\item Desarrollador.
+	\item Responsable de personal.\\
+\end{itemize}
+
+El sistema atenderá las peticiones de cada uno de ellos en función del trabajo que desempeñana\\.
+
+El modelo de diseñon dinámico provee una visión de la interación entre usuario y la aplicación, y los elementos intermediarios entre ellos, dentro de la herramienta SEPROSO.
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item Plantilla de elicitación de requisitos para Proceso Unificado UPEDU. www.upedu.org
+	\item Documento del estandar IEEE 830 sobre recomendaciones para la especifiación de requisitos software secciones 4, 5 y anexo A.3.
+	\item Visión general de la herramienta propuesta por el profesor de la asignatura.
+	\item Plan de Proyecto Software.
+	\item Documento de especificación de recursos software, SRS.
+	\item Modelo de Casos de Uso.
+	\item Diagramas de análisis realizados en la herramienta StarUML.
+	\item Diagramas de diseño realizados en la herramienta StarUML.
+\end{enumerate}
+
+\section{Visión general.}
+
+El resto de este documento contiene la especificación de los diagramas de interacción relacionados con los casos de uso definidos por el usuario.
+
+\chapter{Realización de Casos de Uso.}
+
+\section{CU: Crear Rol}
+
+\indent \indent \textbf{Descripción}\\
+
+A continuación se especifica la interación entre usuario y la página web para la creación del rol de un usuario.\\ Partimos de que el Administrador se encuentra logueado en el sistema y es quién inicia la interación.\\
+
+\textbf{Flujo de Eventos}\\ \\
+El administrador accede a la página web para el control de roles de usuario.\\
+El sistema recupera de la base de datos todos los roles asociados a los usuarios activos.\\
+El administrador de proyecto crea un nuevo rol.\\
+El sistema almacena dicho rol que se ha creado.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Crear nuevo rol [\ref{creaRol}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{creaRol} 
+
+
+
+\section{CU: Creación de Usuarios}
+
+\indent \indent \textbf{Descripción}\\
+
+Se indica la interacción entre el usuario y la herramienta para la creación de un nuevo usuario. Partimos de que el Administrador se encuentra logueado en el sistema y es quién inicia la interación.\\
+
+\textbf{Flujo de Eventos}\\ \\
+El administrador accede a la página web de creación de usuarios.\\
+El sistema busca en la base de datos los usuarios existentes.\\
+El sistema muestra en la página web los usuarios identificados por la base de datos.\\
+El administrador rellena una serie de campos para la creación de un nuevo trabajador.\\
+El sistema almacena en la base de datos el nuevo trabajador.\\
+El sistema muestra al administrador los datos del nuevo trabajador que se ha creado.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Creación de usuarios [\ref{creaUser}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Creación de Usuarios.}{creaUser} 
+
+
+\section{CU: Editar Usuario}
+
+\indent \indent \textbf{Descripción}\\
+
+Se indica la interacción entre el usuario y la herramienta para la edición de los datos de un usuario. Partimos de que el Usuario se encuentra logueado en el sistema y es quién inicia la interación.\\
+
+\textbf{Flujo de Eventos}\\ \\
+El usuario accede a la página web de edición de datos de usuario.\\
+El sistema muestra en la página web los datos del usuario actual.\\
+El usuario rellena una serie de campos para la edición de un nuevo usuario.\\
+El sistema almacena en la base de datos el nuevo trabajador.\\
+El sistema muestra al administrador los datos del nuevo trabajador que se ha creado.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Edición de datos de usuario [\ref{dataUser}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{dataUser} 
+
+
+\section{CU: Configurar vacaciones}
+
+\indent \indent \textbf{Descripción}\\
+
+Se indica la interacción entre el usuario y la herramienta para la configuación de un periodo de vacaciones. Partimos de que el Usuario se encuentra logueado en el sistema y es quién inicia la interación.\\
+
+\textbf{Flujo de Eventos}\\ \\
+El usuario accede a la página web de edición de datos de usuario.\\
+El sistema muestra en la página web los datos del usuario actual.\\
+El usuario accede a la sección para añadir un nuevo período vacacional.\\
+El usuario establece las opciones del período vacacional.\\
+El sistema valida los datos introducidos y almacena el resultado.\\
+El sistema muestra la nueva vista del perfil de usuario.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Edición de periodo vacacional[\ref{vacaciones}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{vacaciones} 
+
+
+\section{CU: Obtener Informe}
+
+\indent \indent \textbf{Descripción}\\
+
+Se indica la interacción entre el usuario y la herramienta para la obtención de un informe determinado. Partimos de que el Usuario se encuentra logueado en el sistema y es quién inicia la interación.\\
+
+\textbf{Flujo de Eventos}\\ \\
+El usuario accede a la página web para la obtención de un inform.\\
+El sistema recupera de la base de datos los proyectos que se encuentran actualmente visibles.\\
+El sistema muestra al usuario los proyectos visibles.
+El usuario selecciona un proyecto y un informe asociado a dicho proyecto.\\
+El sistema recupera las etapas del proyecto seleccionado.\\
+El sistema recupera las tareas y sus actividades asociadas del proyecto seleccionado.\\
+El sistema comprueba el estado de las actividades del proyecto.\\
+El sistema muestra las actividades que se encuentren pendientes.\\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Obtener informe[\ref{actPendientes}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{actpendientes} 
+
+\section{CU: Crear Proyecto}
+
+\indent \indent \textbf{Descripción}\\
+
+.\\
+
+\textbf{Flujo de Eventos}\\ \\
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Crear proyecto [\ref{creaProy}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{creaProy} 
+
+
+\section{CU: Seguimiento del Proyecto}
+
+\indent \indent \textbf{Descripción}\\
+
+.\\
+
+\textbf{Flujo de Eventos}\\ \\
+
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Seguimiento del Proyecto [\ref{seqProy}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{segProy} 
+
+
+\section{CU: Planificar Proyecto}
+
+\indent \indent \textbf{Descripción}\\
+
+.\\
+
+\textbf{Flujo de Eventos}\\
+
+
+\textbf{Diagramas de interacción}\\
+
+Los siguientes diagramas de interacción muestran el flujo de eventos:
+\begin{itemize}
+	\item Planificar Proyecto [\ref{planProy}].
+\end{itemize}
+
+%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{genInf} 
+
+
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
