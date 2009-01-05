@@ -98,9 +98,17 @@
 \hline
 VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
-0.1 & 16/11/08 & Primera versión de la Lista de Riesgos. & Grupo III\\
+0.1 & 16/11/08 & Esbozo inicial de Lista de Riesgos. & Grupo III\\
 \hline
-0.2 & 17/11/08 & Revisión de la Lista de Riesgos. & Francisco\\
+1.0 & 17/11/08 & Análisis, identificación y descripción de riesgos. & Francisco\\
+\hline
+2.0 & 15/12/08 & Monitorización y seguimiento de riesgos (Elaboración). & Francisco\\
+\hline
+3.0 & 05/01/09 & Monitorización y seguimiento de riesgos (Construcción I). & Francisco\\
+\hline
+4.0 & 21/01/09 & Monitorización y seguimiento de riesgos (Construcción II). & Francisco\\
+\hline
+5.0 & 05/02/09 & Monitorización y seguimiento de riesgos (Producción). & Francisco\\
 \hline
 \end{tabular}
 
@@ -261,7 +269,75 @@ RIESGO - 10 \\
 \textbf{Indicador}: cambio de versión en drivers, software o IDE en las máquinas de trabajo. Adición de nueva funcionalidad aprovechable para nuestro producto. \\
 \textbf{Mitigación / contingencia}: mantener frecuentemente actualizada la gestión de configuraciones y volver a versión anterior en el proyecto. Si aún hay tiempo, reconstruir los componentes afectados actualizando la planificación. Como última posibilidad, volver a las versiones anteriores en el entorno o intentar cambiar de máquina de trabajo. \\
 
+\section{RIESGO - 11}
 
+RIESGO - 11 \\
+\textbf{Magnitud}: 7 \\
+\textbf{Descripción}: dificultad en el aprendizaje de herramientas de desarrollo (EclipsePDT), diseño de bases de datos (DBDesigner), gestión de versiones (TortoiseSVN) y frameworks (PRADO). \\
+\textbf{Impacto}: A \\
+\textbf{Indicador}: en general muy baja productividad y retraso en la planificación. En particular: excesiva consulta de tutoriales/manuales/ayuda, errores graves demasiado frecuentes, repetición innecesaria de tareas, resultados inesperados y desesperación. \\
+\textbf{Mitigación / contingencia}: uso y apoyo masivo en ejemplos básicos, búsqueda de expertos, consulta en foros oficiales, sesiones de aprendizaje en grupo o cursos. \\
+
+
+\chapter{Seguimiento de riesgos.}
+
+\indent \indent En el siguiente apartado se presenta la evaluación del estado de los riesgos que se ha realizado al final de cada iteración para conseguir tener un seguimiento durante todo el desarrollo del proyecto. El estado se califica atendiendo a la monitorización de los indicadores de cada riesgo declarados en la sección anterior. \\
+El estado de un riesgo se puede clasificar en 3 tipos:
+\begin{enumerate}
+	\item PRESENTE: el riesgo es real. Los indicadores se manifiestan claramente o están empezando a producirse, augurando la aparición del riesgo. Hay que aplicar las medidas de contingencia y elaborar un plan de acción cuyos resultados se verán en la próxima monitorización de seguimiento (próxima iteración).
+	\item AUSENTE: el riesgo no existe. Los indicadores no se han producido ni se esperan.
+	\item RESUELTO: el riesgo se ha eliminado. Una vez tomadas medidas se eliminó el riesgo.
+	\item CONTROLADO: el riesgo se ha reducido y es aceptable. Una vez tomadas medidas de contingencia se mitigó el efecto del riesgo de forma que el proyecto aún pueda continuar con el riesgo presente.
+\end{enumerate}
+
+
+\begin{tabla}{Monitorización de riesgos.}{MRiesgo}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multicolumn{5}{|c|}{RIESGO - ID. Nombre descriptivo.}\\
+\hline
+\textbf{ID} & \textbf{Elaboración} & \textbf{Construcción I} & \textbf{Construcción II} & \textbf{Producción} \\
+\hline
+RIESGO - 01 & PRESENTE & RESUELTO & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 02 & AUSENTE & AUSENTE & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 03 & AUSENTE & AUSENTE & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 04 & AUSENTE & AUSENTE & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 05 & PRESENTE & RESUELTO & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 06 & PRESENTE & CONTROLADO & CONTROLADO & CONTROLADO \\
+\hline
+RIESGO - 07 & AUSENTE & AUSENTE & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 08 & AUSENTE & AUSENTE & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 09 & AUSENTE & AUSENTE & PRESENTE & RESUELTO \\
+\hline
+RIESGO - 10 & AUSENTE & AUSENTE & AUSENTE & AUSENTE \\
+\hline
+RIESGO - 11 & AUSENTE & PRESENTE & CONTROLADO & AUSENTE \\
+\hline
+\end{tabular}
+\end{tabla}
+
+Los identificadores utilizados en la tabla \label{MRiesgos} corresponden a los riesgos identificados en la sección anterior. Dicha relación la repetimos de nuevo a continuación:
+
+\begin{enumerate}
+\item RIESGO - 01: inexperiencia con el modelo de proceso UPEDU.\\
+\item RIESGO - 02: insuficiente personal en alguna de las fases. \\
+\item RIESGO - 03: algún miembro del equipo abandone el proyecto. \\
+\item RIESGO - 04: la entrega del proyecto sea posterior a la fecha planificada. \\
+\item RIESGO - 05: mala comprensión de la especificación de las necesidades del cliente. \\
+\item RIESGO - 06: coste (horas de trabajo) del proyecto superior al planificado. \\
+\item RIESGO - 07: baja calidad de la interfaz gráfica de usuario final del proyecto. \\
+\item RIESGO - 08: incompatibilidad del producto con el navegador web y el hardware del cliente. \\
+\item RIESGO - 09: falta de comunicación entre miembros del equipo durante mucho tiempo. \\
+\item RIESGO - 10: cambios en el entorno de desarrollo software (PHP, MySQL). \\
+\item RIESGO - 11: dificultad en el aprendizaje de herramientas de desarrollo (EclipsePDT), \item diseño de bases de datos (DBDesigner), gestión de versiones (TortoiseSVN) y frameworks (PRADO). \\
+\end{enumerate}
 
 % Parte final de la memoria
 \backmatter 
