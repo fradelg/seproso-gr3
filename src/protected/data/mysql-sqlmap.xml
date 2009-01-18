@@ -5,7 +5,7 @@
 	<typeHandler type="DateTime" class="DateTimeTypeHandler" />
 
 	<connection class="TDbConnection"
-		ConnectionString="mysql:host=localhost;dbname=seproso"
+		ConnectionString="mysql:host=localhost;dbname=grupo03"
 		Username="grupo3" Password="grupo3" />
 
 <!-- JAIR MySQL DataBase Connection
@@ -13,10 +13,11 @@
 		ConnectionString="mysql:host=jair.lab.fi.uva.es;dbname=grupo03"
 		Username="grupo03" Password="nnLx9jpr" />
 -->
-	<sqlMap resource="MySQL4/users.xml"/>
-	<sqlMap resource="MySQL4/projects.xml"/>
-	<sqlMap resource="MySQL4/category.xml" />
-	<sqlMap resource="MySQL4/time-entry.xml" />
-	<sqlMap resource="MySQL4/reports.xml" />
+	<sqlMap resource="MySQL/users.xml"/>
+	<sqlMap resource="MySQL/workers.xml"/>
+	<sqlMap resource="MySQL/projects.xml"/>
+	<sqlMap resource="MySQL/activities.xml" />
+	<sqlMap resource="MySQL/work-record.xml" />
+	<sqlMap resource="MySQL/reports.xml" />
     
 </sqlMapConfig>
