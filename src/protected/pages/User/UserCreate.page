@@ -66,28 +66,48 @@
 		</div>
 	</com:TWizardStep>
 	<com:TWizardStep>
-		<com:TLabel ForControl="role" Text="Rol del usuario:" />
-		<span class="required">*</span>
-		<com:TDropDownList ID="role">
-			<com:TListItem Text="Administrador" 
-			Value="admin" />
-			<com:TListItem Text="Jefe de personal" 
-			Value="personal" />
-			<com:TListItem Text="Jefe de proyecto" 
-			Value="manager,analyst,designer,analyst-programer,test-manager,programer,tester" />
-			<com:TListItem Text="Analista"
-			Value="analyst,designer,analyst-programer,test-manager,programer,tester" />
-			<com:TListItem Text="Dise&ntilde;ador"
-			Value="designer,programer,tester" />
-			<com:TListItem Text="Analista-Programador"
-			Value="analyst-programer,programer,tester" />
-			<com:TListItem Text="Jefe de pruebas"
-			Value="test-manager,programer,tester" />
-			<com:TListItem Text="Programador"
-			Value="programer" />
-			<com:TListItem Text="Probador"
-			Value="tester" />
-		</com:TDropDownList>		
+		<div class="name">
+			<com:TLabel ForControl="name" Text="Nombre:" />
+			<span class="required">*</span>
+			<com:TTextBox ID="name" Style="width:20em"/>
+			<com:TRequiredFieldValidator
+				ControlToValidate="name"
+				Display="Dynamic"
+				ErrorMessage="Por favor, introduzca el nombre del usuario."
+				ControlCssClass="required-field" />
+		</div>
+		<div class="surname">
+			<com:TLabel ForControl="surname" Text="Apellidos:" />
+			<span class="required">*</span>
+			<com:TTextBox ID="surname" Style="width:20em"/>
+			<com:TRequiredFieldValidator
+				ControlToValidate="surname"
+				Display="Dynamic"
+				ErrorMessage="Por favor, introduzca los apellidos del usuario."
+				ControlCssClass="required-field" />
+		</div>
+		<div class="birthdate">	
+			<com:TLabel ForControl="birthDate" Text="Nacimiento:"/>
+			<span class="required">*</span>
+			<com:TDatePicker id="birthDate" 
+				DateFormat="dd/MM/yyyy"
+				TimeStamp=<%= strtotime("-18 year") %>
+				InputMode="DropDownList" />
+			<com:TCompareValidator
+				ControlToValidate="birthDate"
+				ValueToCompare=<%= time() %>
+				DataType="Date"
+				Display="None"
+				ControlCssClass="required-input"
+				DateFormat="dd/MM/yyyy"
+				Operator="LessThan"
+				ErrorMessage="La fecha debe ser anterior a la actual." />
+		</div>
+		<div class="role">
+			<com:TLabel ForControl="role" Text="Rol:" />
+			<span class="required">*</span>
+			<com:TDropDownList ID="role" />
+		</div>
 	</com:TWizardStep>
 	<com:TWizardStep StepType="Complete">
 		El nuevo usuario ha sido creado con &eacute;xito.

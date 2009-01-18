@@ -61,6 +61,15 @@ class UserDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForList('GetAllUsers');
 	}
+	
+	/**
+	 * @return array list of all roles.
+	 */
+	public function getAllRoles()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetAllRoles');
+	}
 
 	/**
 	 * @param SeprosoUser new user details.
@@ -70,10 +79,8 @@ class UserDao extends BaseDao
 	{
 		$sqlmap = $this->getSqlMap();
 		$param['user'] = $user;
-		$param['password'] = md5($password);
+		$param['password'] = $password;
 		$sqlmap->insert('AddNewUser', $param);
-		if(count($user->getRoles()) > 0)
-			$this->updateUserRoles($user);
 	}
 
 	/**
@@ -106,7 +113,7 @@ class UserDao extends BaseDao
 		if($password !== null)
 		{
 			$param['user'] = $user;
-			$param['password'] = md5($password);
+			$param['password'] = $password;
 			$sqlmap->update('UpdateUserDetailsAndPassword', $param);
 		}
 		else
@@ -125,7 +132,7 @@ class UserDao extends BaseDao
 	{
 		$sqlmap = $this->getSqlMap();
 		$param['username'] = $username;
-		$param['password'] = md5($password);
+		$param['password'] = $password;
 		return $sqlmap->queryForObject('ValidateUser', $param);
 	}
 

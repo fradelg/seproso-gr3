@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+
+  <authorization>
+    <allow pages="ProjectList, ProjectCreate" roles="admin" />
+	<allow pages="Templates, Phases, Activities, AddActivity, 
+                  Workers, ApproveAct, ReviewAct" roles="manager" />
+    <allow pages="WorkRegister" roles="manager, developer" />
+    <deny users="*" />
+  </authorization>
+
+  <pages MasterClass="Application.pages.MainLayout" Theme="Seproso" />
+  
+</configuration>

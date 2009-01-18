@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+
+  <authorization>
+	  <allow pages="ReportList, ActiveActs, ActiveWorkers, ApprovedActs, 
+                  AssignedActs, DelayedActs, FutureActs, FutureWorkers, 
+                  PlannedActs, ReviewActs, Summary" roles="manager" />
+	  <allow pages="WorkRegisters, Summary" roles="developer" />
+    <allow pages="Activities, Worker" roles="personal" />
+    <deny users="*" />
+  </authorization>
+
+  <pages MasterClass="Application.pages.MainLayout" Theme="Seproso" />
+  
+</configuration>

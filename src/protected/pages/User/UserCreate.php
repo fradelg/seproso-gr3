@@ -30,9 +30,14 @@ class UserCreate extends TPage
 	{
 		if(!$this->IsPostBack)
 		{
-			$this->role->SelectedValue = 	
-				$this->Application->Parameters['NewUserRoles'];
+			$this->role->DataSource = $this->getUserDao()->getAllRoles();;
+			$this->role->dataBind();
 		}
+	}
+	
+	protected function getUserDao()
+	{
+		return $this->Application->Modules['daos']->getDao('UserDao');
 	}
 	
 	/**
@@ -42,12 +47,10 @@ class UserCreate extends TPage
 	 */
 	public function checkUsername($sender, $param)
 	{
-		$userDao = $this->Application->Modules['daos']->getDao('UserDao');
-		if($userDao->usernameExists($this->username->Text))
+		if($this->getUserDao()->usernameExists($this->username->Text))
 		{
 			$param->IsValid = false;
-			$sender->ErrorMessage = 
-				"The user name is already taken, try '{$this->username->Text}01'";
+			$sender->ErrorMessage =	"Ese nombre ya existe, utilice '{$this->username->Text}01'";
 		}
 	}
 	
@@ -63,33 +66,31 @@ class UserCreate extends TPage
 	{
 		if($this->IsValid)
 		{
+			// configure the user
 			$newUser = new SeprosoUser($this->User->Manager);
 			$newUser->EmailAddress = $this->email->Text;
 			$newUser->Name = $this->username->Text;
 			$newUser->IsGuest = false;
-			$newUser->Roles = $this->role->SelectedValue;
-	
-			//save the user
-			$userDao = $this->Application->Modules['daos']->getDao('UserDao');
-			$userDao->addNewUser($newUser, $this->password->Text);
-	
-			//update the user credentials if not admin
-			if(!$this->User->isInRole('admin'))
-			{
-				$auth = $this->Application->getModule('auth');
-				$auth->updateCredential($newUser);
+			switch ($this->role->SelectedValue){
+				case 1:	$newUser->Roles = 'manager'; break;
+				case 8:	$newUser->Roles = 'personal'; break;
+				default:$newUser->Roles = 'developer'; break;
 			}
-		}
-	}
 	
-	/**
-	 * Continue with requested page.
-	 */
-	public function wizardCompleted($sender, $param)
-	{
-		//return to requested page
-		$auth = $this->Application->getModule('auth');
-		$this->Response->redirect($auth->getReturnUrl());
+			// save the user
+			$this->getUserDao()->addNewUser($newUser, $this->password->Text);
+			
+			// configure the worker
+			$newWorker = new WorkerRecord();
+			$newWorker->UserID = $this->username->Text;
+			$newWorker->RoleID = $this->role->SelectedValue;
+			$newWorker->Name = $this->name->Text;
+			$newWorker->Surname = $this->surname->Text;
+			$newWorker->BirthDate = $this->birthDate->TimeStamp;
+			
+			// save the worker
+			$this->getUserDao()->addNewWorker($newWorker);
+		}
 	}
 }
 

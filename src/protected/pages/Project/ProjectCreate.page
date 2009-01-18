@@ -81,6 +81,8 @@
   <com:TView>
   	<h3>Enhorabuena. El proyecto fue creado con &eacute;xito.</h3>
   </com:TView>
+  
+ </com:TMultiView>
  </fieldset>
 
 </com:TContent>

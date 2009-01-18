@@ -1,8 +1,8 @@
 <com:TContent ID="Main">
-<h2>Informe de actividades general</h2>
+<h2>Actividades pendientes de aprobaci&oacute;n</h2>
 
 <fieldset class="report">
-	<legend>Trabajadores y actividades</legend>
+	<legend>Actividades sin aprobar</legend>
 	<com:TMultiView ID="views" ActiveViewIndex="0">
 	<com:TView>
 		<div align="center">
@@ -16,7 +16,7 @@
 			InputMode="DropDownList" />
 		</div>
 		<div class="date-to">
-		<com:TLabel ForControl="dateTo" Text="Hasta la fecha:"/>
+		<com:TLabel ForControl="dateTo" Text="Hasta:"/>
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateTo" DateFormat="dd/MM/yyyy" InputMode="DropDownList"/>
 		<com:TCompareValidator
@@ -51,13 +51,22 @@
 		<com:TRepeater ID="workers">
 		 	<div class="resource">
 		 	<prop:HeaderTemplate>
-			 	<h4 class="user"> -- Trabajadores -- </h4>
-			 	--
+				<table class="project">
+			 	<tr>
+			 		<th class="user">Trabajador</th>
+			 		<th class="category">Actividad</th>
+			 		<th class="description">Descripci&oacute;n</th>
+			 	</tr>
 			 </prop:HeaderTemplate>
 			 <prop:FooterTemplate>
+			 	</table>
 			 </prop:FooterTemplate>
 			 <prop:ItemTemplate>
-			 	<span class="user"><%# h($this->DataItem->Name) %></span> -- 
+			 	<tr>
+			 		<td class="user"><%# h($this->DataItem->UserName) %></td>
+			 		<td class="category"><%# h($this->DataItem->ActivityName) %></td>
+			 		<td class="description"><%# h($this->DataItem->Description) %></td>
+			 	</tr>
 			 </prop:ItemTemplate>
 		</com:TRepeater>
 	</com:TView>

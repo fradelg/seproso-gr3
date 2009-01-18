@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+
+  <authorization>
+    <allow pages="UserList, UserCreate" roles="admin" />
+    <allow pages="Holidays" roles="manager,developer" />
+	  <allow pages="Logout, Login" users="*" />
+    <deny users="*" />
+  </authorization>
+
+  <pages MasterClass="Application.pages.MainLayout" Theme="Seproso" />
+
+</configuration>

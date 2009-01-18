@@ -9,26 +9,32 @@
 	<using namespace="Application.data.*" />
 	<using namespace="Application.controls.*" />
   </paths>
+  
   <modules>
-
-<!--
-	<module id="cache" class="System.Caching.TMemCache" />
--->
+	<!-- User manager module -->
+	<module id="users" class="Application.code.UserManager" />
+	<!-- Authorization manager module -->
+	<module id="auth" class="Application.code.SeprosoAuthManager" 
+		UserManager="users" LoginPage="User.Login" />
+	<!-- DAO module -->
 	<module id="daos" class="DaoManager" EnableCache="true"
-  		configFile="Application.data.mysql4-sqlmap">
+  		configFile="Application.data.mysql-sqlmap">
 		<dao id="UserDao" class="Application.code.DAO.UserDao" />
+		<dao id="WorkerDao" class="Application.code.DAO.WorkerDao" />
 		<dao id="ProjectDao" class="Application.code.DAO.ProjectDao" />
-		<dao id="TimeEntryDao" class="Application.code.DAO.TimeEntryDao" />
-		<dao id="CategoryDao" class="Application.code.DAO.CategoryDao" />
-		<dao id="ReportDao" class="Application.code.DAO.ReportsDao" />
+		<dao id="WorkRecordDao" class="Application.code.DAO.WorkRecordDao" />
+		<dao id="ActivityDao" class="Application.code.DAO.ActivityDao" />
+		<dao id="ProcessDao" class="Application.code.DAO.ProcessDao" />
+		<dao id="ReportDao" class="Application.code.DAO.ReportDao" />
   	</module>
-
+	<!-- Charset module -->
 	<module id="globalization"
 		class="System.I18N.TGlobalization"
 		Charset="UTF-8" />
-
   </modules>
+  
   <services>
     <service id="page" class="TPageService" DefaultPage="User.UserList"/>
   </services>
+  
  </application>

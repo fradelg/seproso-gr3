@@ -1,34 +1,21 @@
 <?php
 /**
- * Project class file.
+ * Seproso Project record.
  *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2006 PradoSoft
- * @license http://www.pradosoft.com/license/
- * @version $Id: ProjectRecord.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
- */
-
-/**
- * Seproso Project class.
- *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @version $Id: ProjectRecord.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
- * @since 3.1
+ * @author Grupo 3 - ISO 2 - UVA
+ * @version 1.0
+ * 
  */
 class ProjectRecord
 {
-	public $ActualDuration = 0;
-	public $CreatorUserName = '';
-	public $CompletionDate = 0;
-	public $DateCreated = 0;
+	public $Title = '';
+	public $ManagerID = 0;
+	public $ProcessID = 0;
+	
 	public $Description = '';
-	public $EstimateDuration = 0.0;
-	public $ID = 0;
-	public $ManagerUserName = '';
-	public $Name = '';
+	public $Date = 0;
+	public $Burchet = 0;
+	public $Active = 0;
 }
 
 

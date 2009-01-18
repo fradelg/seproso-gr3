@@ -11,7 +11,7 @@
  */
 
 /**
- * Generic time tracker application exception. Exception messages are saved in
+ * Generic seproso application exception. Exception messages are saved in
  * "exceptions.txt"
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
@@ -26,7 +26,7 @@ class SeprosoException extends TException
 	 */
 	protected function getErrorMessageFile()
 	{
-		return dirname(__FILE__).'/exceptions.txt';
+		return dirname(__FILE__).'/Exceptions.txt';
 	}	
 }
 

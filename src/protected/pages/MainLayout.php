@@ -6,7 +6,7 @@ class MainLayout extends TPage
 	
 	public function onLoad($param)
 	{
-		if (!$this->isPostBack){
+		if (!$this->isPostBack && !$this->User->getIsGuest()){
 			$this->User->Project = $this->getUserDao()->getProject($this->User->Name);
 			$projects = $this->getProjects();
 			$this->projects->DataSource = $projects;

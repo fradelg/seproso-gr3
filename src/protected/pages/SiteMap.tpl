@@ -2,7 +2,7 @@
 
 <!-- ADMINISTRATOR menu definition. Items: usuarios, proyectos, configuracion -->
 <ul class="level1">
-	<com:TPlaceHolder Visible=<%= $this->User->isInRole('admin1') %> >
+	<com:TPlaceHolder Visible=<%= $this->User->isInRole('admin') %> >
 	<li class="<com:TPlaceHolder ID="UserAdminMenu" />">
 		<a class="menuitem" href="?page=User.UserList">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/group.gif" width="16" height="16" alt="">
@@ -18,7 +18,7 @@
 		<span>Proyectos</span></a>
 		<ul class="level2">
 			<li><a href="?page=Project.ProjectList">Listar</a></li>
-			<li><a href="?page=Project.ProjectDetails">Crear</a></li>
+			<li><a href="?page=Project.ProjectCreate">Crear</a></li>
 		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ConfMenu" />">
