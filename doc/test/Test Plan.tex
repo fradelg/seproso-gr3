@@ -1,0 +1,976 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\ Test Plan.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Enero, 2009} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{7cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 2/01/09 & Objetivos y visión general. & Rubén.\\
+\hline
+1.0 & 22/01/09 & Conceptos finales. & Francisco y Rubén.\\
+\hline
+\end{tabular}
+
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent El Plan de Pruebas para SEPROSO presentado en este documento pretende conseguir estos objetivos:
+\begin{itemize}
+	\item Identificar la información del proyecto y los componentes software a probar.
+	\item Enumerar los requisitos que se recomienda probar a muy alto nivel.
+	\item Describir las técnicas y estrategias de prueba empleadas.
+	\item Identificar los recursos involucrados y estimar el esfuerzo necesario.
+	\item Describir brevemente los artefactos resultantes de las pruebas anteriores.
+\end{itemize}
+
+
+
+\section{Ámbito.}
+
+\indent \indent SEPROSO es una herramienta que permitirá el seguimiento de proyectos software a los gestores de proyecto y el control de las actividades desarrolladas por el personal a los jefes de personal.\\
+
+El sistema software de SEPROSO está integrado y alojado en un servidor PHP. Está formado o compuesto por varios módulos a probar para garantizar su correcta funcionalidad en el futuro:\\
+
+La funcionalidad a garantizaren la mayor medida posible para cada módulo se describe muy brevemente a continuación:\\
+
+Módulo ......: es el encargado de ..... Se caracteriza por ser .......
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+
+\section{Referencias.}
+
+\begin{itemize}
+	\item Glosario, Grupo 3, Universidad de Valladolid.
+	\item Plan de Iteración, Grupo 3., Universidad de Valladolid.
+	\item UPEDU. \url{http://www.upedu.org/upedu/}.
+	\item PRADO Documentation, \url{www.pradosoft.com/documentation}, PRADO.
+
+\end{itemize}
+
+\section{Visión general.}
+
+\indent \indent Este plan de pruebas describe los test unitarios iniciales, y de integración posteriores, que aseguren la calidad final de SEPROSO. Estas pruebas pretenden conseguir asegurar la funcionalidad del sistema.\\
+
+Se asume que todos los módulos deben ser probados a la finalización de su desarrollo. La interfaz de usuario se prueba por usuarios neutrales que no participan en el proyecto. \\
+
+Un riesgo a tener en cuenta es que se no se conozca bien el objetivo de las pruebas a realizar sobre un componente, cuya contingencia será revisar la documentación de especificación de casos de uso y los casos de prueba asociados. Otro riesgo es que el tiempo de pruebas es limitado, en cuyo caso se deben probar los casos más importantes y críticos, garantizando al menos la funcionalidad básica al cliente.
+\\
+
+La siguiente tabla muestra la documentación utilizada y su disponible para desarrollar este Plan de Pruebas:\\
+
+
+\figura{Images/Tabla.png}{width=16cm,height=5cm,angle=0}{Identificación del proyecto}{tabla}
+
+
+\chapter{Requisitos para las Pruebas.}
+
+\indent \indent La siguiente lista muestra todos los casos de uso / requisitos que deben ser probados y garantizados obligatoriamente. Para cada uno se indica qué debe comprobarse exactamente, dividido en: aspecto de interfaz de usuario, acceso a la base de datos y procesamiento interno.\\ \\
+
+\newpage
+Pruebas para USUARIO:\\
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  La página de inicio a la herramienta contiene un formulario de login y se muestra cada vez que un usuario intenta acceder a contenidos privilegiados. \\
+\hline
+Interfaz & Redirecciona automáticamente a la página de inicio al intentar acceder a distintas páginas privilegiadas. En la página de inicio se visualizan dos campos (nombre y password) con password oculto.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}\\
+
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Una vez que el usuario confirma los datos de login, el sistema comprueba su validez, mostrando mensaje de error si hay algún dato incorrecto. \\
+\hline
+Interfaz & Redirecciona a la página solicitada si los datos son correctos y si no visualiza el mensaje de error.\\
+\hline
+Base de datos & Recupera datos de tabla Usuarios (SELECT) y verifica al mismo tiempo su existencia.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Las páginas de la herramienta muestran siempre el nombre del proyecto actual y del usuario. \\
+\hline
+Interfaz & Muestra el nombre de usuario y del proyecto en la cabecera de todas las páginas.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  El usuario puede elegir proyecto cuando esté identificado. \\
+\hline
+Interfaz & En la cabecera de la página se muestra una lista desplegable con los proyectos en que el usuario participa.\\
+\hline
+Base de datos & Devuelve los proyectos en que participa el usuario y su rol.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  La vista del usuario depende del rol con el que participa en el proyecto seleccionado actualmente. El proyecto inicial es el seleccionado en la última sesión. \\
+\hline
+Interfaz & Muestra el último proyecto seleccionado cuando accede el usuario. Cuando éste selecciona otro proyecto cambia la colección de operaciones permitidas en el menú principal.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  La desconexión de un usuario de forma inesperada ocasiona el cierre de sesión automático. \\
+\hline
+Interfaz & Tras la desconexión, cuando se intenta acceder de nuevo a cualquier página, se redirige a la página de inicio.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & La "cookie" del usuario caduca automáticamente una vez que se cierra la conexión con el servidor..\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Si el usuario se desconecta, se redirige a la página de inicio. \\
+\hline
+Interfaz & RMuestra de nuevo la página de inicio de la herramienta.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & La "cookie" del usuario expira y queda inválida.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Los cambios de configuración son visibles inmediatamente sobre los usuarios de la herramienta. \\
+\hline
+Interfaz & Los antiguos valores visualizados son modificados cuando el usuario actualiza la página.\\
+\hline
+Base de datos & Se actualiza el valor en la tabla "Configuración" (UPDATE) y las demás tablas afectadas se modifican convenientemente..\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  LEl menú del administrador incluye estas operaciones: gestión de proyectos, gestión de usuarios y configuración. \\
+\hline
+Interfaz & Muestra un menú principal con las tres operaciones. Para usuarios y proyectos muestra un submenú con dos suboperaciones: crear nuevo y listar.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar la operación "Crear nuevo" presenta un formulario para introducir los datos de usuario / proyecto. \\
+\hline
+Interfaz & Al seleccionar la opción "Crear nuevo" se muestra una nueva página con el formulario, dividido en varios pasos en forma de asistente cuando es necesario, con campos para todos los datos de usuario / proyecto que definir.\\
+\hline
+Base de datos & Añade nueva entrada a la tabla "Usuario" / "Proyecto" correspondiente (INSERT)..\\
+\hline
+Calculo Interno & Al confirmar el formulario, el sistema debe validar los campos.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar la operación "Listar" presenta una lista con los usuarios / proyectos del sistema en orden alfabético y sobre cada entrada permite "Eliminar" / "Modificar". \\
+\hline
+Interfaz & Al seleccionar "Listar" se muestran ordenados alfabéticamente todos los ítem con dos botones al lado de cada entrada: "Eliminar" / "Modificar"\\
+\hline
+Base de datos & Se realiza una consulta de datos ordenados en las tablas "Usuarios" / "Proyectos" (SELECT con cláusula ORDER BY).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Modificar" sobre una entrada de la lista presenta los datos actuales de ese ítem como editables y muestra dos botones "Guardar"/"Cancelar" en la entrada. \\
+\hline
+Interfaz & Al seleccionar "Modificar" muestra los datos de la misma entrada pero en campos editables por el usuario y los dos botones. Al elegir "Guardar", muestra los datos existentes en ese momento (modificados o no) en modo "sólo lectura". Al elegir "Cancelar" muestra la página con la lista.\\
+\hline
+Base de datos & Se realiza una consulta de datos en las tablas Usuarios / Proyectos (SELECT) y actualización (UPDATE).\\
+\hline
+Calculo Interno & Al pulsar "Guardar", el sistema debe validar los campos.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Eliminar" sobre una entrada de la lista muestra un mensaje solicitando confirmación antes de continuar. Si se confirma entonces el usuario / proyecto se borra. \\
+\hline
+Interfaz & Al pulsar el botón "Eliminar" muestra un mensaje de advertencia con dos opciones: "Confirmar" o "Cancelar". Al pulsar sobre "Confirmar" muestra de nuevo la lista sin esa entrada. Si se pulsa "Cancelar" muestra la misma lista.\\
+\hline
+Base de datos & Si elige "Confirmar" se elimina la entrada de la tabla "Usuario" / "Proyecto" (DELETE).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Al introducir datos en cualquier formulario, o al confirmarlos, la herramienta valida el contenido de acuerdo a las restricciones. Si detecta algún error lo notificará con mensaje. \\
+\hline
+Interfaz & Según el formulario, si al introducir los datos o al confirmarlos hay algún error, muestra la misma página con el campo del dato erróneo en rojo y con un mensaje explicativo del error.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Valida los datos introducidos aplicando restricciones propias del tipo de datos introducido, de la semántica y de la lógica.\\
+\hline
+\end{tabular}
+
+\newpage
+Pruebas para ADMINISTRADOR \\
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  LLa herramienta proporciona al jefe de proyecto las siguientes operaciones: planificar proyecto, gestionar informes de actividad y obtener informes. Además para planificar proyecto se muestran estas suboperaciones: gestionar fases, actividades y personal. Para gestionar informes de actividad: supervisar informe, aprobar informe y cerrar actividad en curso. \\
+\hline
+Interfaz & El menú de la vista para jefe de proyecto muestra estas 3 operaciones. En el submenú de planificar proyecto aparecen: fases, actividades y personal. En el de gestionar informes de actividad: supervisar, aprobar y cerrar actividad.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Gestionar fases" muestra una lista con las fases del proyecto actual (modelo de proceso). Si éste no existe, se redirige a la página para "Seleccionar plantilla". \\
+\hline
+Interfaz & Tras pinchar sobre la operación muestra una página con la lista de fases o si no hay un modelo de proceso la página con lista de plantillas.\\
+\hline
+Base de datos & Recupera fases del proyecto de la tabla "Fases" (SELECT).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  En la página de "Seleccionar plantilla" aparece una lista de plantillas predefinidas. Al seleccionar una plantilla muestra las fases del modelo de proceso asociado. Aparecen dos acciones: "Aplicar plantilla", que asocia esas fases al proyecto, o "Definir personalizada", que permite al usuario definir las fases. \\
+\hline
+Interfaz & Muestra una lista de plantillas disponibles seleccionables y los dos botones. Si se selecciona una, carga la lista de fases y subfases a la derecha (modo indentado). Al pinchar sobre cualquier botón redirige el navegador hacia la página "Lista de fases" vacía (si pincha "Personalizada") o llena.\\
+\hline
+Base de datos & Recupera las fases asociadas al Modelo de Proceso de la tabla "Plantilla" (SELECT).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  La página "Lista de fases" muestra las fases añadidas hasta el momento al proyecto actual con dos operaciones sobre cada ítem: "Modificar" / "Eliminar". Permite también la operación "Añadir nueva fase". El funcionamiento de estas operaciones es idéntico al del usuario "ADMINISTRADOR" en las listas de usuarios / proyectos. \\
+\hline
+Interfaz & Muestra la lista de fases en una tabla donde a cada ítem se le asocian dos botones: "Modificar" / "Eliminar". Al final de la página aparece un botón "Nueva fase" que muestra un formulario para introducir los datos de una nueva fase.\\
+\hline
+Base de datos & Recupera las fases del proyecto de la tabla "Fases" (SELECT).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Al seleccionar "Nueva fase" se muestra al usuario un formulario donde seleccionar la fase padre e introducir los datos que describan una nueva fase. Al confirmar se validan los datos y se vuelve a mostrar la página "Lista de fases". \\
+\hline
+Interfaz & Muestra un formulario que contiene una lista desplegable de fases y campos para introducir datos descriptivos. \\
+\hline
+Base de datos & Recupera las fases del proyecto de la tabla "Fases" (SELECT)..\\
+\hline
+Calculo Interno & Valida los datos introducidos en el formulario..\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Gestionar actividades" muestra una lista con las fases del proyecto y al seleccionar una de ellas muestra la lista de actividades que la componen, con dos operaciones sobre cada ítem: "Modificar" / "Eliminar". Admite también la operación "Añadir actividad". El funcionamiento de estas operaciones es idéntico al de la página "Lista de fases".\\
+\hline
+Interfaz & Muestra la lista de fases seleccionables a la izquierda. Al pinchar sobre una de ellas muestra la lista de actividades a la derecha con dos botones para cada ítem: "Modificar" / "Eliminar". Al final aparece el botón "Nueva actividad" que muestra un asistente para introducir una nueva actividad.\\
+\hline
+Base de datos & Recupera las actividades de la cada Fase de la tabla "Actividades" (SELECT).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Al seleccionar "Nueva actividad" se muestra al usuario un formulario en varios pasos donde seleccionar la fase, el tipo de actividad, el personal y otros datos descriptivos de la actividad. Al confirmar se validan los datos y se vuelve a mostrar la página "Lista de actividades". \\
+\hline
+Interfaz & Muestra un formulario que contiene una lista de fases, de personal, desplegable de tipos, junto a los datos descriptivos. Esto se hace en dos pasos, intercambiables gracias a 2 botones: "Siguiente" / "Anterior".\\
+\hline
+Base de datos & Recupera las fases del proyecto de la tabla "Fases" (SELECT). Recupera el personal participante de la tabla "Participación" (SELECT). Almacena la nueva actividad en la tabla "Actividades" (UPDATE)..\\
+\hline
+Calculo Interno & Valida los datos introducidos en el formulario..\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Gestionar personal" muestra una página con la lista de trabajadores participantes en el proyecto con una operación "Eliminar" en cada ítem. Contiene también "Añadir trabajador". El funcionamiento de estas operaciones es idéntico al de la página "Lista de fases". \\
+\hline
+Interfaz & Al pinchar sobre "Gestionar personal" muestra una página con una tabla que contiene los siguientes datos de los trabajadores: nombre, rol y porcentaje de participación. Además muestra un botón "Eliminar" sobre cada entrada. Al final de la tabla muestra un botón de "Nuevo trabajador".\\
+\hline
+Base de datos & Recupera las actividades de la cada Fase de la tabla "Actividades" (SELECT).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Al seleccionar "Nueva actividad" se muestra al usuario un formulario en varios pasos donde seleccionar la fase, el tipo de actividad, el personal y otros datos descriptivos de la actividad. Al confirmar se validan los datos y se vuelve a mostrar la página "Lista de actividades".\\
+\hline
+Interfaz & Muestra un formulario que contiene una lista de fases, de personal, desplegable de tipos, junto a los datos descriptivos. Esto se hace en dos pasos, intercambiables gracias a 2 botones: "Siguiente" / "Anterior".\\
+\hline
+Base de datos & Recupera las fases del proyecto de la tabla "Fases" (SELECT). Recupera el personal participante de la tabla "Participación" (SELECT). Almacena la nueva actividad en la tabla "Actividades" (UPDATE).\\
+\hline
+Calculo Interno & Valida los datos introducidos en el formulario.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Gestionar personal" muestra una página con la lista de trabajadores participantes en el proyecto con una operación "Eliminar" en cada ítem. Contiene también "Añadir trabajador". El funcionamiento de estas operaciones es idéntico al de la página "Lista de fases". \\
+\hline
+Interfaz & Al pinchar sobre "Gestionar personal" muestra una página con una tabla que contiene los siguientes datos de los trabajadores: nombre, rol y porcentaje de participación. Además muestra un botón "Eliminar" sobre cada entrada. Al final de la tabla muestra un botón de "Nuevo trabajador".\\
+\hline
+Base de datos & Obtiene los datos de los Trabajadores de su tabla y de "Participación" (SELECT).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Nuevo trabajador" muestra al usuario un formulario para seleccionar: trabajador, rol y porcentaje de participación. Al confirmar se validan los datos y se vuelve a la lista de trabajadores. \\
+\hline
+Interfaz & Muestra un formulario que contiene una lista de trabajadores disponibles, desplegable de roles permitidos y un campo para porcentaje. También contiene un botón "Confirmar". Al pulsarlo se vuelve a mostrar la lista.\\
+\hline
+Base de datos & Recupera a los trabajadores disponibles de la tabla "Trabajadores" (SELECT). Almacena el nuevo participante en la tabla "Participación" (UPDATE).\\
+\hline
+Calculo Interno & Valida los datos introducidos en el formulario. Comprueba que no participe en más proyectos de los permitidos por la configuración del sistema y que su porcentaje de participaciones no supere el 100\%.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Supervisar" / "Aprobar" muestra una página donde seleccionar la fase, actividad y finalmente el informe que todavía está en estado "pendiente de". \\
+\hline
+Interfaz & Muestra inicialmente sólo una lista de fases del proyecto. Tras seleccionar una fase, muestra la lista de actividades vinculadas a ésta. Cuando se seleccione una actividad, muestra otra lista con los informes disponibles seleccionables. Además presenta un botón para realizar la operación.\\
+\hline
+Base de datos & Recupera las fases del proyecto de la tabla "Fases" (SELECT). Recupera las actividades de la tabla "Actividades" (SELECT con ORDER BY). Recupera los informes registrados por desarrolladores de la tabla "RegistroTrabajo" (SELECT).\\
+\hline
+Calculo Interno & Comprueba al pulsar el botón que hay actividad seleccionada. Si no muestra un mensaje de error.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Tras seleccionar un informe de actividad aparece una página que presenta los datos del informe y un botón para confirmar la operación. \\
+\hline
+Interfaz & Muestra todos los datos del informe con el formato adecuado y presenta un botón de confirmación al final.\\
+\hline
+Base de datos & Recupera el informe de la tabla "RegistroTrabajo" (SELECT)\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Cerrar actividad" muestra una página donde seleccionar la fase primero y la actividad después de una lista de las que están actualmente en curso. \\
+\hline
+Interfaz & Muestra inicialmente sólo una lista de fases del proyecto. Tras seleccionar una fase, muestra la lista de actividades en curso vinculadas a ésta. Finalmente aparece un botón de "Cerrar". \\
+\hline
+Base de datos & Recupera las fases del proyecto de la tabla "Fases" (SELECT). Recupera las actividades de la tabla "Actividades" (SELECT)\\
+\hline
+Calculo Interno & Comprueba al pulsar "Cerrar" que hay actividad seleccionada. Si no, muestra un mensaje de error.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Obtener informe" carga una página con la lista de informes que puede visualizar el jefe de proyecto con su breve descripción de contenidos. \\
+\hline
+Interfaz & Muestra una tabla con la lista de informes permitidos y seleccionables, con una columna que los describe.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar un tipo de informe se muestra una página con los datos obtenidos y recopilados por la herramienta.  \\
+\hline
+Interfaz & Muestra una tabla o lista con los datos que contiene el tipo de informe solicitado presentados adecuadamente.\\
+\hline
+Base de datos & Recupera los datos según el tipo de informe (SELECT)\\
+\hline
+Calculo Interno & Compone el informe con los datos en un formato agradable.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Cuando se requiera seleccionar una fecha concreta  o periodo de tiempo de consulta aparecerán antes del informe campos de selección de día, mes y año mediante listas desplegables o mediante un calendario sobre el que pinchar.  \\
+\hline
+Interfaz & Si el tipo de informe es sobre un periodo muestra una página con 2 campos de selección de fecha. Si el informe requiere una fecha aparece sólo un campo. Además de con listas desplegables, es posible seleccionar la fecha con el calendario que aparece al pinchar sobre uno de estos campos. Al pinchar sobre una fecha muestra de nuevo las listas con la fecha seleccionada en ellas. Finalmente aparece un botón de generación de informe.\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Comprueba que la fecha final sea posterior a la inicial.\\
+\hline
+\end{tabular}
+
+\newpage
+Pruebas para DESARROLLADOR: \\
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  El menú principal del usuario desarrollador presenta las siguientes operaciones: crear registro de actividad, establecer vacaciones y obtener informe. \\
+\hline
+Interfaz & El menú muestra entradas para realizar las tres operaciones: "Registrar actividad", "Vacaciones" e "Informes".\\
+\hline
+Base de datos & Ninguno.\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Al seleccionar "Registrar actividad" el desarrollador debe poder introducir las horas semanales de trabajo empleadas en alguna de sus actividades asignadas. \\
+\hline
+Interfaz & Muestra un formulario que permite seleccionar la actividad de una lista desplegable, el periodo (seleccionable mediante calendario) y contiene otros campos descriptivos (esfuerzo, comentarios) para completar un 'Registro de Trabajo'. Al final aparece un botón "Crear informe de actividad"\\
+\hline
+Base de datos & Obtiene actividades del usuario de la tabla "Actividades" (SELECT).\\
+\hline
+Calculo Interno & Valida el periodo introducido (fecha final posterior a inicial) y que se han introducido todos los campos.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Vacaciones" muestra una página que contiene los periodos vacacionales ya asignados y sobre cada uno las operaciones "Modificar" / "Eliminar". Además permite la operación "Nuevo periodo". El funcionamiento de estas operaciones es idéntico al explicado y probado para "Listar" usuarios / proyectos para el ADMINISTRADOR. \\
+\hline
+Interfaz & Muestra un formulario con dos campos para la fecha inicial y final de tipo listas desplegables (día, mes y año), con posible selección sobre calendario opcional. También muestra otro campo para introducir comentarios para el jefe de personal. Finalmente aparece un botón "Añadir".\\
+\hline
+Base de datos & Añade un nuevo periodo a la tabla "Vacaciones" (UPDATE).\\
+\hline
+Calculo Interno & Al pulsar "Añadir" comprueba que el periodo seleccionado no contienen actividades y no excede el límite máximos de 4 semanas en 3 periodos.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Informe" permite al usuario seleccionar un periodo, estableciendo fecha inicial y final sobre un calendario(o lista desplegable). Tras confirmarlo, genera un informe con la lista de informes de actividad pendientes de aprobar / supervisar y por realizar del desarrollador. \\
+\hline
+Interfaz & Muestra dos campos de selección de fecha con calendario y un botón "Generar". Tras pulsar el botón muestra la lista de informes de actividad y actividades del desarrollador en ese periodo en forma de tabla y con todos los detalles.\\
+\hline
+Base de datos & Recupera los informes de actividad de la tabla "RegistroTrabajo" (SELECT).\\
+\hline
+Calculo Interno & Comprueba el periodo (fecha final posterior a la inicial).\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Vacaciones" muestra una página que contiene los periodos vacacionales ya asignados y sobre cada uno las operaciones "Modificar" / "Eliminar". Además permite la operación "Nuevo periodo". El funcionamiento de estas operaciones es idéntico al explicado y probado para "Listar" usuarios / proyectos para el ADMINISTRADOR. \\
+\hline
+Interfaz & Muestra la lista de periodos asignados en una tabla, con dos botones para cada ítem: "Modificar" / "Eliminar". Al final de la página aparece el botón "Nuevo periodo" si es posible\\
+\hline
+Base de datos & Recupera los periodos vacacionales del trabajador de la tabla "Vacaciones (SELECT).\\
+\hline
+Calculo Interno & Comprueba si es posible añadir más periodos: no más de 3 y con 4 semanas máximo entre todos los periodos.\\
+\hline
+\end{tabular}
+
+\newpage
+Pruebas para JEFE DE PERSONAL:\\
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad & El menú principal del desarrollador presenta las operaciones consultar ocupación de trabajadores y consultar situación de un trabajador, que generan sendos informes con los datos de toda la plantilla o de un trabajador concreto. \\
+\hline
+Interfaz & Muestra en el menú las opciones: "Ocupación trabajadores" y "Situación personal".\\
+\hline
+Base de datos & Ninguno).\\
+\hline
+Calculo Interno & Ninguno.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Ocupación trabajadores" permite al usuario seleccionar un periodo, estableciendo fecha inicial y final sobre un calendario(o lista desplegable). Tras confirmarlo, genera un informe con la lista de todos los trabajadores y sus actividades o situación en ese periodo. \\
+\hline
+Interfaz & Muestra dos campos de selección de fecha con calendario y un botón "Generar". Tras pulsar el botón muestra en una tabla la lista trabajadores, y para cada uno una subtabla con sus actividades asignadas durante este periodo.\\
+\hline
+Base de datos & Recupera las actividades asociadas a los trabajadores de la tabla "Actividades" (SELECT).\\
+\hline
+Calculo Interno & Comprueba el periodo (fecha final posterior a la inicial)\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Situación personal" permite al usuario seleccionar un trabajador de una lista y un periodo de tiempo. Tras confirmarlo, genera un informe con los proyectos en que participa, las actividades asignadas y si tiene vacaciones o no en ese periodo. \\
+\hline
+Interfaz & A la izquierda de la página muestra la lista de trabajadores disponibles, dos campos para seleccionar fecha con calendario y botón "Generar". Al pulsar el botón muestra a la derecha de la página la lista de proyectos, actividades, y posibles vacaciones del trabajador en formato agenda.\\
+\hline
+Base de datos & Recupera todos los trabajadores registrados de la tabla "Trabajadores" (SELECT). Recupera los proyectos, actividades y vacaciones asociadas al trabajador de las tablas "Actividades", "Proyectos" y "Vacaciones" (SELECT).\\
+\hline
+Calculo Interno & Comprueba el periodo (fecha final posterior a la inicial).  Determina qué días del periodo disfruta de vacaciones.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|c|p{8cm}|}
+\hline
+Funcionalidad &  Seleccionar "Vacaciones" muestra una página que contiene los periodos vacacionales ya asignados y sobre cada uno las operaciones "Modificar" / "Eliminar". Además permite la operación "Nuevo periodo". El funcionamiento de estas operaciones es idéntico al explicado y probado para "Listar" usuarios / proyectos para el ADMINISTRADOR. \\
+\hline
+Interfaz & Muestra la lista de periodos asignados en una tabla, con dos botones para cada ítem: "Modificar" / "Eliminar". Al final de la página aparece el botón "Nuevo periodo" si es posible\\
+\hline
+Base de datos & Recupera los periodos vacacionales del trabajador de la tabla "Vacaciones (SELECT).\\
+\hline
+Calculo Interno & Comprueba si es posible añadir más periodos: no más de 3 y con 4 semanas máximo entre todos los periodos.\\
+\hline
+\end{tabular}
+
+
+\chapter{Estrategia de las pruebas}
+
+\section{Tipos de pruebas}
+\subsection{Pruebas funcionales}
+
+%\begin{tabla}{Pruebas de Configuración}{PConf}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+Objetivo & Asegurar funcionalidad de los elementos probados, incluyendo navegación, introducción de datos, cálculo y obtención de resultado. Prueba las reglas de negocio y están basados en modelos de caja negra.\\
+\hline
+Tecnica & Ejecutar cada caso de uso o función con datos válidos y erróneos para probar:\\
+& \begin{itemize}
+	\item Si el dato es válido ' el resultado es el esperado
+	\item Si el dato es erróneo ' se muestra el mensaje de error apropiado.
+	\item La regla de negocio asociada a esa función está bien aplicada.
+\end{itemize} \\
+\hline
+Criterio Fin & 
+\begin{itemize}
+	\item Todas las pruebas han sido realizadas.
+	\item Todos los defectos encontrados has sido subsanados
+\end{itemize}\\
+\hline
+Consideraciones & Si existen demasiados datos de entrada o son demasiado complejos, intentar reducir las pruebas a lo más básico, una válida y otra errónea. \\
+\hline
+\end{tabular}
+%\end{tabla}
+
+\subsection{Pruebas Interfaz de Usuario}
+
+%\begin{tabla}{Pruebas de Configuración}{PConf}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+Objetivo & 
+\begin{itemize}
+	\item La navegación entre elementos refleja los requisitos planteados y las funciones del negocio, incluyendo ventanas, campos y métodos de acceso.
+	\item Los widgets o elementos gráficos y su aspecto son intuitivos al cliente.
+\end{itemize}
+\\
+\hline
+Tecnica & Realizar pruebas para cada ventana diferente comprobando la navegabilidad entre ellas y los estados de los objetos.\\
+\hline
+Criterio Fin & Cada ventana es conforme con el estándar o es aceptada por el cliente.\\
+\hline
+Consideraciones & No se pueden comprobar todas las propiedades de algunos objetos personalizados o de terceros.\\
+\hline
+\end{tabular}
+%\end{tabla}
+
+\subsection{Prueba de Datos e Integridad de la Base de datos}
+
+%\begin{tabla}{Pruebas de Configuración}{PConf}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+Objetivo & Garantizar que los métodos de acceso y procesos funcionan correctamente, sin alterar o corromper los datos.\\
+\hline
+Tecnica & Ejecutar cada método o proceso con datos o peticiones válidas y erróneas.\\
+& Después inspeccionar la base de datos para comprobar que los datos están estructurados como se esperaba, que los eventos ocurrieron en el orden esperado o que los datos recuperados son los correctos.
+\\
+\hline
+Criterio Fin & Todos los métodos de acceso y procesos funcionen como se diseñaron.\\
+\hline
+Consideraciones & La base de datos se prueba como un subsistema sin la interfaz de usuario.\\
+& Se necesita una investigación previa del SGBD para identificar las herramientas y técnicas que se necesitan para ayudar a realizar las pruebas. Necesitamos un SGBS y un driver apropiado para comprobar los datos.\\
+& Conviene usar bases de datos con mínima cantidad de datos para aumentar la visibilidad de algunos errores muy comunes.
+\\
+\hline
+\end{tabular}
+%\end{tabla}
+
+
+\subsection{Perfiles de rendimiento}
+
+%\begin{tabla}{Pruebas de Configuración}{PConf}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+Objetivo & 
+Verificar comportamientos eficientes en las transacciones o funcionalidades de negocio bajo carga de trabajo normal y en el peor caso posible.\\
+\hline
+Tecnica & Modificar ficheros de datos (añadiendo más) o scripts para aumentar número de iteraciones por cada transacción con respecto a una prueba normal.\\
+\hline
+Criterio Fin & Una transacción / un usuario: ejecución correcta de los scripts y en el tiempo esperado por cada transacción.\\
+& Muchas transacciones / muchos usuarios: ejecución correcta de los scripts en un tiempo aceptable.\\
+\hline
+Consideraciones & Las pruebas se realizan teniendo una carga de trabajo inicial activa, en un momento de uso exclusivo (para controlarlo) o en una máquina exclusiva.\\
+& Hay varios posibilidades a utilizar:\\
+& \begin{itemize}
+	\item "Transacciones dirigidas" hacia el servidor como llamadas SQL.
+	\item Usar muchos clientes físicos con scripts que aumentan la carga de trabajo.
+\end{itemize}\\
+&Las bases de datos utilizadas deberían ser del mismo tamaño o escaladas.\\
+\\
+\hline
+\end{tabular}
+%\end{tabla}
+
+\subsection{Pruebas de carga de datos}
+
+\indent \indent No ejecutada porque se comprueba con la estrategia de la sección 3.1.4
+
+\subsection{Pruebas de estress}
+
+\indent \indent No ejecutada porque se comprueba con la estrategia de la sección 3.1.4
+
+\subsection{Pruebas de volumen de datos}
+
+\indent \indent No ejecutada porque se comprueba con la estrategia de la sección 3.1.4
+
+\subsection{Pruebas de seguridad y control de acceso}
+
+%\begin{tabla}{Pruebas de Configuración}{PConf}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+Objetivo &Seguridad en Aplicación: comprobar que un usuario sólo puede acceder a las funciones / datos que le permite su rol actual.\\
+& Seguridad en Sistema: comprobar que sólo los usuarios registrados en el sistema pueden acceder al mismo y a su funionalidad.\\
+\hline
+Tecnica & Aplicación: listar todos los roles y las funciones / datos a los que puede acceder. \\
+& Crear pruebas para cada rol que verifiquen esos permisos mediante transacciones propias del rol. Modificar el rol del usuario y volver a probar las mismas. Comprobar que las nuevas funciones / datos estén correctamente permitidas o restringidas al mismo usuario.\\
+& Sistema: comprobar que sólo existe un punto de acceso en el diseño y remitirse a la prueba funcional de acceso al sistema realizada\\
+\hline
+Criterio Fin & Para cada rol se verifica que tiene disponibles las funciones / datos establecidos en los requisitos. Todas las transacciones se ejecutan en el modo esperado y probado con la estrategia de pruebas funcionales.\\
+\hline
+Consideraciones & El acceso al sistema deberá ser revisado y probado con el permiso de los administradores del sistema. A veces puede ser labor suya.\\
+\hline
+\end{tabular}
+%\end{tabla}
+
+\subsection{Pruebas de recuperación}
+
+\indent \indent No ejecutada porque no es un requisito de SEPROSO.
+
+\subsection{Pruebas de configuración}
+
+%\begin{tabla}{Pruebas de Configuración}{PConf}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+& \textbf{Herramienta}\\
+\hline
+Objetivo & Comprobar que los componentes a probar funcionan como deben con la configuración de hardware / software diferente.\\
+\hline
+Tecnica & Utilizar scripts con pruebas funcionales.\\
+& Variar la configuración software abriendo / cerrando otros muchos programas no relacionados dentro o antes del comienzo de la prueba.\\
+& Ejecutar las transacciones seleccionadas para simular una interacción del usuario con los componentes a probar y el otro software. Repetir el proceso, reduciendo la memoria libre del cliente.\\
+\hline
+Criterio Fin & Para cualquier combinación de software a probar y externo, todas las transacciones se completan satisfactoriamente.\\
+\hline
+Consideraciones & Utilizar software externo disponible en el escritorio y usado habitualmente por el cliente.  Variar la carga de trabajo de éste.\\
+& Los sistemas completos utilizados (red, servidores, bases de datos, etc) deben quedar documentados como parte de estas pruebas. \\
+\hline
+\end{tabular}
+%\end{tabla}
+
+\subsection{Perfil de instalación}
+\indent \indent No ejecutada porque se comprueba con la estrategia de la sección 3.1.10
+
+\section{Herramientas}
+Estas son las herramientas software que utilizaremos para realizar las pruebas: \ref{Herramientas}\\
+
+\begin{tabla}{Herramientas}{Herramientas}
+\begin{tabular}{|c|c|}
+\hline
+& \textbf{Herramienta}\\
+\hline
+Test Management& \textbf{MS Project}\\
+\hline
+Defect Tracking & \textbf{Google Code}\\
+\hline
+Testing & \textbf{Mozilla Firefox / PHP}\\
+\hline
+Rendimiento & \textbf{Mozilla Firefox / PHP}\\
+\hline
+Project Management& \textbf{MS Project}\\
+\hline
+\end{tabular}
+\end{tabla}
+
+
+\chapter{Recursos}
+\indent \indent A continuación se presentan los roles recomendados para el equipo de  pruebas de SEPROSO, sus responsabilidades y habilidades.
+
+\section{Trabajadores}
+
+\indent \indent Esta tabla \ref{TablaRol} muestra los roles necesarios en el personal de pruebas del proyecto.
+
+\figura{Images/TablaRol.png}{width=15cm,height=9cm,angle=0}{Tabla de roles}{TablaRol}
+
+\section{Sistema}
+
+\indent \indent Todas las pruebas se ejecutarán como máximo en 3 PC diferentes: uno del laboratorio y otros dos propios de los probadores. Se utilizarán dos servidores: JAIR en el laboratorio de la ETSII Informática de la UVA y el propio PC con el cliente también para los probadores.
+Los servidores de prueba necesitarán tener configurado e instalado al menos el siguiente software:\\
+
+Protocolos DNS y TCP/IP\\
+Apache Server 2.1\\
+PHP 5.1 with PRADO Framework\\
+MySQL Server 4.0\\
+Los requisitos del servidor son: procesador a 200 MHz, 64 MB de RAM y 500 MB de espacio en disco. Además JAIR está disponible 24 horas al día, los 7 días de la semana en el DNS jair.lab.fi.uva.es.\\
+Será en JAIR en donde se realicen las pruebas de rendimiento puesto que en los privados el tráfico es mínimo. Para hacer las pruebas más fiables se ejecutarán a diferentes horas del día.\\
+
+\section{Hitos del proyecto}
+
+\indent \indent Las pruebas de SEPROSO se realizan en varias actividades de prueba para abordar cada uno de los esfuerzos identificados en las secciones anteriores. Existen varios hitos del proyecto relacionados con las pruebas que marcan el estado del proyecto y que identificaremos a continuación: \ref{Hitos}.\\
+
+\begin{tabla}{Hitos}{Hitos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Hito de Pruebas} & \textbf{Esfuerzo} & \textbf{Inicio} & \textbf{Final}\\
+\hline
+Plan &  & & \\
+\hline
+Diseño &  &  & \\
+\hline
+Implementación &  &  & \\
+\hline
+Ejecución &  &  & \\
+\hline
+Evaluación &  &  & \\
+\hline
+\end{tabular}
+\end{tabla}
+
+\section{Artefactos}
+
+\indent \indent Estos son los artefactos que se crean durante las actividades de pruebas
+
+\subsection{Modelo de Test}
+
+\indent \indent  Contiene la definición de todos los casos de prueba y una referencia a los procedimientos de prueba y scripts asociados.  Lo crea el diseñador de pruebas para el probador durante la fase de construcción.
+
+\subsection{Logs de pruebas}
+
+\indent \indent Para cada Caso de Prueba realizado por el Probador se rellena un formulario para informar del resultado. Incluye el nombre (ID) , el caso de uso o requisito probado, la fecha, el nombre del probador y el resultado de la prueba. Está destinado al gestor de proyecto para que analice y saque conclusiones del resultado.
+
+\subsection{Informes de error}
+
+\indent \indent Por cada fallo importante detectado durante la ejecución de los casos de prueba por parte del Probador, éste último añade un nuevo tema en el alojamiento del proyecto en el servidor GoogleCode (seproso-gr3.googlecode.com). Utiliza la herramienta en línea que proporciona el propio Google para el desarrollo de proyectos Open Source. En el nuevo tema deberá completar la siguiente información:\\
+
+\begin{itemize}
+	\item ID: número para identificar el nuevo defecto.
+	\item Tipo: defecto.
+	\item Estado: nuevo (sin considerar), comenzado (se está considerando) o aceptado (ha sido tratado).
+	\item Prioridad: baja, media o alta.
+	\item Versión: configuración del proyecto utilizada.
+	\item Propietario: nombre del probador que encontró el defecto.
+	\item Resumen: descripción completa del defecto encontrado y el caso de prueba utilizado.
+\end{itemize}
+
+Una vez notificado, el diseñador será el encargado de realizar el seguimiento y corregirlo, modificando primero el estado del tema a "comenzado" al empezar su análisis y dejándolo en "aceptado" una vez lo haya subsanado.\\
+
+\appendix
+
+\chapter{Tareas para pruebas}
+
+\begin{itemize}
+	\item Plan de Pruebas
+\begin{itemize}
+	\item Identificar los requisitos a probar
+\item  Consultar los riesgos posibles
+\item Desarrollar la estrategia de prueba
+\item Identificar recursos de prueba
+\item Crear la planificación
+\item Generar el Plan de Pruebas
+\end{itemize}
+\item Diseñar pruebas
+\begin{itemize}
+	\item Análisis de carga de trabajo
+\item Identificar y describir los Casos de Prueba
+\item  Identificar y describir los Procedimientos de Prueba
+\end{itemize}
+\item Implementar pruebas
+\begin{itemize}
+	\item  Realizar scripts de pruebas
+\item  Identificar funcionalidad específica de pruebas en los modelos
+\item  Crear los conjuntos de datos externos
+\end{itemize}
+\item Ejecutar pruebas
+\begin{itemize}
+	\item Ejecutar procedimientos de prueba.
+\item  Evaluar los resultados e investigar los inesperados.
+\item  Registrar posibles defectos.
+\end{itemize}
+\item Evaluar pruebas
+\begin{itemize}
+	\item Evaluar cobertura de todos los Casos de Prueba.
+\item  Evaluar cobertura del código.
+\item  Analizar posibles defectos.
+\item  Determinar si se han alcanzado los criterios de éxito y completitud.
+\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
