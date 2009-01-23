@@ -100,7 +100,12 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
 0.1 & 2/01/09 & Objetivos y visión general. & Rubén.\\
 \hline
+1.0 & 22/01/09 & Añadidas etapas de construcción. & Francisco y Rubén.\\
+\hline
+1.1 & 29/01/09 & Añadida etapa de producción. & Francisco.\\
+\hline
 \end{tabular}
+
 
 
 % inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
@@ -122,18 +127,32 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 \section{Propósito.}
 
-\indent \indent En este documento se presenta una visión general del modelo de implementación de SEPROSO.
+\indent \indent Este documento presenta el plan detallado de desarrollo de componentes e integración de los mismos dentro de cada iteración del proyecto.
 
 
 \section{Ámbito.}
 
-\indent \indent La arquitectura presentada corresponde a la herramienta on-line SEPROSO, que se alojará en un servidor PHP y será utilizada por el cliente mediante un navegador Web. Permite el seguimiento y control de proyectos software tanto por parte del jefe de proyecto como el jefe de personal.\\
-
-Es un documento esencial para el diseñador la hora de diseñar las pruebas más convenientes para el sistema, y surge del análisis de la arquitectura en la fase de elaboración.\\
+\indent \indent Este documento se aplica sobre todas las iteraciones de SEPROSO. Su contenido irá creciendo a medida que avance el desarrollo con cada nueva iteración. El documento va creándose según evoluciona el modelo de implementación del proyecto.\\
 
 \section{Definiciones.}
 
 \indent  \indent Véase el Glosario.
+
+\begin{itemize}
+	\item \textbf{PRADO (Php Rapid Application Development Object-oriented)}: framework de PHP que provee gran cantidad de componentes que facilitan el desarrollo e implementación de aplicaciones Web.
+
+	\item \textbf{PRADO PHP Class}: clase PHP de PRADO que contiene los métodos y atributos definidos en ella, además de los componentes declarados en la página PRADO Page del mismo nombre. Su extensión es .php.
+
+	\item \textbf{PRADO Page}: documento XHTML donde se especifica la presentación o interfaz de usuario para una página web asociada a una clase PRADO PHP Class con el mismo nombre. Su extensión es .page. Toda PRADO page necesita tener su propia PRADO PHP Class aunque no defina comportamiento en ella.
+
+	\item \textbf{PRADO Template Control}: plantilla para alojar páginas Web o componentes de PRADO. Se utiliza para definir esquemas de contenidos para índices o menús. Es muy similar a un componente PRADO Page sólo que ésta se puede insertar en otra PRADO Page. También lleva asociada una PRADO PHP Class del mismo nombre pero diferente extensión que define su comportamiento. Su extensión es .tpl.
+
+	\item \textbf{XML SQL Map}: descripción en XML de las consultas SQL que se realizan a una base de datos y del mapeo automático que se realiza de los resultados obtenidos como entradas de tablas hacia objetos de la aplicación (también llamado "binding"). A estas consultas se las identifica con un nombre que será utilizado por un DAO para ejecutar la consulta y devolver los objetos correspondientes según mapeo.
+
+	\item \textbf{DAO (Data Access Object)}: objeto que permite enlazar la lógica de negocio orientada a objeto con una base de datos relacional, ejecutando las consultas como métodos gracias a ficheros XML SQL Map.
+\end{itemize}
+
+
 
 \section{Referencias.}
 
@@ -143,37 +162,326 @@ Es un documento esencial para el diseñador la hora de diseñar las pruebas más co
 	\item Especificación Suplementaria, Grupo 3, Universidad de Valladolid..
 	\item Plan de Desarrollo Software, Grupo 3, Universidad de Valladolid..
 	\item Plan de Iteración, Grupo 3., Universidad de Valladolid.
-	\item UPEDU. http://www.upedu.org/upedu/.
+	\item UPEDU. \url{http://www.upedu.org/upedu/}.
 	\item Modelo de análisis, Grupo 3, Universidad de Valladolid.
 	\item Modelo de diseño, Grupo 3, Universidad de Valladolid.
+	\item PRADO Documentation, \url{www.pradosoft.com/documentation}, PRADO.
+
 \end{itemize}
 
 \section{Visión general.}
 
-\indent \indent Este documento muestra una visión general del modelo de implementación, las sucesivas iteraciones que se realizan para la construcción de la herramienta. Para cada iteración de desarrollo se muestran los diagrams de componentes y de subsistemas obtenidos. Además, se muestra el proceso de construcción de la herramienta y de las fases de pruebas y evaluación de la aplicación.
+\indent \indent En el primer apartado de este documento se presenta una visión general del Modelo de Implementación final desarrollado para el proyecto SEPROSO. Esto incluye sus productos, paquetes, componentes y los diagramas UML que los relacionan detalladamente. \\
+
+Después el documento contiene varios apartados, uno por cada iteración con actividades de implementación, donde se identifican los componentes y subsistemas que van a ser implementados, junto a sus respectivos diagramas. También se especifica cómo construir, probar y evaluar el producto generado. \\
+
 
 
 \chapter{Vista general del Modelo de Implementación.}
 
-\indent \indent 
+\indent \indent En la siguiente sección se presenta el Diagrama Global UML del Modelo de Implementación (con componentes y paquetes) y los diagramas UML con el contenido de los paquetes a mayor nivel de detalle. Esto provee una visión general de todos los componentes que serán implementados en SEPROSO.\\
 
 
-\chapter{Iteración 1}
+\chapter{Elaboración}
 
-\section{Componnetes y subsistemas.}
-\subsection{Componnetes y subsistemas para desarrollar.}
+\section{Componetes y subsistemas.}
+\subsection{Componetes y subsistemas a implementar.}
+
+\indent \indent En esta iteración las actividades de implementación se centran en obtener un prototipo no funcional en el que se presenten las líneas guía de la Interfaz Gráfica de Usuario al cliente. Esto implica implementar los siguientes paquetes y componentes:
+
+\begin{enumerate}
+	\item Básicos
+	\begin{itemize}
+		\item MainLayout (PRADO Template Control y PRADO PHP Class)
+		\item	SiteMap (PRADO Template Control y PRADO PHP Class)
+		\item	Welcome (PRADO Page)
+		\item	Contact (PRADO Page)
+	\end{itemize}
+	\item		Paquete User
+	\begin{itemize}
+		\item "	Login (PRADO page y PRADO PHP Class)
+		\item	Logout (PRADO page)	
+		\item	UserList (PRADO page y PRADO PHP Class)
+		\item	UserCreate (PRADO page y PRADO PHP Class)
+	\end{itemize}
+	\item		Paquete Project
+	\begin{itemize}
+		\item "	Templates  (PRADO page)
+		\item	Phases  (PRADO page)
+		\item	Activities  (PRADO page)
+		\item	AddActivity (PRADO page)
+		\item	Workers  (PRADO page)
+		\item	WorkRegister  (PRADO page)
+		\item	ReviewAct  (PRADO page)
+	\end{itemize}
+	\item		Paquete Report
+	\begin{itemize}
+		\item "	ReportList (PRADO page)
+		\item	WorkRegisters  (PRADO page)
+		\item	FutureActs (PRADO page)
+		\item	PlannedActs (PRADO page)
+		\item	Summary (PRADO page)
+	\end{itemize}
+	\item		Paquete Theme
+	\begin{itemize}
+		\item	Images (GIF) ' Iconos: ok, error, menú, logo, imágenes decorativas. 
+		\item	Report (CSS) ' Estilo de presentación de informes y periodos.
+		\item	Site (CSS) ' Estilo decorativo principal del sitio web.
+	\end{itemize}
+\end{enumerate}
+
+La numeración de esta lista establece el orden en que deben ser implementados los componentes para conseguir que estén listos al mismo tiempo y facilitar su integración.
+
+
 \subsection{Diagramas del modelo de Implementación.}
 
-\section{Construcciones.}
+\indent \indent Los diagramas de componentes y paquetes del Modelo de Implementación asociados con esta iteración son los siguientes: figura 1 (sección 2.1).\\
+
+En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Prototipo GUI).\\
 
 
-\chapter{Iteración 2}
+\section{Producto.}
 
-\section{Componnetes y subsistemas.}
-\subsection{Componnetes y subsistemas para desarrollar.}
+\indent \indent Se \textsl{construye} integrando todos los componentes y subsistemas listados en la sección 3.1.1 de este documento generando una herramienta básica no funcional: login y logout, informe básico con selección de periodo y formulario de introducción de datos de fases y actividades.\\
+
+Este producto se \textsl{utiliza} para verificar si el proyecto es viable y si las líneas guía definidas del mismo se ven afectadas. Este prototipo ayuda a establecer la arquitectura principal del sistema ya que todos los subsistemas posteriormente implementados serán integrados dentro de este prototipo básico.\\
+
+Su \textsl{evaluación} consistirá en determinar si un usuario se siente cómodo y atraído por la interfaz, y encuentra fáciles de usar las funcionalidades supuestas en el sistema. Además se comprobará si la arquitectura empleada es extensible fácilmente para completar la interfaz de usuario y la funcionalidad más adelante.\\
+
+Para su \textsl{instalación} solo es necesario ejecutar el script de instalación sobre un servidor web con PHP y abrir una página de SEPROSO con un navegador web. \\
+
+Para \textsl{probarlo} se siguen los apartados de todas las pruebas del Plan de Pruebas relacionados con la Interfaz de Usuario. Sólo hay que comprobar la fluida y fácil interacción entre el usuario y la herramienta en tiempo real (tiempo empleado en encontrar un caso de uso o en hacer algo que desea). Si los resultados no fuesen los esperados se debería rediseñar la interfaz, de acuerdo a los gustos del usuario, minimizando el impacto que esto suponga sobre la arquitectura inicial (esto es, modificar el estilo y la presentación de los contenidos pero no cambiar el diseño realizado)\\
+
+
+\chapter{Construcción 1}
+
+\section{Componetes y subsistemas.}
+\subsection{Componetes y subsistemas a implementar.}
+
+\indent \indent En esta iteración las actividades de implementación se centran en conseguir un producto que contenga funcionalidad básica para los casos de uso críticos descritos en el Plan de Iteración: Construcción I. Esto implica implementar los siguientes paquetes y componentes:
+
+\begin{enumerate}
+	\item	Básicos
+\begin{itemize}
+	\item MainLayout (PRADO PHP Class)
+	\item SeprosoExceptions (PRADO PHP Class)
+	\item Exceptions (TXT)
+\end{itemize}
+	\item	Paquete User
+	\item		Paquete Project
+\begin{itemize}
+	\item Activities (PRADO PHP Class)
+	\item AddActivities (PRADO PHP Class)
+	\item ApproveAct (PRADO page y PRADO PHP Class)
+	\item Phases (PRADO PHP Class)
+	\item ProjectCreate (PRADO page y PRADO PHP Class)
+	\item ProjectList (PRADO page y PRADO PHP Class)
+	\item ReviewAct (PRADO PHP Class)
+	\item Templates (PRADO PHP Class)
+	\item Workers (PRADO PHP Class)
+	\item WorkRegister (PRADO PHP Class)
+\end{itemize}
+	\item		Paquete Report
+\begin{itemize}
+	\item ActiveActs (PRADO page y PRADO PHP Class)
+	\item ActiveWorkers (PRADO page y PRADO PHP Class)
+	\item Activities (PRADO page y PRADO PHP Class)
+	\item ApproveActs (PRADO page y PRADO PHP Class)
+	\item AssignedActs (PRADO page y PRADO PHP Class)
+	\item DelayedActs (PRADO page y PRADO PHP Class)
+	\item FutureActs (PRADO PHP Class)
+	\item FutureWorkers (PRADO page y PRADO PHP Class)
+	\item PlannedActs (PRADO PHP Class)
+	\item ReviewedActs (PRADO page y PRADO PHP Class)
+	\item Summary (PRADO PHP Class)
+	\item Worker (PRADO page y PRADO PHP Class)
+	\item WorkRegisters (PRADO PHP Class)
+\end{itemize}
+	\item		Paquete Theme
+\begin{itemize}
+	\item Project (CSS)
+	\item Work-record (CSS)
+\end{itemize}
+	\item		Paquete DAO
+\begin{itemize}
+	\item DaoManager (PRADO PHP Class)
+	\item ProjectDao (PRADO PHP Class)
+	\item ReportsDao (PRADO PHP Class)
+	\item WorkerDao (PRADO PHP Class)
+	\item WorkRecordDao (PRADO PHP Class)
+	\item UserDao (PRADO PHP Class)
+	\item ProjectRecord (PRADO PHP Class)
+	\item WorkerRecord (PRADO PHP Class)
+	\item WorkRecord (PRADO PHP Class)
+\end{itemize}
+	\item		Paquete Login
+\begin{itemize}
+	\item SeprosoAuthManager (PRADO PHP Class)
+	\item UserManager (PRADO PHP Class)
+	\item SeprosoUser (PRADO PHP Class)
+\end{itemize}
+	\item		Paquete DataBase
+\begin{itemize}
+	\item SeprosoUserTypeHandler (PRADO PHP Class)
+	\item Project (XML SQL Map)
+	\item Worker (XML SQL Map)
+	\item WorkRecord (XML SQL Map)
+	\item User (XML SQL Map)
+	\item Reports (XML SQL Map)
+\end{itemize}
+\end{enumerate}
+
+La numeración de esta lista establece el orden en que deben ser implementados los componentes para conseguir que estén listos al mismo tiempo y facilitar su integración.
+
 \subsection{Diagramas del modelo de Implementación.}
 
-\section{Construcciones.}
+\indent \indent Los diagramas de componentes y paquetes del Modelo de Implementación asociados a esta iteración son los siguientes: figura 1 (sección 2.1).\\
+
+En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Versión Alpha).\\
+
+
+\section{Producto.}
+
+\indent \indent Se \textsl{construye} integrando todos los componentes y subsistemas listados en la sección 4.1.1 de este documento produciendo una herramienta con la siguiente funcionalidad: sesión de usuario, gestión de proyecto, generación de informes (algunos, no todos), y registro de informes de actividad. \\
+
+Este producto se \textit{utiliza} para que los probadores comiencen las pruebas de requisitos y casos de uso implementados. El producto como tal es aún inestable y contiene errores a depurar, además de que sólo implementa una parte de la funcionalidad, aunque satisface la mayoría de los requisitos.
+La \textsl{evaluación} \textsl{consiste} en comprobar si la herramienta permite a los usuarios crear y planificar un proyecto, registrar informes de trabajo y generar algún tipo de informe de forma adecuada y sin errores. \\
+
+La \textsl{instalación} se \textsl{realiza} del mismo modo que en la sección 3.2. \\
+
+Las \textsl{pruebas} se realizan comprobando el correcto comportamiento de la interfaz de usuario, de la base de datos y del código PHP para todos los requisitos a probar indicados en el Plan de Pruebas. Además se  pasan todos los casos de prueba de los casos de uso implementados en esta iteración. \\
+
+
+\chapter{Construcción 2}
+
+\section{Componetes y subsistemas.}
+\subsection{Componetes y subsistemas a implementar.}
+
+\indent \indent En esta iteración se pretende conseguir un producto que proporcione funcionalidad completa de los casos de uso críticos y una funcionalidad parcial en los casos de uso añadidos respecto a la iteración anterior que se especifican en el \textsl{Plan de Iteración: Construcción I}I. Esto implica implementar los siguientes nuevos paquetes y componentes.\\
+
+El orden de esta lista determina implícitamente el orden en que deben ser implementados los componentes para conseguir que estén listos al mismo tiempo y facilitar su integración.
+
+\subsection{Diagramas del modelo de Implementación.}
+
+\indent \indent Los diagramas de componentes y paquetes del Modelo de Implementación asociados con esta iteración son los siguientes: figura 1 (sección 2.1).
+
+\begin{enumerate}
+	\item Paquete User
+\begin{itemize}
+	\item Holidays (PRADO page y PRADO PHP Class)
+\end{itemize}
+	\item Paquete Project
+\begin{itemize}
+	\item AddActivities (PRADO page y PRADO PHP Class)
+\end{itemize}
+	\item Paquete Report
+\begin{itemize}
+	\item Activities (PRADO page y PRADO PHP Class)
+	\item Worker (PRADO page y PRADO PHP Class)
+	\item WorkRegisters (PRADO page y PRADO PHP Class)
+\end{itemize}
+	\item Paquete DAO
+\begin{itemize}
+	\item ActivityDao (PRADO PHP Class)
+	\item ProcessDao (PRADO PHP Class)
+	\item PhaseDao (PRADO PHP Class)
+	\item ReportsDao (PRADO PHP Class)
+	\item ActivityRecord (PRADO PHP Class)
+	\item ProcessRecord (PRADO PHP Class)
+	\item PhaseRecord (PRADO PHP Class)
+	\item Paquete DataBase
+	\item DataTimeTypeHandler (PRADO PHP Class)
+	\item Activity (XML SQL Map)
+	\item Process (XML SQL Map)
+	\item Phase (XML SQL Map)
+	\item Reports (XML SQL Map)
+\end{itemize}
+\end{enumerate}
+
+En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Versión Beta).
+
+
+\section{Producto.}
+
+
+\indent \indent Se \textsl{construye} integrando todos los componentes y subsistemas listados en la sección 5.1.1 de este documento obteniendo una herramienta que presenta toda la funcionalidad especificada en el Documento de Especificación de Casos de Uso, si bien no de forma estable o libre de errores.\\
+
+Este \textsl{producto} se utiliza para que los probadores completen las pruebas de requisitos y casos de uso implementados y para depurar los errores detectados en la iteración anterior. El producto todavía no es estable ya que faltan de corregir los errores en los nuevos casos de uso, pero satisface todos los requisitos.\\
+
+La \textsl{evaluación} consiste en comprobar si la herramienta  permite a cualquier tipo de usuario realizar todos los casos de uso sin errores y de la forma esperada. También se pretende conseguir una arquitectura completa y estable, aunque algunos de los componentes estén incompletos.\\
+
+La \textsl{instalación} se realiza como la del Prototipo en la sección 3.2.\\
+
+Las \textsl{pruebas} consisten en pasar todos los casos de prueba diseñados por los probadores y en poner el producto a disposición de los beta-testers para detectar errores que se prevén en los casos de prueba.\\
+
+
+
+\chapter{Producción}
+
+\section{Componetes y subsistemas.}
+\subsection{Componetes y subsistemas a implementar.}
+
+\indent \indent En esta iteración se busca conseguir implementar una versión definitiva de la herramienta que pueda ponerse en producción y que proporcione al usuario toda la funcionalidad establecida en los casos de uso y verifique todos los requisitos establecidos. Hay que completar todos los componentes y dejarlos en una versión estable operativa. Aquí se consiguen ya todos los paquetes y componentes, aunque los que se implementan en mayor medida son:
+
+\begin{enumerate}
+	\item Paquete User
+\begin{enumerate}
+	\item Holidays (PRADO page y PRADO PHP Class)
+\end{enumerate}
+	\item Paquete Project
+\begin{itemize}
+	\item AddActivities (PRADO page y PRADO PHP Class)
+\end{itemize}
+	\item 	Paquete Report
+\begin{itemize}
+	\item Worker (PRADO page y PRADO PHP Class)
+	\item WorkRegisters (PRADO page y PRADO PHP Class)
+\end{itemize}
+	\item 	Paquete DAO
+\begin{itemize}
+	\item ActivityDao (PRADO PHP Class)
+	\item ArtifactDao (PRADO PHP Class)
+	\item ConfigurationDao (PRADO PHP Class)
+	\item ReportsDao (PRADO PHP Class)
+	\item ActivityRecord (PRADO PHP Class)
+	\item ArtifactRecord (PRADO PHP Class)
+	\item ConfigurationRecord (PRADO PHP Class)
+\end{itemize}
+	\item 	Paquete DataBase
+\begin{itemize}
+	\item Activity (XML SQL Map)
+	\item Artifact (XML SQL Map)
+	\item Configuration (XML SQL Map)
+	\item Reports (XML SQL Map)
+\end{itemize}
+\end{enumerate}
+
+La numeración de esta lista establece un orden para diseño TOP-DOWN de implementación de los componentes para conseguir que estén listos al mismo tiempo y facilitar su integración.
+
+
+\subsection{Diagramas del modelo de Implementación.}
+
+\indent \indent Los diagramas de componentes y paquetes del Modelo de Implementación asociados con esta iteración son los siguientes: figura 1 (sección 2.1).\\
+
+En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Versión Final).\\
+
+
+\section{Producto.}
+
+Se \textsl{construye} integrando todos los componentes y subsistemas de la lista (sección 6.1.1). De aquí se obtiene una herramienta plenamente funcional y sin errores, lista para ser puesta a disposición del cliente y en fase de mantenimiento. Esto implica que permite desarrollar al usuario todos los casos de uso de forma correcta.\\
+
+Se \textsl{utiliza} para depurar todos los errores que quedaron pendientes en la versión beta, además de añadir pequeños detalles de funcionalidad a los casos de uso que se implementaron parcialmente entonces.\\
+
+Los criterios de \textsl{evaluación} son claros: obtener un producto estable, que cumpla todos los requisitos iniciales y que permita desarrollar todos los casos de uso desde su interfaz gráfica. En resumen: conseguir un producto aceptado por el cliente y listo para poner en producción indefinidamente.\\
+
+Para su \textsl{instalación} se aplica el mismo script que en la sección 3.2.\\
+
+Para \textsl{probarlo} se aplican todos los casos de prueba de nuevo, se evalúan todos los requisitos a probar del Plan de Pruebas y se verifica que no se produzca ningún error o respuesta inesperada en ningún caso.\\
+
+
+
+\indent \indent
+
 
 
 % Parte final de la memoria
