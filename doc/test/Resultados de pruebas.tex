@@ -26,7 +26,7 @@
 %    \end{center}
 %  \end{figure}
 %\end{titlepage} \\
-\Huge \textbf{SEPROSO. \\ Informe de Evaluación de Pruebas.\\}}
+\Huge \textbf{SEPROSO. \\ Resultados de las pruebas.\\}}
 \author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
 	\huge \textit{Yuri Torres de la Sierra} \and 
 	\huge \textit{Rubén Martínez García} \and
@@ -123,17 +123,12 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 \section{Propósito.}
 
-\indent \indent Este documento presenta el Informe de Evaluación de pruebas para resumir los resultados y realizar las evaluaciones pertinentes basadas en esos resultados.
+\indent \indent Resume los resultados de las pruebas llevadas a cabo para la herramienta SEPROSO y que proporciona datos para generar el informe de evaluación de las pruebas.\\
 
 
 \section{Ámbito.}
 
-\indent \indent Este informe describe los resultados  de las pruebas de SEPROSO, en términos de la cobertura de pruebas y análisis de defectos. Los datos utilizados son los que pueblan la base de datos asociada a la aplicación, y el documento relacionado de resultados. Este documento tiene cómo objetivos:\\
-\begin{itemize}
-	\item Evaluar la aceptabilidad del rendimiento de la aplicación SEPROSO.
-	\item Evaluar la aceptabilidad de las pruebas.
-	\item Identificar mejoras para incrementar la calidad de las pruebas.
-\end{itemize}
+\indent \indent Todos los resultados de las pruebas son capturados durante la ejecución de la batería de pruebas. Los resultados obtenidos se utilizan como entrada para el informe de evaluación de pruebas.\\
 
 \section{Definiciones.}
 
@@ -144,89 +139,102 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \begin{itemize}
 	\item Glosario, Grupo 3, Universidad de Valladolid.
 	\item Plan de pruebas de SEPROSO, Grupo 3.
-	\item Resultados de las pruebas de SEPROSO, Grupo 3.
+	\item Modelo de Casos de Uso, Grupo 3.
 \end{itemize}
 
 \section{Visión general.}
 
-\indent \indent La siguiente sección presenta los resultados y analiza las pruebas realizadas sobre la aplicación SEPROSO. Se introducen una serie de diagramas para ilustras los resultados del análisis.\\
+\indent \indent Este documento describe las diferenctes variantes de ejecución de los casos de prueba previstos en los docuemtos previos. Aquí se presenta un resumen de los resultados obtenidos.\\
 
 
 
-\chapter{Resumen de resultados de pruebas.}
+\chapter{Variantes.}
 
-\indent \indent Los casos de prueba se definen en el Modelo de pruebas para la herramienta SEPROSO donde se ejecutan las estrategias de pruebas definidas en el Plan de pruebas.\\
+\indent \indent Todas la pruebas realizadas se condesan en los casos de Prueba referidos al Plan de pruebas.\\
 
-Se han realizado un total de más de 200 pruebas de usuarios diferentes, englobando todos los casos de prueba identificados en el Plan de Pruebas.\\
+Noticias: Puede haber algun caso de pruebas que no se haya validado por problemas con el servidor de la base de datos.\\
 
 
-\begin{tabular}{|c|c|c|c|}
+\chapter{Resumen de resultados}
+
+\indent \indent  A continuación se muestran una serie de tablas con los resultados obtenidos.\\
+
+\begin{center}
+\begin{tabular}{|p{8cm}|c|}
 \hline
-Paquete &  Pruebas ejecutadas & Test OK & Test Failed\\
+\multicolumn{2}{|c|}{Casos de prueba para USUARIO}\\
 \hline
-Total &  100\% & 84\% & 27\%\\
+\textbf{CASO DE PRUEBA} & \textbf{Estado}\\
 \hline
-\end{tabular}\\
-
-\chapter{Cobertura de pruebas basadas en los requisitos.}
-
-\indent \indent Partiendo de las pruebas definidas en el plan de pruebas se han llevado a cabo las siguientes pruebas con los resultados que se representan en la siguiente tabla:\\
-
-\begin{tabular}{|c|c|c|c|}
+CT 1-40 & Pasado.\\
 \hline
-Paquete &  Pruebas ejecutadas & Test OK & Test Failed\\
+CT 40-42 & Fallado.\\
 \hline
-Servidor &   &  & \\
+\end{tabular}
+
+
+\begin{tabular}{|p{8cm}|c|}
 \hline
-Usuario: Administrador &   &  & \\
+\multicolumn{2}{|c|}{Casos de prueba para ADMINISTRADOR}\\
 \hline
-Usuario: Desarrollador &   &  & \\
+\textbf{CASO DE PRUEBA} & \textbf{Estado}\\
 \hline
-Usuario: Jefe Proyecto &   &  & \\
+CT 1-40 & Pasado.\\
 \hline
-Usuario &   &  & \\
+CT 40-42 & Fallado.\\
 \hline
-\end{tabular}\\
+\end{tabular}
 
-Las pruebas demuestran que los errores más comunes que se han producido son:
-\begin{itemize}
-	\item 
-\end{itemize}
 
-\section{Tipos de errores}
-\subsection{Integridad de los datos}
-
-\indent \indent Error en casos de prueba de salidad de datos:
-\begin{itemize}
-	\item Impacto potencial: Alto, necesario para la aplicación un correcto funcionamiento de la salida de datos.
-	\item Impacto relativo: Superior a otros errores potenciales.
-\end{itemize}
-
-\subsection{Efecto de borde}
-
-\indent \indent Este error se produce por la salida de rango de los parámetros de las funciones. En la aplicación no se controlan los rangos de los parámetros y esto puede producir errores.
-
-\section{Frecuencia de los tipos de errores}
-
-\indent \indent En la siguiente tabla se muestra la frecuencia de los tipos de errores que se han producido en la fase de pruebas en la herramienta SEPROSO.\\ 
-
-\begin{tabular}{|c|c|}
+\begin{tabular}{|p{8cm}|c|}
 \hline
-TIPO DE ERROR & FRECUENCIA \\
+\multicolumn{2}{|c|}{Casos de prueba para DESARROLLADOR}\\
 \hline
-Integridad de datos & \\
+\textbf{CASO DE PRUEBA} & \textbf{Estado}\\
 \hline
-Efecto Borde & \\
+CT 1-40 & Pasado.\\
 \hline
-\end{tabular}\\
+CT 40-42 & Fallado.\\
+\hline
+\end{tabular}
 
-\chapter{Cobertura de pruebas basadas en el código ejecutado}
 
-\indent \indent Las pruebas se han realizado sobre un prototipo con el 74 \% de código preparado, para evaluar la bondad de ejecución de la aplicación y verificar la calidad del código desarrollado. Posteriormetne en las siguientes iteraciones se realizarán las pruebas sobre la totalidad del código desarrollado. La finalidad de las pruebas es obtener resultados sobre un prototipo con más del 90 \% de desarrollo completado.
 
-\chapter{diagramas}
+\begin{tabular}{|p{8cm}|c|}
+\hline
+\multicolumn{2}{|c|}{Casos de prueba para JEFE DE PROYECTO}\\
+\hline
+\textbf{CASO DE PRUEBA }& \textbf{Estado}\\
+\hline
+CT 1-40 & Pasado.\\
+\hline
+CT 40-42 & Fallado.\\
+\hline
+\end{tabular}
+\end{center}
 
-\indent \indent  A continuación se muestran una serie de diagramas indicando los porcentages de errores de forma gráfica.\\
+
+\chapter{Descripción de los errores}
+
+\indent \indent En este apartado se describen los errores que se han detectado, y se muestra cuál ha sido el fallo que se ha corregido. 
+
+\begin{center}
+\begin{tabular}{|c|p{8cm}|}
+\hline
+\multicolumn{2}{|c|}{Casos de prueba para ???}\\
+\hline
+\textbf{TEST ID }& \textbf{Descrip error}\\
+\hline
+Acción & .\\
+\hline
+Resultado esperado & .\\
+\hline
+Resultado obtenido & .\\
+\hline
+Error corregido & .\\
+\hline
+\end{tabular}
+\end{center}
 
 % Parte final de la memoria
 \backmatter 
