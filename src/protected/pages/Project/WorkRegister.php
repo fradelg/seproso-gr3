@@ -1,47 +1,42 @@
 <?php
 
 class WorkRegister extends TPage
-{
-	
-	protected function getProjectDao()
-	{
-		return $this->Application->Modules['daos']->getDao('ProjectDao');
-	}
-		
+{	
 	public function onLoad($param)
 	{
 		if(!$this->IsPostBack)
 		{
-			$this->activityList->DataSource = $this->getProjects();
+			$this->activityList->DataSource = $this->getActivities($this->User->Name);
 			$this->activityList->dataBind();
 		}
 	}
 	
-	protected function getProjects()
+	protected function getActivities($worker)
 	{
-		$projects = array();
-		if($this->User->isInRole('admin'))
-			$list = $this->getProjectDao()->getAllProjects();
-		else if($this->User->isInRole('manager'))
-			$list = $this->getProjectDao()->getProjectsByManagerName($this->User->Name);
-		else
-			$list = $this->getProjectDao()->getProjectsByUserName($this->User->Name);
-		foreach($list as $project)
-			$projects[$project->ID] = $project->Name;
-		return $projects;
+		$activityDao = $this->Application->Modules['daos']->getDao('ActivityDao');
+		$activities = array();
+		foreach($activityDao->getActivitiesByWorker($worker) as $activity)
+				$activities[$activity->ID] = $activity->Name;
+		return $activities;
 	}
 		
-	public function addNewEntry($sender, $param)
+	public function addNewRecord($sender, $param)
 	{
-		$entry = new TimeEntryRecord;
-		$entry->CreatorUserName = $this->User->Name;
-		$category = new CategoryRecord;
-		$category->ID = $this->activityList->SelectedValue;
-		$entry->Category = $category;
-		$entry->Description = $this->comment->Text;
-		$entry->Duration = floatval($this->hours->Text);
-		$entry->ReportDate = $this->day->TimeStamp;
-		$entry->Username = $this->User->Name;
+		// Fill Work Record with form data
+		$record = new WorkRecord;
+		$record->WorkerID = $this->User->Name;
+		$record->ActivityID = $this->activityList->SelectedValue;
+		$record->StartDate = $this->day->TimeStamp;
+		$record->EndDate = $this->day->TimeStamp + strtotime('+7 day');
+		$record->Effort = floatval($this->hours->Text);
+		$record->Comentary = $this->comment->Text;
+		
+		// Save data into database
+		$dao = $this->Application->Modules['daos']->getDao('WorkRecordDao');
+		$dao->addWorkRecord($record);
+		
+		// Change to confirm view
+		$this->views->ActiveViewIndex = 1;
 	}
 }
 

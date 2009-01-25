@@ -5,24 +5,15 @@
 
 <!-- Holidays data report -->
 <com:TView>
-<fieldset><legend>Periodos vacacionales actuales</legend>
-	<div class="resource">
-	<com:TDataList ID="periodList"
-	RepeatLayout="Raw"
-	DataKeyField="ID"
-	OnEditCommand="editEntryItem"
-	OnCancelCommand="refreshEntryList"
-	OnUpdateCommand="updateEntryItem"
-	OnDeleteCommand="deleteEntryItem"
-	OnItemCreated="EntryItemCreated" >
-	
+<fieldset><legend>Periodos vacacionales asignados</legend>
+	<div class="list">
+	<com:TRepeater ID="periodList">
 	<prop:HeaderTemplate>
-	  <table class="time-entries">
+	  <table>
 	  	<tr>
-	  		<th>Descripcion</th>
 	  		<th>Fecha de inicio</th>
-	  		<th>Fecha de final</th>
-	  		<th>Editar/Borrar</th>
+	  		<th>N&uacute;mero de semanas</th>
+	  		<th>Motivo</th>
 	  	</tr>
 	</prop:HeaderTemplate>
 
@@ -32,43 +23,22 @@
 	
 	<prop:ItemTemplate>
 	  <tr>
-	  	<td class="description"><%# h($this->DataItem->Description) %></td>
-	  	<td class="date">
+	  	<td>
 	  		<com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-				Value=<%# $this->DataItem->ReportDate %> />
+				Value=<%# $this->DataItem->StartDate %> />
 		</td>
-		<td class="date">
-	  		<com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-				Value=<%# $this->DataItem->ReportDate %> />
-		</td>
-	  	<td class="edit">
+		<td><%# h($this->DataItem->Duration) %></td>
+		<td><%# h($this->DataItem->Description) %></td>
+	  	<td>
 	  		<com:TButton Text="Editar" CommandName="edit"/>	  			
 	  		<com:TButton Text="Borrar" CommandName="delete"
 	  			Attributes.onclick="if(!confirm('Est&aacute; seguro?')) return false;" />
 	  	</td>
 	  </tr>
-	</prop:ItemTemplate>
-	
-	<prop:EditItemTemplate>
-	  <tr>
-	  	<td class="categoryName">
-	  		<com:TDropDownList ID="category" />
-	  	</td>
-	  	<td class="description">
-	  		<com:TTextBox ID="description" Text=<%# $this->DataItem->Description %> />
-	  	</td>
-	  	<td class="edit">
-	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
-	  		<com:TButton Text="Cancelar" CommandName="cancel" />
-	  	</td>
-	  </tr>
-	</prop:EditItemTemplate>	
-	
-	</com:TDataList>
-	
-	<br /><com:TButton Text="Nuevo periodo" OnClick="newPeriod" />
-	
+	</prop:ItemTemplate>	
+	</com:TRepeater>
 	</div>
+	<br /><com:TButton ID="newPeriodButton" Text="Nuevo periodo" OnClick="setPeriod" />
 </fieldset>
 </com:TView>
 
@@ -77,36 +47,25 @@
 <fieldset><legend>Datos y fechas del nuevo periodo</legend>
 	<div class="loghours">
 	<div class="day">
-	<com:TLabel ForControl="dateIni" Text="Inicio:" />
+	<com:TLabel ForControl="startDate" Text="Fecha de inicio:" />
 	<span class="required">*</span><br/>
-	<com:TDatePicker ID="dateIni" DateFormat="dd/MM/yyyy" InputMode="DropDownList" />
-	</div>
-	<div class="day">
-	<com:TLabel ForControl="dateEnd" Text="Final:" />
-	<span class="required">*</span><br/>
-	<com:TDatePicker ID="dateEnd" DateFormat="dd/MM/yyyy" 
-		TimeStamp=<%= strtotime("+1 week") %> InputMode="DropDownList" />
+	<com:TDatePicker ID="startDate" DateFormat="dd/MM/yyyy" 
+		TimeStamp=<%= strtotime("+1 month") %> InputMode="DropDownList" />
 	<com:TCompareValidator
-		ControlToValidate="dateEnd"
-		ControlToCompare="dateIni"
+		ControlToValidate="startDate"
+		ValueToCompare=<%= strtotime("+1 month") %>
 		DataType="Date"
 		Display="None"
 		ControlCssClass="required-input"
 		DateFormat="dd/MM/yyyy"
 		Operator="GreaterThanEqual"
-		ErrorMessage="La fecha de finalizaci&oacute;n debe ser posterior a la de inicio" />
+		ErrorMessage="La fecha debe indicarse con un mes de antelaci&oacute;n" />
 	</div>
 	
-	<div class="name">
-	<com:TLabel ForControl="name" Text="Nombre:" />
+	<div class="category">
+	<com:TLabel ForControl="duration" Text="Semanas:" />
 	<span class="required">*</span><br/>
-	<com:TTextBox ID="name" />
-	<com:TRequiredFieldValidator
-		ControlToValidate="name"
-		CssClass="validator"
-		Display="None" 
-		ControlCssClass="required-input"
-		ErrorMessage="Por favor, introduzca un nombre identificador del periodo." />
+	<com:TDropDownList ID="duration" />
 	</div>
 	
 	<div class="description">
@@ -116,7 +75,7 @@
 	
 	<div class="addEntry">
 		<com:TValidationSummary AutoUpdate="false" />
-		<com:TButton Text="A&ntilde;adir periodo" OnClick="addPeriod" />
+		<com:TButton Text="A&ntilde;adir periodo" OnClick="addNewPeriod" />
 	</div>
 	
 	</fieldset>
@@ -127,16 +86,7 @@
 <com:TView>
 	<fieldset><legend>Confirmaci&oacute;n de solicitud</legend>
 		<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
-		El periodo introducido ha sido comprobado y asignado como vacaciones.
-	</fieldset>
-</com:TView>
-
-<!-- Error message page-->
-<com:TView>
-	<fieldset><legend>Denegaci&oacute;n de solicitud</legend>
-		<img src="<%= $this->Page->Theme->BaseUrl %>/error.gif" width="32" height="32" alt="">
-		El periodo introducido no es v&aacute;lido y no puede ser utilizado como vacaciones.
-		<br/><br/>Motivos: <com:TLabel ID="reason" Text="Error en el sistema" />
+		El periodo introducido ha sido asignado correctamente en sus vacaciones.
 	</fieldset>
 </com:TView>
 </com:TContent>

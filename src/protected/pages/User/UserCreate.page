@@ -91,17 +91,15 @@
 			<span class="required">*</span>
 			<com:TDatePicker id="birthDate" 
 				DateFormat="dd/MM/yyyy"
-				TimeStamp=<%= strtotime("-18 year") %>
+				FromYear = <%= $this->getYear() - 65 %>
+				UpToYear = <%= $this->getYear() - 18 %>
+				TimeStamp = <%= strtotime("-24 year") %>
 				InputMode="DropDownList" />
-			<com:TCompareValidator
+			<com:TRequiredFieldValidator
 				ControlToValidate="birthDate"
-				ValueToCompare=<%= time() %>
-				DataType="Date"
-				Display="None"
-				ControlCssClass="required-input"
-				DateFormat="dd/MM/yyyy"
-				Operator="LessThan"
-				ErrorMessage="La fecha debe ser anterior a la actual." />
+				Display="Dynamic"
+				ErrorMessage="Por favor, seleccione una fecha diferente."
+				ControlCssClass="required-field" />
 		</div>
 		<div class="role">
 			<com:TLabel ForControl="role" Text="Rol:" />
@@ -110,6 +108,7 @@
 		</div>
 	</com:TWizardStep>
 	<com:TWizardStep StepType="Complete">
+		<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
 		El nuevo usuario ha sido creado con &eacute;xito.
 	</com:TWizardStep>
 </com:TWizard>

@@ -23,6 +23,16 @@
  */
 class UserCreate extends TPage
 {
+	protected function getUserDao()
+	{
+		return $this->Application->Modules['daos']->getDao('UserDao');
+	}
+	
+	protected function getWorkerDao()
+	{
+		return $this->Application->Modules['daos']->getDao('WorkerDao');
+	}
+	
 	/**
 	 * Sets the default new user roles, default role is set in config.xml
 	 */
@@ -30,14 +40,28 @@ class UserCreate extends TPage
 	{
 		if(!$this->IsPostBack)
 		{
-			$this->role->DataSource = $this->getUserDao()->getAllRoles();;
+			$this->role->DataSource = $this->getRoles();
 			$this->role->dataBind();
 		}
 	}
 	
-	protected function getUserDao()
+	protected function getYear()
 	{
-		return $this->Application->Modules['daos']->getDao('UserDao');
+		$date = getdate();
+		return $date['year'];
+	}
+	
+	public function getRoles()
+	{ 
+		$roles = array();
+		$roles['admin'] = "Administrador";
+		$roles['personal'] = "Jefe de personal";
+		$roles['manager'] = "Jefe de proyecto";
+		foreach ($this->getWorkerDao()->getAllRoles() as $role){ 
+			if ($role != 'Jefe de proyecto')
+				$roles[$role] = $role;
+		}
+		return $roles;
 	}
 	
 	/**
@@ -56,9 +80,6 @@ class UserCreate extends TPage
 	
 	/**
 	 * Create a new user if all data entered are valid.
-	 * The default user roles are obtained from "config.xml". The new user
-	 * details is saved to the database and the new credentials are used as the
-	 * application user. The user is redirected to the requested page.
 	 * @param TControl button control that created the event.
 	 * @param TEventParameter event parameters.
 	 */
@@ -71,25 +92,31 @@ class UserCreate extends TPage
 			$newUser->EmailAddress = $this->email->Text;
 			$newUser->Name = $this->username->Text;
 			$newUser->IsGuest = false;
-			switch ($this->role->SelectedValue){
-				case 1:	$newUser->Roles = 'manager'; break;
-				case 8:	$newUser->Roles = 'personal'; break;
-				default:$newUser->Roles = 'developer'; break;
-			}
+			if ($this->role->SelectedValue == 'admin' ||
+				$this->role->SelectedValue == 'manager' ||
+				$this->role->SelectedValue == 'personal')
+				$newUser->Roles = $this->role->SelectedValue;
+			else
+				$newUser->Roles = 'developer';
+				
 	
 			// save the user
 			$this->getUserDao()->addNewUser($newUser, $this->password->Text);
 			
+			if ($this->role->SelectedValue == 'admin' ||
+				$this->role->SelectedValue == 'personal')
+				return;
+				
 			// configure the worker
 			$newWorker = new WorkerRecord();
 			$newWorker->UserID = $this->username->Text;
-			$newWorker->RoleID = $this->role->SelectedValue;
+			$newWorker->RoleID = $this->role->SelectedItem->Text;
 			$newWorker->Name = $this->name->Text;
 			$newWorker->Surname = $this->surname->Text;
 			$newWorker->BirthDate = $this->birthDate->TimeStamp;
 			
 			// save the worker
-			$this->getUserDao()->addNewWorker($newWorker);
+			$this->getWorkerDao()->addNewWorker($newWorker);
 		}
 	}
 }

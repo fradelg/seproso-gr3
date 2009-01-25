@@ -2,95 +2,75 @@
 
 class Activities extends TPage
 {	
-	public function onLoad($param)
-	{
-		if(!$this->IsPostBack)
-		{
-			//$this->projectList->DataSource = $this->getProjects();
-			$this->phaseList->DataSource = $this->getUsers();
-			$this->dataBind();	
-		}
-	}
+	private $Project;
 	
-	protected function getUsers()
+	protected function getProjectDao()
 	{
-		$dao = $this->Application->Modules['daos']->getDao('UserDao');
-		$users = array();
-		foreach($dao->getAllUsers() as $user)
-			$users[$user->Name] = $user->Name;
-		return $users;
-	}
-	
-	protected function getTimeEntryDao()
-	{
-		return $this->Application->Modules['daos']->getDao('TimeEntryDao');
+		return $this->Application->Modules['daos']->getDao('ProjectDao');
 	}
 
-	protected function getCategoryDao()
+	protected function getActivityDao()
 	{
-		return $this->Application->Modules['daos']->getDao('CategoryDao');
+		return $this->Application->Modules['daos']->getDao('ActivityDao');
+	}
+	
+	public function onLoad($param)
+	{
+		$this->Project = $this->Session['project'];
+		
+		if(!$this->IsPostBack)
+		{
+			$this->phaseList->DataSource = $this->getPhases();
+			$this->phaseList->dataBind();	
+		}
+	}
+	
+	public function getPhases(){ 
+		$phases = array();
+		foreach ($this->getProjectDao()->getPhasesByProject($this->Project) as $phase) 
+			$phases[$phase->ID] = $phase->Name;
+		return $phases;
 	}
 		
-	public function setProjectEntry($userID,$projectID)
+	public function phaseChanged($sender, $param)
 	{
-		$this->setViewState('ProjectEntry', array($userID,$projectID));
+		$this->showList();
 	}
 	
-	protected function getCategories()
+	protected function showList()
 	{	
-		$project = $this->getViewState('ProjectEntry');
-		foreach($this->getCategoryDao()->getCategoriesByProjectID($project[1]) as $cat)
-		{
-			$categories[$cat->ID] = $cat->Name;
-		}
-		return $categories;
-	}
-	
-	protected function showEntryList()
-	{
-		$project = $this->getViewState('ProjectEntry');
-		$list = $this->getTimeEntryDao()->getTimeEntriesInProject($project[0], $project[1]);
-		$this->entries->DataSource = $list;
-		$this->entries->dataBind();
+		$phase = $this->phaseList->SelectedValue;
+		$this->actList->DataSource = $this->getActivityDao()->getAllActivities($phase);
+		$this->actList->dataBind();
 	}
 	
 	public function refreshEntryList()
 	{
-		$this->entries->EditItemIndex=-1;
-		$this->showEntryList();
+		$this->actList->EditItemIndex = -1;
+		$this->showList();
 	}
 	
 	public function editEntryItem($sender, $param)
 	{
-		$this->entries->EditItemIndex=$param->Item->ItemIndex;
-		$this->showEntryList();
+		$this->actList->EditItemIndex = $param->Item->ItemIndex;
+		$this->showList();
 	}	
-
-	public function deleteEntryItem($sender, $param)
-	{
-		$id = $this->entries->DataKeys[$param->Item->ItemIndex];
-		$this->getTimeEntryDao()->deleteTimeEntry($id);
-		$this->refreshEntryList();
-	}
 			
 	public function updateEntryItem($sender, $param)
 	{		
-		if(!$this->Page->IsValid)
-			return;
+		if(!$this->Page->IsValid) return;
 			
 		$item = $param->Item;
 		
-		$id = $this->entries->DataKeys[$param->Item->ItemIndex];
+		$id = $this->actList->DataKeys[$param->Item->ItemIndex];
 		
-		$entry = $this->getTimeEntryDao()->getTimeEntryByID($id);
-		$category = new CategoryRecord;
-		$category->ID = $param->Item->category->SelectedValue;
-		$entry->Category = $category;
-		$entry->Description = $param->Item->description->Text;
-		$entry->Duration = floatval($param->Item->hours->Text);
-		$entry->ReportDate = $param->Item->day->TimeStamp;
+		$act = $this->getActivityDao()->getActivityByID($id);
+		$act->Name = $param->Item->name->Text;
+		$act->Description = $param->Item->description->Text;
+		$act->EstimateDate = $param->Item->day->TimeStamp;
+		$act->EstimateDuration = floatval($param->Item->hours->Text);
 		
-		$this->getTimeEntryDao()->updateTimeEntry($entry);		
+		$this->getActivityDao()->updateActivity($act);		
 		$this->refreshEntryList();
 	}
 
@@ -98,10 +78,25 @@ class Activities extends TPage
 	{
 		if($param->Item->ItemType == 'EditItem' && $param->Item->DataItem)
 		{
-			$param->Item->category->DataSource = $this->getCategories();	
-			$param->Item->category->dataBind();
-			$param->Item->category->SelectedValue = $param->Item->DataItem->Category->ID;
+//			$param->Item->category->DataSource = $this->getCategories();	
+//			$param->Item->category->dataBind();
+//			$param->Item->category->SelectedValue = $param->Item->DataItem->Category->ID;
 		}
+	}
+	
+	public function closeActivity($sender, $param)
+	{
+		$id = $this->actList->DataKeys[$param->Item->ItemIndex];
+		$this->getActivityDao()->endActivity($id);
+		
+		// Check other activities that could begin
+		$actPost = $this->getActivityDao()->getPosteriorActivities($id);
+		foreach($actPost as $act){
+			if (!$this->getActivityDao()->existsActivePrecedents($act))
+				$this->getActivityDao()->beginActivity($act);
+		}
+		
+		$this->refreshEntryList();
 	}
 	
 	public function addActivity()

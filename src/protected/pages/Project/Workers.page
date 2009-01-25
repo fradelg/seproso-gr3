@@ -5,24 +5,23 @@
 
 <!-- Project workers general presentation -->
 <com:TView>
-<fieldset><legend>Trabajadores participantes</legend>	
+<fieldset><legend>Trabajadores participantes</legend>
+  <div class="list">
   <com:TRepeater ID="participants" EnableViewState="false">
   <prop:HeaderTemplate>
-	<table cellpadding="2">
-	<tr class="header">
-	<th>Nombre de usuario</th>
-	<th>E-Mail</th>
-	<th>&Uacute;ltimo proyecto</th>
+	<table>
+	<tr>
+		<th>Trabajador</th>
+		<th>Rol ocupado</th>
+		<th>Porcentaje</th>
 	</tr>
   </prop:HeaderTemplate>
   <prop:ItemTemplate>
-	<tr class="row0">	<td><%# h($this->DataItem->Name) %></td>	<td><%# h($this->DataItem->EmailAddress) %></td>
-	<td><%# h($this->DataItem->Project) %></td>	</tr>  </prop:ItemTemplate>  <prop:AlternatingItemTemplate>	<tr class="row1">	<td><%# h($this->DataItem->Name) %></td>
-	<td><%# h($this->DataItem->EmailAddress) %></td>
-	<td><%# h($this->DataItem->Project) %></td>
-	</tr>  </prop:AlternatingItemTemplate>  <prop:FooterTemplate>	</table>  </prop:FooterTemplate>
+	<tr>	<td><%# h($this->DataItem['Worker']) %></td>	<td><%# h($this->DataItem['Role']) %></td>
+	<td><%# h($this->DataItem['Percentage']) %></td>	</tr>  </prop:ItemTemplate>  <prop:FooterTemplate>	</table>  </prop:FooterTemplate>
 </com:TRepeater>
-<br/><com:TButton Text="Nuevo participante" Onclick="newWorkerInProject" />
+</div>
+<br/><com:TButton Text="Nuevo participante" Onclick="newWorkerToProject" />
 </fieldset>
 </com:TView>
 
@@ -34,7 +33,7 @@
 	<com:TLabel ForControl="workerList" 
 		Text="Seleccione el trabajador que desea agregar al proyecto"/>
 	<com:TListBox ID="workerList" CssClass="items" 
-		AutoPostBack="True" OnSelectedIndexChanged="userSelected" />
+		AutoPostBack="True" OnSelectedIndexChanged="workerSelected" />
 	<com:TRequiredFieldValidator
 		ControlToValidate="workerList"
 		ErrorMessage="Por favor, seleccione un trabajador de la lista."
@@ -58,18 +57,18 @@
 		ErrorMessage="Por favor, seleccione un rol para el proyecto." />
 	
 	<br /><br /><br />
-	<com:TLabel ForControl="part" Text="Participaci&oacute;n: "/>
+	<com:TLabel ForControl="participation" Text="Participaci&oacute;n: "/>
 	<span class="required">*</span>
-	<com:TTextBox ID="part" />
+	<com:TTextBox ID="participation" />
 		<com:TRequiredFieldValidator
-	  		ControlToValidate="part"
+	  		ControlToValidate="participation"
 	  		Display="None"
 	  		CssClass="validator"
 	  		ValidationGroup="addWorker"
 	  		ControlCssClass="required-input"
 	  		ErrorMessage="Por favor, introduzca un porcentaje de participaci&oacute;n." />
   		<com:TRangeValidator 
-	  		ControlToValidate="part"
+	  		ControlToValidate="participation"
 	  		DataType="Float"
 	  		MinValue="1"
 	  		MaxValue="100"

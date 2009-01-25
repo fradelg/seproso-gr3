@@ -24,8 +24,9 @@ Prado::using('System.Security.TUser');
  */
 class SeprosoUser extends TUser
 {
-	public $EmailAddress = '';
+	public $Password = '';
 	public $Project = '';
+	public $EmailAddress = '';
 	
 	/**
 	 * @param string user email address

@@ -15,9 +15,13 @@ class ActivityRecord
 	
 	public $Name = '';
 	public $Description = '';
-	public $Date = 0;
-	public $ActualDuration = 0.0;
+	public $EstimateDate = 0;
+	public $RealDate = 0;
 	public $EstimateDuration = 0.0;
+	public $RealDuration = 0.0;
+	public $State = 0;
+	
+	public $Preds = NULL;
 }
 
 ?>

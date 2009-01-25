@@ -8,12 +8,8 @@
 	<com:TLabel ForControl="phaseList" 
 		Text="Seleccione la fase que contiene las actividades: "/>
 	<span class="required">*</span>
-	<com:TListBox ID="phaseList" CssClass="items" AutoPostBack="True" />
-	<com:TRequiredFieldValidator
-		ControlToValidate="phaseList"
-		ErrorMessage="Por favor, seleccione una fase de la lista."
-		ControlCssClass="required-input"
-		Display="None" />
+	<com:TListBox ID="phaseList" CssClass="items" AutoPostBack="True"
+		OnSelectedIndexChanged="phaseChanged" />
 	</div>
 	<div class="list">
 	<h2>Actividades</h2>
@@ -23,49 +19,47 @@
 		OnEditCommand="editEntryItem"
 		OnCancelCommand="refreshEntryList"
 		OnUpdateCommand="updateEntryItem"
-		OnDeleteCommand="deleteEntryItem"
+		OnDeleteCommand="closeActivity"
 		OnItemCreated="EntryItemCreated" >
-		
 		<prop:HeaderTemplate>
-		  <table class="time-entries">
+		  <table>
 		  	<tr>
 		  		<th>Nombre</th>
-		  		<th>Descripcion</th>
-		  		<th>Editar/Borrar</th>
+		  		<th>Descripci&oacute;n</th>
+		  		<th>Inicio</th>
+		  		<th>Duraci&oacute;n</th>
 		  	</tr>
 		</prop:HeaderTemplate>
-	
 		<prop:FooterTemplate>
 		  </table>
 		</prop:FooterTemplate>
-		
 		<prop:ItemTemplate>
 		  <tr>
-		  	<td class="categoryName"><%# h($this->DataItem->Category->Name) %></td>
-		  	<td class="description"><%# h($this->DataItem->Description) %></td>
-		  	<td class="edit">
+		  	<td><%# h($this->DataItem->Name) %></td>
+		  	<td><%# h($this->DataItem->Description) %></td>
+		  	<td><%# h($this->DataItem->EstimateDate) %></td>
+		  	<td><%# h($this->DataItem->EstimateDuration) %></td>
+		  	<td>
 		  		<com:TButton Text="Editar" CommandName="edit"/>	  			
-		  		<com:TButton Text="Borrar" CommandName="delete"
-		  			Attributes.onclick="if(!confirm('Est&aacute; seguro?')) return false;" />
+		  		<com:TButton Text="Finalizar" CommandName="delete"
+		  			Attributes.onclick="if(!confirm(
+		  			'Esto da por finalizada la actividad. Continuar?')) return false;" />
 		  	</td>
 		  </tr>
 		</prop:ItemTemplate>
-		
 		<prop:EditItemTemplate>
 		  <tr>
-		  	<td class="categoryName">
-		  		<com:TDropDownList ID="category" />
-		  	</td>
-		  	<td class="description">
-		  		<com:TTextBox ID="description" Text=<%# $this->DataItem->Description %> />
-		  	</td>
-		  	<td class="edit">
-		  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
+		  	<td><com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> /></td>
+		  	<td><com:TTextBox ID="description" Text=<%# $this->DataItem->Description %> /></td>
+		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->EstimateDate %> /></td>
+		  	<td><com:TTextBox ID="hours" Text=<%# $this->DataItem->EstimateDuration %> /></td>
+		  	<td>
+		  		<com:TButton Text="Guardar" CommandName="update" />
 		  		<com:TButton Text="Cancelar" CommandName="cancel" />
 		  	</td>
 		  </tr>
-		</prop:EditItemTemplate>	
-		
+		</prop:EditItemTemplate>
 	</com:TDataList>
 	</div>
 	

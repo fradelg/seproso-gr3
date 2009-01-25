@@ -150,7 +150,7 @@ fieldset.project .projectCategory table td
 }
 
 
-/* Selection Page */
+/* Selection Page Style Sheet */
 
 fieldset.selection-page h2
 {
@@ -197,6 +197,11 @@ fieldset.selection-page .menu .date-to
 	padding-left: 0.75em;
 }
 
+fieldset.selection-page .menu select
+{
+	width: 16em;
+}
+
 fieldset.selection-page .buttons
 {
 	background-color: #D2E8E8;
@@ -213,23 +218,82 @@ fieldset.selection-page .summary
 	padding-left: 5em;
 }
 
-/* Tables */
+/* List of elements */
 
 fieldset.selection-page table
 {
 	border-collapse: collapse;
 	empty-cells: hide;
+	margin-left: 0.25em;
+	margin-top: 1em;
+	width: 32em;
 }
 
 fieldset.selection-page table th
 {
-	padding: 0.25em;
+	border: 1px solid black;
+	padding: 10px;
 	font-size: 0.9em;
 	white-space: nowrap;
+	text-align: left;
 }
 
-fieldset.selection-page td
+fieldset.selection-page table td
 {
-	border: 1px solid #ccc;
+	border: 1px solid black;
 	padding: 0.25em;
+	padding: 10px;
+	background-color: #cdf;
+	font-size: small;
+}
+
+/** General table list Style Sheet format **/
+
+.list table
+{
+	border-collapse: collapse;
+	empty-cells: hide;
+	margin-left: 0.25em;
+	margin-top: 1em;
+	width: 32em;
+}
+
+.list table th
+{
+	border: 1px solid black;
+	padding: 10px;
+	font-size: 0.9em;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.list table td
+{
+	border: 1px solid black;
+	padding: 0.25em;
+	padding: 10px;
+	background-color: #cdf;
+	font-size: small;
+}
+
+.templateName
+{
+	width: 16em;
+	float: left;
+}
+
+.templateDescription
+{
+	width: 30em;
+	float: left;
+}
+
+.templateName input
+{
+	width: 12em;
+}
+
+.templateDescription input
+{
+	width: 26em;
 }

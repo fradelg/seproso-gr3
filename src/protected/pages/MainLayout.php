@@ -1,31 +1,26 @@
 <?php
 
-class MainLayout extends TPage
+class MainLayout extends TTemplateControl
 {	
 	public function getProject(){ return $this->User->Project; }
 	
 	public function onLoad($param)
 	{
-		if (!$this->isPostBack && !$this->User->getIsGuest()){
-			$this->User->Project = $this->getUserDao()->getProject($this->User->Name);
-			$projects = $this->getProjects();
-			$this->projects->DataSource = $projects;
+		if (!$this->User->getIsGuest())
+		{	
+			$this->Session['project'] = $this->getUserDao()->getProject($this->User->Name);
+			$this->projects->DataSource = $this->getProjects();
 			$this->projects->dataBind();
 		}
 	}
 	
 	protected function getProjects()
 	{
+		$dao = $this->getProjectDao();
+		$list = $dao->getProjectNamesByWorker($this->User->Name);
 		$projects = array();
-		if($this->User->isInRole('admin'))
-			$list = $this->getProjectDao()->getAllProjects();
-		else if($this->User->isInRole('manager'))
-			$list = $this->getProjectDao()->getProjectsByManagerName($this->User->Name);
-		else
-			$list = $this->getProjectDao()->getProjectsByUserName($this->User->Name);
-		foreach($list as $project)
-			$projects[$project->ID] = $project->Name;
-		return $projects;
+		foreach($list as $project) $projects[$project] = $project; 
+		return $projects; 
 	}
 	
 	protected function getProjectDao()
@@ -40,8 +35,9 @@ class MainLayout extends TPage
 	
 	public function projectChanged($sender, $param)
 	{
-		$this->User->Project = $sender->SelectedItem->Text;
-		$this->getUserDao()->updateProject($this->User);
+		$this->Session['project'] = $sender->SelectedItem->Text;
+		$this->getUserDao()->updateProject($this->User->Name, $this->Session['project']);
+		$this->Response->reload();
 	}
 }
 

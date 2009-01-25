@@ -6,7 +6,7 @@
 <!-- Project phases general presentation -->
 <com:TView>
 <fieldset><legend>Fases</legend>
-	<div class="resource">
+	<div class="list">
 	<com:TDataList ID="phaseList"
 	RepeatLayout="Raw"
 	DataKeyField="ID"
@@ -15,51 +15,70 @@
 	OnUpdateCommand="updateEntryItem"
 	OnDeleteCommand="deleteEntryItem"
 	OnItemCreated="EntryItemCreated" >
-	
+	<prop:EmptyTemplate>
+		Todav&iacute;a no ha introducido ninguna fase en este proyecto.
+	</prop:EmptyTemplate>	
 	<prop:HeaderTemplate>
-	  <table class="time-entries">
+	  <table>
 	  	<tr>
 	  		<th>Fase</th>
-	  		<th>Descripcion</th>
-	  		<th>Editar/Borrar</th>
+	  		<th>Descripci&oacute;n</th>
 	  	</tr>
 	</prop:HeaderTemplate>
-
 	<prop:FooterTemplate>
 	  </table>
 	</prop:FooterTemplate>
-	
 	<prop:ItemTemplate>
 	  <tr>
-	  	<td class="categoryName"><%# h($this->DataItem->Category->Name) %></td>
-	  	<td class="description"><%# h($this->DataItem->Description) %></td>
-	  	<td class="edit">
+	  	<td><%# h($this->DataItem->Name) %></td>
+	  	<td><%# h($this->DataItem->Description) %></td>
+	  	<td>
 	  		<com:TButton Text="Editar" CommandName="edit"/>	  			
 	  		<com:TButton Text="Borrar" CommandName="delete"
 	  			Attributes.onclick="if(!confirm('Est&aacute; seguro?')) return false;" />
 	  	</td>
 	  </tr>
 	</prop:ItemTemplate>
-	
 	<prop:EditItemTemplate>
 	  <tr>
-	  	<td class="categoryName">
-	  		<com:TDropDownList ID="category" />
+	  	<td><com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> /></td>
+	  	<td>
+	  		<com:TTextBox ID="description" TextMode="MultiLine"  
+	  		Text=<%# $this->DataItem->Description %> />
 	  	</td>
-	  	<td class="description">
-	  		<com:TTextBox ID="description" Text=<%# $this->DataItem->Description %> />
-	  	</td>
-	  	<td class="edit">
+	  	<td>
 	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
 	  		<com:TButton Text="Cancelar" CommandName="cancel" />
 	  	</td>
 	  </tr>
-	</prop:EditItemTemplate>	
-	
+	</prop:EditItemTemplate>
 	</com:TDataList>
-	
-	<br/><com:TButton Text="Nueva fase" OnClick="newPhase" />
-	
+	</div>
+	<div>
+		<br/><com:TButton Text="Nueva fase" OnClick="newPhase" />
+		<com:TButton ID="newTemplate" Text="Establecer como plantilla" 
+				OnClick="defineTemplate" />
+		
+		<com:TPanel ID="setTemplate" Visible="false">
+		<br/><br/>
+		<div class="templateName">
+			<com:TLabel ForControl="tempName" Text="Nombre:" />
+			<span class="required">*</span>
+			<com:TTextBox ID="tempName" />
+			<com:TRequiredFieldValidator
+				ControlToValidate="tempName"
+				CssClass="validator"
+				Display="Dynamic" 
+				ValidationGroup="template"
+				ControlCssClass="required-input"
+				ErrorMessage="Falta el nombre de la plantilla" />
+		</div>
+		<div class="templateDescription">
+			<com:TLabel ForControl="tempDescription" Text="Descripci&oacute;n:" />
+			<com:TTextBox ID="tempDescription" />
+		</div>
+		<com:TButton Text="Guardar" ValidationGroup="template" OnClick="saveTemplate" />
+		</com:TPanel>
 	</div>
 </fieldset>
 </com:TView>
@@ -69,8 +88,7 @@
 	<fieldset><legend>Informaci&oacute;n de nueva fase</legend>
 	<div class="loghours">
 	<div class="category">
-	<com:TLabel ForControl="phase" Text="Fase:" />
-	<span class="required">*</span><br/>
+	<com:TLabel ForControl="phase" Text="Fase:" /><br/>
 	<com:TDropDownList ID="phase" />
 	</div>
 	
@@ -81,7 +99,8 @@
 	<com:TRequiredFieldValidator
 		ControlToValidate="name"
 		CssClass="validator"
-		Display="None" 
+		Display="Dynamic"
+		ValidationGroup="phase-name"
 		ControlCssClass="required-input"
 		ErrorMessage="Por favor, introduzca el nombre de la fase." />
 	</div>
@@ -92,9 +111,9 @@
 	</div>
 	
 	<div class="addEntry">
-	<com:TValidationSummary AutoUpdate="false" />
-	<com:TButton Text="Agregar fase" OnClick="addNewPhase" />
+	<com:TButton Text="Agregar fase" ValidationGroup="phase-name" OnClick="addNewPhase" />
 	</div>
+	
 	</div>
 	</fieldset>
 </com:TView>

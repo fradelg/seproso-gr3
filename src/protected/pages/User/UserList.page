@@ -2,21 +2,79 @@
 <h2>Usuarios registrados en SEPROSO</h2>
 <fieldset>
   <legend>Lista de usuarios</legend>
+
+<style type="text/css">
+	table {	border-collapse: collapse; }
+	td, th {
+		border: 1px solid black;
+		padding: 10px;
+	}
+	th { text-align:left; }
+	input { max-width: 8em; }
+	select { max-width: 6em; }	
+</style>
+
+<com:TDataList ID="list"
+	RepeatLayout="Raw"
+	DataKeyField="UserID"
+	OnEditCommand="editEntryItem"
+	OnCancelCommand="refreshEntryList"
+	OnUpdateCommand="updateEntryItem"
+	OnDeleteCommand="deleteEntryItem"
+	OnItemCreated="EntryItemCreated"  >
+	<prop:EmptyTemplate>
+		No existen usuarios registrados en el sistema.
+	</prop:EmptyTemplate>
+	<prop:HeaderTemplate>
+		<table cellpadding="1" class="time-entries">
+		<tr class="header">
+			<th>Nombre</th>
+			<th>Apellidos</th>
+			<th>Nacido</th>
+			<th>Rol</th>
+			<th>Password</th>
+			<th>E-mail</th>
+		</tr>
+  	</prop:HeaderTemplate>
+	<prop:FooterTemplate>
+	  </table>
+	</prop:FooterTemplate>
 	
-  <com:TRepeater ID="list" EnableViewState="false">
-  <prop:HeaderTemplate>
-	<table cellpadding="2">
-	<tr class="header">
-	<th>Nombre de usuario</th>
-	<th>Direcci&oacute;n e-mail</th>
-	<th>&Uacute;ltimo proyecto</th>
-	</tr>
-  </prop:HeaderTemplate>
-  <prop:ItemTemplate>
-	<tr class="row0">	<td><%# h($this->DataItem->Name) %></td>	<td><%# h($this->DataItem->EmailAddress) %></td>
-	<td><%# h($this->DataItem->Project) %></td>	</tr>  </prop:ItemTemplate>  <prop:AlternatingItemTemplate>	<tr class="row1">	<td><%# h($this->DataItem->Name) %></td>
-	<td><%# h($this->DataItem->EmailAddress) %></td>
-	<td><%# h($this->DataItem->Project) %></td>
-	</tr>  </prop:AlternatingItemTemplate>  <prop:FooterTemplate>	</table>  </prop:FooterTemplate>
-</com:TRepeater>
+	<prop:ItemTemplate>
+		<tr class="row0">
+			<td><%# h($this->DataItem->Name) %></td>
+			<td><%# h($this->DataItem->Surname) %></td>
+			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->BirthDate %> /></td>
+			<td><%# h($this->DataItem->RoleID) %></td>
+			<td><%# h($this->DataItem->Password) %></td>
+			<td><%# h($this->DataItem->EmailAddress) %></td>
+			<td>
+	  		<com:TButton Text="Modificar" CommandName="edit"/>	  			
+	  		<com:TButton Text="Borrar" CommandName="delete"
+	  			Attributes.onclick="if(!confirm('Est&aacute; seguro de borrar?')) return false;" />
+	  		</td>
+		</tr>
+  	</prop:ItemTemplate>
+	
+	<prop:EditItemTemplate>
+	  <tr>
+	  	<td><com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> /></td>
+	  	<td><com:TTextBox ID="surname" Text=<%# $this->DataItem->Surname %> /></td>
+	  	<td><com:TDatePicker InputMode="DropDownList" ID="date" 
+	  			TimeStamp=<%# $this->DataItem->BirthDate %>
+	  			FromYear = <%= $this->getYear() - 65 %>
+				UpToYear = <%= $this->getYear() - 18 %> /></td>
+	  	<td><com:TDropDownList ID="role" /></td>
+	  	<td><com:TTextBox ID="password" Text=<%# $this->DataItem->Password %> /></td>
+	  	<td><com:TTextBox ID="email" Text=<%# $this->DataItem->EmailAddress %> /></td>
+	  	<td>
+	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
+	  		<com:TButton Text="Cancelar" CommandName="cancel" />
+	  	</td>
+	  </tr>
+	</prop:EditItemTemplate>	
+		
+</com:TDataList>
+</fieldset>
 </com:TContent>

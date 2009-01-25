@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+
+<resultMap id="activity-result" class="ActivityRecord">
+	<result property="ID" column="idActividad" type="integer" />
+	<result property="TypeID" column="idTipo" type="integer" />
+	<result property="PhaseID" column="idFase" type="integer" />
+	<result property="ArtifactID" column="idArtefacto" type="integer" />
+	<result property="Name" column="nombre" />
+	<result property="Description" column="descripcion" />
+	<result property="RealDate" column="inicioReal" typeHandler="DateTimeTypeHandler" />
+	<result property="EstimateDate" column="inicioEstimado" typeHandler="DateTimeTypeHandler" />
+	<result property="RealDuration" column="tiempoReal" type="float" />
+	<result property="EstimateDuration" column="tiempoEstimado" type="float" />
+	<result property="State" column="estado" type="integer" />
+<!--<result property="Preds" type="array" resultMapping="pred-activities" />-->
+</resultMap>
+
+<resultMap id="pred-activities" class="array">
+	<result column="predecesora" />
+</resultMap>
+
+<resultMap id="act-type-result" class="array">
+	<result property="ID" column="idTipoActividad" />
+	<result property="Type" column="tipo" />
+</resultMap>
+
+<select id="GetActivitiesByID" parameterClass="int" resultMap="activity-result">
+	SELECT * FROM Actividad WHERE idActividad = #value#
+</select>
+
+<select id="GetAllActivities" parameterClass="int" resultMap="activity-result">
+	SELECT * FROM Actividad WHERE idFase = #value# GROUP BY idActividad
+</select>
+
+<select id="GetTypesOfActivities" resultMap="act-type-result">
+	SELECT * FROM TipoActividad 
+</select>
+
+<select id="GetArtifactSet" >
+	SELECT nombre FROM Artefacto
+</select>
+
+<select id="GetActivitiesByWorker" resultMap="activity-result">
+	SELECT
+		*
+	FROM 
+		Actividad
+		LEFT JOIN Trabajador_has_Actividad ON 
+			Trabajador_has_Actividad.idActividad = Actividad.idActividad
+	WHERE
+		Trabajador_has_Actividad.idUsuario = #value# 
+</select>
+
+<select id="GetPosteriorActivities" resultClass="int">
+	SELECT actividad FROM Actividad_Predecesora WHERE predecesora = #value#
+</select>
+
+<select id="ExistsActivePrecedents" resultClass="boolean">
+<![CDATA[
+	SELECT
+		COUNT(pred.predecesora)
+	FROM
+		Actividad_Predecesora pred
+		LEFT JOIN Actividad ON Actividad.idActividad = pred.predecesora 
+	WHERE
+		pred.actividad = #value# AND Actividad.estado < 2
+]]>
+</select>
+
+<select id="GetCategoryByNameInProject" parameterClass="array" resultMap="activity-result">
+	SELECT 
+		categories.*,
+		sum(time_entry.Duration) as RealDuration
+	FROM
+		categories
+		LEFT JOIN time_entry ON categories.CategoryID = time_entry.CategoryID
+	WHERE
+			categories.ProjectID = #project#
+		AND categories.Name = #category#
+	GROUP BY
+		categories.CategoryID
+</select>
+
+<insert id="AddNewActivity" parameterClass="ActivityRecord">
+	INSERT INTO Actividad 
+	(idTipo, idFase, idArtefacto, nombre, descripcion, 
+	inicioEstimado, inicioReal, tiempoEstimado, tiempoReal, estado)
+	VALUES(#TypeID#, #PhaseID#, #ArtifactID#, #Name#, #Description#, 
+	#EstimateDate, typeHandler=DateTimeTypeHandler#, 
+	#RealDate, typeHandler=DateTimeTypeHandler#, 
+	#EstimateDuration#, #RealDuration#, #State#)
+	<selectKey property="ID" type="post" resultClass="int">
+		select LAST_INSERT_ID() as value
+    </selectKey>
+</insert>
+
+<insert id="AddNewArtifact" parameterClass="array">
+	INSERT INTO Artefacto
+	(nombre, descripcion)
+	VALUES (#name#, #description#)
+</insert>
+
+<insert id="AddPrecedentActivity" parameterClass="array">
+	INSERT INTO Actividad_predecesora 
+	(actividad, predecesora)
+	VALUES (#act#, #pred#)
+</insert>
+
+<insert id="AddWorkerToActivity" parameterClass="array">
+	INSERT INTO Trabajador_has_Actividad 
+	(idUsuario, idActividad)
+	VALUES (#worker#, #act#)
+</insert>
+
+<update id="UpdateActivity" parameterClass="ActivityRecord">
+	UPDATE 
+		Actividad 
+	SET
+		idActividad = #ID#,
+		idTipoActividad = #TypeID#,
+		idFase as #PhaseID#,
+		idArtefacto = #ArtifactID#,
+		nombre = #Name#,
+		descripcion = #Description#,
+		inicioEstimado = #EstimateDate, typeHandler=DateTimeTypeHandler#,
+		inicioReal = #RealDate, typeHandler=DateTimeTypeHandler#,
+		tiempoEstimado = #EstimateDuration#,
+		tiempoReal = #RealDuration#,
+		estado = #State#
+	WHERE 
+		idActividad = #ID#
+</update>
+
+<update id="BeginActivity" parameterClass="integer">
+	UPDATE Actividad SET estado = 1 WHERE idActividad = #value#
+</update>
+
+<update id="EndActivity" parameterClass="integer">
+	UPDATE Actividad SET estado = 2 WHERE idActividad = #value#
+</update>
+
+<delete id="DeleteActivity" parameterClass="integer">
+	DELETE FROM Actividad WHERE idActividad = #value#
+</delete>
+
+</sqlMap>

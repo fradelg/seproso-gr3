@@ -2,32 +2,87 @@
 
 class ProjectList extends TPage
 {
-	protected function showProjects($sort='', $order='')
+	protected function getProjectDao()
 	{
-		$dao = $this->Application->Modules['daos']->getDao('ProjectDao');
-		$this->projectList->DataSource = $dao->getAllProjects($sort, $order);
-		$this->projectList->dataBind();
+		return $this->Application->Modules['daos']->getDao('ProjectDao');
 	}
 	
-	protected function getSortOrdering($sort)
+	protected function getWorkerDao()
 	{
-		$ordering = $this->getViewState('SortOrder', array());
-		$order = isset($ordering[$sort]) ? $ordering[$sort] : 'DESC';
-		$ordering[$sort] = $order == 'DESC' ? 'ASC' : 'DESC';
-		$this->setViewState('SortOrder', $ordering);
-		return $ordering[$sort];
+		return $this->Application->Modules['daos']->getDao('WorkerDao');
 	}
 	
-	protected function sortProjects($sender, $param)
+	/**
+	 * Load all projects and display them in a repeater.
+	 */
+	function onLoad($param)
 	{
-		$sort = $param->SortExpression;
-		$this->showProjects($sort, $this->getSortOrdering($sort));
+		if(!$this->IsPostBack) $this->showList();
 	}
-		
-	public function onLoad($param)
+	
+	protected function showList()
 	{
-		if(!$this->IsPostBack)
-			$this->showProjects();
+		$this->list->DataSource = $this->getProjectDao()->getAllProjects();
+		$this->list->dataBind(); 	
+	}
+	
+	public function editEntryItem($sender, $param)
+	{
+		$this->list->EditItemIndex = $param->Item->ItemIndex;
+		$this->showList();
+	}
+	
+	public function refreshEntryList()
+	{
+		$this->list->EditItemIndex = -1;
+		$this->showList();
+	}
+
+	public function deleteEntryItem($sender, $param)
+	{
+		$id = $this->list->DataKeys[$param->Item->ItemIndex];
+		$this->getProjectDao()->deleteProject($id);
+		$this->refreshEntryList();
+	}
+			
+	public function updateEntryItem($sender, $param)
+	{		
+		if(!$this->Page->IsValid)
+			return;
+			
+		$item = $param->Item;
+		$id = $this->list->DataKeys[$item->ItemIndex];
+
+		// configure project changes
+		$project = new ProjectRecord;
+		$project->Title = $id;
+		$project->ManagerID = $param->Item->manager->SelectedValue;
+		$project->Description = $param->Item->description->Text;
+		$project->Burchet = floatval($param->Item->burchet->Text);	
+		$this->getProjectDao()->updateProject($project);
+					
+		// update table
+		$this->refreshEntryList();
+	}
+
+	public function EntryItemCreated($sender, $param)
+	{
+		if($param->Item->ItemType == 'EditItem' && $param->Item->DataItem)
+		{
+			$param->Item->manager->DataSource =	
+				$this->getManagers($param->Item->DataItem->ManagerID);	
+			$param->Item->manager->dataBind();
+			$param->Item->manager->SelectedValue = $param->Item->DataItem->ManagerID;
+		}
+	}
+	
+	public function getManagers($manager){
+		$managers = array();
+		foreach ($this->getWorkerDao()->getProjectManagers() as $man) 
+			$managers[$man] = $man;
+		// add actual manager
+		$managers[$manager] = $manager;
+		return $managers;
 	}
 }
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+
+<resultMap id="work-record-result" class="WorkRecord">
+	<result property="ID" column="idRegistroTrabajo" type="integer" />
+	<result property="WorkerID" column="idUsuario" />
+	<result property="ActivityID" column="idActividad" type="integer" />
+	
+	<result property="Date" column="fecha" typeHandler="DateTime" />
+	<result property="StartDate" column="inicio" typeHandler="DateTime" />
+	<result property="EndDate" column="final" typeHandler="DateTime" />
+	
+	<result property="Effort" column="esfuerzo" type="float" />
+	<result property="Comentary" column="comentario" />
+	<result property="State" column="estado" type="integer" />
+</resultMap>
+
+<select id="GetWorkRecordByID" resultMap="work-record-result">
+	SELECT * FROM RegistroTrabajo WHERE	idRegistroTrabajo = #value#
+</select>
+
+<select id="GetWorkRecordsByWorkerAndActivity" resultMap="work-record-result">
+	SELECT * FROM RegistroTrabajo 
+	WHERE RegistroTrabajo.idUsario = #user# 
+		AND RegistroTrabajo.idActividad = #act#
+		AND RegistroTrabajo.estado = #state# 
+	ORDER BY RegistroTrabajo.fecha ASC
+</select>
+
+<insert id="AddWorkRecord" parameterClass="WorkRecord">
+	INSERT INTO 
+		RegistroTrabajo(idUsuario, idActividad, fecha, inicio, 
+						final, esfuerzo, comentario, estado)
+	VALUES
+		(#WorkerID#, #ActivityID#, #Date, typeHandler=DateTime#,
+		#StartDate, typeHandler=DateTime#, #EndDate, typeHandler=DateTime#,
+		#Effort#, #Comentary#, #State#)
+  <selectKey property="ID" type="post" resultClass="int">
+		select LAST_INSERT_ID() as value
+  </selectKey>
+</insert>
+
+<update id="UpdateTimeEntry" parameterClass="TimeEntryRecord">
+	UPDATE time_entry SET
+		Duration = #Duration#,
+		Description = #Description#,
+		CategoryID = #Category.ID#,
+		EntryDate = #ReportDate, typeHandler=DateTime#,
+		UserID = #Username#
+	WHERE
+		EntryID = #ID#
+</update>
+
+<update id="UpdateToState" parameterClass="array">
+	UPDATE RegistroTrabajo SET estado = #state# WHERE idRegistroTrabajo = #id#
+</update>
+
+<delete id="DeleteWorkRecord" parameterClass="integer">
+	DELETE FROM RegistroTrabajo WHERE idRegistroTrabajo = #value#
+</delete>
+
+</sqlMap>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+
+<resultMap id="project-result" class="ProjectRecord">
+	<result property="Title" column="Title" />
+	<result property="ProcessID" column="ProcessID" type="integer"/>
+	<result property="ManagerID" column="ManagerID"/>
+	<result property="Description" column="Description" />
+	<result property="Date" column="Date" typeHandler="DateTimeTypeHandler" />
+	<result property="Burchet" column="Burchet" type="float" />
+	<result property="Active" column="Active" />
+</resultMap>
+
+<resultMap id="phase-result" class="PhaseRecord">
+	<result property="ID" column="ID" type="integer"/>
+	<result property="ProcessID" column="ProcessID" type="integer"/>
+	<result property="ParentID" column="ParentID"/>
+	<result property="Name" column="Name" />
+	<result property="Description" column="Description" />
+</resultMap>
+
+<resultMap id="model-result" class="ProcessRecord">
+	<result property="ID" column="ID" type="integer"/>
+	<result property="Template" column="Template"/>
+	<result property="Name" column="Name" />
+	<result property="Description" column="Description" />
+</resultMap>
+
+<select id="ProjectNameExists" resultClass="boolean">
+	SELECT COUNT(titulo) FROM Proyecto WHERE titulo = #value#
+</select>
+
+<select id="ProjectModelExists" resultClass="boolean">
+	SELECT COUNT(titulo) FROM Proyecto 
+	WHERE titulo = #value# AND idModelo IS NOT NULL
+</select>
+
+<select id="GetAllProjects" resultMap="project-result">
+	SELECT
+		titulo as Title,
+		idJefe as ManagerID,
+		descripcion as Description,
+		fecha as Date,
+		presupuesto as Burchet,
+		activo as Active
+	FROM 
+		Proyecto
+</select>
+
+<select id="GetProjectByTitle" resultMap="project-result">
+	SELECT 
+		Proyecto.idModelo as ProcessID,
+		Proyecto.idJefe as ManagerID,
+		Proyecto.titulo as Title,
+		Proyecto.descripcion Description,
+		Proyecto.fecha as Date,
+		Proyecto.presupuesto as Burchet,
+		Proyecto.activo as Active
+	FROM Proyecto
+	WHERE 
+		Proyecto.idProyecto = #value# 
+	GROUP BY
+		Proyecto.idProyecto
+	ORDER BY
+		Proyecto.titulo
+</select>
+
+<select id="GetProjectByWorker" resultMap="project-result">
+	SELECT 
+		Proyecto.idModelo as ProcessID,
+		Proyecto.idJefe as ManagerID,
+		Proyecto.titulo as Title,
+		Proyecto.descripcion Description,
+		Proyecto.fecha as Date,
+		Proyecto.presupuesto as Burchet,
+		Proyecto.activo as Active
+	FROM Proyecto, participacion
+	WHERE 
+		participacion.idUsuario = #value# 
+		AND Proyecto.idProyecto = participacion.idProyecto 
+	ORDER BY
+		Proyecto.titulo
+</select>
+
+<select id="GetProjectModel" resultClass="int">
+	SELECT idModelo FROM Proyecto WHERE titulo = #value#
+</select>
+
+<select id="GetProjectNamesByWorker" resultClass="string">
+	SELECT idProyecto FROM Participacion 
+	WHERE idUsuario = #value# ORDER BY idProyecto
+</select>
+
+<select id="GetAllModelTemplates" resultClass="string">
+	SELECT plantilla FROM Modelo WHERE plantilla IS NOT NULL GROUP BY plantilla
+</select>
+
+<select id="GetPhasesByTemplate" resultMap="phase-result">
+	SELECT 
+		Fase.idFase as ID,
+		Fase.idModelo as ProcessID,
+		Fase.idFasePadre as ParentID,
+		Fase.nombre as Name,
+		Fase.descripcion as Description
+	FROM 
+		Fase
+		LEFT JOIN Modelo ON Modelo.idModelo = Fase.idModelo
+	WHERE 
+		Modelo.plantilla = #value#
+</select>
+
+<select id="GetModelByTemplate" resultMap="model-result">
+	SELECT 
+		idModelo as ID,
+		plantilla as Template,
+		nombre as Name,
+		descripcion as Description
+	FROM 
+		Modelo
+	WHERE 
+		plantilla = #value#
+	GROUP BY
+		plantilla
+</select>
+
+<select id="GetPhasesByProject" resultMap="phase-result">
+	SELECT 
+		Fase.idFase as ID,
+		Fase.idModelo as ProcessID,
+		Fase.idFasePadre as ParentID,
+		Fase.nombre as Name,
+		Fase.descripcion as Description
+	FROM 
+		Fase
+		LEFT JOIN Proyecto ON Proyecto.idModelo = Fase.idModelo
+	WHERE 
+		Proyecto.titulo = #value#
+</select>
+
+<select id="GetPhaseChildren" resultMap="phase-result">
+	SELECT 
+		idFase as ID,
+		idModelo as ProcessID,
+		idFasePadre as ParentID,
+		nombre as Name,
+		descripcion as Description
+	FROM 
+		Fase
+	WHERE 
+		idFasePadre = #value#
+</select>
+
+<insert id="CreateNewProject" parameterClass="ProjectRecord">
+	INSERT INTO Proyecto
+	(titulo, idJefe, idModelo, descripcion, fecha, presupuesto, activo)
+	VALUES
+	(#Title#, #ManagerID#, #ProcessID#,	#Description#, NOW(), #Burchet#, #Active#)
+</insert>
+
+<insert id="AddNewModel" parameterClass="ProcessRecord" resultClass="int" >
+	INSERT INTO Modelo (plantilla, nombre, descripcion)
+	VALUES (#Template#, #Name#, #Description#)
+	<selectKey type="post" resultClass="int">
+		select LAST_INSERT_ID() as value
+    </selectKey>
+</insert>
+
+<insert id="AddNewPhase" parameterClass="PhaseRecord" >
+	INSERT INTO Fase (idModelo, idFasePadre, nombre, descripcion)
+	VALUES (#ProcessID#, #ParentID#, #Name#, #Description#)
+</insert>
+
+<update id="UpdateProject" parameterClass="ProjectRecord">
+	UPDATE 
+		Proyecto
+	SET 
+		idJefe = #ManagerID#,
+		descripcion = #Description#,
+		presupuesto = #Burchet#
+	WHERE 
+		titulo = #Title#
+</update>
+
+<update id="UpdateModel" parameterClass="ModelRecord">
+	UPDATE 
+		Modelo
+	SET 
+		plantilla = #Template#,
+		nombre = #Name#,
+		descripcion = #Description#
+	WHERE 
+		idModelo = #ID#
+</update>
+
+<update id="UpdatePhase" parameterClass="PhaseRecord">
+	UPDATE 
+		Fase
+	SET 
+		idModelo = #ProcessID#,
+		idFasePadre = #ParentID#,
+		nombre = #Name#,
+		descripcion = #Description#
+	WHERE 
+		idFase = #ID#
+</update>
+
+<update id="UpdateModelTemplate" parameterClass="array">
+	UPDATE 
+		Modelo
+	SET 
+		plantilla = #Template#,
+		nombre = #Name#,
+		descripcion = #Description#
+	WHERE 
+		idModelo = #ID#
+</update>
+
+<update id="UpdateProjectModel" parameterClass="array">
+	UPDATE Proyecto	SET	idModelo = #model# WHERE titulo = #title#
+</update>
+
+
+<delete id="DeleteProject">
+	DELETE FROM Proyecto WHERE titulo = #value#
+</delete>
+
+</sqlMap>

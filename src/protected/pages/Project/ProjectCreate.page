@@ -25,6 +25,12 @@
   		ValidationGroup="project-add"
   		ControlCssClass="required-input"
   		ErrorMessage="Por favor, introduzca un nombre para el proyecto."/>
+  	<com:TCustomValidator
+		ControlToValidate="projectName"
+		Display="None"
+		CssClass="validator"
+  		ValidationGroup="project-add"
+		OnServerValidate="checkProjectname" />	
   	</div>
   	
   	<div class="category">
@@ -33,33 +39,17 @@
   	<com:TDropDownList ID="manager" />
   	</div>
   	
-  	<div class="day">
-  	<com:TLabel ForControl="completionDate" Text="Fecha aproximada de final:"/>
-  	<span class="required">*</span><br />
-  	<com:TDatePicker ID="completionDate" InputMode="DropDownList" />
-  	</div>
-  	
   	<div class="hours">
-  	<com:TLabel ForControl="estimateHours" Text="Duraci&oacute;n estimada:"/>
+  	<com:TLabel ForControl="burchet" Text="Presupuesto:"/>
   	<span class="required">*</span><br />
-  	<com:TTextBox ID="estimateHours" />
+  	<com:TTextBox ID="burchet" />
   	<com:TRequiredFieldValidator
-  		ControlToValidate="estimateHours"
+  		ControlToValidate="burchet"
   		Display="None"
   		CssClass="validator"
   		ValidationGroup="project-add"
   		ControlCssClass="required-input"
-  		ErrorMessage="Por favor, introduzca una duraci&oacute;n aproximada" />
-  	<com:TRangeValidator 
-  		ControlToValidate="estimateHours"
-  		DataType="Float"
-  		MinValue="0"
-  		MaxValue="9999"
-  		CssClass="validator"
-  		Display="None"
-  		ValidationGroup="project-add"
-  		ControlCssClass="required-input1"
-  		ErrorMessage="La duraci&oacute;n debe estar comprendida entre 0 y 9999" />
+  		ErrorMessage="Por favor, introduzca un presupuesto aproximado" />
   	</div>
   	
   	<div class="description">
@@ -79,7 +69,7 @@
   </com:TView>
   
   <com:TView>
-  	<h3>Enhorabuena. El proyecto fue creado con &eacute;xito.</h3>
+  	<h3>Enhorabuena!!!. El proyecto fue creado con &eacute;xito.</h3>
   </com:TView>
   
  </com:TMultiView>

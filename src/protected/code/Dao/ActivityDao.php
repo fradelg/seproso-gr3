@@ -1,14 +1,35 @@
 <?php
 
-class CategoryDao extends BaseDao
+class ActivityDao extends BaseDao
 {
-	function addNewCategory($category)
+	function addNewActivity($activity)
 	{
 		$sqlmap = $this->getSqlMap();
-		$exists = $this->getCategoryByNameInProject(
-			$category->Name, $category->ProjectID);
-		if(!$exists)
-			$sqlmap->insert('AddNewCategory', $category);
+		$sqlmap->insert('AddNewActivity', $activity);
+	}
+	
+	function addNewArtifact($name, $description)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['name'] = $name;
+		$param['description'] = $description; 
+		$sqlmap->insert('AddNewArtifact', $param);
+	}
+	
+	function addPrecedentActivity($pred, $actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['act'] = $actID;
+		$param['pred'] = $pred; 
+		$sqlmap->insert('AddPrecedentActivity', $param);
+	}
+	
+	function addWorkerToActivity($worker, $actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['worker'] = $worker;
+		$param['act'] = $actID; 
+		$sqlmap->insert('AddWorkerToActivity', $param);
 	}
 
 	function getCategoryByID($categoryID)
@@ -17,22 +38,46 @@ class CategoryDao extends BaseDao
 		return $sqlmap->queryForObject('GetCategoryByID', $categoryID);
 	}
 
-	function getAllCategories()
+	function getAllActivities($phaseID)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetAllCategories');
+		return $sqlmap->queryForList('GetAllActivities', $phaseID);
+	}
+	
+	function getTypesOfActivities()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetTypesOfActivities');
+	}
+	
+	function getArtifactSet()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetArtifactSet');
+	}
+	
+	function getPosteriorActivities($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetPosteriorActivities', $actID);
+	}
+	
+	function existsActivePrecedents($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('ExistsActivePrecedents', $actID);
+	}
+	
+	function deleteActivity($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->delete('DeleteActivity', $actID);
 	}
 
-	function deleteCategory($categoryID)
+	function getActivitiesByWorker($workerID)
 	{
 		$sqlmap = $this->getSqlMap();
-		$sqlmap->delete('DeleteCategory', $categoryID);
-	}
-
-	function getCategoriesByProjectID($projectID)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetCategoriesByProjectID', $projectID);
+		return $sqlmap->queryForList('GetActivitiesByWorker', $workerID);
 	}
 
 	function getCategoryByNameInProject($name, $projectID)
@@ -43,10 +88,22 @@ class CategoryDao extends BaseDao
 		return $sqlmap->queryForObject('GetCategoryByNameInProject', $param);
 	}
 
-	function updateCategory($category)
+	function beginActivity($actID)
 	{
 		$sqlmap = $this->getSqlMap();
-		$sqlmap->update('UpdateCategory', $category);
+		$sqlmap->update('BeginActivity', $actID);
+	}
+	
+	function endActivity($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->update('EndActivity', $actID);
+	}
+	
+	function updateActivity($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->update('UpdateActivity', $actID);
 	}
 }
 

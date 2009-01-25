@@ -34,7 +34,7 @@
   </modules>
   
   <services>
-    <service id="page" class="TPageService" DefaultPage="User.UserList"/>
+    <service id="page" class="TPageService" DefaultPage="User.Home"/>
   </services>
   
  </application>

@@ -32,7 +32,7 @@
 <ul class="level1">
 	<com:TPlaceHolder Visible=<%= $this->isManagerViewVisible() %> >
 	<li class="<com:TPlaceHolder ID="ProjectMenu" />">
-		<a class="menuitem" href="?page=Project.ProjectList">
+		<a class="menuitem" href="?page=Project.Phases">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/bell.gif" width="16" height="16" alt="">
 		<span>Proyecto</span></a>
 		<ul class="level2">
@@ -42,7 +42,7 @@
 		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ActManagementMenu" />">
-		<a class="menuitem" href="?page=Project.LogTimeEntry">
+		<a class="menuitem" href="?page=Project.ReviewAct">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/time.gif" width="16" height="16" alt="">
 		<span>Actividades</span></a>
 		<ul class="level2">

@@ -13,11 +13,11 @@
 		ConnectionString="mysql:host=jair.lab.fi.uva.es;dbname=grupo03"
 		Username="grupo03" Password="nnLx9jpr" />
 -->
-	<sqlMap resource="MySQL/users.xml"/>
-	<sqlMap resource="MySQL/workers.xml"/>
-	<sqlMap resource="MySQL/projects.xml"/>
-	<sqlMap resource="MySQL/activities.xml" />
+	<sqlMap resource="MySQL/user.xml"/>
+	<sqlMap resource="MySQL/project.xml"/>
+	<sqlMap resource="MySQL/activity.xml" />
 	<sqlMap resource="MySQL/work-record.xml" />
+	<sqlMap resource="MySQL/worker.xml" />
 	<sqlMap resource="MySQL/reports.xml" />
     
 </sqlMapConfig>

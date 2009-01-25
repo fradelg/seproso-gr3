@@ -35,12 +35,22 @@ class UserDao extends BaseDao
 	
 	/**
 	 * @param string username
-	 * @return string projects name
+	 * @return string project name
 	 */
 	public function getProject($username)
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForObject('GetProject', $username);
+	}
+	
+	/**
+	 * @param string Worker username
+	 * @return Project name array list
+	 */
+	public function getProjects($username)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetProjects', $username);
 	}
 
 	/**
@@ -61,15 +71,6 @@ class UserDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForList('GetAllUsers');
 	}
-	
-	/**
-	 * @return array list of all roles.
-	 */
-	public function getAllRoles()
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetAllRoles');
-	}
 
 	/**
 	 * @param SeprosoUser new user details.
@@ -80,6 +81,8 @@ class UserDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		$param['user'] = $user;
 		$param['password'] = $password;
+		foreach ($user->getRoles() as $role)
+			$param['role'] = $role;
 		$sqlmap->insert('AddNewUser', $param);
 	}
 
@@ -96,31 +99,25 @@ class UserDao extends BaseDao
 	 * Updates the user current working project
 	 * @param SeprosoUser updated user details.
 	 */
-	public function updateProject($user)
+	public function updateProject($user, $project)
 	{
 		$sqlmap = $this->getSqlMap();
-		$sqlmap->update('UpdateUserProject', $user);
+		$param['user'] = $user;
+		$param['project'] = $project;
+		$sqlmap->update('UpdateUserProject', $param);
 	}
 
 	/**
 	 * Updates the user profile details, including user roles.
 	 * @param SeprosoUser updated user details.
-	 * @param string new user password, null to avoid updating password.
 	 */
-	public function updateUser($user,$password=null)
+	public function updateUser($user)
 	{
 		$sqlmap = $this->getSqlMap();
-		if($password !== null)
-		{
-			$param['user'] = $user;
-			$param['password'] = $password;
-			$sqlmap->update('UpdateUserDetailsAndPassword', $param);
-		}
-		else
-		{
-			$sqlmap->update('UpdateUserDetails', $user);
-		}
-		$this->updateUserRoles($user);
+		$param['user'] = $user;
+		foreach ($user->getRoles() as $role)
+			$param['role'] = $role;
+		$sqlmap->update('UpdateUser', $param);
 	}
 
 	/**

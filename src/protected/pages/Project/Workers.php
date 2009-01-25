@@ -20,6 +20,11 @@
  */
 class Workers extends TPage
 {
+	protected function getWorkerDao()
+	{
+		return $this->Application->Modules['daos']->getDao('WorkerDao');
+	}
+	
 	/**
 	 * Load all the users and display them in a repeater.
 	 */
@@ -27,62 +32,60 @@ class Workers extends TPage
 	{
 		if (!$this->IsPostBack){
 			// Loads current workers data
-			if ($this->views->ActiveViewIndex == 0){
-				$userDao = $this->Application->Modules['daos']->getDao('UserDao');
-				$this->participants->DataSource = $userDao->getAllUsers();
-				$this->participants->dataBind();
-			// Loads free workers for this project
-			} else if ($this->views->ActiveViewIndex == 1) {
-				$users = $this->getUsers();
-				$this->workerList->DataSource = $users;
-				$this->workerList->dataBind();
-				$this->showRoles(key($users));
-			}
+			$this->participants->DataSource = 
+				$this->getWorkerDao()->getProjectWorkers($this->Session['project']);
+			$this->participants->dataBind();
 		} 	
 	}
 	
-	// Show new worker to project view
-	protected function newWorkerInProject($sender, $param) {
-		$users = $this->getUsers();
-		$this->workerList->DataSource = $users;
+	public function getWorkers(){
+		$workers = array();
+		$project = $this->Session['project'];
+		foreach ($this->getWorkerDao()->getFreeWorkers($project) as $worker) 
+			$workers[$worker->UserID] = $worker->Name.' '.$worker->Surname;
+		return $workers;
+	}
+	
+	public function getRoles($workerID)
+	{ 
+		$roles = array();
+		foreach ($this->getWorkerDao()->getRoles($workerID) as $role) 
+			$roles[$role] = $role;
+		return $roles;
+	}
+	
+	// Show add new worker to project view
+	protected function newWorkerToProject($sender, $param) 
+	{
+		$workers = $this->getWorkers();
+		$this->workerList->DataSource = $workers; 
 		$this->workerList->dataBind();
-		$this->showRoles(key($users));
+		$this->showRoles(key($workers));
+		
 		$this->views->ActiveViewIndex = 1;
 	}
 	
-	// Returns DAO for User queries
-	protected function getUserDao()
-	{
-		return $this->Application->Modules['daos']->getDao('UserDao');
-	}
-	
-	// Returns array with all users
-	protected function getUsers()
-	{
-		$dao = $this->getUserDao();
-		$users = array();
-		foreach($dao->getAllUsers() as $user)
-			$users[$user->Name] = $user->Name;
-		return $users;
-	}
-	
-	// An user is selected by user
-	public function userSelected($sender, $param)
+	// A worker is selected by user
+	public function workerSelected($sender, $param)
 	{
 		$this->showRoles($sender->SelectedValue);
 	}
 	
-	// Loads user role data into roles List
-	protected function showRoles($userID)
+	// Loads user roles data into roles List
+	protected function showRoles($workerID)
 	{
-		$user = $this->getUserDao()->getUserByName($userID);
-		$this->roles->DataSource = $user->Roles;
+		$this->roles->DataSource = $this->getRoles($workerID); 
 		$this->roles->dataBind();
 	}
 	
 	// Add selected user to current project
 	public function linkWorkerToProject($sender, $param)
 	{
+		$user = $this->workerList->SelectedValue;
+		$project = $this->Session['project'];
+		$role = $this->roles->SelectedValue;
+		$perc = floatval($this->participation->Text);
+		$this->getWorkerDao()->addParticipation($user, $project, $role, $perc);
 		$this->views->ActiveViewIndex = 2;
 	}
 }

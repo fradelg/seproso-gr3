@@ -2,91 +2,62 @@
 
 class ProjectCreate extends TPage
 {
-	private $allUsers;
-	
 	protected function getProjectDao()
 	{
 		return $this->Application->Modules['daos']->getDao('ProjectDao');
 	}
 	
-	protected function getCategoryDao()
+	protected function getWorkerDao()
 	{
-		return $this->Application->Modules['daos']->getDao('CategoryDao');
+		return $this->Application->Modules['daos']->getDao('WorkerDao');
 	}
+	
 	
 	public function onLoad($param)
 	{
 		if(!$this->IsPostBack)
 		{
-			$this->manager->DataSource = $this->getUsersWithRole('manager');
+			$this->manager->DataSource = $this->getProjectManagers();
 			$this->manager->dataBind();
 		}
 	}
 	
-	protected function getUsersWithRole($role)
+	protected function getProjectManagers()
 	{
-		if(is_null($this->allUsers))
-		{
-			$dao = $this->Application->Modules['daos']->getDao('UserDao');
-			$this->allUsers = $dao->getAllUsers();		
-		}
-		$users = array();
-		foreach($this->allUsers as $user)
-		{
-			if($user->isInRole($role))
-				$users[$user->Name] = $user->Name;
-		}
-		return $users;
+		return $this->getWorkerDao()->getProjectManagers();
 	}
 	
 	public function saveProject($sender, $param)
-	{
-		$this->views->ActiveViewIndex = 1;
-		
-		$newProject = new ProjectRecord;
-		
-		$projectDao = $this->getProjectDao();
-		
-		if($project = $this->getCurrentProject())
-			$newProject = $projectDao->getProjectByID($project->ID);
-		else
-			$newProject->CreatorUserName = $this->User->Name;
+	{	
+		if ($this->IsValid){
+			$newProject = new ProjectRecord;
+			$userNick = $this->getWorkerDao()->getUsername(
+								$this->manager->SelectedItem->Text);
 			
-		$newProject->Name = $this->projectName->Text;
-		$newProject->CompletionDate = $this->completionDate->TimeStamp;
-		$newProject->Description = $this->description->Text;
-		$newProject->EstimateDuration = floatval($this->estimateHours->Text);
-		$newProject->ManagerUserName = $this->manager->SelectedValue;
+			$newProject->Title = $this->projectName->Text;
+			$newProject->Description = $this->description->Text;
+			$newProject->Burchet = floatval($this->burchet->Text);
+			$newProject->ManagerID = $userNick;
 		
-		if($this->currentProject)
-			$projectDao->updateProject($newProject);
-		else
-			$projectDao->addNewProject($newProject);
+			$this->getProjectDao()->addNewProject($newProject);
+			$this->getWorkerDao()->addParticipation($newProject->ManagerID,
+								$newProject->Title, 'Jefe de proyecto', 100);
 		
-		$this->updateProjectMembers($newProject->ID);
-		
-		$url = $this->Service->constructUrl('Seproso.ProjectDetails', 
-					array('ProjectID'=> $newProject->ID));
-		
-		$this->Response->redirect($url);
+			$this->views->ActiveViewIndex = 1;
+		}
 	}
 	
-	protected function updateProjectMembers($projectID)
+/**
+	 * Verify that the projectname is not taken.
+	 * @param TControl custom validator that created the event.
+	 * @param TServerValidateEventParameter validation parameters.
+	 */
+	public function checkProjectname($sender, $param)
 	{
-		$active = $this->getViewState('ActiveConsultants');
-		$projectDao = $this->getProjectDao();
-		foreach($this->members->Items as $item)
+		if($this->getProjectDao()->projectNameExists($this->projectName->Text))
 		{
-			if($item->Selected)
-			{
-				if(!in_array($item->Value, $active))
-					$projectDao->addUserToProject($projectID, $item->Value);
-			}
-			else
-			{
-				if(in_array($item->Value, $active))
-					$projectDao->removeUserFromProject($projectID, $item->Value);
-			}
+			$param->IsValid = false;
+			$sender->ErrorMessage =	"El nombre del proyecto ya existe. Utilice otro distinto.";
 		}
 	}
 }

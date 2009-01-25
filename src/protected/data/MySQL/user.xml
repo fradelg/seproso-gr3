@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+
+<resultMap id="seproso-user" class="SeprosoUser" GroupBy="Name">
+	<result property="Name" column="Name" />
+	<result property="Password" column="Password" />
+	<result property="Project" column="Project" />
+	<result property="EmailAddress" column="EmailAddress" />
+	<result property="Roles" Type="array" resultMapping="user-roles-result" />
+</resultMap>
+
+<resultMap id="user-roles-result"><result column="role" /></resultMap>
+
+<select id="UsernameExists" parameterClass="string" resultClass="boolean">
+	SELECT COUNT(nick) FROM Usuario WHERE nick = #value#
+</select>
+
+<select id="GetProject" parameterClass="string" resultClass="string">
+	SELECT idProyecto FROM Trabajador WHERE	idUsuario = #value#
+</select>
+
+<select id="GetProjects" parameterClass="string" resultClass="string">
+	SELECT idProyecto FROM Participacion WHERE idUsuario = #value#
+</select>
+
+<select id="GetUserByName" resultMap="seproso-user">
+	SELECT 
+		Usuario.nick as Name,
+		Usuario.password as Password,
+		Trabajador.idProyecto as Project,
+		Usuario.email as EmailAddress,
+		Usuario.tipo as role
+	FROM
+		Usuario
+		LEFT JOIN Trabajador ON Trabajador.idUsuario = Usuario.nick
+	WHERE
+		Usuario.nick = #value#
+</select>
+    
+<select id="GetAllUsers" resultMap="seproso-user">
+	SELECT
+		Usuario.nick as Name,
+		Usuario.email as EmailAddress,
+		Usuario.tipo as role
+	FROM
+		Usuario
+</select>
+
+<select id="ValidateUser" parameterClass="array" resultClass="boolean">
+	SELECT COUNT(nick) FROM	Usuario WHERE nick = #username# AND password = #password#
+</select>
+
+<insert id="AddNewUser" parameterClass="array">
+	INSERT INTO 
+		Usuario (nick, password, email, tipo)
+	VALUES
+		(#user.Name#, #password#, #user.EMailAddress#, #role#)
+</insert>
+
+<update id="DeleteUserByName">
+	UPDATE Usuario SET Disabled = 1  WHERE nick = #value#
+</update>
+
+<insert id="RegisterAutoSignon" parameterClass="array">
+	INSERT INTO 
+		signon (SessionToken, nick, LastSignOnDate)
+	VALUES
+		(#token#, #nick#, NOW())
+</insert>
+
+<select id="ValidateAutoSignon" resultMap="seproso-user">
+	SELECT
+		Usuario.nick as Name,
+		Usuario.Project as Project,
+		Usuario.email as EmailAddress,
+		Rol.tipo as role
+	FROM
+		Usuario LEFT JOIN Rol ON Usuario.nick = Rol.UserID,
+		signon
+	WHERE
+		Usuario.nick = signon.nick
+		AND signon.SessionToken = #value#
+</select>
+
+<update id="UpdateSignon">
+	UPDATE signon SET LastSignOnDate = NOW() 
+	WHERE SessionToken = #value#
+</update>
+
+<update id="UpdateUserProject" parameterClass="array">
+	UPDATE Trabajador 
+	SET idProyecto = #project#
+	WHERE idUsuario = #user#
+</update>
+
+<update id="UpdateUser" parameterClass="array" >
+	UPDATE 
+		Usuario
+	SET 
+		password = #user.Password#,
+		email = #user.EmailAddress#,
+		tipo = #role#
+	WHERE 
+		nick = #user.Name#
+</update>
+
+<delete id="DeleteAutoSignon">
+	DELETE FROM signon WHERE nick = #value#
+</delete>
+
+<delete id="DeleteAllSignon">
+	DELETE FROM signon
+</delete>
+
+</sqlMap>

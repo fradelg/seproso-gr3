@@ -9,7 +9,7 @@
 		<h2>1 - Seleccione trabajador</h2>
 		<com:TLabel ForControl="workerList" 
 			Text="Seleccione un trabajador participante en el proyecto:"/>
-		<span class="required">*</span><br/>
+		<span class="required">*</span><br/><br/>
 		<com:TListBox ID="workerList" 
 			CssClass="projects"
 			AutoPostBack="True"
@@ -20,7 +20,7 @@
 		<h2>2 - Seleccione actividad</h2>
 		<com:TLabel ForControl="actList" 
 			Text="Seleccione una de las actividades que realiza este trabajador:"/>
-		<span class="required">*</span><br/>
+		<span class="required">*</span><br/><br/>
 		<com:TListBox ID="actList" 
 			CssClass="resource"
 			AutoPostBack="True" 
@@ -31,7 +31,7 @@
 		<h2>3 - Seleccione informe</h2>
 		<com:TLabel ForControl="reportList" 
 			Text="Seleccione el informe de trabajo que desea aprobar: "/>
-		<span class="required">*</span><br />
+		<span class="required">*</span><br/><br/>
 		<com:TListBox ID="reportList" CssClass="projects" />
 		<com:TRequiredFieldValidator
 			ControlToValidate="reportList"

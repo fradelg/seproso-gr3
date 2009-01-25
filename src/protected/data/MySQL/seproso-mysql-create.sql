@@ -6,29 +6,71 @@
 -- e inserción de los datos predefinidos en las especificaciones del usuario
 --
 
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `TipoActividad`;
+CREATE TABLE `TipoActividad` (
+  `idTipoActividad` int(10) unsigned NOT NULL auto_increment,
+  `tipo` varchar(255) not NULL,
+  PRIMARY KEY (`idTipoActividad`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `Rol`;
+CREATE TABLE `Rol` (
+  `tipo` varchar(45) NOT NULL,
+  `valor` int(11) NOT NULL,
+  PRIMARY KEY  (`tipo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `Trabajador_has_Actividad`;
+CREATE TABLE `Trabajador_has_Actividad` (
+  `idUsuario` varchar(50) NOT NULL,
+  `idActividad` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idUsuario`,`idActividad`),
+  INDEX (`idUsuario`),
+  INDEX (`idActividad`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 DROP TABLE IF EXISTS `Actividad`;
 CREATE TABLE `Actividad` (
   `idActividad` int(10) unsigned NOT NULL auto_increment,
   `idFase` int(10) unsigned NOT NULL,
   `idTipo` int(10) unsigned NOT NULL,
-  `idArtefacto` int(10) unsigned NOT NULL,
+  `idArtefacto` varchar(45) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `descripcion` text,
-  `inicio` date NOT NULL,
+  `inicioEstimado` date NOT NULL,
+  `inicioReal` date,
   `tiempoEstimado` int(10) unsigned NOT NULL,
-  `tiempoReal` int(10) unsigned NOT NULL,
-  `fin` tinyint(1) NOT NULL,
+  `tiempoReal` int(10) unsigned,
+  `estado` int(2) NOT NULL,
   PRIMARY KEY (`idActividad`),
-  FOREIGN KEY (`idFase`) REFERENCES `Fase` (`idFase`),
-  FOREIGN KEY (`idTipo`) REFERENCES `TipoActividad` (`idTipoActividad`),
-  FOREIGN KEY (`idArtefacto`) REFERENCES `Artefacto` (`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  INDEX (`idFase`),
+  INDEX (`idTipo`),
+  INDEX (`idArtefacto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+CREATE TABLE `Actividad_Predecesora` (
+  `actividad` int(10) unsigned NOT NULL,
+  `predecesora` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`actividad`, `predecesora`),
+  INDEX (`actividad`),
+  INDEX (`predecesora`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 DROP TABLE IF EXISTS `Artefacto`;
 CREATE TABLE `Artefacto` (
-  `nombre` varchar(20) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
   `descripcion` text NOT NULL,
   PRIMARY KEY (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -49,38 +91,24 @@ DROP TABLE IF EXISTS `Fase`;
 CREATE TABLE `Fase` (
   `idFase` int(10) unsigned NOT NULL auto_increment,
   `idModelo` int(10) unsigned NOT NULL,
-  `idFasePadre` int(10) unsigned NOT NULL,
-  `nombre` varchar(20) NOT NULL,
-  `descripcion` varchar(45) default NULL,
+  `idFasePadre` int(10) unsigned,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` text default NULL,
   PRIMARY KEY (`idFase`),
-  FOREIGN KEY (`idModelo`) REFERENCES `Modelo` (`idModelo`),
-  FOREIGN KEY (`idFasePadre`) REFERENCES `Fase` (`idFase`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-INSERT INTO `Fase` (`idFase`, `idModelo`, `idFasePadre`, `nombre`, `descripcion`) VALUES
-(1, 1, NULL, 'Análisis', NULL),
-(2, 1, NULL, 'Diseño', NULL),
-(3, 1, NULL, 'Implementación', NULL),
-(4, 1, NULL, 'Pruebas', NULL),
-(5, 2, NULL, 'Inicio', NULL),
-(6, 2, NULL, 'Elaboración', NULL),
-(7, 2, NULL, 'Construcción', NULL),
-(8, 2, NULL, 'Producción', NULL);
+  INDEX (`idModelo`),
+  INDEX (`idFasePadre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
 DROP TABLE IF EXISTS `Modelo`;
 CREATE TABLE `Modelo` (
   `idModelo` int(10) unsigned NOT NULL auto_increment,
-  `plantilla` int(10) unsigned NOT NULL,
+  `plantilla` varchar(45) default NULL,
   `nombre` varchar(45) NOT NULL,
   `descripcion` text default NULL,
-  PRIMARY KEY (`idModelo`),
+  PRIMARY KEY (`idModelo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-INSERT INTO `modelo` (`idModelo`, `plantilla`, `nombre`, `descripcion`) VALUES
-(1, 'Proceso en cascada', 'Proceso en cascada', 'Todas las fases siguen un desarrollo secuencial.'),
-(2, 'Proceso unificado', 'Proceso unificado', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc)');
 
 -- --------------------------------------------------------
 
@@ -88,23 +116,24 @@ DROP TABLE IF EXISTS `Participacion`;
 CREATE TABLE `Participacion` (
   `idUsuario` varchar(50) NOT NULL,
   `idProyecto` varchar(45) NOT NULL,
-  `idRol` int(10) unsigned NOT NULL,
-  `porcentaje` int(11) NOT NULL,
+  `idRol` varchar(45) NOT NULL,
+  `porcentaje` int(11) unsigned NOT NULL,
   PRIMARY KEY (`idUsuario`,`idProyecto`),
-  FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`),
-  FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto` (`titulo`),
-  FOREIGN KEY (`idRol`) REFERENCES `Rol` (`tipo`)
+  INDEX (`idUsuario`),
+  INDEX (`idProyecto`),
+  INDEX (`idRol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 DROP TABLE IF EXISTS `PeriodoVacacional`;
 CREATE TABLE `PeriodoVacacional` (
-  `fechaInicio` date NOT NULL,
   `idUsuario` varchar(50) NOT NULL,
+  `fechaInicio` date NOT NULL,
   `duracion` int(10) unsigned NOT NULL,
+  `razon` text default NULL,
   PRIMARY KEY (`fechaInicio`, `idUsuario`),
-  FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`)
+  INDEX (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -112,15 +141,15 @@ CREATE TABLE `PeriodoVacacional` (
 DROP TABLE IF EXISTS `Proyecto`;
 CREATE TABLE `Proyecto` (
   `titulo` varchar(45) NOT NULL,
-  `idJefe` int(10) unsigned NOT NULL,
+  `idJefe` varchar(50) NOT NULL,
   `idModelo` int(10) unsigned NOT NULL,
   `descripcion` text default NULL,
   `fecha` date NOT NULL,
   `presupuesto` double NOT NULL,
   `activo` tinyint(1) NOT NULL default '0',
   PRIMARY KEY (`titulo`),
-  FOREIGN KEY (`idJefe`) REFERENCES `Usuario` (`nick`),
-  FOREIGN KEY (`idModelo`) REFERENCES `Modelo` (`idModelo`)
+  INDEX (`idJefe`),
+  INDEX (`idModelo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
 
 -- --------------------------------------------------------
@@ -134,42 +163,111 @@ CREATE TABLE `RegistroTrabajo` (
   `inicio` date NOT NULL,
   `final` date NOT NULL,
   `esfuerzo` double NOT NULL,
-  `fin` tinyint(1) NOT NULL,
+  `estado` int(2) NOT NULL,
   `comentario` text,
   PRIMARY KEY (`idRegistroTrabajo`),
-  FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`),
-  FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`);  
+  INDEX (`idActividad`),
+  INDEX (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `Rol`;
-CREATE TABLE `Rol` (
-  `tipo` varchar(45) NOT NULL,
-  `valor` int(11) NOT NULL,
-  PRIMARY KEY  (`tipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `Usuario`;
+CREATE TABLE `Usuario` (
+  `nick` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `tipo` varchar(50) NOT NULL,
+  PRIMARY KEY (`nick`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `Trabajador`;
+CREATE TABLE `Trabajador` (
+  `idUsuario` varchar(50) NOT NULL,
+  `idRol` varchar(45) NOT NULL,
+  `idProyecto` varchar(45),
+  `nombre` varchar(20) NOT NULL,
+  `apellidos` varchar(45) NOT NULL,
+  `fnacimiento` date NOT NULL,
+  INDEX (`idUsuario`),
+  INDEX (`idRol`),
+  INDEX (`idProyecto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Adición de claves foráneas y referencias en las tablas
+--
+
+ALTER TABLE `PeriodoVacacional`
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`);
+
+ALTER TABLE `RegistroTrabajo`
+  ADD FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`),
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`);
+
+ALTER TABLE `Proyecto`
+  ADD FOREIGN KEY (`idJefe`) REFERENCES `Usuario` (`nick`),
+  ADD FOREIGN KEY (`idModelo`) REFERENCES `Modelo` (`idModelo`);
+
+ALTER TABLE `Trabajador`
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`) ON DELETE CASCADE,
+  ADD FOREIGN KEY (`idRol`) REFERENCES `Rol` (`tipo`),
+  ADD FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto` (`titulo`);
+
+ALTER TABLE `Trabajador_has_Actividad`
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`),
+  ADD FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`);
+
+ALTER TABLE `Participacion`
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`),
+  ADD FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto` (`titulo`),
+  ADD FOREIGN KEY (`idRol`) REFERENCES `Rol` (`tipo`);
+
+ALTER TABLE `Fase`
+  ADD FOREIGN KEY (`idModelo`) REFERENCES `Modelo` (`idModelo`);
+
+ALTER TABLE `Actividad`
+  ADD FOREIGN KEY (`idFase`) REFERENCES `Fase` (`idFase`),
+  ADD FOREIGN KEY (`idTipo`) REFERENCES `TipoActividad` (`idTipoActividad`),
+  ADD FOREIGN KEY (`idArtefacto`) REFERENCES `Artefacto` (`nombre`);
+  
+ALTER TABLE `Actividad_predecesora`
+  ADD FOREIGN KEY (`actividad`) REFERENCES `Actividad` (`idActividad`),
+  ADD FOREIGN KEY (`predecesora`) REFERENCES `Actividad` (`idActividad`);
+
+--
+-- Adición de los datos predefinidos de algunas tablas
+--
+
+-- Modelos de proceso básicos
+
+INSERT INTO `Modelo` (`idModelo`, `plantilla`, `nombre`, `descripcion`) VALUES
+(1, 'Proceso en cascada', 'Proceso en cascada', 'Todas las fases siguen un desarrollo secuencial.'),
+(2, 'Proceso unificado', 'Proceso unificado', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc)');
+
+INSERT INTO `Fase` (`idFase`, `idModelo`, `idFasePadre`, `nombre`, `descripcion`) VALUES
+(1, 1, NULL, 'Análisis', NULL),
+(2, 1, NULL, 'Diseño', NULL),
+(3, 1, NULL, 'Implementación', NULL),
+(4, 1, NULL, 'Pruebas', NULL),
+(5, 2, NULL, 'Inicio', NULL),
+(6, 2, NULL, 'Elaboración', NULL),
+(7, 2, NULL, 'Construcción', NULL),
+(8, 2, NULL, 'Producción', NULL);
 
 -- Tipos de roles permitidos
 
-INSERT INTO `rol` (`idRol`, `tipo`, `valor`) VALUES
-(1, 'Jefe de proyecto', 1),
-(2, 'Analista', 2),
-(3, 'Diseñador', 3),
-(4, 'Analista-programador', 3),
-(5, 'Responsable equipo de pruebas', 3),
-(6, 'Programador', 4),
-(7, 'Probador', 4),
-(8, 'Jefe de personal', 4);
-
--- --------------------------------------------------------
-
-DROP TABLE IF EXISTS `TipoActividad`;
-CREATE TABLE `TipoActividad` (
-  `idTipoActividad` int(10) unsigned NOT NULL auto_increment,
-  `tipo` varchar(255) default NULL,
-  PRIMARY KEY (`idTipoActividad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+INSERT INTO `Rol` (`tipo`, `valor`) VALUES
+('Jefe de proyecto', 1),
+('Analista', 2),
+('Dise&ntilde;ador', 3),
+('Analista-programador', 3),
+('Responsable equipo de pruebas', 3),
+('Programador', 4),
+('Probador', 4);
 
 -- Tipos de actividad predefinidos
 
@@ -185,44 +283,12 @@ INSERT INTO `TipoActividad` (`idTipoActividad`, `tipo`) VALUES
 (9, 'Formación de usuarios'),
 (10, 'Varios (sin clasificar)');
 
--- --------------------------------------------------------
-
-DROP TABLE IF EXISTS `Trabajador`;
-CREATE TABLE `Trabajador` (
-  `idUsuario` varchar(50) NOT NULL,
-  `idRol` int(10) unsigned NOT NULL,
-  `idProyecto` varchar(45),
-  `nombre` varchar(20) NOT NULL,
-  `apellidos` varchar(45) NOT NULL,
-  `fnacimiento` date NOT NULL,
-  FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`),
-  FOREIGN KEY (`idRol`) REFERENCES `Rol` (`tipo`),
-  FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto` (`titulo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
-DROP TABLE IF EXISTS `Trabajador_has_Actividad`;
-CREATE TABLE `Trabajador_has_Actividad` (
-  `idUsuario` varchar(50) NOT NULL,
-  `idActividad` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`idUsuario`,`idActividad`),
-  FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`) ON DELETE CASCADE,
-  FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
-DROP TABLE IF EXISTS `Usuario`;
-CREATE TABLE `Usuario` (
-  `nick` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `email` varchar(255) default NULL,
-  `tipo` varchar(50) default NULL,
-  PRIMARY KEY (`nick`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- Datos del administrador de SEPROSO
 
 INSERT INTO `Usuario` (`nick`, `password`, `email`, `tipo`) VALUES 
 ('admin', 'admin', 'admin@seproso.es', 'admin');
+
+-- Parámetros configurables
+
+INSERT INTO `Configuracion` (`parametro`, `valor`, `descripcion`) VALUES 
+('partipacion_max', 4, 'Maximo número de proyectos en que puede participar un trabajador.');

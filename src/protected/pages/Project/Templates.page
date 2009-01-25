@@ -7,7 +7,11 @@
 	<h2>Seleccione modelo de proceso</h2>
 	<com:TLabel ForControl="templateList" 
 		Text="Seleccione una plantilla de la lista para ver su estructura de fases."/>
-	<com:TListBox ID="templateList" CssClass="items" AutoPostBack="True" />
+	<com:TListBox 
+		ID="templateList" 
+		CssClass="items" 
+		AutoPostBack="True" 
+		OnSelectedIndexChanged="templateSelected" />
 	<com:TRequiredFieldValidator
 		ControlToValidate="templateList"
 		ErrorMessage="Por favor, seleccione una plantilla."
@@ -16,24 +20,24 @@
 		Display="None" />
 	</div>
 	
-	<div class="list">
+	<div class="list" align="center">
 	<h2>Esquema de fases</h2>
-	<com:TRepeater ID="phaseList" OnItemCreated="itemCreated" EnableViewState="false">
+	<com:TRepeater ID="phaseList" >
 	 	<prop:HeaderTemplate>
-	 		<table class="project">
+	 		<table>
 	 			<tr>
-	 				<th class="category">Fase</th>
-	 				<th class="description">Descripci&oacute;n</th>
+	 				<th>Fase</th>
+	 				<th>Descripci&oacute;n</th>
 	 			</tr>
 	 	</prop:HeaderTemplate>
 	 	<prop:FooterTemplate>
 	 		</table>
 	 	</prop:FooterTemplate>
 	 	<prop:ItemTemplate>
-	 	<tr>
-	 		<td class="category"><%# h($this->DataItem->CategoryName) %></td>
-	 		<td class="description"><%# h($this->DataItem->Description) %></td>
-	 	</tr>
+	 		<tr>
+	 			<td><%# $this->DataItem->Name %></td>
+	 			<td><%# $this->DataItem->Description %></td>
+	 		</tr>
 	 	</prop:ItemTemplate>
 	</com:TRepeater>
 	</div>

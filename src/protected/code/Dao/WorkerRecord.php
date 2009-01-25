@@ -8,13 +8,29 @@
  */
 class WorkerRecord
 {
+	// worker
 	public $UserID = '';
-	public $Project = '';
+	public $Project = NULL;
 	public $RoleID = 0;
 
 	public $Name = '';
 	public $Surname = '';
 	public $BirthDate = 0;
+	
+	// user
+	public $Password = '';
+	public $EmailAddress = '';
+}
+
+/**
+ * Holiday period record
+ */
+class HolidayRecord
+{
+	public $UserID;
+	public $StartDate = 0;
+	public $Duration = 1;
+	public $Reason = '';
 }
 
 ?>

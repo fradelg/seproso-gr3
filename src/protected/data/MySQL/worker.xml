@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+
+<resultMap id="seproso-worker" class="WorkerRecord" >
+	<result property="UserID" column="UserName" />
+	<result property="Project" column="Project" />
+	<result property="RoleID" column="Role" />
+	<result property="Name" column="Name" />
+	<result property="Surname" column="Surname" />
+	<result property="BirthDate" column="BirthDate" typeHandler="DateTimeTypeHandler" />
+	<result property="Password" column="Password" />
+	<result property="EmailAddress" column="EmailAddress" />
+</resultMap>
+
+<resultMap id="participation-result" class="array" >
+	<result property="UserID" column="UserName" />
+	<result property="Worker" column="Worker" />
+	<result property="Role" column="Role" />
+	<result property="Percentage" column="Percentage" />
+</resultMap>
+
+<resultMap id="holiday-result" class="HolidayRecord" >
+	<result property="UserID" column="idUsuario" />
+	<result property="StartDate" column="fechaInicio" />
+	<result property="Duration" column="duracion" />
+	<result property="Reason" column="razon" />
+</resultMap>
+
+<select id="GetWorkerByID" resultMap="seproso-worker">
+	SELECT 
+		idUsuario as UserName,
+		idProyecto as Project,
+		idRol as Role,
+		nombre as Name,
+		apellidos as Surname,
+		fnacimiento as BirthDate
+	FROM 
+		Trabajador
+	WHERE
+		idUsuario = #value#
+</select>
+
+<select id="GetAllWorkers" resultMap="seproso-worker">
+	SELECT
+		Trabajador.nombre as Name,
+		Trabajador.apellidos as Surname,
+		Trabajador.fnacimiento as BirthDate,
+		Trabajador.idRol as Role,
+		Usuario.nick as UserName,
+		Usuario.password as `Password`,
+		Usuario.email as EmailAddress
+	FROM 
+		Trabajador
+		LEFT JOIN Usuario ON Usuario.nick = Trabajador.idUsuario
+</select>
+
+<select id="GetFreeWorkers" resultMap="seproso-worker">
+	SELECT
+		Trabajador.nombre as Name,
+		Trabajador.apellidos as Surname,
+		Trabajador.idUsuario as UserName
+	FROM 
+		Trabajador
+		LEFT JOIN Participacion ON Participacion.idUsuario = Trabajador.idUsuario
+	WHERE
+		Trabajador.idUsuario NOT IN (
+		SELECT idUsuario FROM Participacion WHERE idProyecto = #value#)
+</select>
+
+<select id="GetProjectManagers" resultClass="string">
+	SELECT 
+		nombre  
+	FROM 
+		Trabajador
+	WHERE
+		idRol = 'Jefe de proyecto'
+	AND NOT EXISTS 
+		(SELECT * FROM Participacion 
+		WHERE Participacion.idRol = 'Jefe de proyecto' 
+		AND Participacion.idUsuario = Trabajador.idUsuario)
+</select>
+
+<select id="GetProjectWorkers" resultMap="participation-result">
+	SELECT
+		Trabajador.idUsuario as UserName,
+		CONCAT(Trabajador.nombre, ' ', Trabajador.apellidos) as Worker,
+		Participacion.idRol as Role,
+		Participacion.porcentaje as Percentage
+	FROM 
+		Trabajador
+		LEFT JOIN Participacion ON Participacion.idUsuario = Trabajador.idUsuario
+	WHERE
+		Participacion.idProyecto = #value#
+</select>
+
+<select id="GetUsername" resultClass="string">
+	SELECT idUsuario FROM Trabajador WHERE nombre = #value#
+</select>
+
+<select id="GetAllRoles" resultClass="string">
+	SELECT tipo FROM Rol
+</select>
+
+<select id="GetGreaterRoles" resultClass="string">
+	<![CDATA[
+		SELECT tipo FROM Rol WHERE valor <= (
+		SELECT valor FROM Rol WHERE tipo = #value#)
+	]]>
+</select>
+
+<select id="GetRoles" resultClass="string">
+	<![CDATA[
+		SELECT tipo FROM Rol WHERE valor >= (
+		SELECT 
+			Rol.valor 
+		FROM 
+			Trabajador
+			LEFT JOIN Rol ON Rol.tipo = Trabajador.idRol 
+		WHERE
+			Trabajador.idUsuario = #value#)
+	]]>
+</select>
+
+<select id="GetWorkerHolidays" resultMap="holiday-result">
+	SELECT * FROM PeriodoVacacional WHERE idUsuario = #value#
+</select>
+
+<select id="GetNoHolidayPeriods" resultClass="int">
+	SELECT COUNT(duracion) FROM PeriodoVacacional WHERE idUsuario = #value#
+</select>
+
+<select id="GetHolidayWeeks" resultClass="int">
+	SELECT SUM(duracion) FROM PeriodoVacacional WHERE idUsuario = #value#
+</select>
+
+<insert id="AddNewWorker" parameterClass="WorkerRecord">
+	INSERT INTO 
+		Trabajador (idUsuario, idRol, idProyecto, nombre, apellidos, fnacimiento)
+	VALUES
+		(#UserID#, #RoleID#, #Project#, #Name#, #Surname#, 
+		#BirthDate, typeHandler=DateTimeTypeHandler#)
+</insert>
+
+<insert id="AddParticipation" parameterClass="array">
+	INSERT INTO 
+		Participacion (idUsuario, idProyecto, idRol, porcentaje)
+	VALUES
+		(#user#, #project#, #role#, #perc#)
+</insert>
+
+<insert id="AddHolidayPeriod" parameterClass="HolidayRecord">
+	INSERT INTO 
+		PeriodoVacacional (idUsuario, fechaInicio, duracion, razon)
+	VALUES
+		(#UserID#, #StartDate#, #Duration#, #Reason#)
+</insert>
+
+<update id="UpdateWorker" parameterClass="WorkerRecord">
+	UPDATE 
+		Trabajador 
+	SET 
+		nombre = #Name#,
+		apellidos = #Surname#,
+		fnacimiento = #BirthDate#,
+		idRol = #RoleID#
+	WHERE 
+		idUsuario = #UserID#
+</update>
+
+<update id="DeleteWorkerByName">
+	DELETE FROM Trabajador WHERE idUsuario = #value#
+</update>
+
+</sqlMap>

@@ -1,0 +1,19 @@
+<com:TContent ID="Main">
+
+<fieldset>
+<legend>Bienvenido!!! </legend>
+	<h1>Bienvenido a SEPROSO</h1>
+	<h3>Mediante esta pr&aacute;ctica herramienta Web usted podr&aacute; ...
+	<ul>
+		<li>Planificar sus proyectos software.</li>
+		<li>Seguir y monitorizar el desarrollo del proyecto.</li>
+		<li>Controlar y aprobar los informes de trabajo de los desarrolladores.</li>
+		<li>Conocer en cada momento la situaci&oacute;n de un trabajador.</li>
+	</ul>
+	</h3>
+	<h5>Todo esto de la forma m&aacute;s f&aacute;cil, sencilla e intuitiva que pueda 
+	imaginar, aprovechando su tiempo al m&aacute;ximo.</h5>  
+	<h5>A qu&eacute; espera para comenzar a trabajar y comprobarlo por usted mismo !!!</h5>
+</fieldset>
+
+</com:TContent>

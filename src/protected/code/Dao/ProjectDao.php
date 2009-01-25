@@ -26,10 +26,10 @@ class ProjectDao extends BaseDao
 		return $sqlmap->queryForObject('ProjectNameExists', $projectName);
 	}
 	
-	public function getProjectID($projectName)
+	public function projectModelExists($projectName)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForObject('GetProjectID', $projectName);
+		return $sqlmap->queryForObject('ProjectModelExists', $projectName);
 	}
 
 	public function addNewProject($project)
@@ -43,62 +43,71 @@ class ProjectDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForObject('GetProjectByID', $projectID);
 	}
-
-	public function deleteProject($projectID)
+	
+	public function getProjectByWorker($name)
 	{
 		$sqlmap = $this->getSqlMap();
-		$sqlmap->update('DeleteProject',$projectID);
+		return $sqlmap->queryForList('GetProjectByWorker', $name);
+	}
+	
+	public function getProjectNamesByWorker($name)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetProjectNamesByWorker', $name);
+	}
+	
+	public function getProjectModel($name)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetProjectModel', $name);
+	}
+	
+	public function getPhasesByTemplate($template)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetPhasesByTemplate', $template);
+	}
+	
+	public function getPhasesByProject($project)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetPhasesByProject', $project);
+	}
+	
+	public function getModelByTemplate($template)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetModelByTemplate', $template);
+	}
+	
+	public function getAllProjects()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetAllProjects');
+	}
+	
+	public function getAllModelTemplates()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetAllModelTemplates');
+	}
+	
+	public function getPhaseChildren($phase)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetPhaseChildren', $phase);
 	}
 
-	public function addUserToProject($projectID, $username)
+	public function addNewPhase($phase)
 	{
 		$sqlmap = $this->getSqlMap();
-		$members = $this->getProjectMembers($projectID);
-		if(!in_array($username, $members))
-		{
-			$param['username'] = $username;
-			$param['project'] = $projectID;
-			$sqlmap->insert('AddUserToProject',$param);
-		}
+		$sqlmap->insert('AddNewPhase', $phase);
 	}
 
-	public function getProjectMembers($projectID)
+	public function addNewModel($model)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetProjectMembers', $projectID);
-	}
-
-	public function getAllProjects($sort='', $order='ASC')
-	{
-		$sqlmap = $this->getSqlMap();
-		if($sort === '')
-			return $sqlmap->queryForList('GetAllProjects');
-		else
-		{
-			$param['sort'] = $sort;
-			$param['order'] = $order;
-			return $sqlmap->queryForList('GetAllProjectsOrdered', $param);
-		}
-	}
-
-	public function getProjectsByManagerName($manager)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetProjectsByManagerName', $manager);
-	}
-
-	public function getProjectsByUserName($username)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetProjectsByUserName', $username);
-	}
-
-	public function removeUserFromProject($projectID, $username)
-	{
-		$sqlmap = $this->getSqlMap();
-		$param['username'] = $username;
-		$param['project'] = $projectID;
-		$sqlmap->delete('RemoveUserFromProject', $param);
+		return $sqlmap->insert('AddNewModel', $model);
 	}
 
 	public function updateProject($project)
@@ -106,6 +115,33 @@ class ProjectDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		$sqlmap->update('UpdateProject', $project);
 	}
+	
+	public function updateModel($model)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->update('UpdateModel', $model);
+	}
+	
+	public function updatePhase($phase)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->update('UpdatePhase', $phase);
+	}
+	
+	public function updateProjectModel($project, $model)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['title'] = $project;
+		$param['model'] = $model;
+		$sqlmap->update('UpdateProjectModel', $param);
+	}
+	
+	public function deleteProject($projectID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->delete('DeleteProject', $projectID);
+	}
+	
 }
 
 ?>

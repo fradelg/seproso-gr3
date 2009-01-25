@@ -3,12 +3,21 @@
 <fieldset class="project-list">
 <legend>Tipos de informes </legend>
 
+<style type="text/css">
+	table {	border-collapse: separate; }
+	td, th {
+		border: 1px solid blue;
+		padding: 5px;
+		min-width: 12em;
+	}
+	th { text-align: center; }	
+</style>
+
 <table>
 		<tr>
-			<th><u>Nombre del informe</u></th>
-			<th><u>Descipci&oacute;n del contenido</u></th>
+			<th><b>Nombre del informe</b></th>
+			<th><b>Descripci&oacute;n de contenidos</b></th>
 		</tr>
-		<tr><td/><td/></tr>
 		<tr>
 			<td><a href="?page=Report.Resources">Trabajadores activos</a></td>
 			<td>Trabajadores con actividades asignadas durante un periodo de tiempo.</td>

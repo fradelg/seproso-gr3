@@ -1,37 +1,79 @@
 <com:TContent ID="Main">
 <fieldset class="project-list">
 <legend>Proyectos en SEPROSO</legend>
-<com:TDataGrid
-	ID="projectList"
-	AllowSorting="true"
-	OnSortCommand="sortProjects"
-	AutoGenerateColumns="false">
-	<com:THyperLinkColumn
-		HeaderText="Nombre"
-		DataTextField="Name"
-		DataNavigateUrlField="ID"
-		SortExpression="Name"
-		DataNavigateUrlFormatString="?page=Seproso.ProjectDetails&ProjectID=%d" />
-	<com:TBoundColumn
-		SortExpression="ManagerUserName"
-		HeaderText="Jefe"
-		DataField="ManagerUserName" />
-	<com:TBoundColumn
-		SortExpression="Description"
-		HeaderText="Descripci&oacute;n"
-		DataField="Description" />
-	<com:TTemplateColumn HeaderText="Finalizaci&oacute;n" SortExpression="CompletionDate">
-		<prop:ItemTemplate>
-		<com:System.I18N.TDateFormat 
-			Pattern="dd/MM/yyyy"
-			Value=<%# $this->NamingContainer->DataItem->CompletionDate %> />
-		</prop:ItemTemplate>
-	</com:TTemplateColumn>
-	<com:TBoundColumn
-		SortExpression="EstimateDuration"
-		HeaderText="Duraci&oacute;n (h)"
-		DataField="EstimateDuration" />
-</com:TDataGrid>
+
+<style type="text/css">
+	table {	border-collapse: collapse; }
+	td, th {
+		border: 1px solid black;
+		padding: 10px;
+	}
+	th { text-align:left; }
+	input { max-width: 8em; }
+	select { max-width: 6em; }	
+</style>
+
+<com:TDataList ID="list"
+	RepeatLayout="Raw"
+	DataKeyField="Title"
+	OnEditCommand="editEntryItem"
+	OnCancelCommand="refreshEntryList"
+	OnUpdateCommand="updateEntryItem"
+	OnDeleteCommand="deleteEntryItem"
+	OnItemCreated="EntryItemCreated"  >
+	<prop:EmptyTemplate>
+		Actualmente no existen proyectos en el sistema.
+	</prop:EmptyTemplate>
+	<prop:HeaderTemplate>
+		<table>
+		<tr class="header">
+			<th>Titulo</th>
+			<th>Jefe</th>
+			<th>Creado</th>
+			<th>Descripci&oacute;n</th>
+			<th>Presupuesto</th>
+		</tr>
+  	</prop:HeaderTemplate>
+	<prop:FooterTemplate>
+	  </table>
+	</prop:FooterTemplate>
+	
+	<prop:ItemTemplate>
+		<tr class="row0">
+			<td><%# h($this->DataItem->Title) %></td>
+			<td><%# h($this->DataItem->ManagerID) %></td>
+			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->Date %> /></td>
+			<td><%# h($this->DataItem->Description) %></td>
+			<td><%# h($this->DataItem->Burchet) %> EUR</td>
+			<td>
+	  		<com:TButton Text="Modificar" CommandName="edit"/>	  			
+	  		<com:TButton Text="Borrar" CommandName="delete"
+	  			Attributes.onclick="if(!confirm('Est&aacute; seguro de borrar?')) return false;" />
+	  		</td>
+		</tr>
+  	</prop:ItemTemplate>
+	
+	<prop:EditItemTemplate>
+	  <tr>
+	  	<td><%# h($this->DataItem->Title) %></td>
+	  	<td><com:TDropDownList ID="manager" /></td>
+	  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->Date %> />
+		</td>
+	  	<td><com:TTextBox ID="description"
+	  		TextMode="MultiLine" 
+	  		Text=<%# $this->DataItem->Description %> />
+	  	</td>
+	  	<td><com:TTextBox ID="burchet" Text=<%# $this->DataItem->Burchet %> /></td>
+	  	<td>
+	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
+	  		<com:TButton Text="Cancelar" CommandName="cancel" />
+	  	</td>
+	  </tr>
+	</prop:EditItemTemplate>	
+		
+</com:TDataList>
 </fieldset>
 
 </com:TContent>

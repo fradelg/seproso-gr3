@@ -21,6 +21,22 @@
 	height: 4em;	
 }
 
+.loghours .artifact-name
+{
+	width: 14em;
+	float: left;
+}
+
+.loghours .artifact-name input
+{
+	width: 12em;
+}
+
+.loghours .artifact-description input
+{
+	width: 28em;
+}
+
 .loghours .name input
 {
 	width: 20em;
@@ -37,7 +53,7 @@
 
 .loghours .project, .loghours .category, .loghours .day
 {
-	width: 12em;
+	width: 13em;
 	float: left;
 }
 

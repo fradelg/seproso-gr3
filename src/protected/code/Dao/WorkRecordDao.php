@@ -1,17 +1,17 @@
 <?php
 
-class TimeEntryDao extends BaseDao
+class WorkRecordDao extends BaseDao
 {
-	public function addNewTimeEntry($entry)
+	public function addWorkRecord($record)
 	{
 		$sqlmap = $this->getSqlMap();
-		$sqlmap->insert('AddNewTimeEntry', $entry);
+		$sqlmap->insert('AddWorkRecord', $record);
 	}
 
-	public function getTimeEntryByID($entryID)
+	public function getWorkRecordByID($recID)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForObject('GetTimeEntryByID', $entryID);
+		return $sqlmap->queryForObject('GetWorkRecordByID', $recID);
 	}
 
 	public function deleteTimeEntry($entryID)
@@ -27,7 +27,24 @@ class TimeEntryDao extends BaseDao
 		$param['project'] = $projectID;
 		return $sqlmap->queryForList('GetAllTimeEntriesByProjectIdAndUser', $param);
 	}
+	
+	public function getWorkRecordsByWA($username, $actID, $state)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['user'] = $username;
+		$param['act'] = $actID;
+		$param['state'] = $state;
+		return $sqlmap->queryForList('GetWorkRecordsByWorkerAndActivity', $param);
+	}
 
+	public function updateToState($id, $state)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['id'] = $id;
+		$param['state'] = $state;
+		$sqlmap->update('UpdateToState', $param);
+	}
+	
 	public function updateTimeEntry($entry)
 	{
 		$sqlmap = $this->getSqlMap();

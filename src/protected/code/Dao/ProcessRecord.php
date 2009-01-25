@@ -9,7 +9,7 @@
 class ProcessRecord
 {
 	public $ID = 0;
-	public $Template = '';
+	public $Template = NULL;
 	public $Name = '';
 	public $Description = '';
 }
