@@ -8,10 +8,13 @@
 	<div class="menu" align="center">
 	<h2>Actividades predecesoras</h2>
 	
+	<div class="phase-selection">
 	<com:TLabel Text="Seleccione la fase contenedora:"/>
 	<span class="required">*</span><br/>
 	<com:TDropDownList ID="phaseList" AutoPostBack="True"
 		OnSelectedIndexChanged="phaseChanged" /><br/><br/>
+	</div>
+	
 	<com:TLabel ForControl="actList" 
 		Text="Seleccione las actividades a finalizar antes de esta. 
 		Use Ctrl+clic para seleccionar varias."/>

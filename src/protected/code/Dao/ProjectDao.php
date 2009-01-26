@@ -32,6 +32,13 @@ class ProjectDao extends BaseDao
 		return $sqlmap->queryForObject('ProjectModelExists', $projectName);
 	}
 
+	public function modelTemplateExists($projectName)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('ModelTemplateExists', $projectName);
+	}
+	
+
 	public function addNewProject($project)
 	{
 		$sqlmap = $this->getSqlMap();
@@ -48,12 +55,6 @@ class ProjectDao extends BaseDao
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForList('GetProjectByWorker', $name);
-	}
-	
-	public function getProjectNamesByWorker($name)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetProjectNamesByWorker', $name);
 	}
 	
 	public function getProjectModel($name)

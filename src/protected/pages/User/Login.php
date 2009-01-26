@@ -36,7 +36,7 @@ class Login extends TPage
 	}
 	
 	/**
-	 * Redirect to the requested page if login is successful.
+	 * Called when login is successful. Init session data
 	 * @param TControl button control that created the event.
 	 * @param TEventParameter event parameters.
 	 */
@@ -47,6 +47,17 @@ class Login extends TPage
 			$auth = $this->Application->getModule('auth');
 			if($this->remember->Checked)
 				$auth->rememberSignon($this->User);
+			
+			// Loads last project as current project
+			$dao = $this->Application->Modules['daos']->getDao('UserDao');
+			$project = $dao->getProject($this->User->Name);
+			if ($project != NULL) $this->Session['project'] = $project;
+			
+			// Set user session view
+			foreach ($this->User->Roles as $role)
+				$this->Session['view'] = $role;
+
+			// Redirect to requested page
 			$this->Response->redirect($auth->getReturnUrl());
 		}
 	}

@@ -19,8 +19,9 @@
 	SELECT idProyecto FROM Trabajador WHERE	idUsuario = #value#
 </select>
 
-<select id="GetProjects" parameterClass="string" resultClass="string">
-	SELECT idProyecto FROM Participacion WHERE idUsuario = #value#
+<select id="GetProjectsByUser" parameterClass="string" resultClass="string">
+	SELECT idProyecto FROM Participacion 
+	WHERE idUsuario = #value# ORDER BY idProyecto
 </select>
 
 <select id="GetUserByName" resultMap="seproso-user">
@@ -87,12 +88,6 @@
 	WHERE SessionToken = #value#
 </update>
 
-<update id="UpdateUserProject" parameterClass="array">
-	UPDATE Trabajador 
-	SET idProyecto = #project#
-	WHERE idUsuario = #user#
-</update>
-
 <update id="UpdateUser" parameterClass="array" >
 	UPDATE 
 		Usuario
@@ -102,6 +97,12 @@
 		tipo = #role#
 	WHERE 
 		nick = #user.Name#
+</update>
+
+<update id="UpdateCurrentProject" parameterClass="array">
+	UPDATE Trabajador 
+	SET idProyecto = #project#
+	WHERE idUsuario = #user#
 </update>
 
 <delete id="DeleteAutoSignon">

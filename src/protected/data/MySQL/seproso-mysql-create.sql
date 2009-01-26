@@ -245,18 +245,21 @@ ALTER TABLE `Actividad_predecesora`
 -- Modelos de proceso básicos
 
 INSERT INTO `Modelo` (`idModelo`, `plantilla`, `nombre`, `descripcion`) VALUES
-(1, 'Proceso en cascada', 'Proceso en cascada', 'Todas las fases siguen un desarrollo secuencial.'),
-(2, 'Proceso unificado', 'Proceso unificado', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc)');
+(1, 'Modelo en cascada', 'Proceso en cascada', 'Todas las fases siguen un desarrollo secuencial.'),
+(2, 'Modelo en espiral', 'Proceso en espiral', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc)');
 
 INSERT INTO `Fase` (`idFase`, `idModelo`, `idFasePadre`, `nombre`, `descripcion`) VALUES
-(1, 1, NULL, 'Análisis', NULL),
-(2, 1, NULL, 'Diseño', NULL),
-(3, 1, NULL, 'Implementación', NULL),
-(4, 1, NULL, 'Pruebas', NULL),
-(5, 2, NULL, 'Inicio', NULL),
-(6, 2, NULL, 'Elaboración', NULL),
-(7, 2, NULL, 'Construcción', NULL),
-(8, 2, NULL, 'Producción', NULL);
+(1, 1, NULL, 'Definici&oacute;n de requisitos', NULL),
+(2, 1, NULL, 'An&aacute;lisis y dise&ntilde;o', NULL),
+(3, 1, NULL, 'Implementaci&oacute;n y test unitarios', NULL),
+(4, 1, NULL, 'Integraci&oacute;n y test de sistema', NULL),
+(5, 1, NULL, 'Operacici&oacute;n y mantenimiento', NULL),
+(6, 1, NULL, 'Pruebas', NULL),
+(7, 2, NULL, 'Planificaci&oacute;n', NULL),
+(8, 2, NULL, 'An&aacute;lisis de riesgos', NULL),
+(9, 2, NULL, 'Ingenier&iacute;a', NULL),
+(10, 2, NULL, 'Construcci&oacute;n y entrega', NULL),
+(10, 2, NULL, 'Evaluaci&oacute;n del cliente', NULL);
 
 -- Tipos de roles permitidos
 
@@ -283,10 +286,13 @@ INSERT INTO `TipoActividad` (`idTipoActividad`, `tipo`) VALUES
 (9, 'Formación de usuarios'),
 (10, 'Varios (sin clasificar)');
 
--- Datos del administrador de SEPROSO
+-- Datos de cada tipo de usuario de SEPROSO
 
 INSERT INTO `Usuario` (`nick`, `password`, `email`, `tipo`) VALUES 
-('admin', 'admin', 'admin@seproso.es', 'admin');
+('admin', 'admin', 'admin@seproso.es', 'admin'),
+('manager', 'manager', 'manager@seproso.es', 'manager'),
+('developer', 'developer', 'developer@seproso.es', 'developer'),
+('personal', 'personal', 'personal@seproso.es', 'personal');
 
 -- Parámetros configurables
 

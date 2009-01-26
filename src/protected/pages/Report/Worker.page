@@ -17,7 +17,7 @@
 		Display="None" />
 	
 	<br/><br/>
-	<com:TLabel ForControl="workerList"	Text="Indique periodo a consultar:"/>
+	<com:TLabel ForControl="workerList"	Text="Indique periodo de consulta:"/>
 	<span class="required">*</span><br/><br/>
 	<div class="date-from">
 	<com:TLabel ForControl="dateFrom" Text="Desde:"/>

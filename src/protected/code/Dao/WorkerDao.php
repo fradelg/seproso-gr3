@@ -65,7 +65,7 @@ class WorkerDao extends BaseDao
 	public function getWorkerHolidays($name)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForObject('GetWorkerHolidays', $name);
+		return $sqlmap->queryForList('GetWorkerHolidays', $name);
 	}
 
 	/** 

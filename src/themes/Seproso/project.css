@@ -197,7 +197,7 @@ fieldset.selection-page .menu .date-to
 	padding-left: 0.75em;
 }
 
-fieldset.selection-page .menu select
+fieldset.selection-page .menu .phase-selection select
 {
 	width: 16em;
 }
@@ -218,9 +218,9 @@ fieldset.selection-page .summary
 	padding-left: 5em;
 }
 
-/* List of elements */
+/* Table list format to inform user */
 
-fieldset.selection-page table
+fieldset.selection-page .list table
 {
 	border-collapse: collapse;
 	empty-cells: hide;
@@ -229,7 +229,7 @@ fieldset.selection-page table
 	width: 32em;
 }
 
-fieldset.selection-page table th
+fieldset.selection-page .list table th
 {
 	border: 1px solid black;
 	padding: 10px;
@@ -238,7 +238,7 @@ fieldset.selection-page table th
 	text-align: left;
 }
 
-fieldset.selection-page table td
+fieldset.selection-page .list table td
 {
 	border: 1px solid black;
 	padding: 0.25em;
@@ -255,7 +255,7 @@ fieldset.selection-page table td
 	empty-cells: hide;
 	margin-left: 0.25em;
 	margin-top: 1em;
-	width: 32em;
+	width: 52em;
 }
 
 .list table th
@@ -275,6 +275,8 @@ fieldset.selection-page table td
 	background-color: #cdf;
 	font-size: small;
 }
+
+/* Create new template */
 
 .templateName
 {

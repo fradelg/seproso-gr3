@@ -14,17 +14,17 @@ class Phases extends TPage
 		return $this->Application->Modules['daos']->getDao('UserDao');
 	}
 	
-	// Page load event handler
+	// Web page load event handler
 	// If there are not phases loads templates page
 	public function onLoad($param)
 	{
-		$this->Project= $this->Session['project'];
+		$this->Project = $this->Session['project'];
 		if (!$this->IsPostBack){
 			// Redirects templates page if there isn`t process model
 			if (!$this->getProjectDao()->projectModelExists($this->Project))
 				$this->Response->redirect("?page=Project.Templates");
-		 	else
-		 		$this->showList();
+			else
+		 		$this->showList(); 
 		}
 	}
 
@@ -34,6 +34,9 @@ class Phases extends TPage
 		$phases = $this->getProjectDao()->getPhasesByProject($this->Project);
 		$this->phaseList->DataSource = $phases;
 		$this->phaseList->dataBind();
+		
+		$this->newTemplateButton->Visible = 
+		 		!$this->getProjectDao()->modelTemplateExists($this->Project);
 	}
 	
 	// Show phase information form (next view)
@@ -116,8 +119,8 @@ class Phases extends TPage
 	
 	public function defineTemplate($sender, $param)
 	{
-		$this->newTemplate->Visible = false;
-		$this->setTemplate->Visible = true;
+		$this->newTemplateButton->Visible = false;
+		$this->setTemplatePanel->Visible = true;
 		$this->refreshEntryList();
 	}
 	
@@ -133,8 +136,9 @@ class Phases extends TPage
 		$this->getProjectDao()->updateModel($model);
 		
 		// Changes components visibility
-		$this->newTemplate->Visible = true;
-		$this->setTemplate->Visible = false;
+		$this->newTemplateButton->Visible = true;
+		$this->setTemplatePanel->Visible = false;
+		$this->refreshEntryList();
 	}
 }
 

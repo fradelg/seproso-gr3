@@ -20,18 +20,35 @@
  */
 class SiteMap extends TTemplateControl
 {
-	// Determine if project manager view is active actual user and project
-	public function isManagerViewVisible()
+	/** 
+	 * Check actual view type to show user operations
+	 * @param $view
+	 * @return boolean
+	 */
+	public function isViewType($view)
 	{
-		return $this->User->isInRole('manager');
+		if ($this->User->getIsGuest()) return false;
+		return $this->Session['view'] === $view;
 	}
 	
-	//Determine if developer view is active for actual application User
-	public function isDeveloperViewVisible()
+	/**
+	 * Change current view for manager to developer view
+	 * @param $sender TButton
+	 * @param $param User clic
+	 */
+	public function changeToDeveloperView($sender, $param)
 	{
-		return (!$this->User->isInRole('admin') &&
-			!$this->User->isInRole('personal') &&
-			!$this->User->isInRole('manager'));
+		$this->Session['view'] = 'developer';
+	}
+	
+	/**
+	 * Change current view for manager to propertly manager view
+	 * @param $sender TButton
+	 * @param $param User click
+	 */
+	public function changeToManagerView($sender, $param)
+	{
+		$this->Session['view'] = 'manager';
 	}
 	
 	/**

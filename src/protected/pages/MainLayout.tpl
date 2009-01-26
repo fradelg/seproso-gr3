@@ -27,15 +27,15 @@
 	</font>
 </h2>
 <h2 class="login">
-	<com:TLabel Text="Proyecto:"
+	<com:TLabel Text="Proyecto:" 
 		CssClass="name" 
-		Visible=<%= !$this->User->getIsGuest() && !$this->User->IsInRole('admin') %> />
+		Visible=<%= $this->isProjectVisible() %> />
 	<com:TDropDownList ID="projects" 
-		CssClass="sheetfor" 
+		CssClass="sheetfor"
 		AutoPostBack="True"
-		SelectedValue=<%= $this->Session['project'] %>
 		OnSelectedIndexChanged="projectChanged"
-		Visible=<%= !$this->User->getIsGuest() && !$this->User->IsInRole('admin') %> />
+		SelectedValue=<%= $this->Session['project'] %>
+		Visible=<%= $this->isProjectVisible() %> />
 </h2>
 <h2 class="help"><a href="?page=Welcome">Ayuda</a></h2>
 </div>

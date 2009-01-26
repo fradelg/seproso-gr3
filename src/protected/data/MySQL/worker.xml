@@ -21,7 +21,7 @@
 
 <resultMap id="holiday-result" class="HolidayRecord" >
 	<result property="UserID" column="idUsuario" />
-	<result property="StartDate" column="fechaInicio" />
+	<result property="StartDate" column="fechaInicio" typeHandler="DateTimeTypeHandler" />
 	<result property="Duration" column="duracion" />
 	<result property="Reason" column="razon" />
 </resultMap>
@@ -152,7 +152,7 @@
 	INSERT INTO 
 		PeriodoVacacional (idUsuario, fechaInicio, duracion, razon)
 	VALUES
-		(#UserID#, #StartDate#, #Duration#, #Reason#)
+		(#UserID#, #StartDate, typeHandler=DateTimeTypeHandler#, #Duration#, #Reason#)
 </insert>
 
 <update id="UpdateWorker" parameterClass="WorkerRecord">

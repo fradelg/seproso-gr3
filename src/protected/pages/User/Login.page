@@ -27,7 +27,7 @@
   <com:TCustomValidator
 	ControlToValidate="password"
 	Display="Dynamic"
-	Text="Alg&uacute;n dato introducido es err&oacute;neo. Por favor, int&eacute;ntelo otra vez."
+	Text="Los datos introducidos son err&oacute;neos. Por favor, int&eacute;ntelo otra vez."
 	OnServerValidate="validateUser" />
   <div class="signin">
   	<com:TButton Text="Entrar" OnClick="doLogin" />

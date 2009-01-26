@@ -35,6 +35,16 @@
 	WHERE titulo = #value# AND idModelo IS NOT NULL
 </select>
 
+<select id="ModelTemplateExists" resultClass="boolean">
+	SELECT 
+		COUNT(Modelo.plantilla) 
+	FROM 
+		Proyecto
+		LEFT JOIN Modelo ON Proyecto.idModelo = Modelo.idModelo 
+	WHERE 
+		Proyecto.titulo = #value# AND Modelo.plantilla IS NOT NULL
+</select>
+
 <select id="GetAllProjects" resultMap="project-result">
 	SELECT
 		titulo as Title,
@@ -84,11 +94,6 @@
 
 <select id="GetProjectModel" resultClass="int">
 	SELECT idModelo FROM Proyecto WHERE titulo = #value#
-</select>
-
-<select id="GetProjectNamesByWorker" resultClass="string">
-	SELECT idProyecto FROM Participacion 
-	WHERE idUsuario = #value# ORDER BY idProyecto
 </select>
 
 <select id="GetAllModelTemplates" resultClass="string">

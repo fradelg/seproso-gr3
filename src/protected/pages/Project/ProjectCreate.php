@@ -47,8 +47,8 @@ class ProjectCreate extends TPage
 		}
 	}
 	
-/**
-	 * Verify that the projectname is not taken.
+	/**
+	 * Verify that the project name is not taken.
 	 * @param TControl custom validator that created the event.
 	 * @param TServerValidateEventParameter validation parameters.
 	 */

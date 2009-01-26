@@ -12,8 +12,8 @@
 	  <table>
 	  	<tr>
 	  		<th>Fecha de inicio</th>
-	  		<th>N&uacute;mero de semanas</th>
-	  		<th>Motivo</th>
+	  		<th>Semanas</th>
+	  		<th>Motivo / Justificaci&oacute;n</th>
 	  	</tr>
 	</prop:HeaderTemplate>
 
@@ -28,12 +28,7 @@
 				Value=<%# $this->DataItem->StartDate %> />
 		</td>
 		<td><%# h($this->DataItem->Duration) %></td>
-		<td><%# h($this->DataItem->Description) %></td>
-	  	<td>
-	  		<com:TButton Text="Editar" CommandName="edit"/>	  			
-	  		<com:TButton Text="Borrar" CommandName="delete"
-	  			Attributes.onclick="if(!confirm('Est&aacute; seguro?')) return false;" />
-	  	</td>
+		<td><%# h($this->DataItem->Reason) %></td>
 	  </tr>
 	</prop:ItemTemplate>	
 	</com:TRepeater>
@@ -57,25 +52,36 @@
 		DataType="Date"
 		Display="None"
 		ControlCssClass="required-input"
+		ValidationGroup="add-period"
 		DateFormat="dd/MM/yyyy"
 		Operator="GreaterThanEqual"
 		ErrorMessage="La fecha debe indicarse con un mes de antelaci&oacute;n" />
 	</div>
 	
 	<div class="category">
-	<com:TLabel ForControl="duration" Text="Semanas:" />
+	<com:TLabel ForControl="duration" Text="N&uacute;mero de semanas:" />
 	<span class="required">*</span><br/>
 	<com:TDropDownList ID="duration" />
 	</div>
 	
 	<div class="description">
+	<br/><br/><br/><br/>
 	<com:TLabel ForControl="description" Text="Justificaci&oacute;n:" /><br/>
 	<com:TTextBox ID="description" TextMode="MultiLine" />
 	</div>
 	
+	 <com:TCustomValidator
+		ControlToValidate="startDate"
+		Display="None"
+		ControlCssClass="required-input"
+		ValidationGroup="add-period"
+		ErrorMessage="Alguna fecha del periodo ya forman parte de sus vacaciones."
+		OnServerValidate="validateDate" />
+	
 	<div class="addEntry">
-		<com:TValidationSummary AutoUpdate="false" />
-		<com:TButton Text="A&ntilde;adir periodo" OnClick="addNewPeriod" />
+		<com:TValidationSummary AutoUpdate="false" ValidationGroup="add-period" />
+		<com:TButton Text="A&ntilde;adir periodo" OnClick="addNewPeriod"
+			ValidationGroup="add-period" />
 	</div>
 	
 	</fieldset>
@@ -89,4 +95,5 @@
 		El periodo introducido ha sido asignado correctamente en sus vacaciones.
 	</fieldset>
 </com:TView>
+</com:TMultiView>
 </com:TContent>

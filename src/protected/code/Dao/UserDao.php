@@ -47,10 +47,10 @@ class UserDao extends BaseDao
 	 * @param string Worker username
 	 * @return Project name array list
 	 */
-	public function getProjects($username)
+	public function getProjectsByUser($username)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetProjects', $username);
+		return $sqlmap->queryForList('GetProjectsByUser', $username);
 	}
 
 	/**
@@ -96,18 +96,6 @@ class UserDao extends BaseDao
 	}
 
 	/**
-	 * Updates the user current working project
-	 * @param SeprosoUser updated user details.
-	 */
-	public function updateProject($user, $project)
-	{
-		$sqlmap = $this->getSqlMap();
-		$param['user'] = $user;
-		$param['project'] = $project;
-		$sqlmap->update('UpdateUserProject', $param);
-	}
-
-	/**
 	 * Updates the user profile details, including user roles.
 	 * @param SeprosoUser updated user details.
 	 */
@@ -118,6 +106,19 @@ class UserDao extends BaseDao
 		foreach ($user->getRoles() as $role)
 			$param['role'] = $role;
 		$sqlmap->update('UpdateUser', $param);
+	}
+	
+	/**
+	 * Updates user last working project
+	 * @param user username
+	 * @param project project name
+	 */
+	public function updateProject($user, $project)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['user'] = $user;
+		$param['project'] = $project;
+		$sqlmap->update('UpdateCurrentProject', $param);
 	}
 
 	/**

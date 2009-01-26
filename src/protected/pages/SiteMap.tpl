@@ -2,7 +2,7 @@
 
 <!-- ADMINISTRATOR menu definition. Items: usuarios, proyectos, configuracion -->
 <ul class="level1">
-	<com:TPlaceHolder Visible=<%= $this->User->isInRole('admin') %> >
+	<com:TPlaceHolder Visible=<%= $this->isViewType('admin') %> >
 	<li class="<com:TPlaceHolder ID="UserAdminMenu" />">
 		<a class="menuitem" href="?page=User.UserList">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/group.gif" width="16" height="16" alt="">
@@ -30,7 +30,7 @@
 
 <!-- PROJECT MANAGER menu definition. Items: proyecto, actividades, informes -->
 <ul class="level1">
-	<com:TPlaceHolder Visible=<%= $this->isManagerViewVisible() %> >
+	<com:TPlaceHolder Visible=<%= $this->isViewType('manager') %> >
 	<li class="<com:TPlaceHolder ID="ProjectMenu" />">
 		<a class="menuitem" href="?page=Project.Phases">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/bell.gif" width="16" height="16" alt="">
@@ -55,11 +55,13 @@
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
 		<span>Informes</span></a>
 	</li>
+	<com:TButton ID="developerViewButton" Text="Vista -> Desarrollador" 
+		OnClick="changeToDeveloperView" />
 	</com:TPlaceHolder>
 
 <!-- DEVELOPER menu definition. Items: actividades, informes, vacaciones -->
 <ul class="level1">
-	<com:TPlaceHolder Visible=<%= $this->isDeveloperViewVisible() %> >
+	<com:TPlaceHolder Visible=<%= $this->isViewType('developer') %> >
 	<li class="<com:TPlaceHolder ID="ActRegisterMenu" />">
 		<a class="menuitem" href="?page=Project.WorkRegister">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/info.gif" width="16" height="16" alt="">
@@ -75,11 +77,13 @@
 		<img src="<%= $this->Page->Theme->BaseUrl %>/time.gif" width="16" height="16" alt="">
 		<span>Vacaciones</span></a>
 	</li>
+	<com:TButton ID="managerViewButton" Text="Vista -> Jefe de proyecto" 
+		OnClick="changeToManagerView" Visible=<%= $this->User->IsInRole('manager') %> />
 	</com:TPlaceHolder>
 
 <!-- PERSONAL MANAGER menu definition. Items: informe de personal, informe de ocupación -->
 <ul class="level1">
-	<com:TPlaceHolder Visible=<%= $this->User->isInRole('personal') %> >
+	<com:TPlaceHolder Visible=<%= $this->isViewType('personal') %> >
 	<li class="<com:TPlaceHolder ID="ReportPersonalMenu" />">
 		<a class="menuitem" href="?page=Report.Worker">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">

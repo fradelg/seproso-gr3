@@ -56,10 +56,10 @@
 	</div>
 	<div>
 		<br/><com:TButton Text="Nueva fase" OnClick="newPhase" />
-		<com:TButton ID="newTemplate" Text="Establecer como plantilla" 
+		<com:TButton ID="newTemplateButton" Text="Establecer como plantilla" 
 				OnClick="defineTemplate" />
 		
-		<com:TPanel ID="setTemplate" Visible="false">
+		<com:TPanel ID="setTemplatePanel" Visible="false">
 		<br/><br/>
 		<div class="templateName">
 			<com:TLabel ForControl="tempName" Text="Nombre:" />

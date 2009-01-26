@@ -2,9 +2,6 @@
 
 class Holidays extends TPage
 {
-	private $UsedWeeks;
-	private $UsedPeriods;
-	
 	// Get worker data access object
 	protected function getWorkerDao()
 	{
@@ -21,10 +18,10 @@ class Holidays extends TPage
 			$this->periodList->dataBind();
 			
 			$user = $this->User->Name;
-			$this->UsedWeeks = $this->getWorkerDao()->getHolidayWeeks($user);
-			$this->UsedPeriods = $this->getWorkerDao()->getNoHolidayPeriods($user);
-			// Check if user has used all holiday weeks
-			if ($this->UsedWeeks == 4 || $this->UsedPeriods == 3)
+			$weeks = $this->getWorkerDao()->getHolidayWeeks($user);
+			$periods = $this->getWorkerDao()->getNoHolidayPeriods($user);
+			// Check if user has comsumed all holiday weeks
+			if ($weeks == 4 || $periods == 3) 
 				$this->newPeriodButton->Visible = false;
 		}
 	}
@@ -32,7 +29,8 @@ class Holidays extends TPage
 	private function getLeftWeeks()
 	{
 		$data = array();
-		for ($week = 1; $week <= 4 - $this->UsedWeeks; $week++)
+		$weeks = $this->getWorkerDao()->getHolidayWeeks($this->User->Name);
+		for ($week = 1; $week <= 4 - $weeks; $week++)
 			$data[$week] = $week;
 		return $data;
 	}
@@ -45,34 +43,49 @@ class Holidays extends TPage
 		$this->views->ActiveViewIndex = 1;
 	}
 	
-	// Verifies if new period is valid or not 
-	public function checkConstraits()
+	/** Check for date avaleability
+	 * @param TControl custom validator that created the event.
+	 * @param TServerValidateEventParameter validation parameters.
+	 */ 
+	public function validateDate($sender, $param)
 	{
-		if ($this->UsedPeriods < 3 && $this->UsedWeeks < 4)
-			$this->IsValid = true;
-		else
-			$this->IsValid = false;
+		$dayofweek = date("N", $this->startDate->TimeStamp);
+		$offset = "-".(intval($dayofweek) - 1)." day";
+		$dateStart = strtotime($offset, $this->startDate->TimeStamp);
+		$dateEnd = strtotime("+".$this->duration->SelectedValue." week", $dateStart);
+		$data = $this->getWorkerDao()->getWorkerHolidays($this->User->Name);
+
+		foreach($data as $period){
+			$periodStart = $period->StartDate;
+			$periodEnd = strtotime("+".$period->Duration." week", $period->StartDate);
+			var_dump($dateStart, $dateEnd);
+			var_dump($periodStart, $periodEnd);
+			if (($dateStart >= $periodStart && $dateStart < $periodEnd) ||
+				($dateEnd > $periodStart && $dateEnd < $periodEnd)){
+					$param->IsValid = false;
+			}
+		}
 	}
 	
 	// Creates new period with form data and saves it
 	public function addNewPeriod($sender, $param)
 	{
-		$this->checkConstraits();
+		if ($this->IsValid){
+			// Save period data into database
+			$period = new HolidayRecord;
+			$period->UserID = $this->User->Name;
 		
-		// Shows an error message to user
-		if (!$this->IsValid){ 
-			$this->views->ActiveViewIndex = 3;
-			return; 
+			// Compute first day of selected week
+			$dayofweek = date("N", $this->startDate->TimeStamp);
+			$offset = "-".(intval($dayofweek) - 1)." day";
+			$period->StartDate = strtotime($offset, $this->startDate->TimeStamp);
+		
+			// Set rest of data
+			$period->Duration = $this->duration->SelectedValue;
+			$period->Reason = $this->description->Text;
+			$this->getWorkerDao()->addNewHolidayPeriod($period);
+			$this->views->ActiveViewIndex = 2;
 		}
-		
-		// Save period data into database
-		$period = new HolidayRecord;
-		$period->UserID = $this->User->Name;
-		$period->StartDate = $this->startDate->TimeStamp;
-		$period->Duration = $this->duration->SelectedValue;
-		$period->Reason = $this->description->Text;
-		$this->getWorkerDao()->addNewHolidayPeriod($period);
-		$this->views->ActiveViewIndex = 2;
 	}
 }
 
