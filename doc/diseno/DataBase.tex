@@ -1,0 +1,210 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Documentación de la Base de Datos.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 19/12/08 & Primear aproximación de la Base de datos. & Abel y Yuri.\\
+\hline
+1.0 & 12/01/09 & Versión completa de la Base de datos. & Gripo III.\\
+\hline
+1.5 & 21/01/09 & Añadidas nuevas entidades necesarias. & Rubén y Francisco\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+\listoftables % Índice de tablas 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent En este documento se presenta la documentación necesaria para el almacenamiento de los datos persistentes de la Herramienta SEPROSO. Se presenta la Base de datos que utiliza la herramienta web para el almacenamiento de los datos.
+
+
+\section{Ámbito.}
+
+\indent \indent La arquitectura presentada corresponde a la herramienta on-line SEPROSO, que se alojará en un servidor PHP y será utilizada por el cliente mediante un navegador Web. Permite el seguimiento y control de proyectos software tanto por parte del jefe de proyecto como el jefe de personal.\\
+
+Es un documento esencial para el diseñador la hora de diseñar las pruebas, y surge del análisis de la aplicación en la fase de elaboración.\\
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{itemize}
+	\item Otra documentación de SEPROSO:
+	\item Glosario, Grupo 3.
+	\item Especificación de Casos de Uso, Grupo 3.
+	\item Especificación Suplementaria, Grupo 3.
+	\item Plan de Desarrollo Software, Grupo 3.
+	\item Plan de Iteración, Grupo 3.
+	\item UPEDU. http://www.upedu.org/upedu/
+\end{itemize}
+
+\section{Visión general.}
+
+\indent \indent En las siguientes secciones veremos con más detalle algunos aspectos de la base de datos que se representan en n diagrama completo de la base de datos y varios subapartados explicativos. \\
+
+
+\chapter{Esquema Entidad - Relación.}
+
+%%%
+%%% Figure 1: Pegado de Nubes de puntos
+%%%
+\begin{figure}[htb]
+  \centering
+  % the following command controls the width of the embedded PS file
+  % (relative to the width of the current column)
+  \includegraphics[width=1.8\linewidth, angle=90]{Images/Database.png}
+  % replacing the above command with the one below will explicitly set
+  % the bounding box of the PS figure to the rectangle (xl,yl),(xh,yh).
+  % It will also prevent LaTeX from reading the PS file to determine
+  % the bounding box (i.e., it will speed up the compilation process)
+  % \includegraphics[width=.95\linewidth, bb=39 696 126 756]{sampleFig}
+  %
+  \caption{\label{fig:PegadoNubes}
+           	Esquema Entidad Relación.}
+  \label{EsquemaER}
+\end{figure}
+
+\chapter{Entidades funcamentales.}
+
+\indent \indent A continuación se presentan las entidades fundamentales de las que consta la base de datos. Solo se identifican las más importantes, y las que más referentes son dentro de la Base de datos.\\
+\begin{itemize}
+	\item \textbf{\textsl{Proyecto}}: Identifica los proyectos que almacena la herramienta, identifica el modelo que sigue el proyecto, la fecha de creación y si sigue activo entre otras cosas.
+	\item \textbf{\textsl{Usuario}}: Representa a los usuarios de la aplicación que se encuentran registrados para su posible acceso a la herramienta. Cada usuario se encuentra enlazado con sus características de Trabajador para conocer su rango de acceso a las características de la herramienta, además de guardar su Nick y Password asociado.
+	\item \textbf{\textsl{Fase}}: Un proyecto está compuesto por varias fases, y cada fase por actividades que deben estar almacenadas en la Base de datos.
+	\item \textbf{\textsl{Actividad}}: Representa las actividades de una fase determinada. Se guarda su duración, la descripción de la misma y la fase a las cuál se encuentra asociada.
+	\item \textbf{\textsl{Artefacto}}: Identifica el artefacto generado en la finalización de una actividad determinada. Cada actividad a su finalización provee un artefacto al trabajador.
+\end{itemize}
+
+\chapter{Relaciones funcamentales.}
+
+\indent \indent A continuación se presentan las entidades fundamentales de las que consta la base de datos. Solo se identifican las más importantes, y las que más referentes son dentro de la Base de datos.\\
+\begin{itemize}
+	\item \textbf{\textsl{Registra} (Trabajador - RegistroTrabajo)}: Un trabajador es el encargado de registrar un registro de trabajo asociado a una actividad determinada.
+	\item \textbf{\textsl{Compuesta}(Actividad - Fase)}: Una Fase esta compuesta por varias actividades.
+	\item \textbf{\textsl{Tiene} (Proyecto - Participación)}: Un proyecto tiene una participación asociada.
+	\item \textbf{\textsl{Disfruta}(Trabajador - PeriodoVacacional)}: Un trabjador disfruta de uno o varios períodos vacacionales.
+\end{itemize}
+
+\chapter{Tablas resultantes en SQL.}
+
+\indent \indent  El modelo de la base de datos se encuentra generado por un script SQL anexo a la documentación. No se incluye en este docuemtno informativo para evitar su longitud y que su formato sea poco legible. A la hora de verlo, utlizar el documento: \textit{seproso-mysql-create.sql}, anexo en la documentación final de la herramienta para un desarrollador o para el cliente principal de la herramienta (no visible para los usuarios normales de SEPROSO).
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
