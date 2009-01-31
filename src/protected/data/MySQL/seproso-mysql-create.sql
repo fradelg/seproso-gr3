@@ -234,7 +234,7 @@ ALTER TABLE `Actividad`
   ADD FOREIGN KEY (`idTipo`) REFERENCES `TipoActividad` (`idTipoActividad`),
   ADD FOREIGN KEY (`idArtefacto`) REFERENCES `Artefacto` (`nombre`);
   
-ALTER TABLE `Actividad_predecesora`
+ALTER TABLE `Actividad_Predecesora`
   ADD FOREIGN KEY (`actividad`) REFERENCES `Actividad` (`idActividad`),
   ADD FOREIGN KEY (`predecesora`) REFERENCES `Actividad` (`idActividad`);
 
@@ -245,8 +245,49 @@ ALTER TABLE `Actividad_predecesora`
 -- Modelos de proceso básicos
 
 INSERT INTO `Modelo` (`idModelo`, `plantilla`, `nombre`, `descripcion`) VALUES
-(1, 'Modelo en cascada', 'Proceso en cascada', 'Todas las fases siguen un desarrollo secuencial.'),
-(2, 'Modelo en espiral', 'Proceso en espiral', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc)');
+(1, 'Modelo en cascada', 'Proceso en cascada', 'Es el enfoque metodológico que ordena rigurosamente las etapas del ciclo de vida del software, de forma tal que el inicio de cada etapa debe esperar a la finalización de la inmediatamente anterior. 
+	Fases del Modelo. Metodología de desarrollo en cascada:
+
+   1. Análisis de requisitos.
+   Se analizan las necesidades de los usuarios finales del software para determinar qué objetivos debe cubrir. De esta fase surge una memoria llamada SRD (documento de especificación de requisitos).
+   
+   2. Diseño del Sistema
+   Se descompone y organiza el sistema en elementos que puedan elaborarse por separado, aprovechando las ventajas del desarrollo en equipo. Como resultado surge el SDD (Documento de Diseño del Software).
+   
+   3. Diseño del Programa
+   Desarrollo de los algoritmos necesarios. Identificación de herramientas.
+   
+   4. Codificación
+   Fase de programación.
+   
+   5. Pruebas
+   Los elementos, ya programados, se ensamblan para componer el sistema y se comprueba que funciona correctamente antes de ser puesto en explotación.
+   
+   6. Implantación
+   El software obtenido se pone en producción.
+   
+   7. Mantenimiento
+
+'),
+(2, 'Modelo en espiral', 'Proceso en espiral', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc).
+	Las actividades no están fijadas a priori, sino que las siguientes se eligen en función del análisis de riesgo, comenzando por el bucle interior.
+	En cada vuelta o iteración hay que tener en cuenta:
+	Los Objetivos: Que necesidad debe cubrir el producto.
+	Alternativas: Las diferentes formas de conseguir los objetivos de forma exitosa, desde diferentes puntos de vista como pueden ser:
+		1. Características: experiencia del personal, requisitos a cumplir, etc.
+		2. Formas de gestión del sistema.
+		3. Riesgo asumido con cada alternativa.
+	Desarrollar y Verificar: Programar y probar el software.
+	
+	Si el resultado no es el adecuado o se necesita implementar mejoras o funcionalidades.
+	
+	Se planificaran los siguientes pasos y se comienza un nuevo ciclo de la espiral. La espiral tiene una forma de caracola y se dice que mantiene dos dimensiones, la radial y la angular:
+		1. Angular: Indica el avance del proyecto software dentro de un ciclo.
+		2. Radial: Indica el aumento del coste del proyecto, ya que con cada nueva iteración se pasa más tiempo desarrollando.
+
+	Este sistema es muy utilizado en proyectos grandes y complejos como puede ser, por ejemplo, la creación de un Sistema Operativo.
+	
+	');
 
 INSERT INTO `Fase` (`idFase`, `idModelo`, `idFasePadre`, `nombre`, `descripcion`) VALUES
 (1, 1, NULL, 'Definici&oacute;n de requisitos', NULL),
@@ -259,7 +300,7 @@ INSERT INTO `Fase` (`idFase`, `idModelo`, `idFasePadre`, `nombre`, `descripcion`
 (8, 2, NULL, 'An&aacute;lisis de riesgos', NULL),
 (9, 2, NULL, 'Ingenier&iacute;a', NULL),
 (10, 2, NULL, 'Construcci&oacute;n y entrega', NULL),
-(10, 2, NULL, 'Evaluaci&oacute;n del cliente', NULL);
+(11, 2, NULL, 'Evaluaci&oacute;n del cliente', NULL);
 
 -- Tipos de roles permitidos
 
