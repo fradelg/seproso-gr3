@@ -22,8 +22,8 @@ class SiteMap extends TTemplateControl
 {
 	/** 
 	 * Check actual view type to show user operations
-	 * @param $view
-	 * @return boolean
+	 * @param view view type
+	 * @return boolean is visible?
 	 */
 	public function isViewType($view)
 	{
@@ -39,6 +39,8 @@ class SiteMap extends TTemplateControl
 	public function changeToDeveloperView($sender, $param)
 	{
 		$this->Session['view'] = 'developer';
+		$url = $this->Service->constructUrl('User.Home');
+		$this->Response->redirect($url);
 	}
 	
 	/**
@@ -49,6 +51,8 @@ class SiteMap extends TTemplateControl
 	public function changeToManagerView($sender, $param)
 	{
 		$this->Session['view'] = 'manager';
+		$url = $this->Service->constructUrl('User.Home');
+		$this->Response->redirect($url);
 	}
 	
 	/**

@@ -3,74 +3,33 @@
 
 <fieldset class="report">
 	<legend>Actividades sin aprobar</legend>
-	<com:TMultiView ID="views" ActiveViewIndex="0">
-	<com:TView>
-		<div align="center">
-		<h2>Seleccione el periodo de tiempo</h2>
-		<div class="date-from">
-		<com:TLabel ForControl="dateFrom" Text="Desde la fecha:"/>
-		<span class="required">*</span><br />
-		<com:TDatePicker id="dateFrom" 
-			DateFormat="dd/MM/yyyy"
-			TimeStamp=<%= strtotime("-1 year") %>
-			InputMode="DropDownList" />
-		</div>
-		<div class="date-to">
-		<com:TLabel ForControl="dateTo" Text="Hasta:"/>
-		<span class="required">*</span><br />
-		<com:TDatePicker id="dateTo" DateFormat="dd/MM/yyyy" InputMode="DropDownList"/>
-		<com:TCompareValidator
-			ControlToValidate="dateTo"
-			ControlToCompare="dateFrom"
-			DataType="Date"
-			Display="None"
-			ControlCssClass="required-input"
-			DateFormat="dd/MM/yyyy"
-			Operator="GreaterThanEqual"
-			ErrorMessage="La fecha final debe ser mayor o igual que la inicial." />
-		</div>
-		</div>
-		<div class="actions">&nbsp;
-		<div class="summary">
-		<com:TValidationSummary
-			AutoUpdate="false" />
-		</div>
-		<div class="buttons">
-			<com:TButton Text="Generar Informe" Onclick="generateReport"/>
-		</div>	
-		</div>
-	</com:TView>
-	
-	<com:TView>
-		<div class="date-range">
-		 <h3 class="begin">Fecha inicial:</h3>
-		 <h4 class="begin"><%= h($this->dateFrom->Date) %></h4> 	 
-		 <h3 class="end">Fecha final:</h3>
-		 <h4 class="end"><%= h($this->dateTo->Date) %></h4>
-		</div> 
-		<com:TRepeater ID="workers">
-		 	<div class="resource">
-		 	<prop:HeaderTemplate>
-				<table class="project">
-			 	<tr>
-			 		<th class="user">Trabajador</th>
-			 		<th class="category">Actividad</th>
-			 		<th class="description">Descripci&oacute;n</th>
-			 	</tr>
-			 </prop:HeaderTemplate>
-			 <prop:FooterTemplate>
-			 	</table>
-			 </prop:FooterTemplate>
-			 <prop:ItemTemplate>
-			 	<tr>
-			 		<td class="user"><%# h($this->DataItem->UserName) %></td>
-			 		<td class="category"><%# h($this->DataItem->ActivityName) %></td>
-			 		<td class="description"><%# h($this->DataItem->Description) %></td>
-			 	</tr>
-			 </prop:ItemTemplate>
-		</com:TRepeater>
-	</com:TView>
-	
-	</com:TMultiView>
+	<div class="list">
+	<com:TDataList ID="workRecords"	RepeatLayout="Raw"
+			DataKeyField="ID" OnEditCommand="openRecord" >
+		<prop:EmptyTemplate>
+			No hay informes de trabajo pendientes de aprobar.
+		</prop:EmptyTemplate>
+	 	<prop:HeaderTemplate>
+			<table>
+		 	<tr>
+		 		<th>Trabajador</th>
+		 		<th>Actividad</th>
+		 		<th>Fecha</th>
+		 	</tr>
+		 </prop:HeaderTemplate>
+		 <prop:FooterTemplate>
+		 	</table>
+		 </prop:FooterTemplate>
+		 <prop:ItemTemplate>
+		 	<tr>
+		 		<td><%# h($this->DataItem->Worker) %></td>
+		 		<td><%# h($this->DataItem->Activity) %></td>
+		 		<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+					Value=<%# $this->DataItem->Date %> /></td>
+				<td><com:TButton Text="Ver informe"	CommandName="edit" /></td>
+		 	</tr>
+		 </prop:ItemTemplate>
+	</com:TDataList>
+	</div>
 </fieldset>
 </com:TContent>

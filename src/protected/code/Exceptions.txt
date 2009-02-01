@@ -1,7 +1,8 @@
-seproso_user_readonly_id 		= SEPROSO user ID is read-only.
-invalid_creator_and_manager		= Unable to find time tracker usernames '{1}' and '{2}' for project '{0}'.
-project_exists					= Project '{0}' already exists.
-daomanager_connection_required	= An TSqlMapper connection is required by Dao Manager.
-daomanager_undefined_connection	= Connection '{0}' for Dao Manager is undefined.
-daomanager_invalid_connection	= Connection '{0}' does not appear to ba a TSqlMapper in Dao Manager.
-daomanager_undefined_dao		= Dao class '{0}' is not registered.
+seproso_user_readonly_id 		= El ID de usuario en SEPROSO es sólo-lectura.
+invalid_creator_and_manager		= Imposible encontrar en SEPROSO los nombres de usuario '{1}' y '{2}' para el proyecto '{0}'.
+project_exists					= El proyecto '{0}' ya existe.
+daomanager_connection_required	= El Dao Manager necesita una conexión al TSqlMapper.
+daomanager_undefined_connection	= La conexión '{0}' para el Dao Manager no está definida.
+daomanager_invalid_connection	= La conexión '{0}' no parece ser un TSqlMapper en el Dao Manager.
+daomanager_undefined_dao		= La clase DAO '{0}' no está registrada.
+dbcommand_execute_failed		= La inserción de los datos en la base de datos ha fallado.

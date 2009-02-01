@@ -2,12 +2,7 @@
 /**
  * DaoManager class file.
  *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2006 PradoSoft
- * @license http://www.pradosoft.com/license/
- * @version $Id: DaoManager.php 1578 2006-12-17 22:20:50Z wei $
- * @package Demos
+ * @author Grupo3 - ISO 2 - UVA
  */
 
 Prado::using('System.Data.SqlMap.TSqlMapConfig');
@@ -16,11 +11,6 @@ Prado::using('System.Data.SqlMap.TSqlMapConfig');
  * DaoManager class.
  *
  * A Registry for Dao and an implementation of that type.
- *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @version $Id: DaoManager.php 1578 2006-12-17 22:20:50Z wei $
- * @package Demos
- * @since 3.1
  */
 class DaoManager extends TSqlMapConfig
 {
@@ -72,7 +62,7 @@ class DaoManager extends TSqlMapConfig
 			return $this->_dao[$class]['instance'];
 		}
 		else
-			throw new TimeTrackerException('daomanager_undefined_dao', $class);
+			throw new SeprosoException('daomanager_undefined_dao', $class);
 	}
 }
 

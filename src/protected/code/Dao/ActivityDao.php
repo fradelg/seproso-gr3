@@ -32,16 +32,28 @@ class ActivityDao extends BaseDao
 		$sqlmap->insert('AddWorkerToActivity', $param);
 	}
 
-	function getCategoryByID($categoryID)
+	function existsActivePrecedents($actID)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForObject('GetCategoryByID', $categoryID);
+		return $sqlmap->queryForList('ExistsActivePrecedents', $actID);
+	}
+	
+	function getActivityByID($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetActivityByID', $actID);
 	}
 
 	function getAllActivities($phaseID)
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForList('GetAllActivities', $phaseID);
+	}
+	
+	function getAllActivitiesByProject($project)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetAllActivitiesByProject', $project);
 	}
 	
 	function getTypesOfActivities()
@@ -55,6 +67,18 @@ class ActivityDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForList('GetArtifactSet');
 	}
+
+	function getInitActivities($projectID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetInitActivities', $projectID);
+	}
+	
+	function getPredActivities($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetPrecedentActivities', $actID);
+	}
 	
 	function getPosteriorActivities($actID)
 	{
@@ -62,48 +86,44 @@ class ActivityDao extends BaseDao
 		return $sqlmap->queryForList('GetPosteriorActivities', $actID);
 	}
 	
-	function existsActivePrecedents($actID)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('ExistsActivePrecedents', $actID);
-	}
-	
-	function deleteActivity($actID)
-	{
-		$sqlmap = $this->getSqlMap();
-		$sqlmap->delete('DeleteActivity', $actID);
-	}
-
-	function getActivitiesByWorker($workerID)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetActivitiesByWorker', $workerID);
-	}
-
-	function getCategoryByNameInProject($name, $projectID)
+	function getActivitiesByWorker($projectID, $workerID)
 	{
 		$sqlmap = $this->getSqlMap();
 		$param['project'] = $projectID;
-		$param['category'] = $name;
-		return $sqlmap->queryForObject('GetCategoryByNameInProject', $param);
+		$param['worker'] = $workerID; 
+		return $sqlmap->queryForList('GetActivitiesByWorker', $param);
 	}
 
+	function getActivityDuration($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetActivityDuration', $actID);
+	}
+	
 	function beginActivity($actID)
 	{
 		$sqlmap = $this->getSqlMap();
 		$sqlmap->update('BeginActivity', $actID);
 	}
 	
-	function endActivity($actID)
+	function endActivity($actID, $duration)
 	{
 		$sqlmap = $this->getSqlMap();
-		$sqlmap->update('EndActivity', $actID);
+		$param['act'] = $actID;
+		$param['time'] = $duration; 
+		$sqlmap->update('EndActivity', $param);
 	}
 	
 	function updateActivity($actID)
 	{
 		$sqlmap = $this->getSqlMap();
 		$sqlmap->update('UpdateActivity', $actID);
+	}
+	
+	function deleteActivity($actID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->delete('DeleteActivity', $actID);
 	}
 }
 

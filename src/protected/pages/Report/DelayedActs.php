@@ -2,27 +2,31 @@
 
 class DelayedActs extends TPage
 {
-	// Carga los datos en los componentes al cargar la página
-	public function onLoad($param)
+	// Bind report data to Repeater 
+	public function onload($param)
 	{
-		if(!$this->IsPostBack){}
-	}	
-	
-	// Genera el informe de datos asociado a esta página
-	public function generateReport($sender, $param)
-	{
-		// Cambiamos a la vista de información
-		$this->views->ActiveViewIndex = 1;
-		// Consultamos los datos en la base de datos
-		$actDao = $this->Application->Modules['daos']->getDao('TimeEntryDao');
-		$user = $this->User;
-		$start = $this->dateFrom->TimeStamp;
-		$end = $this->dateTo->TimeStamp;
-		//$report = $actDao->getTimeEntriesInProject($project, $start, $end);
+		if(!$this->IsPostBack){
+			// Retrieve data from data base query aql
+			$dao = $this->Application->Modules['daos']->getDao('ReportsDao');
 
-		// Asociamos el resultado de la consulta al TRepeater
-		//$this->workers->DataSource = $report;
-		//$this->workers->dataBind();		
+			// Bind query data to TRepeater
+			$acts = $dao->getDelayedActs($this->Session['project']);
+			$this->activityList->DataSource = $this->getDelayedActs($acts); 
+			$this->activityList->dataBind();
+		}		
+	}
+	
+	/**
+	 * Get all delayed activities from finished or active activity list
+	 * @param $activities finished or active activities
+	 * @return array list of delayed activities
+	 */
+	private function getDelayedActs($activities)
+	{
+		$result = array();
+		foreach($activities as $act)
+			if ($act->Delay > 0.0) array_push($result, $act);
+		return $result;
 	}
 }
 

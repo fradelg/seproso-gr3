@@ -2,27 +2,26 @@
 
 class ReviewActs extends TPage
 {
-	// Carga los datos en los componentes al cargar la página
-	public function onLoad($param)
+	// Bind report data to Repeater 
+	public function onload($param)
 	{
-		if(!$this->IsPostBack){}
-	}	
+		if(!$this->IsPostBack)
+		{
+			// Retrieve data from database with SQL query
+			$reportDao = $this->Application->Modules['daos']->getDao('ReportsDao');
+				$this->workRecords->DataSource = 
+			$reportDao->getReviewWorkRecords($this->Session['project']);
+			// Bind query data to TRepeater
+			$this->workRecords->dataBind();
+		}		
+	}
 	
-	// Genera el informe de datos asociado a esta página
-	public function generateReport($sender, $param)
+	protected function openRecord($sender, $param)
 	{
-		// Cambiamos a la vista de información
-		$this->views->ActiveViewIndex = 1;
-		// Consultamos los datos en la base de datos
-		$actDao = $this->Application->Modules['daos']->getDao('TimeEntryDao');
-		$user = $this->User;
-		$start = $this->dateFrom->TimeStamp;
-		$end = $this->dateTo->TimeStamp;
-		//$report = $actDao->getTimeEntriesInProject($project, $start, $end);
-
-		// Asociamos el resultado de la consulta al TRepeater
-		//$this->workers->DataSource = $report;
-		//$this->workers->dataBind();		
+		$id = $this->workRecords->DataKeys[$param->Item->ItemIndex];
+		$request = array('WorkRecordID'=> $id);
+		$url = $this->Service->constructUrl('Project.MonitorAct', $request);
+		$this->Response->redirect($url);
 	}
 }
 

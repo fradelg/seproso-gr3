@@ -41,7 +41,7 @@ class Workers extends TPage
 	public function getWorkers(){
 		$workers = array();
 		$project = $this->Session['project'];
-		foreach ($this->getWorkerDao()->getFreeWorkers($project) as $worker) 
+		foreach ($this->getWorkerDao()->getWorkersForProject($project) as $worker) 
 			$workers[$worker->UserID] = $worker->Name.' '.$worker->Surname;
 		return $workers;
 	}
@@ -86,7 +86,9 @@ class Workers extends TPage
 		$role = $this->roles->SelectedValue;
 		$perc = floatval($this->participation->Text);
 		$this->getWorkerDao()->addParticipation($user, $project, $role, $perc);
-		$this->views->ActiveViewIndex = 2;
+		
+		// Refresh page and worker list
+		$this->Response->reload();
 	}
 }
 

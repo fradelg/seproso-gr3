@@ -10,7 +10,7 @@
 
 <!-- JAIR MySQL DataBase Connection
 	<connection class="TDbConnection"
-		ConnectionString="mysql:host=jair.lab.fi.uva.es;dbname=grupo03"
+		ConnectionString="mysql:host=localhost;dbname=grupo03"
 		Username="grupo03" Password="nnLx9jpr" />
 -->
 	<sqlMap resource="MySQL/user.xml"/>

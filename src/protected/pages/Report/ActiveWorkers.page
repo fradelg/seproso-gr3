@@ -1,22 +1,22 @@
 <com:TContent ID="Main">
 <h1>Informe de trabajadores activos</h1>
 
-<fieldset class="resource-report">
+<fieldset class="report">
 	<legend>Trabajadores activos</legend>
 	<com:TMultiView ID="views" ActiveViewIndex="0">
 	<com:TView>
-		<div class="step1">
-		<h2>Seleccione un periodo de tiempo</h2>
+		<div align="center">
+		<h2>Seleccione el periodo de consulta</h2>
 		<div class="date-from">
 		<com:TLabel ForControl="dateFrom" Text="Desde la fecha:"/>
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateFrom" 
 			DateFormat="dd/MM/yyyy"
-			TimeStamp=<%= strtotime("-1 year") %>
+			TimeStamp=<%= strtotime("-1 month") %>
 			InputMode="DropDownList" />
 		</div>
 		<div class="date-to">
-		<com:TLabel ForControl="dateTo" Text="Hasta:"/>
+		<com:TLabel ForControl="dateTo" Text="Hasta la fecha:"/>
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateTo" DateFormat="dd/MM/yyyy" InputMode="DropDownList"/>
 		<com:TCompareValidator
@@ -36,7 +36,7 @@
 			AutoUpdate="false" />
 		</div>
 		<div class="buttons">
-			<com:TButton Text="Generar Informe" Onclick="generateReport"/>
+			<com:TButton Text="Generar Informe" Onclick="generateReport" />
 		</div>	
 		</div>
 	</com:TView>
@@ -47,19 +47,25 @@
 		 <h4 class="begin"><%= h($this->dateFrom->Date) %></h4> 	 
 		 <h3 class="end">Fecha final:</h3>
 		 <h4 class="end"><%= h($this->dateTo->Date) %></h4>
-		</div> 
-		<com:TRepeater ID="workers">
-		 	<div class="resource">
+		</div>
+		<div class="list"> 
+		<com:TRepeater ID="workerList">
 		 	<prop:HeaderTemplate>
-			 	<h4 class="user"> -- Trabajadores -- </h4>
-			 	--
-			 </prop:HeaderTemplate>
-			 <prop:FooterTemplate>
-			 </prop:FooterTemplate>
-			 <prop:ItemTemplate>
-			 	<span class="user"><%# h($this->DataItem->Name) %></span> -- 
-			 </prop:ItemTemplate>
+	  			<table>
+	  			<tr>
+	  				<th>Trabajador</th>
+	  			</tr>
+			</prop:HeaderTemplate>
+			<prop:FooterTemplate>
+	  			</table>
+			</prop:FooterTemplate>
+			<prop:ItemTemplate>
+				<tr>
+					<td><%# h($this->DataItem) %></td>
+	  			</tr>
+			</prop:ItemTemplate>	
 		</com:TRepeater>
+		</div>
 	</com:TView>
 	
 	</com:TMultiView>

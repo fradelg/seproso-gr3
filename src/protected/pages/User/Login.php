@@ -48,14 +48,26 @@ class Login extends TPage
 			if($this->remember->Checked)
 				$auth->rememberSignon($this->User);
 			
-			// Loads last project as current project
 			$dao = $this->Application->Modules['daos']->getDao('UserDao');
-			$project = $dao->getProject($this->User->Name);
-			if ($project != NULL) $this->Session['project'] = $project;
 			
-			// Set user session view
-			foreach ($this->User->Roles as $role)
-				$this->Session['view'] = $role;
+			// Set project session data for managers or developers
+			if ($this->User->IsInRole('manager') || $this->User->IsInRole('developer')){
+				$projects = $dao->getProjectsByUser($this->User->Name);
+				if ($projects != NULL) $this->Session['project'] = current($projects);
+			}
+
+			// Set user view session data
+			$this->Session['managing'] = false;
+			if ($this->User->IsInRole('manager') && $projects != NULL){
+				$role = $dao->getRoleInProject($this->User->Name, $this->Session['project']);
+				if ($role === 'Jefe de proyecto'){ 
+					$this->Session['view'] = 'manager';
+					$this->Session['managing'] = true;
+				} else 
+					$this->Session['view'] = 'developer';
+			} else
+				$this->Session['view'] = current($this->User->Roles);
+			
 
 			// Redirect to requested page
 			$this->Response->redirect($auth->getReturnUrl());

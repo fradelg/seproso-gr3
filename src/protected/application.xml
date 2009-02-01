@@ -19,13 +19,13 @@
 	<!-- DAO module -->
 	<module id="daos" class="DaoManager" EnableCache="true"
   		configFile="Application.data.mysql-sqlmap">
-		<dao id="UserDao" class="Application.code.DAO.UserDao" />
-		<dao id="WorkerDao" class="Application.code.DAO.WorkerDao" />
-		<dao id="ProjectDao" class="Application.code.DAO.ProjectDao" />
-		<dao id="WorkRecordDao" class="Application.code.DAO.WorkRecordDao" />
-		<dao id="ActivityDao" class="Application.code.DAO.ActivityDao" />
-		<dao id="ProcessDao" class="Application.code.DAO.ProcessDao" />
-		<dao id="ReportDao" class="Application.code.DAO.ReportDao" />
+		<dao id="UserDao" class="Application.code.Dao.UserDao" />
+		<dao id="WorkerDao" class="Application.code.Dao.WorkerDao" />
+		<dao id="ProjectDao" class="Application.code.Dao.ProjectDao" />
+		<dao id="WorkRecordDao" class="Application.code.Dao.WorkRecordDao" />
+		<dao id="ActivityDao" class="Application.code.Dao.ActivityDao" />
+		<dao id="ProcessDao" class="Application.code.Dao.ProcessDao" />
+		<dao id="ReportsDao" class="Application.code.Dao.ReportsDao" />
   	</module>
 	<!-- Charset module -->
 	<module id="globalization"

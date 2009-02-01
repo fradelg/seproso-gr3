@@ -43,7 +43,7 @@ class ProjectCreate extends TPage
 			$this->getWorkerDao()->addParticipation($newProject->ManagerID,
 								$newProject->Title, 'Jefe de proyecto', 100);
 		
-			$this->views->ActiveViewIndex = 1;
+			$this->Response->redirect("?page=Project.ProjectList");
 		}
 	}
 	

@@ -95,7 +95,7 @@
 	</div>
 	<com:TLabel/><com:TLabel/><com:TLabel/><com:TLabel/>
 	<div class="hours">
-	<com:TLabel ForControl="hours" Text="Duraci&oacute;n:" />
+	<com:TLabel ForControl="hours" Text="Horas / hombre:" />
 	<span class="required">*</span><br/>
 	<com:TTextBox ID="hours" />
 	 	<com:TRequiredFieldValidator
@@ -144,12 +144,6 @@
 	</div>
 	
 	</div>
-  </com:TView>
-  
-  <!-- Success proccess confirmation -->
-  <com:TView>
-  	<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
-  	La actividad fue creada e introducida con &eacute;xito en el sistema.
   </com:TView>
 </com:TMultiView>
 </fieldset>

@@ -4,7 +4,6 @@
 <resultMap id="seproso-user" class="SeprosoUser" GroupBy="Name">
 	<result property="Name" column="Name" />
 	<result property="Password" column="Password" />
-	<result property="Project" column="Project" />
 	<result property="EmailAddress" column="EmailAddress" />
 	<result property="Roles" Type="array" resultMapping="user-roles-result" />
 </resultMap>
@@ -15,8 +14,9 @@
 	SELECT COUNT(nick) FROM Usuario WHERE nick = #value#
 </select>
 
-<select id="GetProject" parameterClass="string" resultClass="string">
-	SELECT idProyecto FROM Trabajador WHERE	idUsuario = #value#
+<select id="GetRoleInProject" parameterClass="array" resultClass="string">
+	SELECT idRol FROM Participacion 
+	WHERE idUsuario = #user# AND idProyecto = #project#
 </select>
 
 <select id="GetProjectsByUser" parameterClass="string" resultClass="string">
@@ -26,16 +26,14 @@
 
 <select id="GetUserByName" resultMap="seproso-user">
 	SELECT 
-		Usuario.nick as Name,
-		Usuario.password as Password,
-		Trabajador.idProyecto as Project,
-		Usuario.email as EmailAddress,
-		Usuario.tipo as role
+		nick as Name,
+		password as Password,
+		email as EmailAddress,
+		tipo as role
 	FROM
 		Usuario
-		LEFT JOIN Trabajador ON Trabajador.idUsuario = Usuario.nick
 	WHERE
-		Usuario.nick = #value#
+		nick = #value#
 </select>
     
 <select id="GetAllUsers" resultMap="seproso-user">
@@ -72,7 +70,6 @@
 <select id="ValidateAutoSignon" resultMap="seproso-user">
 	SELECT
 		Usuario.nick as Name,
-		Usuario.Project as Project,
 		Usuario.email as EmailAddress,
 		Rol.tipo as role
 	FROM
@@ -97,12 +94,6 @@
 		tipo = #role#
 	WHERE 
 		nick = #user.Name#
-</update>
-
-<update id="UpdateCurrentProject" parameterClass="array">
-	UPDATE Trabajador 
-	SET idProyecto = #project#
-	WHERE idUsuario = #user#
 </update>
 
 <delete id="DeleteAutoSignon">

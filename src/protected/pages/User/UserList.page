@@ -3,17 +3,7 @@
 <fieldset>
   <legend>Lista de usuarios</legend>
 
-<style type="text/css">
-	table {	border-collapse: collapse; }
-	td, th {
-		border: 1px solid black;
-		padding: 10px;
-	}
-	th { text-align:left; }
-	input { max-width: 8em; }
-	select { max-width: 6em; }	
-</style>
-
+<div class="list">
 <com:TDataList ID="list"
 	RepeatLayout="Raw"
 	DataKeyField="UserID"
@@ -63,8 +53,8 @@
 	  	<td><com:TTextBox ID="surname" Text=<%# $this->DataItem->Surname %> /></td>
 	  	<td><com:TDatePicker InputMode="DropDownList" ID="date" 
 	  			TimeStamp=<%# $this->DataItem->BirthDate %>
-	  			FromYear = <%= $this->getYear() - 65 %>
-				UpToYear = <%= $this->getYear() - 18 %> /></td>
+	  			FromYear = <%= $this->Page->getYear() - 65 %>
+				UpToYear = <%= $this->Page->getYear() - 18 %> /></td>
 	  	<td><com:TDropDownList ID="role" /></td>
 	  	<td><com:TTextBox ID="password" Text=<%# $this->DataItem->Password %> /></td>
 	  	<td><com:TTextBox ID="email" Text=<%# $this->DataItem->EmailAddress %> /></td>
@@ -76,5 +66,6 @@
 	</prop:EditItemTemplate>	
 		
 </com:TDataList>
+</div>
 </fieldset>
 </com:TContent>

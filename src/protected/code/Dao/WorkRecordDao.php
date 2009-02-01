@@ -1,5 +1,20 @@
 <?php
 
+class WorkReport
+{
+	public $ID = 0;
+	public $Worker = '';
+	public $Activity = '';
+	
+	public $Date = 0;
+	public $StartDate = 0;
+	public $EndDate = 0;
+	
+	public $Effort = 0.0;
+	public $State = 0;
+	public $Comentary = '';
+}
+
 class WorkRecordDao extends BaseDao
 {
 	public function addWorkRecord($record)
@@ -28,12 +43,11 @@ class WorkRecordDao extends BaseDao
 		return $sqlmap->queryForList('GetAllTimeEntriesByProjectIdAndUser', $param);
 	}
 	
-	public function getWorkRecordsByWA($username, $actID, $state)
+	public function getWorkRecordsByWA($username, $actID)
 	{
 		$sqlmap = $this->getSqlMap();
 		$param['user'] = $username;
 		$param['act'] = $actID;
-		$param['state'] = $state;
 		return $sqlmap->queryForList('GetWorkRecordsByWorkerAndActivity', $param);
 	}
 

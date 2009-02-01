@@ -117,12 +117,5 @@
 	</div>
 	</fieldset>
 </com:TView>
-
-<com:TView>
-	<fieldset><legend>Informaci&oacute;n de nueva fase</legend>
-		<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
-		La nueva fase fue creada y almacenada con &eacute;xito.
-	</fieldset>
-</com:TView>
 </com:TMultiView>
 </com:TContent>

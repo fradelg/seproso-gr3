@@ -25,7 +25,6 @@ Prado::using('System.Security.TUser');
 class SeprosoUser extends TUser
 {
 	public $Password = '';
-	public $Project = '';
 	public $EmailAddress = '';
 	
 	/**
@@ -42,30 +41,6 @@ class SeprosoUser extends TUser
 	public function getEmailAddress()
 	{
 		return $this->EmailAddress;
-	}
-	
-	/**
-	 * @param string current working project
-	 */
-	public function setProject($pro)
-	{
-		$this->Project = $pro;
-	}
-
-	/**
-	 * @return string current working project
-	 */
-	public function getProject()
-	{
-		return $this->Project;
-	}
-	
-	/**
-	 * @return boolean is there active project?
-	 */
-	public function hasProject()
-	{
-		return ($this->Project != null);
 	}
 }
 

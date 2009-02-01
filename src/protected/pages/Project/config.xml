@@ -3,9 +3,9 @@
 <configuration>
 
   <authorization>
-    <allow pages="ProjectList, ProjectCreate" roles="admin" />
+    <allow pages="ProjectList, ProjectCreate, Configuration" roles="admin" />
 	<allow pages="Templates, Phases, Activities, AddActivity, 
-                  Workers, ApproveAct, ReviewAct" roles="manager" />
+                  Workers, MonitorAct" roles="manager" />
     <allow pages="WorkRegister" roles="manager, developer" />
     <deny users="*" />
   </authorization>

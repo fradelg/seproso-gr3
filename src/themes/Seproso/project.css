@@ -179,7 +179,7 @@ fieldset.selection-page .menu
 	margin-left: 0.25em;
 }
 
-fieldset.selection-page .list
+fieldset.selection-page .content
 {
 	float: left;
 	width: 64%;
@@ -220,16 +220,16 @@ fieldset.selection-page .summary
 
 /* Table list format to inform user */
 
-fieldset.selection-page .list table
+fieldset.selection-page .content table
 {
 	border-collapse: collapse;
 	empty-cells: hide;
 	margin-left: 0.25em;
 	margin-top: 1em;
-	width: 32em;
+	width: 99%;
 }
 
-fieldset.selection-page .list table th
+fieldset.selection-page .content table th
 {
 	border: 1px solid black;
 	padding: 10px;
@@ -238,7 +238,7 @@ fieldset.selection-page .list table th
 	text-align: left;
 }
 
-fieldset.selection-page .list table td
+fieldset.selection-page .content table td
 {
 	border: 1px solid black;
 	padding: 0.25em;
@@ -255,7 +255,7 @@ fieldset.selection-page .list table td
 	empty-cells: hide;
 	margin-left: 0.25em;
 	margin-top: 1em;
-	width: 52em;
+	width: 100%;
 }
 
 .list table th
@@ -264,7 +264,7 @@ fieldset.selection-page .list table td
 	padding: 10px;
 	font-size: 0.9em;
 	white-space: nowrap;
-	text-align: left;
+	text-align: center;
 }
 
 .list table td
@@ -274,6 +274,16 @@ fieldset.selection-page .list table td
 	padding: 10px;
 	background-color: #cdf;
 	font-size: small;
+}
+
+.list input
+{
+	max-width: 7em;
+}
+
+.list select
+{
+	max-width: 7em;
 }
 
 /* Create new template */
@@ -298,4 +308,11 @@ fieldset.selection-page .list table td
 .templateDescription input
 {
 	width: 26em;
+}
+
+/* Phase selection */
+
+.phase-select select
+{
+	width: 12em;
 }

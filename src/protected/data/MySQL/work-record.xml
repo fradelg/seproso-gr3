@@ -15,15 +15,42 @@
 	<result property="State" column="estado" type="integer" />
 </resultMap>
 
-<select id="GetWorkRecordByID" resultMap="work-record-result">
-	SELECT * FROM RegistroTrabajo WHERE	idRegistroTrabajo = #value#
+<resultMap id="work-report-result" class="WorkReport">
+	<result property="ID" column="ID" type="integer" />
+	<result property="Worker" column="Worker" />
+	<result property="Activity" column="Activity" />
+	
+	<result property="Date" column="Date" typeHandler="DateTime" />
+	<result property="StartDate" column="StartDate" typeHandler="DateTime" />
+	<result property="EndDate" column="EndDate" typeHandler="DateTime" />
+	
+	<result property="Effort" column="Effort" type="float" />
+	<result property="Comentary" column="Comentary" />
+	<result property="State" column="State" type="integer" />
+</resultMap>
+
+<select id="GetWorkRecordByID" resultMap="work-report-result">
+	SELECT
+		CONCAT(Trabajador.nombre, ' ', Trabajador.apellidos) as Worker,
+		Actividad.nombre as Activity,
+		RegistroTrabajo.idRegistroTrabajo as ID,
+		RegistroTrabajo.fecha as Date,
+		RegistroTrabajo.inicio as StartDate,
+		RegistroTrabajo.final as EndDate,
+		RegistroTrabajo.esfuerzo as Effort,
+		RegistroTrabajo.comentario as Comentary,
+		RegistroTrabajo.estado as State
+	FROM 
+		RegistroTrabajo
+		LEFT JOIN Trabajador ON Trabajador.idUsuario = RegistroTrabajo.idUsuario
+		LEFT JOIN Actividad ON Actividad.idActividad = RegistroTrabajo.idActividad
+	WHERE
+		RegistroTrabajo.idRegistroTrabajo = #value#
 </select>
 
 <select id="GetWorkRecordsByWorkerAndActivity" resultMap="work-record-result">
 	SELECT * FROM RegistroTrabajo 
-	WHERE RegistroTrabajo.idUsario = #user# 
-		AND RegistroTrabajo.idActividad = #act#
-		AND RegistroTrabajo.estado = #state# 
+	WHERE idUsuario = #user# AND idActividad = #act# AND (estado = 0 OR estado = 1) 
 	ORDER BY RegistroTrabajo.fecha ASC
 </select>
 
@@ -32,7 +59,7 @@
 		RegistroTrabajo(idUsuario, idActividad, fecha, inicio, 
 						final, esfuerzo, comentario, estado)
 	VALUES
-		(#WorkerID#, #ActivityID#, #Date, typeHandler=DateTime#,
+		(#WorkerID#, #ActivityID#, NOW(),
 		#StartDate, typeHandler=DateTime#, #EndDate, typeHandler=DateTime#,
 		#Effort#, #Comentary#, #State#)
   <selectKey property="ID" type="post" resultClass="int">

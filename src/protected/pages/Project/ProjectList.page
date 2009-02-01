@@ -2,17 +2,7 @@
 <fieldset class="project-list">
 <legend>Proyectos en SEPROSO</legend>
 
-<style type="text/css">
-	table {	border-collapse: collapse; }
-	td, th {
-		border: 1px solid black;
-		padding: 10px;
-	}
-	th { text-align:left; }
-	input { max-width: 8em; }
-	select { max-width: 6em; }	
-</style>
-
+<div class="list">
 <com:TDataList ID="list"
 	RepeatLayout="Raw"
 	DataKeyField="Title"
@@ -20,7 +10,7 @@
 	OnCancelCommand="refreshEntryList"
 	OnUpdateCommand="updateEntryItem"
 	OnDeleteCommand="deleteEntryItem"
-	OnItemCreated="EntryItemCreated"  >
+	OnItemCreated="EntryItemCreated" >
 	<prop:EmptyTemplate>
 		Actualmente no existen proyectos en el sistema.
 	</prop:EmptyTemplate>
@@ -74,6 +64,7 @@
 	</prop:EditItemTemplate>	
 		
 </com:TDataList>
+</div>
 </fieldset>
 
 </com:TContent>

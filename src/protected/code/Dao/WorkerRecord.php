@@ -10,7 +10,6 @@ class WorkerRecord
 {
 	// worker
 	public $UserID = '';
-	public $Project = NULL;
 	public $RoleID = 0;
 
 	public $Name = '';

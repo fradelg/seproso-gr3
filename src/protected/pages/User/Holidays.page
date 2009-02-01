@@ -88,12 +88,5 @@
 	</div>
 </com:TView>
 
-<!-- Confirmation message page-->
-<com:TView>
-	<fieldset><legend>Confirmaci&oacute;n de solicitud</legend>
-		<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
-		El periodo introducido ha sido asignado correctamente en sus vacaciones.
-	</fieldset>
-</com:TView>
 </com:TMultiView>
 </com:TContent>

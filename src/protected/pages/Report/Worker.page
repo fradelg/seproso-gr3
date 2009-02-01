@@ -23,7 +23,7 @@
 	<com:TLabel ForControl="dateFrom" Text="Desde:"/>
 	<com:TDatePicker id="dateFrom" 
 		DateFormat="dd/MM/yyyy"
-		TimeStamp=<%= strtotime("-1 year") %>
+		TimeStamp=<%= strtotime("-1 month") %>
 		InputMode="DropDownList" />
 	</div>
 	<div class="date-to">
@@ -43,9 +43,88 @@
 	</div>
 
 	<div class="list">
-	<h2>Proyectos en que participa</h2> 
-	<h2>Vacaciones</h2> 
+	
+	<h2>Proyectos en que participa</h2>
+		<com:TRepeater ID="projectList">
+		<prop:EmptyTemplate>
+			El trabajador no participa en proyectos en este periodo.
+		</prop:EmptyTemplate>
+		<prop:HeaderTemplate>
+	  	<table>
+	  	<tr>
+	  		<th>Proyecto</th>
+	  		<th>Rol ocupado</th>
+	  		<th>Porcentaje</th>
+	  	</tr>
+		</prop:HeaderTemplate>
+		<prop:FooterTemplate>
+	  	</table>
+		</prop:FooterTemplate>
+		<prop:ItemTemplate>
+		<tr>
+			<td><%# h($this->DataItem->Project) %></td>
+			<td><%# h($this->DataItem->Role) %></td>
+			<td><%# h($this->DataItem->Part) %></td>
+	  	</tr>
+		</prop:ItemTemplate>	
+		</com:TRepeater>
+	
+	<h2>Vacaciones</h2>
+		<com:TRepeater ID="holidayList">
+		<prop:EmptyTemplate>
+			El trabajador no disfuta de vacaciones durante este periodo.
+		</prop:EmptyTemplate>
+		<prop:HeaderTemplate>
+	  	<table>
+	  	<tr>
+	  		<th>Inicio</th>
+	  		<th>Semanas</th>
+	  		<th>Motivo</th>
+	  	</tr>
+		</prop:HeaderTemplate>
+		<prop:FooterTemplate>
+	  	</table>
+		</prop:FooterTemplate>
+		<prop:ItemTemplate>
+		<tr>
+			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->StartDate %> /></td>
+			<td><%# h($this->DataItem->Duration) %></td>
+			<td><%# h($this->DataItem->Reason) %></td>
+	  	</tr>
+		</prop:ItemTemplate>	
+		</com:TRepeater>
+	
 	<h2>Actividades que desarrolla</h2>
+		<com:TRepeater ID="activityList">
+		<prop:EmptyTemplate>
+			El trabajador no tiene asignadas actividades durante este periodo.
+		</prop:EmptyTemplate>
+		<prop:HeaderTemplate>
+	  	<table>
+	  	<tr>
+	  		<th>Proyecto</th>
+	  		<th>Nombre</th>
+	  		<th>Descripci&oacute;n</th>
+	  		<th>Inicio</th>
+	  		<th>D</th>
+	  	</tr>
+		</prop:HeaderTemplate>
+		<prop:FooterTemplate>
+	  	</table>
+		</prop:FooterTemplate>
+		<prop:ItemTemplate>
+		<tr>
+			<td><%# h($this->DataItem->Project) %></td>
+			<td><%# h($this->DataItem->Activity) %></td>
+			<td><%# h($this->DataItem->Description) %></td>
+			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->Date %> /></td>
+			<td><%# h($this->DataItem->Effort) %></td>
+	  	</tr>
+		</prop:ItemTemplate>	
+		</com:TRepeater>
+	
 	</div>
 	
 	<div class="actions"> &nbsp;

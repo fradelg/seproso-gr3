@@ -1,33 +1,16 @@
 <com:TContent ID="Main">
-<h1>Informe de actividades asignadas</h1>
+<h1>Informe de actividades finalizadas o activas</h1>
 
-<fieldset class="resource-report">
-	<legend>Actividades asignadas</legend>
+<fieldset class="report">
+	<legend>Actividades finalizadas o activas</legend>
 	<com:TMultiView ID="views" ActiveViewIndex="0">
 	<com:TView>
-		<div class="step1">
-		<h2>Seleccione un periodo de tiempo</h2>
+		<div align="center">
+		<h2>Seleccione la fecha a consultar</h2>
 		<div class="date-from">
-		<com:TLabel ForControl="dateFrom" Text="Desde la fecha:"/>
+		<com:TLabel ForControl="date" Text="Fecha de referencia:"/>
 		<span class="required">*</span><br />
-		<com:TDatePicker id="dateFrom" 
-			DateFormat="dd/MM/yyyy"
-			TimeStamp=<%= strtotime("-1 year") %>
-			InputMode="DropDownList" />
-		</div>
-		<div class="date-to">
-		<com:TLabel ForControl="dateTo" Text="Hasta:"/>
-		<span class="required">*</span><br />
-		<com:TDatePicker id="dateTo" DateFormat="dd/MM/yyyy" InputMode="DropDownList"/>
-		<com:TCompareValidator
-			ControlToValidate="dateTo"
-			ControlToCompare="dateFrom"
-			DataType="Date"
-			Display="None"
-			ControlCssClass="required-input"
-			DateFormat="dd/MM/yyyy"
-			Operator="GreaterThanEqual"
-			ErrorMessage="La fecha final debe ser mayor o igual que la inicial." />
+		<com:TDatePicker id="date" DateFormat="dd/MM/yyyy" InputMode="DropDownList" />
 		</div>
 		</div>
 		<div class="actions">&nbsp;
@@ -43,32 +26,40 @@
 	
 	<com:TView>
 		<div class="date-range">
-		 <h3 class="begin">Fecha inicial:</h3>
-		 <h4 class="begin"><%= h($this->dateFrom->Date) %></h4> 	 
-		 <h3 class="end">Fecha final:</h3>
-		 <h4 class="end"><%= h($this->dateTo->Date) %></h4>
-		</div> 
-		<com:TRepeater ID="workers">
-		 	<div class="resource">
-		 	<prop:HeaderTemplate>
-				<table class="project">
-			 	<tr>
-			 		<th class="user">Trabajador</th>
-			 		<th class="category">Actividad</th>
-			 		<th class="description">Descripci&oacute;n</th>
-			 	</tr>
-			 </prop:HeaderTemplate>
-			 <prop:FooterTemplate>
-			 	</table>
-			 </prop:FooterTemplate>
-			 <prop:ItemTemplate>
-			 	<tr>
-			 		<td class="user"><%# h($this->DataItem->UserName) %></td>
-			 		<td class="category"><%# h($this->DataItem->ActivityName) %></td>
-			 		<td class="description"><%# h($this->DataItem->Description) %></td>
-			 	</tr>
-			 </prop:ItemTemplate>
+		 <h3 class="begin">Fecha:</h3>
+		 <h4 class="begin"><%= h($this->date->Date) %></h4>
+		</div>
+		<div class="list">
+		<com:TRepeater ID="activityList">
+		<prop:EmptyTemplate>
+			<br/>No hay actividades finalizadas o en curso para esta fecha.
+		</prop:EmptyTemplate>
+		<prop:HeaderTemplate>
+	  		<table>
+	  			<tr>
+	  				<th>Actividad</th>
+	  				<th>Inicio estimado</th>
+	  				<th>Inicio real</th>
+	  				<th>Tiempo estimado</th>
+	  				<th>Tiempo real</th>
+	  			</tr>
+		</prop:HeaderTemplate>
+		<prop:FooterTemplate>
+	  		</table>
+		</prop:FooterTemplate>
+		<prop:ItemTemplate>
+				<tr>
+					<td><%# h($this->DataItem->Activity) %></td>
+					<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+						Value=<%# $this->DataItem->EstimateDate %> /></td>
+					<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+						Value=<%# $this->DataItem->RealDate %> /></td>
+					<td><%# h($this->DataItem->EstimateTime) %></td>
+					<td><%# h($this->DataItem->RealTime) %></td>
+	  			</tr>
+		</prop:ItemTemplate>	
 		</com:TRepeater>
+		</div>
 	</com:TView>
 	
 	</com:TMultiView>

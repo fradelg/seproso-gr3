@@ -13,7 +13,7 @@
 		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ProjAdminMenu" />">
-		<a class="menuitem" href="?page=User.UserList">
+		<a class="menuitem" href="?page=Project.ProjectList">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/bell.gif" width="16" height="16" alt="">
 		<span>Proyectos</span></a>
 		<ul class="level2">
@@ -22,8 +22,8 @@
 		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ConfMenu" />">
-		<a class="menuitem" href="?page=User.UserList">
-		<img src="<%= $this->Page->Theme->BaseUrl %>/time.gif" width="16" height="16" alt="">
+		<a class="menuitem" href="?page=Project.Configuration">
+		<img src="<%= $this->Page->Theme->BaseUrl %>/bell.gif" width="16" height="16" alt="">
 		<span>Configuraci&oacute;n</span></a>
 	</li>
 	</com:TPlaceHolder>
@@ -42,13 +42,9 @@
 		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ActManagementMenu" />">
-		<a class="menuitem" href="?page=Project.ReviewAct">
+		<a class="menuitem" href="?page=Project.MonitorAct">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/time.gif" width="16" height="16" alt="">
 		<span>Actividades</span></a>
-		<ul class="level2">
-			<li><a href="?page=Project.ReviewAct">Supervisar</a></li>
-			<li><a href="?page=Project.ApproveAct">Aprobar</a></li>
-		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="ReportManagerMenu" />">
 		<a class="menuitem" href="?page=Report.ReportList">
@@ -78,7 +74,8 @@
 		<span>Vacaciones</span></a>
 	</li>
 	<com:TButton ID="managerViewButton" Text="Vista -> Jefe de proyecto" 
-		OnClick="changeToManagerView" Visible=<%= $this->User->IsInRole('manager') %> />
+		OnClick="changeToManagerView" 
+		Visible=<%= $this->User->IsInRole('manager') && $this->Session['managing'] %> />
 	</com:TPlaceHolder>
 
 <!-- PERSONAL MANAGER menu definition. Items: informe de personal, informe de ocupación -->
@@ -90,7 +87,7 @@
 		<span>Situaci&oacute;n de personal</span></a>
 	</li>
 	<li class="<com:TPlaceHolder ID="ReportWorkerMenu" />">
-		<a class="menuitem" href="?page=Report.Activities">
+		<a class="menuitem" href="?page=Report.WorkerActivities">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
 		<span>Informe de ocupaci&oacute;n</span></a>
 	</li>

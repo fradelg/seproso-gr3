@@ -1,18 +1,18 @@
 <com:TContent ID="Main">
 <h1>Gesti&oacute;n de actividades</h1>
 
-<fieldset class="selection-page">
+<fieldset>
 	<legend>Actividades</legend>
-	<div class="menu">
-	<h2>Fases</h2>
+	
+	<div class="phase-select">
 	<com:TLabel ForControl="phaseList" 
-		Text="Seleccione la fase que contiene las actividades: "/>
+		Text="Seleccione la fase del proyecto que contiene las actividades:"/>
 	<span class="required">*</span>
-	<com:TListBox ID="phaseList" CssClass="items" AutoPostBack="True"
-		OnSelectedIndexChanged="phaseChanged" />
+	<com:TDropDownList ID="phaseList" CssClass="items" AutoPostBack="True"
+		OnSelectedIndexChanged="phaseChanged" /><br/><hr/>
 	</div>
+	
 	<div class="list">
-	<h2>Actividades</h2>
 	<com:TDataList ID="actList"
 		RepeatLayout="Raw"
 		DataKeyField="ID"
@@ -21,13 +21,19 @@
 		OnUpdateCommand="updateEntryItem"
 		OnDeleteCommand="closeActivity"
 		OnItemCreated="EntryItemCreated" >
+		<prop:EmptyTemplate>
+			<br/>No hay actividades registradas para esta fase en concreto.
+		</prop:EmptyTemplate>
 		<prop:HeaderTemplate>
 		  <table>
 		  	<tr>
+		  		<th></th>
+		  		<th>#</th>
 		  		<th>Nombre</th>
 		  		<th>Descripci&oacute;n</th>
 		  		<th>Inicio</th>
-		  		<th>Duraci&oacute;n</th>
+		  		<th>H</th>
+		  		<th>-></th>
 		  	</tr>
 		</prop:HeaderTemplate>
 		<prop:FooterTemplate>
@@ -35,15 +41,20 @@
 		</prop:FooterTemplate>
 		<prop:ItemTemplate>
 		  <tr>
+		    <td><img src="<%= $this->Page->getStateImage($this->DataItem->State) %>" 
+		    	width="16" height="16" alt=""></td>
+		  	<td><%# h($this->DataItem->ID) %></td>
 		  	<td><%# h($this->DataItem->Name) %></td>
 		  	<td><%# h($this->DataItem->Description) %></td>
-		  	<td><%# h($this->DataItem->EstimateDate) %></td>
+		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->EstimateDate %> /></td>
 		  	<td><%# h($this->DataItem->EstimateDuration) %></td>
+		  	<td><%# h($this->DataItem->Preds) %></td>
 		  	<td>
 		  		<com:TButton Text="Editar" CommandName="edit"/>	  			
 		  		<com:TButton Text="Finalizar" CommandName="delete"
 		  			Attributes.onclick="if(!confirm(
-		  			'Esto da por finalizada la actividad. Continuar?')) return false;" />
+		  			'Esto da por finalizada esta actividad. Continuar?')) return false;" />
 		  	</td>
 		  </tr>
 		</prop:ItemTemplate>
@@ -67,6 +78,7 @@
 	<div class="buttons">
 		<com:TValidationSummary	AutoUpdate="false" />
 		<com:TButton Text="Agregar actividad" Onclick="addActivity"/>
+		<com:TButton ID="beginButton" Text="Iniciar proyecto" Onclick="beginProject"/>
 	</div>	
 	</div>
 </fieldset>

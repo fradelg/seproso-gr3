@@ -15,7 +15,7 @@ class ProjectRecord
 	public $Description = '';
 	public $Date = 0;
 	public $Burchet = 0;
-	public $Active = 0;
+	public $State = 0;
 }
 
 

@@ -20,26 +20,63 @@ class Activities extends TPage
 		
 		if(!$this->IsPostBack)
 		{
-			$this->phaseList->DataSource = $this->getPhases();
-			$this->phaseList->dataBind();	
+			$phases = $this->getPhases();
+			$this->phaseList->DataSource = $phases; 
+			$this->phaseList->dataBind();
+			$this->showList(key($phases));
+
+			if ($this->getProjectDao()->getProjectState($this->Project) != 0)
+				$this->beginButton->Visible = false;
 		}
 	}
 	
-	public function getPhases(){ 
+	/**
+	 * Returns image url for icon representing state
+	 * @param $state 0->Stopped, 1->Started, 2->Ended
+	 * @return ico image url
+	 */
+	public function getStateImage($state)
+	{
+		if ($state == 0)
+			$img = $this->Page->Theme->BaseUrl.'/stop.png';
+		else if ($state == 1)
+			$img = $this->Page->Theme->BaseUrl.'/start.png';
+		else if ($state == 2)
+			$img = $this->Page->Theme->BaseUrl.'/end.png';
+		
+		return $img;
+	}
+	
+	/**
+	 * Find and construct a list with all project phases
+	 * @return array phase list with ID => Name
+	 */
+	public function getPhases()
+	{ 
 		$phases = array();
 		foreach ($this->getProjectDao()->getPhasesByProject($this->Project) as $phase) 
 			$phases[$phase->ID] = $phase->Name;
 		return $phases;
 	}
+	/**
+	 * Find and construct a string with all activity precedents
+	 * @param $actID activity
+	 * @return string comma list with precedents
+	 */
+	public function getPredActivities($actID)
+	{
+		$preds = $this->getActivityDao()->getPredActivities($actID);
+		if (!count($preds)) return '-';
+		return implode(',', $preds);
+	}
 		
 	public function phaseChanged($sender, $param)
 	{
-		$this->showList();
+		$this->showList($this->phaseList->SelectedValue);
 	}
 	
-	protected function showList()
+	protected function showList($phase)
 	{	
-		$phase = $this->phaseList->SelectedValue;
 		$this->actList->DataSource = $this->getActivityDao()->getAllActivities($phase);
 		$this->actList->dataBind();
 	}
@@ -47,13 +84,13 @@ class Activities extends TPage
 	public function refreshEntryList()
 	{
 		$this->actList->EditItemIndex = -1;
-		$this->showList();
+		$this->showList($this->phaseList->SelectedValue);
 	}
 	
 	public function editEntryItem($sender, $param)
 	{
 		$this->actList->EditItemIndex = $param->Item->ItemIndex;
-		$this->showList();
+		$this->showList($this->phaseList->SelectedValue);
 	}	
 			
 	public function updateEntryItem($sender, $param)
@@ -76,8 +113,10 @@ class Activities extends TPage
 
 	public function EntryItemCreated($sender, $param)
 	{
-		if($param->Item->ItemType == 'EditItem' && $param->Item->DataItem)
-		{
+		$item = $param->Item;
+		if($item->ItemType==='Item' || $item->ItemType==='AlternatingItem'){
+			$item->DataItem->Preds = $this->getPredActivities($item->DataItem->ID);
+		} else if($param->Item->ItemType == 'EditItem' && $param->Item->DataItem) {
 //			$param->Item->category->DataSource = $this->getCategories();	
 //			$param->Item->category->dataBind();
 //			$param->Item->category->SelectedValue = $param->Item->DataItem->Category->ID;
@@ -87,21 +126,40 @@ class Activities extends TPage
 	public function closeActivity($sender, $param)
 	{
 		$id = $this->actList->DataKeys[$param->Item->ItemIndex];
-		$this->getActivityDao()->endActivity($id);
+		$duration = $this->getActivityDao()->getActivityDuration($id);
+		$this->getActivityDao()->endActivity($id, $duration);
 		
-		// Check other activities that could begin
+		// Check other activities that could begin (depends on other)
 		$actPost = $this->getActivityDao()->getPosteriorActivities($id);
 		foreach($actPost as $act){
 			if (!$this->getActivityDao()->existsActivePrecedents($act))
 				$this->getActivityDao()->beginActivity($act);
 		}
 		
+		// When not exists posterior activities, project is finished
+		if (count($actPost) == 0) 
+			$this->getProjectDao()->updateProjectState($this->Project, 2);
+		
 		$this->refreshEntryList();
 	}
 	
-	public function addActivity()
+	// Redirect to AddActivity page
+	public function addActivity($sender, $param)
 	{
 		$this->Response->redirect("?page=Project.AddActivity");
+	}
+	
+	// Change project state to mark as active
+	public function beginProject($sender, $param)
+	{
+		$this->beginButton->Visible = false;
+		$this->getProjectDao()->updateProjectState($this->Project, 1);
+		
+		// Start activities without precedents
+		$initActs = $this->getActivityDao()->getInitActivities($this->Project);
+		foreach($initActs as $act) $this->getActivityDao()->beginActivity($act);
+		
+		$this->refreshEntryList();
 	}
 }
 

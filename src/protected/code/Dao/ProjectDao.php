@@ -2,21 +2,21 @@
 /**
  * Project DAO class file.
  *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2006 PradoSoft
- * @license http://www.pradosoft.com/license/
- * @version $Id: ProjectDao.php 1578 2006-12-17 22:20:50Z wei $
- * @package Demos
+ * @author Grupo 3 - ISO 2 - UVA
  */
 
 /**
+ * Configuration record.
+ */
+class ConfigurationRecord
+{
+	public $Parameter = '';
+	public $Description = '';
+	public $Value = 0;
+}
+
+/**
  * Project DAO class.
- *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @version $Id: ProjectDao.php 1578 2006-12-17 22:20:50Z wei $
- * @package Demos
- * @since 3.1
  */
 class ProjectDao extends BaseDao
 {
@@ -37,13 +37,6 @@ class ProjectDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForObject('ModelTemplateExists', $projectName);
 	}
-	
-
-	public function addNewProject($project)
-	{
-		$sqlmap = $this->getSqlMap();
-		$sqlmap->insert('CreateNewProject', $project);
-	}
 
 	public function getProjectByID($projectID)
 	{
@@ -61,6 +54,12 @@ class ProjectDao extends BaseDao
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForObject('GetProjectModel', $name);
+	}
+	
+	public function getProjectState($name)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetProjectState', $name);
 	}
 	
 	public function getPhasesByTemplate($template)
@@ -93,12 +92,24 @@ class ProjectDao extends BaseDao
 		return $sqlmap->queryForList('GetAllModelTemplates');
 	}
 	
-	public function getPhaseChildren($phase)
+	public function getPhasesByParent($phase)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetPhaseChildren', $phase);
+		return $sqlmap->queryForList('GetPhasesByParent', $phase);
+	}
+	
+	public function getAllParameters()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetAllParameters');
 	}
 
+	public function addNewProject($project)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->insert('CreateNewProject', $project);
+	}
+	
 	public function addNewPhase($phase)
 	{
 		$sqlmap = $this->getSqlMap();
@@ -137,12 +148,27 @@ class ProjectDao extends BaseDao
 		$sqlmap->update('UpdateProjectModel', $param);
 	}
 	
+	public function updateProjectState($project, $state)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['title'] = $project;
+		$param['state'] = $state;
+		$sqlmap->update('UpdateProjectState', $param);
+	}
+	
+	public function updateParameter($paramID, $value)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['param'] = $paramID;
+		$param['value'] = $value;
+		$sqlmap->update('UpdateParameter', $param);
+	}
+	
 	public function deleteProject($projectID)
 	{
 		$sqlmap = $this->getSqlMap();
 		$sqlmap->delete('DeleteProject', $projectID);
 	}
-	
 }
 
 ?>

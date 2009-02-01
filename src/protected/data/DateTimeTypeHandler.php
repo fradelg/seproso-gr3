@@ -21,13 +21,13 @@ class DateTimeTypeHandler extends TSqlMapTypeHandler
 	}
 
 	/**
-	 * Creates a new instance of TimeTrackerUser
+	 * Creates a new instance of DateTime
 	 * @param array result data
-	 * @return TimeTrackerUser new user instance
+	 * @return DateTime new instance
 	 */
 	public function createNewInstance($row=null)
 	{
-		throw new TimeTrackerException('Not implemented');
+		return 0;
 	}
 
 }

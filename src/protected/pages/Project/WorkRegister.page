@@ -41,7 +41,7 @@
   		Display="None"
   		ValidationGroup="hours-add"
   		ControlCssClass="required-input1"
-  		ErrorMessage="El número de horas debe ser un valor entre 0 y 9999" />
+  		ErrorMessage="El n&uacute;mero de horas debe estar entre 0 y 9999" />
   </div>
 
 <div class="description">
@@ -55,9 +55,15 @@
 </div>
 </com:TView>
 
-<com:TView>
+<com:TView> 
+	<!-- Redirection after 2 secons to previous form -->
+	<script language="javascript">
+		function redirect() { window.location = "?page=Project.WorkRegister" } 
+		setTimeout('redirect()', 2000); 
+	</script>
 	<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
 	El informe de actividad ha sido almacenado con &eacute;xito.
+	<h5> A continuaci&oacute;n ser&aacute; redirigido a la p&aacute;gina anterior.</h5>
 </com:TView>
 </com:TMultiView>
 

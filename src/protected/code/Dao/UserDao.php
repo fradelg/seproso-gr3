@@ -35,12 +35,15 @@ class UserDao extends BaseDao
 	
 	/**
 	 * @param string username
-	 * @return string project name
+	 * @param string project name
+	 * @return string user role in this project
 	 */
-	public function getProject($username)
+	public function getRoleInProject($username, $project)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForObject('GetProject', $username);
+		$param['user'] = $username;
+		$param['project'] = $project;
+		return $sqlmap->queryForObject('GetRoleInProject', $param);
 	}
 	
 	/**

@@ -22,7 +22,16 @@ class WorkerDao extends BaseDao
 	}
 	
 	/**
-	 * @return array list with all partipants in one project.
+	 * @return array list with all worker data in a project.
+	 */
+	public function getWorkersInProject($projectID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetWorkersInProject', $projectID);
+	}
+	
+	/**
+	 * @return array list with partipant data for a project.
 	 */
 	public function getProjectWorkers($projectID)
 	{
@@ -31,12 +40,12 @@ class WorkerDao extends BaseDao
 	}
 	
 	/**
-	 * @return array list with all free workers.
+	 * @return array list with all avalaible workers for a project.
 	 */
-	public function getFreeWorkers($project)
+	public function getWorkersForProject($project)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetFreeWorkers', $project);
+		return $sqlmap->queryForList('GetWorkersForProject', $project);
 	}
 	
 	/**

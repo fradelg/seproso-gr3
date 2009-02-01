@@ -13,11 +13,6 @@
 	<result property="RealDuration" column="tiempoReal" type="float" />
 	<result property="EstimateDuration" column="tiempoEstimado" type="float" />
 	<result property="State" column="estado" type="integer" />
-<!--<result property="Preds" type="array" resultMapping="pred-activities" />-->
-</resultMap>
-
-<resultMap id="pred-activities" class="array">
-	<result column="predecesora" />
 </resultMap>
 
 <resultMap id="act-type-result" class="array">
@@ -25,12 +20,23 @@
 	<result property="Type" column="tipo" />
 </resultMap>
 
-<select id="GetActivitiesByID" parameterClass="int" resultMap="activity-result">
+<select id="GetActivityByID" parameterClass="int" resultMap="activity-result">
 	SELECT * FROM Actividad WHERE idActividad = #value#
 </select>
 
 <select id="GetAllActivities" parameterClass="int" resultMap="activity-result">
 	SELECT * FROM Actividad WHERE idFase = #value# GROUP BY idActividad
+</select>
+
+<select id="GetAllActivitiesByProject" resultMap="activity-result">
+	SELECT
+		Actividad.*
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+	WHERE
+		Proyecto.titulo = #value#
 </select>
 
 <select id="GetTypesOfActivities" resultMap="act-type-result">
@@ -43,13 +49,32 @@
 
 <select id="GetActivitiesByWorker" resultMap="activity-result">
 	SELECT
-		*
+		Actividad.*
 	FROM 
-		Actividad
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
 		LEFT JOIN Trabajador_has_Actividad ON 
 			Trabajador_has_Actividad.idActividad = Actividad.idActividad
 	WHERE
-		Trabajador_has_Actividad.idUsuario = #value# 
+		Proyecto.titulo = #project#
+		AND Trabajador_has_Actividad.idUsuario = #worker#
+</select>
+
+<select id="GetInitActivities" resultClass="int">
+	SELECT 
+		Actividad.idActividad 
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase 
+	WHERE 
+		Proyecto.titulo = #value# AND NOT IN
+		(SELECT actividad FROM Actividad_Predecesora)
+</select>
+
+<select id="GetPrecedentActivities" resultClass="int">
+	SELECT predecesora FROM Actividad_Predecesora WHERE actividad = #value#
 </select>
 
 <select id="GetPosteriorActivities" resultClass="int">
@@ -68,18 +93,8 @@
 ]]>
 </select>
 
-<select id="GetCategoryByNameInProject" parameterClass="array" resultMap="activity-result">
-	SELECT 
-		categories.*,
-		sum(time_entry.Duration) as RealDuration
-	FROM
-		categories
-		LEFT JOIN time_entry ON categories.CategoryID = time_entry.CategoryID
-	WHERE
-			categories.ProjectID = #project#
-		AND categories.Name = #category#
-	GROUP BY
-		categories.CategoryID
+<select id="GetActivityDuration" parameterClass="int" resultClass="float">
+	SELECT SUM(esfuerzo) FROM RegistroTrabajo WHERE idActividad = #value#
 </select>
 
 <insert id="AddNewActivity" parameterClass="ActivityRecord">
@@ -133,11 +148,12 @@
 </update>
 
 <update id="BeginActivity" parameterClass="integer">
-	UPDATE Actividad SET estado = 1 WHERE idActividad = #value#
+	UPDATE Actividad SET estado = 1, inicioReal = NOW() WHERE idActividad = #value#
 </update>
 
-<update id="EndActivity" parameterClass="integer">
-	UPDATE Actividad SET estado = 2 WHERE idActividad = #value#
+<update id="EndActivity" parameterClass="array">
+	UPDATE Actividad SET estado = 2, tiempoReal = #time#  
+	WHERE idActividad = #act#
 </update>
 
 <delete id="DeleteActivity" parameterClass="integer">

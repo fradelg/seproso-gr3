@@ -3,7 +3,6 @@
 
 <resultMap id="seproso-worker" class="WorkerRecord" >
 	<result property="UserID" column="UserName" />
-	<result property="Project" column="Project" />
 	<result property="RoleID" column="Role" />
 	<result property="Name" column="Name" />
 	<result property="Surname" column="Surname" />
@@ -29,7 +28,6 @@
 <select id="GetWorkerByID" resultMap="seproso-worker">
 	SELECT 
 		idUsuario as UserName,
-		idProyecto as Project,
 		idRol as Role,
 		nombre as Name,
 		apellidos as Surname,
@@ -54,17 +52,48 @@
 		LEFT JOIN Usuario ON Usuario.nick = Trabajador.idUsuario
 </select>
 
-<select id="GetFreeWorkers" resultMap="seproso-worker">
+<select id="GetWorkersForProject" resultMap="seproso-worker">
 	SELECT
+		Trabajador.idUsuario as UserName,
 		Trabajador.nombre as Name,
-		Trabajador.apellidos as Surname,
-		Trabajador.idUsuario as UserName
+		Trabajador.apellidos as Surname
 	FROM 
 		Trabajador
 		LEFT JOIN Participacion ON Participacion.idUsuario = Trabajador.idUsuario
 	WHERE
-		Trabajador.idUsuario NOT IN (
-		SELECT idUsuario FROM Participacion WHERE idProyecto = #value#)
+		Trabajador.idUsuario NOT IN
+			<!-- Workers already in project -->
+			(SELECT idUsuario FROM Participacion WHERE idProyecto = #value#)
+		AND Trabajador.idUsuario NOT IN
+			<!-- Workers with too projects or managers with two -->
+			(SELECT 
+				NumProyectos.nombre
+			FROM
+				Configuracion,
+				(SELECT 
+					idUsuario as nombre, 
+					COUNT(idProyecto) as numero,
+					SUM(porcentaje) as porcentaje 
+				FROM Participacion 
+				GROUP BY idUsuario) NumProyectos
+				LEFT JOIN Participacion ON Participacion.idUsuario = NumProyectos.nombre
+			WHERE
+				Configuracion.parametro = 'participacion_max'
+				AND (NumProyectos.numero = Configuracion.valor
+				OR (NumProyectos.numero = 2	AND Participacion.idRol = 'Jefe de proyecto'))
+				OR NumProyectos.porcentaje = 100)
+</select>
+
+<select id="GetWorkersInProject" resultMap="seproso-worker">
+	SELECT
+		Trabajador.idUsuario as UserName,
+		Trabajador.nombre as Name,
+		Trabajador.apellidos as Surname
+	FROM 
+		Trabajador
+		LEFT JOIN Participacion ON Participacion.idUsuario = Trabajador.idUsuario
+	WHERE
+		Participacion.idProyecto = #value#
 </select>
 
 <select id="GetProjectManagers" resultClass="string">
@@ -135,9 +164,9 @@
 
 <insert id="AddNewWorker" parameterClass="WorkerRecord">
 	INSERT INTO 
-		Trabajador (idUsuario, idRol, idProyecto, nombre, apellidos, fnacimiento)
+		Trabajador (idUsuario, idRol, nombre, apellidos, fnacimiento)
 	VALUES
-		(#UserID#, #RoleID#, #Project#, #Name#, #Surname#, 
+		(#UserID#, #RoleID#, #Name#, #Surname#, 
 		#BirthDate, typeHandler=DateTimeTypeHandler#)
 </insert>
 
@@ -161,7 +190,7 @@
 	SET 
 		nombre = #Name#,
 		apellidos = #Surname#,
-		fnacimiento = #BirthDate#,
+		fnacimiento = #BirthDate, typeHandler=DateTimeTypeHandler#,
 		idRol = #RoleID#
 	WHERE 
 		idUsuario = #UserID#

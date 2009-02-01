@@ -93,13 +93,5 @@
 </fieldset>
 </com:TView>
 
-<!-- Success confirmation message -->
-<com:TView>
-	<fieldset>
-		<legend>Nuevo participante</legend>
-		<img src="<%= $this->Page->Theme->BaseUrl %>/ok.gif" width="32" height="32" alt="">
-		El trabajador ha sido incluido como partipante en el proyecto con &eacute;xito.
-	</fieldset>
-</com:TView>
 </com:TMultiView>
 </com:TContent>

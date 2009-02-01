@@ -8,6 +8,13 @@
 	<result property="Categories" type="TList" resultMapping="category-user-report" />
 </resultMap>
 
+<resultMap id="project-category-user" class="ProjectReport" GroupBy="ProjectID">
+	<result property="ProjectName" column="ProjectName" />
+	<result property="EstimateHours" column="ProjectEstimate" type="float"/>
+	<result property="EstimateCompletion" column="ProjectCompletion" type="DateTime" />
+	<result property="Categories" type="TList" resultMapping="category-user-report" />
+</resultMap>
+
 <resultMap id="category-user-report" class="CategoryReport" GroupBy="CategoryID" >
 	<result property="CategoryName" column="CategoryName" />
 	<result property="EstimateHours" column="CategoryEstimate" type="float" />
@@ -82,6 +89,419 @@
   		time_entry.EntryDate ASC,
   		project.Name ASC,
   		categories.Name ASC
+</select>
+
+<!-- Significant project dates -->
+
+<resultMap id="project-date" class="array">
+	<result property="date" column="Date" typeHandler="DateTimeTypeHandler" />
+</resultMap>
+
+<select id="GetProjectInit" resultMap="project-date">
+	SELECT
+		MIN(Actividad.inicioEstimado) as Date
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+	WHERE
+		Proyecto.titulo = #value#
+</select>
+
+<select id="GetProjectEnd" resultMap="project-date">
+	SELECT
+		ADDDATE(MAX(Actividad.inicioEstimado), Actividad.duracionEstimada) as Date
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+	WHERE
+		Proyecto.titulo = #value#
+</select>
+
+<!-- MANAGER REPORT SET -->
+
+<select id="GetActiveWorkers" parameterClass="array">
+<![CDATA[
+	SELECT
+		CONCAT(Trabajador.nombre, ' ', Trabajador.apellidos)
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN Trabajador_has_Actividad ON 
+			Trabajador_has_Actividad.idActividad = Actividad.idActividad
+		LEFT JOIN Trabajador ON 
+			Trabajador.idUsuario = Trabajador_has_Actividad.idUsuario
+	WHERE
+		Proyecto.titulo = #project#
+		AND Actividad.estado = 1
+		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+	GROUP BY
+		Trabajador.idUsuario
+]]>
+</select>
+
+<select id="GetAsignedActs" parameterClass="array" resultMap="worker-activity-report">
+<![CDATA[
+	SELECT
+		Trabajador.idUsuario as UserID,
+		CONCAT(Trabajador.apellidos, ', ', Trabajador.nombre) as WorkerName,
+		Proyecto.titulo as Project,
+		Actividad.nombre as Activity,
+		Actividad.descripcion as Description,
+		Actividad.inicioEstimado as Date,
+		Actividad.tiempoEstimado as Effort
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN Trabajador_has_Actividad ON 
+			Trabajador_has_Actividad.idActividad = Actividad.idActividad
+		LEFT JOIN Trabajador ON 
+			Trabajador.idUsuario = Trabajador_has_Actividad.idUsuario
+	WHERE
+		Proyecto.titulo = #project#
+		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+]]>
+</select>
+
+<resultMap id="worker-act-report" class="WorkerActivityReport">
+	<result property="ID" column="ID" />
+	<result property="Worker" column="Worker" />
+	<result property="Activity" column="Activity" />
+	<result property="Date" column="Date" typeHandler="DateTimeTypeHandler" />
+	<result property="Effort" column="Effort" type="float" />
+</resultMap>
+
+<select id="GetReviewWorkRecords" resultMap="worker-act-report">
+	SELECT
+		CONCAT(Trabajador.nombre, ' ', Trabajador.apellidos) as Worker,
+		Actividad.nombre as Activity,
+		Informe.idRegistroTrabajo as ID,
+		Informe.fecha as Date
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN RegistroTrabajo Informe ON Informe.idActividad = Actividad.idActividad
+		LEFT JOIN Trabajador ON Trabajador.idUsuario = Informe.idUsuario
+	WHERE
+		Proyecto.titulo = #value# AND Informe.estado = 0
+	ORDER BY
+		Trabajador.idUsuario
+</select>
+
+<select id="GetApproveWorkRecords" resultMap="worker-act-report">
+	SELECT
+		CONCAT(Trabajador.nombre, ' ', Trabajador.apellidos) as Worker,
+		Actividad.nombre as Activity,
+		Informe.idRegistroTrabajo as ID,
+		Informe.fecha as Date
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN RegistroTrabajo Informe ON Informe.idActividad = Actividad.idActividad
+		LEFT JOIN Trabajador ON Trabajador.idUsuario = Informe.idUsuario
+	WHERE
+		Proyecto.titulo = #value#
+		AND Informe.estado = 1
+</select>
+
+<resultMap id="plan-act-report" class="PlanActivityReport" groupBy="ActivityID">
+	<result property="Activity" column="Activity" />
+	<result property="Description" column="Description" />
+	<result property="EstimateDate" column="EstimateDate" typeHandler="DateTimeTypeHandler" />
+	<result property="RealDate" column="RealDate" typeHandler="DateTimeTypeHandler" />
+	<result property="EstimateTime" column="EstimateTime" />
+	<result property="RealTime" column="RealTime" />
+	<result property="Delay" column="Delay" type="float" />
+	<result property="Workers" type="array" resultMapping="worker-report" />
+</resultMap>
+
+<resultMap id="worker-report">
+	<result property="Name" column="Worker" />
+</resultMap>
+
+<select id="GetCurrentActs" parameterClass="array" resultMap="plan-act-report">
+<![CDATA[
+	SELECT
+		Actividad.nombre as Activity,
+		Actividad.inicioEstimado as EstimateDate,
+		Actividad.inicioReal as RealDate,
+		Actividad.tiempoEstimado as EstimateTime,
+		SUM(RegistroTrabajo.esfuerzo) as RealTime
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN RegistroTrabajo ON RegistroTrabajo.idActividad = Actividad.idActividad
+	WHERE
+		Proyecto.titulo = #project#
+		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+		AND Actividad.estado = 1
+	GROUP BY
+		Actividad.idActividad
+]]>
+</select>
+
+<select id="GetPlannedActs" parameterClass="array" resultMap="plan-act-report">
+<![CDATA[
+	SELECT
+		Actividad.nombre as Activity,
+		Actividad.inicioEstimado as EstimateDate,
+		Actividad.inicioReal as RealDate,
+		Actividad.tiempoEstimado as EstimateTime,
+		SUM(RegistroTrabajo.esfuerzo) as RealTime
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN RegistroTrabajo ON RegistroTrabajo.idActividad = Actividad.idActividad
+	WHERE
+		Proyecto.titulo = #project#
+		AND Actividad.inicioEstimado = #date, typeHandler=DateTimeTypeHandler#
+		AND Actividad.estado != 0 
+	GROUP BY
+		Actividad.idActividad
+]]>
+</select>
+
+<select id="GetDelayedActs" parameterClass="array" resultMap="plan-act-report">
+<![CDATA[
+	SELECT
+		Actividad.nombre as Activity,
+		Actividad.tiempoEstimado as EstimateTime,
+		SUM(RegistroTrabajo.esfuerzo) as RealTime,
+		SUM(RegistroTrabajo.esfuerzo) - Actividad.tiempoEstimado as Delay
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN RegistroTrabajo ON RegistroTrabajo.idActividad = Actividad.idActividad
+	WHERE
+		Proyecto.titulo = #project#
+		AND Actividad.estado != 0
+	GROUP BY
+		Actividad.idActividad
+]]>
+</select>
+
+<select id="GetFutureActs" parameterClass="array" resultMap="plan-act-report">
+<![CDATA[
+	SELECT
+		Actividad.idActividad as ActivityID,
+		Actividad.nombre as Activity,
+		Actividad.descripcion as Description,
+		Actividad.inicioEstimado as EstimateDate,
+		CONCAT(Trabajador.nombre, ' ', Trabajador.apellidos) as Worker
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN Trabajador_has_Actividad ON 
+			Trabajador_has_Actividad.idActividad = Actividad.idActividad
+		LEFT JOIN Trabajador ON 
+			Trabajador.idUsuario = Trabajador_has_Actividad.idUsuario
+	WHERE
+		Proyecto.titulo = #project#
+		AND Actividad.estado = 0
+		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+]]>
+</select>
+
+<select id="GetFutureWorkers" parameterClass="array" resultMap="worker-activity-report">
+<![CDATA[
+	SELECT
+		Trabajador.idUsuario as UserID,
+		CONCAT(Trabajador.apellidos, ', ', Trabajador.nombre) as WorkerName,
+		Actividad.nombre as Activity,
+		Actividad.descripcion as Description,
+		Actividad.inicioEstimado as Date,
+		Actividad.tiempoEstimado as Effort
+	FROM
+		Trabajador
+		LEFT JOIN Trabajador_has_Actividad ON 
+			Trabajador_has_Actividad.idUsuario = Trabajador.idUsuario
+		LEFT JOIN Actividad ON 
+			Actividad.idActividad = Trabajador_has_Actividad.idActividad
+		LEFT JOIN Fase ON Fase.idFase = Actividad.idFase
+		LEFT JOIN Proyecto ON Proyecto.idModelo = Fase.idModelo
+	WHERE
+		Proyecto.titulo = #project# 
+		AND Actividad.estado = 0
+		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+	ORDER BY
+		Trabajador.apellidos
+]]>
+</select>
+
+<select id="GetSummary" resultMap="activity-result">
+	SELECT
+		Actividad.*
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+	WHERE
+		Proyecto.titulo = #value#
+		AND Proyecto.activo = 2
+		AND Actividad.estado = 2
+</select>
+
+<!-- DEVELOPER REPORT SET -->
+
+<select id="GetWorkRecordReport" parameterClass="array" resultMap="work-report-result">
+<![CDATA[
+	SELECT
+		Actividad.nombre as Activity,
+		Trabajo.idRegistroTrabajo as ID,
+		Trabajo.fecha as Date,
+		Trabajo.inicio as StartDate,
+		Trabajo.final as EndDate,
+		Trabajo.esfuerzo as Effort,
+		Trabajo.comentario as Comentary,
+		Trabajo.estado as State
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN RegistroTrabajo Trabajo ON Trabajo.idActividad = Actividad.idActividad
+	WHERE
+		Proyecto.titulo = #project#	AND Trabajo.idUsuario = #user#
+		AND Trabajo.fecha >= #start, typeHandler=DateTimeTypeHandler#
+		AND Trabajo.fecha <= #end, typeHandler=DateTimeTypeHandler#
+	ORDER BY
+		Trabajo.fecha
+]]>
+</select>
+
+<select id="GetActEffortReport" parameterClass="array" resultMap="worker-act-report">
+<![CDATA[
+	SELECT
+		Actividad.nombre as Activity,
+		Actividad.inicioReal as Date,
+		SUM(Trabajo.esfuerzo) as Effort
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
+		LEFT JOIN RegistroTrabajo Trabajo ON Trabajo.idActividad = Actividad.idActividad
+	WHERE
+		Proyecto.titulo = #project#
+		AND Proyecto.activo = 0
+		AND Trabajo.idUsuario = #user#
+	GROUP BY
+		Actividad.idActividad
+]]>
+</select>
+
+<!-- PERSONAL REPORT SET -->
+
+<resultMap id="project-worker-report" class="WorkerProjectReport">
+	<result property="Project" column="Project" />
+	<result property="Role" column="Role" />
+	<result property="Part" column="Part" type="float" />
+</resultMap>
+
+<select id="GetWorkerProjects" resultMap="project-worker-report">
+	SELECT
+		Proyecto.titulo as Project,
+		Participacion.idRol as Role,
+		Participacion.porcentaje as Part
+	FROM
+		Participacion
+		LEFT JOIN Proyecto ON Proyecto.titulo = Participacion.idProyecto
+	WHERE
+		Participacion.idUsuario = #value#
+		AND Proyecto.activo = 1
+</select>
+
+<resultMap id="holiday-result" class="HolidayRecord" >
+	<result property="UserID" column="idUsuario" />
+	<result property="StartDate" column="fechaInicio" typeHandler="DateTimeTypeHandler" />
+	<result property="Duration" column="duracion" />
+	<result property="Reason" column="razon" />
+</resultMap>
+
+<select id="GetWorkerHolidaysByPeriod" parameterClass="array" resultMap="holiday-result">
+<![CDATA[
+	SELECT * FROM PeriodoVacacional 
+	WHERE 
+		idUsuario = #user# AND
+		((fechaInicio >= #start, typeHandler=DateTimeTypeHandler# AND
+		fechaInicio <= #end, typeHandler=DateTimeTypeHandler#) OR
+		(ADDDATE(fechaInicio, 7*duracion) > #start, typeHandler=DateTimeTypeHandler# AND
+		ADDDATE(fechaInicio, 7*duracion) < #end, typeHandler=DateTimeTypeHandler#))
+]]>
+</select>
+
+<resultMap id="worker-activity-report" class="WorkerActivitiesReport" GroupBy="UserID" >
+	<result property="Worker" column="WorkerName" />
+	<result property="Activities" type="TList" resultMapping="project-activity-report" />
+</resultMap>
+
+<resultMap id="project-activity-report" class="ProjectActivityReport" >
+	<result property="Project" column="Project" />
+	<result property="Activity" column="Activity" />
+	<result property="Description" column="Description" />
+	<result property="Date" column="Date"  typeHandler="DateTimeTypeHandler" />
+	<result property="Effort" column="Effort" type="float" />
+</resultMap>
+
+<select id="GetWorkerActivitiesByPeriod" parameterClass="array" 
+	resultMap="project-activity-report">
+<![CDATA[
+	SELECT
+		Proyecto.titulo as Project,
+		Actividad.nombre as Activity,
+		Actividad.descripcion as Description,
+		Actividad.inicioEstimado as Date,
+		Actividad.tiempoEstimado as Effort
+	FROM 
+		Trabajador_has_Actividad Worker 
+		LEFT JOIN Actividad ON Actividad.idActividad = Worker.idActividad
+		LEFT JOIN Fase ON Fase.idFase = Actividad.idFase
+		LEFT JOIN Proyecto ON Proyecto.idModelo = Fase.idModelo
+	WHERE
+		Worker.idUsuario = #user# 
+		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+	ORDER BY
+		Actividad.inicioEstimado
+]]>
+</select>
+
+<select id="GetWorkerActivitiesReport" resultMap="worker-activity-report">
+<![CDATA[
+	SELECT
+		Trabajador.idUsuario as UserID,
+		CONCAT(Trabajador.apellidos, ', ', Trabajador.nombre) as WorkerName,
+		Proyecto.titulo as Project,
+		Actividad.nombre as Activity,
+		Actividad.descripcion as Description,
+		Actividad.inicioEstimado as Date,
+		Actividad.tiempoEstimado as Effort
+	FROM
+		Trabajador
+		LEFT JOIN Trabajador_has_Actividad ON 
+			Trabajador_has_Actividad.idUsuario = Trabajador.idUsuario
+		LEFT JOIN Actividad ON 
+			Actividad.idActividad = Trabajador_has_Actividad.idActividad
+		LEFT JOIN Fase ON Fase.idFase = Actividad.idFase
+		LEFT JOIN Proyecto ON Proyecto.idModelo = Fase.idModelo
+	WHERE
+		Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+	ORDER BY
+		Trabajador.apellidos
+]]>
 </select>
 
 </sqlMap>

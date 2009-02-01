@@ -8,7 +8,7 @@
 	<result property="Description" column="Description" />
 	<result property="Date" column="Date" typeHandler="DateTimeTypeHandler" />
 	<result property="Burchet" column="Burchet" type="float" />
-	<result property="Active" column="Active" />
+	<result property="State" column="State" />
 </resultMap>
 
 <resultMap id="phase-result" class="PhaseRecord">
@@ -24,6 +24,12 @@
 	<result property="Template" column="Template"/>
 	<result property="Name" column="Name" />
 	<result property="Description" column="Description" />
+</resultMap>
+
+<resultMap id="parameter-result" class="ConfigurationRecord">
+	<result property="Parameter" column="parametro" />
+	<result property="Description" column="descripcion" />
+	<result property="Value" column="valor" type="int" />
 </resultMap>
 
 <select id="ProjectNameExists" resultClass="boolean">
@@ -52,7 +58,7 @@
 		descripcion as Description,
 		fecha as Date,
 		presupuesto as Burchet,
-		activo as Active
+		estado as State
 	FROM 
 		Proyecto
 </select>
@@ -65,7 +71,7 @@
 		Proyecto.descripcion Description,
 		Proyecto.fecha as Date,
 		Proyecto.presupuesto as Burchet,
-		Proyecto.activo as Active
+		Proyecto.estado as State
 	FROM Proyecto
 	WHERE 
 		Proyecto.idProyecto = #value# 
@@ -83,7 +89,7 @@
 		Proyecto.descripcion Description,
 		Proyecto.fecha as Date,
 		Proyecto.presupuesto as Burchet,
-		Proyecto.activo as Active
+		Proyecto.estado as State
 	FROM Proyecto, participacion
 	WHERE 
 		participacion.idUsuario = #value# 
@@ -94,6 +100,10 @@
 
 <select id="GetProjectModel" resultClass="int">
 	SELECT idModelo FROM Proyecto WHERE titulo = #value#
+</select>
+
+<select id="GetProjectState" resultClass="int">
+	SELECT estado FROM Proyecto WHERE titulo = #value#
 </select>
 
 <select id="GetAllModelTemplates" resultClass="string">
@@ -142,7 +152,7 @@
 		Proyecto.titulo = #value#
 </select>
 
-<select id="GetPhaseChildren" resultMap="phase-result">
+<select id="GetPhasesByParent" resultMap="phase-result">
 	SELECT 
 		idFase as ID,
 		idModelo as ProcessID,
@@ -155,11 +165,15 @@
 		idFasePadre = #value#
 </select>
 
+<select id="GetAllParameters" resultMap="parameter-result">
+	SELECT * FROM Configuracion
+</select>
+
 <insert id="CreateNewProject" parameterClass="ProjectRecord">
 	INSERT INTO Proyecto
-	(titulo, idJefe, idModelo, descripcion, fecha, presupuesto, activo)
+	(titulo, idJefe, idModelo, descripcion, fecha, presupuesto, estado)
 	VALUES
-	(#Title#, #ManagerID#, #ProcessID#,	#Description#, NOW(), #Burchet#, #Active#)
+	(#Title#, #ManagerID#, #ProcessID#,	#Description#, NOW(), #Burchet#, #State#)
 </insert>
 
 <insert id="AddNewModel" parameterClass="ProcessRecord" resultClass="int" >
@@ -224,6 +238,13 @@
 	UPDATE Proyecto	SET	idModelo = #model# WHERE titulo = #title#
 </update>
 
+<update id="UpdateProjectState" parameterClass="array">
+	UPDATE Proyecto	SET	estado = #state# WHERE titulo = #title#
+</update>
+
+<update id="UpdateParameter" parameterClass="array">
+	UPDATE Configuracion SET valor = #value# WHERE parametro = #param#
+</update>
 
 <delete id="DeleteProject">
 	DELETE FROM Proyecto WHERE titulo = #value#

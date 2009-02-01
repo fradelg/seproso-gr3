@@ -7,7 +7,7 @@
                   AssignedActs, DelayedActs, FutureActs, FutureWorkers, 
                   PlannedActs, ReviewActs, Summary" roles="manager" />
 	  <allow pages="WorkRegisters, Summary" roles="developer" />
-    <allow pages="Activities, Worker" roles="personal" />
+    <allow pages="Worker, WorkerActivities" roles="personal" />
     <deny users="*" />
   </authorization>
 

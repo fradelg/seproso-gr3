@@ -1,7 +1,8 @@
 <?php
 
-class ActiveWorkers extends TPage
+class AssignedActs extends TPage
 {
+
 	// Bind report data to Repeater 
 	public function generateReport($sender, $param)
 	{
@@ -14,8 +15,16 @@ class ActiveWorkers extends TPage
 
 		// Bind query data to TRepeater
 		$this->workerList->DataSource = 
-			$reportDao->getActiveWorkers($this->Session['project'], $start, $end);
+			$reportDao->getAsignedActs($this->Session['project'], $start, $end);
 		$this->workerList->dataBind();		
+	}
+	
+	// New worker created slot
+	public function workerCreated($sender, $param)
+	{
+		$item = $param->Item;
+		if($item->ItemType==='Item' || $item->ItemType==='AlternatingItem')
+			$item->activityList->DataSource = $item->DataItem->Activities;
 	}
 }
 

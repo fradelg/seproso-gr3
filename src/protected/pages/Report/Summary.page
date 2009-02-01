@@ -1,30 +1,52 @@
 <com:TContent ID="Main">
-<h1>Resumen de situaci&oacute;n de <%= h($this->User->Project) %></h1>
+<h1>Resumen de realizaci&oacute;n del proyecto <%= h($this->Session['project']) %></h1>
 
 <fieldset class="resource-report">
-	<legend>Actividades</legend>
-	<div class="date-range">
-	</div> 
-	<com:TRepeater ID="workers">
-	 	<div class="resource">
+	<legend>Resumen de actividades</legend>
+	<com:TMultiView ID="views">
+	<com:TView>
+		<br/>Este proyecto todav&iacute;a no ha comenzado a desarrollarse.
+	</com:TView>
+		<com:TView>
+		<br/>Este proyecto todav&iacute;a est&aacute; en desarrollo.
+	</com:TView>
+	<com:TView>
+	<com:TRepeater ID="activityList">
+	 	<div class="list">
 	 	<prop:HeaderTemplate>
-			<table class="project">
-		 	<tr>
-		 		<th class="user">Trabajador</th>
-		 		<th class="category">Actividad</th>
-		 		<th class="description">Descripci&oacute;n</th>
-		 	</tr>
-		 </prop:HeaderTemplate>
-		 <prop:FooterTemplate>
-		 	</table>
-		 </prop:FooterTemplate>
-		 <prop:ItemTemplate>
-		 	<tr>
-		 		<td class="user"><%# h($this->DataItem->UserName) %></td>
-		 		<td class="category"><%# h($this->DataItem->ActivityName) %></td>
-		 		<td class="description"><%# h($this->DataItem->Description) %></td>
-		 	</tr>
-		 </prop:ItemTemplate>
+		  <table>
+		  	<tr>
+		  		<th>Nombre</th>
+		  		<th>Descripci&oacute;n</th>
+		  		<th>Estimado</th>
+		  		<th>Realizado</th>
+		  		<th>Retraso</th>
+		  	</tr>
+		</prop:HeaderTemplate>
+		<prop:FooterTemplate>
+		  </table>
+		</prop:FooterTemplate>
+		<prop:ItemTemplate>
+		  <tr>
+		  	<td><%# h($this->DataItem->Name) %></td>
+		  	<td><%# h($this->DataItem->Description) %></td>
+		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->EstimateDate %> /> -
+		  		<%# h($this->DataItem->EstimateDuration) %></td>
+		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->RealDate %> /> -
+		  		<%# h($this->DataItem->RealDuration) %></td>
+		  	<td><%# h($this->DataItem->RealDuration - 
+		  			$this->DataItem->EstimateDuration) %></td>
+		  </tr>
+		</prop:ItemTemplate>
 	</com:TRepeater>
+	</com:TView>
+	<com:TView>
+		<br/>Este proyecto todav&iacute;a no ha comenzado a desarrollarse.
+	</com:TView>
+		<com:TView>
+		<br/>Este proyecto todav&iacute;a est&aacute; en desarrollo.
+	</com:TView>
 	</fieldset>
 </com:TContent>

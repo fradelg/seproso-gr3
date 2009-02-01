@@ -1,9 +1,9 @@
 <?php
 
-class ReviewAct extends TPage
+class MonitorAct extends TPage
 {
 	// Activity report
-	private $Report;
+	public $Report;
 	
 	protected function getWorkRecordDao()
 	{
@@ -15,7 +15,14 @@ class ReviewAct extends TPage
 		if(!$this->IsPostBack)
 		{
 			$this->workerList->DataSource = $this->getWorkers();
-			$this->workerList->dataBind();		
+			$this->workerList->dataBind();
+			
+			// Check for request param in redirection to show record
+			$recordID = $this->Request['WorkRecordID'];
+			if ($recordID > 0){
+				$this->Report = $this->getWorkRecordDao()->getWorkRecordByID($recordID);
+				$this->views->ActiveViewIndex = 1;
+			}
 		}
 	}
 	
@@ -40,44 +47,60 @@ class ReviewAct extends TPage
 	protected function getActivities($worker)
 	{
 		$activityDao = $this->Application->Modules['daos']->getDao('ActivityDao');
+		$data = $activityDao->getActivitiesByWorker($this->Session['project'], $worker);
 		$activities = array();
-		foreach($activityDao->getActivitiesByWorker($worker) as $activity)
-				$activities[$activity->ID] = $activity->Name;
+		foreach($data as $activity)	$activities[$activity->ID] = $activity->Name;
 		return $activities;
 	}
 	
 	// Load work report list when user selects an activity
 	public function actSelected($sender, $param)
 	{
-		$worker = $sender->SelectedValue;
-		$activity = $sender->SelectedValue;
-		$this->reportList->DataSource = $this->getReviewWorkRecords($worker, $activity);
+		$worker = $this->workerList->SelectedValue;
+		$activity = $this->actList->SelectedValue;
+		$this->reportList->DataSource = $this->getWorkRecords($worker, $activity);
 		$this->reportList->dataBind();
 	}
 	
-	protected function getReviewWorkRecords($worker, $act)
+	protected function getWorkRecords($worker, $act)
 	{
 		$dao = $this->getWorkRecordDao();
 		$records = array();
-		foreach($dao->getReviewWorkRecordsByWA($worker, $act, 0) as $record)
-				$records[$record->ID] = $record->Date;
+		foreach($dao->getWorkRecordsByWA($worker, $act) as $record)
+				$records[$record->ID] = date('d - m - Y', $record->Date);
 		return $records;
 	}
 
 	// Change view to Activity Report View. Previously load report data
 	protected function showReport()
 	{
-		$this->views->ActiveViewIndex = 1;
 		$recordID = $this->reportList->SelectedValue;
-		
 		$this->Report = $this->getWorkRecordDao()->getWorkRecordByID($recordID);
+		$this->views->ActiveViewIndex = 1;
 	}
 	
 	// Marks selected report as reviewed 
 	protected function reviewReport($sender, $param)
 	{	
-		$this->getWorkRecordDao()->updateToState($this->Report->ID, 1);
+		$recordID = $this->reportList->SelectedValue;
+		$this->getWorkRecordDao()->updateToState($recordID, 1);
 		$this->views->ActiveViewIndex = 2;
+	}
+	
+	// Marks selected report as approved 
+	protected function approveReport($sender, $param)
+	{	
+		$recordID = $this->reportList->SelectedValue;
+		$this->getWorkRecordDao()->updateToState($recordID, 2);
+		$this->views->ActiveViewIndex = 3;
+	}
+	
+	// Marks selected report as rejected 
+	protected function rejectReport($sender, $param)
+	{	
+		$recordID = $this->reportList->SelectedValue;
+		$this->getWorkRecordDao()->updateToState($recordID, 3);
+		$this->views->ActiveViewIndex = 4;
 	}
 }
 

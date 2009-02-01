@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h2>Informe de actividades general</h2>
+<h2>Informe general de actividades</h2>
 
 <fieldset class="report">
 	<legend>Trabajadores y actividades</legend>
@@ -12,7 +12,7 @@
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateFrom" 
 			DateFormat="dd/MM/yyyy"
-			TimeStamp=<%= strtotime("-1 year") %>
+			TimeStamp=<%= strtotime("-1 month") %>
 			InputMode="DropDownList" />
 		</div>
 		<div class="date-to">
@@ -48,18 +48,41 @@
 		 <h3 class="end">Fecha final:</h3>
 		 <h4 class="end"><%= h($this->dateTo->Date) %></h4>
 		</div> 
-		<com:TRepeater ID="workers">
-		 	<div class="resource">
-		 	<prop:HeaderTemplate>
-			 	<h4 class="user"> -- Trabajadores -- </h4>
-			 	--
-			 </prop:HeaderTemplate>
-			 <prop:FooterTemplate>
-			 </prop:FooterTemplate>
-			 <prop:ItemTemplate>
-			 	<span class="user"><%# h($this->DataItem->Name) %></span> -- 
-			 </prop:ItemTemplate>
+		<div class="list">
+		<com:TRepeater ID="workerList" onItemCreated="workerCreated">
+		<prop:ItemTemplate>
+			<h3><%# h($this->DataItem->Worker) %></h3>
+			<com:TRepeater ID="activityList">
+			<prop:EmptyTemplate>
+				No tiene asignadas actividades durante este periodo.
+			</prop:EmptyTemplate>
+			<prop:HeaderTemplate>
+	  			<table>
+	  			<tr>
+	  				<th>Proyecto</th>
+	  				<th>Nombre</th>
+	  				<th>Descripci&oacute;n</th>
+	  				<th>Inicio</th>
+	  				<th>Esfuerzo</th>
+	  			</tr>
+			</prop:HeaderTemplate>
+			<prop:FooterTemplate>
+	  			</table>
+			</prop:FooterTemplate>
+			<prop:ItemTemplate>
+				<tr>
+					<td><%# h($this->DataItem->Project) %></td>
+					<td><%# h($this->DataItem->Activity) %></td>
+					<td><%# h($this->DataItem->Description) %></td>
+					<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+						Value=<%# $this->DataItem->Date %> /></td>
+					<td><%# h($this->DataItem->Effort) %></td>
+	  			</tr>
+			</prop:ItemTemplate>	
+			</com:TRepeater>
+		</prop:ItemTemplate>
 		</com:TRepeater>
+		</div>
 	</com:TView>
 	
 	</com:TMultiView>

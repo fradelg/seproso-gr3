@@ -3,6 +3,7 @@
 class Phases extends TPage
 {
 	private $Project;
+	private $Phases;
 	
 	protected function getProjectDao()
 	{
@@ -31,12 +32,56 @@ class Phases extends TPage
 	// Loads phase data from database
 	protected function showList()
 	{
-		$phases = $this->getProjectDao()->getPhasesByProject($this->Project);
-		$this->phaseList->DataSource = $phases;
+		$this->Phases = $this->getProjectDao()->getPhasesByProject($this->Project);
+		$this->phaseList->DataSource = $this->sortPhaseTree();
 		$this->phaseList->dataBind();
 		
 		$this->newTemplateButton->Visible = 
 		 		!$this->getProjectDao()->modelTemplateExists($this->Project);
+	}
+	
+	/**
+	 * Sort phase list sort by parentID
+	 * @return array phase list
+	 */
+	private function sortPhaseTree()
+	{
+		$result = array();
+		foreach ($this->Phases as $phase)
+			if ($phase->ParentID == NULL)
+				$result = array_merge($result, $this->expandPhaseTree($phase, '-> '));
+		return $result;
+	}
+	
+	/**
+	 * Traverse tree in depth, adding indentation
+	 * @param $phase father node
+	 * @param $prefix string to indent phase name in this tree level
+	 * @return array children list
+	 */
+	private function expandPhaseTree($phase, $prefix)
+	{
+		$result = array();
+		array_push($result, $phase);	// Push father
+		foreach ($this->searchCildren($phase->ID) as $child){
+			$child->Name = $prefix.$child->Name;
+			$result = array_merge($result, $this->expandPhaseTree($child, $prefix.'-> '));
+		}
+		return $result;
+	}
+	
+	/**
+	 * Search children of a phase
+	 * @param $phaseID parent
+	 * @return array list of children
+	 */
+	private function searchCildren($phaseID)
+	{
+		$result = array();
+		foreach($this->Phases as $phase)
+			if ($phase->ParentID == $phaseID)
+				array_push($result, $phase);
+		return $result;
 	}
 	
 	// Show phase information form (next view)
@@ -46,19 +91,30 @@ class Phases extends TPage
 		$this->phase->DataSource = $this->getPhases();
 		$this->phase->dataBind();
 	}
+	
+	public function getPhases(){ 
+		$phases = array();
+		$phases[NULL] = NULL;
+		foreach ($this->getProjectDao()->getPhasesByProject($this->Project) as $phase) 
+			$phases[$phase->ID] = $phase->Name;
+		return $phases;
+	}
 		
 	public function addNewPhase($sender, $param)
 	{	
 		$phase = new PhaseRecord;
-		$processID = $this->getProjectDao()->getProjectModel($this->User->Project);
+		$processID = $this->getProjectDao()->getProjectModel($this->Project);
 		$phase->ProcessID = $processID;
-		$phase->ParentID = $this->phase->SelectedValue;
+		if ($this->phase->SelectedValue != NULL)
+			$phase->ParentID = $this->phase->SelectedValue;  
 		$phase->Name = $this->name->Text;
 		$phase->Description = $this->description->Text;
 		
 		$this->getProjectDao()->addNewPhase($phase);
 		
+		// Go to phase list and refresh it
 		$this->views->ActiveViewIndex = 0;
+		$this->refreshEntryList();
 	}
 	
 	public function editEntryItem($sender, $param)
@@ -101,20 +157,13 @@ class Phases extends TPage
 
 	public function EntryItemCreated($sender, $param)
 	{
-		if($param->Item->ItemType == 'EditItem' && $param->Item->DataItem)
-		{
+//		$item = $param->Item;
+//		if($item->ItemType == 'EditItem' && $item->DataItem) {
 //			$param->Item->manager->DataSource =	
 //				$this->getManagers($param->Item->DataItem->ManagerID);	
 //			$param->Item->manager->dataBind();
 //			$param->Item->manager->SelectedValue = $param->Item->DataItem->ManagerID;
-		}
-	}
-	
-	public function getPhases(){ 
-		$phases = array();
-		foreach ($this->getProjectDao()->getPhasesByProject($this->Project) as $phase) 
-			$phases[$phase->ID] = $phase->Name;
-		return $phases;
+//		}
 	}
 	
 	public function defineTemplate($sender, $param)

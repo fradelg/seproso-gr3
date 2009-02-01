@@ -1,0 +1,51 @@
+<com:TContent ID="Main">
+<h1>Configuraci&oacute;n del sistema</h1>
+
+<style type="text/css">
+	input { max-width: 6em; }	
+</style>
+
+<fieldset><legend>Par&aacute;metros</legend>
+<div class="list">
+<com:TDataList ID="paramList"
+	RepeatLayout="Raw"
+	DataKeyField="Parameter"
+	OnEditCommand="editEntryItem"
+	OnCancelCommand="refreshEntryList"
+	OnUpdateCommand="updateEntryItem" >
+	<prop:HeaderTemplate>
+		<table>
+		<tr>
+			<th>Par&aacute;metro</th>
+			<th>Descripci&oacute;n</th>
+			<th>Valor</th>
+		</tr>
+  	</prop:HeaderTemplate>
+	<prop:FooterTemplate>
+	  </table>
+	</prop:FooterTemplate>
+	
+	<prop:ItemTemplate>
+		<tr>
+			<td><%# h($this->DataItem->Parameter) %></td>
+			<td><%# h($this->DataItem->Description) %></td>
+			<td><%# h($this->DataItem->Value) %></td>
+			<td><com:TButton Text="Modificar" CommandName="edit"/></td>
+		</tr>
+  	</prop:ItemTemplate>
+	
+	<prop:EditItemTemplate>
+	  	<tr>
+			<td><%# h($this->DataItem->Parameter) %></td>
+			<td><%# h($this->DataItem->Description) %></td>
+	  		<td><com:TTextBox ID="valueBox" Text=<%# $this->DataItem->Value %> /></td>
+	  		<td>
+	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
+	  		<com:TButton Text="Cancelar" CommandName="cancel" />
+	  		</td>
+	  	</tr>
+	</prop:EditItemTemplate>	
+</com:TDataList>
+</div>
+</fieldset>
+</com:TContent>

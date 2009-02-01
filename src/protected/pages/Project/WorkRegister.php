@@ -14,8 +14,9 @@ class WorkRegister extends TPage
 	protected function getActivities($worker)
 	{
 		$activityDao = $this->Application->Modules['daos']->getDao('ActivityDao');
+		$project = $this->Session['project'];
 		$activities = array();
-		foreach($activityDao->getActivitiesByWorker($worker) as $activity)
+		foreach($activityDao->getActivitiesByWorker($project, $worker) as $activity)
 				$activities[$activity->ID] = $activity->Name;
 		return $activities;
 	}

@@ -58,10 +58,8 @@ class Holidays extends TPage
 		foreach($data as $period){
 			$periodStart = $period->StartDate;
 			$periodEnd = strtotime("+".$period->Duration." week", $period->StartDate);
-			var_dump($dateStart, $dateEnd);
-			var_dump($periodStart, $periodEnd);
 			if (($dateStart >= $periodStart && $dateStart < $periodEnd) ||
-				($dateEnd > $periodStart && $dateEnd < $periodEnd)){
+				($dateEnd >= $periodStart && $dateEnd < $periodEnd)){
 					$param->IsValid = false;
 			}
 		}
@@ -84,7 +82,9 @@ class Holidays extends TPage
 			$period->Duration = $this->duration->SelectedValue;
 			$period->Reason = $this->description->Text;
 			$this->getWorkerDao()->addNewHolidayPeriod($period);
-			$this->views->ActiveViewIndex = 2;
+			
+			// Reload data and go to previous page
+			$this->Response->reload();
 		}
 	}
 }

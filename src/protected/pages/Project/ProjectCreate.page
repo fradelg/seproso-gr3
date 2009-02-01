@@ -1,9 +1,9 @@
 <com:TContent ID="Main">
 <h2>Crear nuevo proyecto</h2>
 
-<fieldset class="project"><legend>Configuraci&oacute;n</legend>
-<com:TMultiView ID="views" ActiveViewIndex="0">
-<com:TView>
+<fieldset class="project">
+	<legend>Configuraci&oacute;n</legend>
+	
   	<h2>Informaci&oacute;n general del proyecto</h2>
   	  <p>Introduzca la informaci&oacute;n m&aacute;s general del nuevo proyecto.
          El jefe de proyecto ser&aacute; el encargado de desarrollar la
@@ -66,13 +66,6 @@
   		OnClick="saveProject" ValidationGroup="project-add"/>
   	</div>
   </div>
-  </com:TView>
-  
-  <com:TView>
-  	<h3>Enhorabuena!!!. El proyecto fue creado con &eacute;xito.</h3>
-  </com:TView>
-  
- </com:TMultiView>
- </fieldset>
 
+ </fieldset>
 </com:TContent>

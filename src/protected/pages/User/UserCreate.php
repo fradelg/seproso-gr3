@@ -92,9 +92,8 @@ class UserCreate extends TPage
 			$newUser->EmailAddress = $this->email->Text;
 			$newUser->Name = $this->username->Text;
 			$newUser->IsGuest = false;
-			if ($this->role->SelectedValue == 'admin' ||
-				$this->role->SelectedValue == 'manager' ||
-				$this->role->SelectedValue == 'personal')
+			$dirRoles = array('admin', 'personal', 'manager');
+			if (in_array($this->role->SelectedValue, $dirRoles))
 				$newUser->Roles = $this->role->SelectedValue;
 			else
 				$newUser->Roles = 'developer';
@@ -117,6 +116,9 @@ class UserCreate extends TPage
 			
 			// save the worker
 			$this->getWorkerDao()->addNewWorker($newWorker);
+			
+			// Redirect to user list
+			$this->Response->redirect("?page=User.UserList");
 		}
 	}
 }

@@ -1,21 +1,22 @@
 <?php
 
-class FutureWorkers extends TPage
+class WorkerActivities extends TPage
 {
-	// Bind report data to Repeater 
+	public function onLoad($param){}	
+	
 	public function generateReport($sender, $param)
 	{
-		// Change to list view
+		// Change to report view
 		$this->views->ActiveViewIndex = 1;
-		// Retrieve data from data base query aql
+		// Query data base
 		$reportDao = $this->Application->Modules['daos']->getDao('ReportsDao');
 		$start = $this->dateFrom->TimeStamp;
 		$end = $this->dateTo->TimeStamp;
 
-		// Bind query data to TRepeater
+		// Data bind to Worker TRepeater
 		$this->workerList->DataSource = 
-			$reportDao->getFutureWorkers($this->Session['project'], $start, $end);
-		$this->workerList->dataBind();
+				$reportDao->getWorkerActivitiesReport($start, $end);
+		$this->workerList->dataBind();		
 	}
 	
 	// New worker created slot

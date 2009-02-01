@@ -21,9 +21,10 @@ class AddActivity extends TPage
 	{
 		if(!$this->IsPostBack)
 		{
-			$this->phaseList->DataSource = $this->getPhases();
+			$phases = $this->getPhases();
+			$this->phaseList->DataSource = $phases;
 			$this->phaseList->dataBind();
-			$this->actList->DataSource = $this->getActivities($this->phaseList->SelectedValue);
+			$this->actList->DataSource = $this->getActivities(key($phases));
 			$this->actList->dataBind();
 			$this->workerList->DataSource = $this->getWorkers();
 			$this->workerList->dataBind();
@@ -48,8 +49,8 @@ class AddActivity extends TPage
 	public function getWorkers(){ 
 		$workers = array();
 		$project = $this->Session['project'];
-		foreach ($this->getWorkerDao()->getFreeWorkers($project) as $worker) 
-			$workers[$worker->UserID] = $worker->Name.$worker->Surname;
+		foreach ($this->getWorkerDao()->getWorkersInProject($project) as $worker) 
+			$workers[$worker->UserID] = $worker->Name.' '.$worker->Surname;
 		return $workers;
 	}
 	
@@ -130,7 +131,7 @@ class AddActivity extends TPage
 				$this->getActivityDao()->addWorkerToActivity($item->Value, $act->ID);
 		}
 					
-		$this->views->ActiveViewIndex = 2;
+		$this->Response->redirect("?page=Project.Activities");
 	}
 }
 
