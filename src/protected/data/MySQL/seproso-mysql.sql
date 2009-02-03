@@ -39,7 +39,7 @@ CREATE TABLE `TipoActividad` (
 
 CREATE TABLE `Rol` (
   `tipo` varchar(45) NOT NULL,
-  `valor` int(11) NOT NULL,
+  `valor` int(11) NOT NULL
   PRIMARY KEY  (`tipo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -249,25 +249,29 @@ ALTER TABLE `Actividad_Predecesora`
 -- Modelos de proceso básicos
 
 INSERT INTO `Modelo` (`idModelo`, `plantilla`, `nombre`, `descripcion`) VALUES
-(1, 'Modelo en cascada', 'Proceso en cascada', 'Todas las fases siguen un desarrollo secuencial.'),
-(2, 'Modelo en espiral', 'Proceso en espiral', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc)');
+(1, NULL, 'Sin modelo de proceso', 'Modelo por defecto asignado a un proyecto al ser creado.'),
+(2, 'Modelo en cascada', 'Proceso en cascada', 'Todas las fases siguen un desarrollo secuencial.'),
+(3, 'Modelo en espiral', 'Proceso en espiral', 'Es iterativo e incremental. En cada iteración se pueden desarrollar las disciplinas habituales de Ingeniería del Software (Análisis, Implementación, etc)');
+
 
 INSERT INTO `Fase` (`idFase`, `idModelo`, `idFasePadre`, `nombre`, `descripcion`) VALUES
-(1, 1, NULL, 'Definici&oacute;n de requisitos', NULL),
-(2, 1, NULL, 'An&aacute;lisis y dise&ntilde;o', NULL),
-(3, 1, NULL, 'Implementaci&oacute;n y test unitarios', NULL),
-(4, 1, NULL, 'Integraci&oacute;n y test de sistema', NULL),
-(5, 1, NULL, 'Operacici&oacute;n y mantenimiento', NULL),
-(6, 1, NULL, 'Pruebas', NULL),
-(7, 2, NULL, 'Planificaci&oacute;n', NULL),
-(8, 2, NULL, 'An&aacute;lisis de riesgos', NULL),
-(9, 2, NULL, 'Ingenier&iacute;a', NULL),
-(10, 2, NULL, 'Construcci&oacute;n y entrega', NULL),
-(11, 2, NULL, 'Evaluaci&oacute;n del cliente', NULL);
+(1, 2, NULL, 'Definici&oacute;n de requisitos', 'Se analizan las necesidades de los usuarios finales del software para determinar que objetivos debe cubrir. De esta fase surge una memoria llamada SRD (documento de especificaci&oacute;n de requisitos).'),
+(2, 2, NULL, 'An&aacute;lisis y dise&ntilde;o', 'Se descompone y organiza el sistema en elementos que puedan elaborarse por separado, aprovechando las ventajas del desarrollo en equipo. Como resultado surge el SDD (Documento de Dise&ntilde;o del Software). Desarrollo de los algoritmos necesarios. Identificaci&oacute;n de herramientas.'),
+(3, 2, NULL, 'Implementaci&oacute;n y test unitarios', 'Desarrollo de los algoritmos necesarios. Identificaci&oacute;n de herramientas.Codificaci&oacute;n.'),
+(4, 2, NULL, 'Integraci&oacute;n y test de sistema', 'Los elementos, ya programados, se ensamblan para componer el sistema y se comprueba que funciona correctamente antes de ser puesto en explotaci&oacute;n.'),
+(5, 2, NULL, 'Operacici&oacute;n y mantenimiento', 'El software obtenido se pone en producci&oacute;n.'),
+(6, 2, NULL, 'Pruebas', 'Los elementos, ya testeados se preparan para la integraci&oacute;n final y su puesta en funcionamiento.'),
+(7, 3, NULL, 'Planificaci&oacute;n', 'Determinaci&oacute;n de objetivos. Fijar restricciones y fijar tambi&eacute;n los productos definidos a obtener: requerimientos, especificaci&oacute;n, manual de usuario.'),
+(8, 3, NULL, 'An&aacute;lisis de riesgos', 'Identificaci&oacute;n de riesgos del proyecto y estrategias alternativas para evitarlos. Se estudian todos los riesgos potenciales y se seleccionan una o varias alternativas propuestas para reducir o eliminar los riesgos.'),
+(9, 3, NULL, 'Ingenier&iacute;a', 'Tareas de la actividad propia y de prueba.'),
+(10, 3, NULL, 'Construcci&oacute;n y entrega', 'Desarrollo de la parte proporcional de la iteraci&oacute;n y entrega del producto obtenido al usuario final-'),
+(11, 3, NULL, 'Evaluaci&oacute;n del cliente', 'Reevaluar la iteracci&oacute;n actual por parte del usuario final y determinaci&oacute;n de nuevos artefactos para la siguiente iteraci&oacute;n');
 
 -- Tipos de roles permitidos
 
-INSERT INTO `Rol` (`tipo`, `valor`) VALUES
+INSERT INTO `Rol` (`tipo`, `valor`, `usuario`) VALUES
+('Administrador', 0),
+('Jefe de personal', 0),
 ('Jefe de proyecto', 1),
 ('Analista', 2),
 ('Dise&ntilde;ador', 3),
@@ -282,12 +286,12 @@ INSERT INTO `TipoActividad` (`idTipoActividad`, `tipo`) VALUES
 (1, 'Trato con usuarios (llamadas, citas individuales, etc)'),
 (2, 'Reuniones externas'),
 (3, 'Reuniones internas'),
-(4, 'Lectura de especificaciones y todo tipo de documentación'),
-(5, 'Elaboración de documentación (informes, documentos, programas)'),
+(4, 'Lectura de especificaciones y todo tipo de documentaci&oacute;n'),
+(5, 'Elaboraci&oacute;n de documentaci&oacute;n (informes, documentos, programas)'),
 (6, 'Desarrollo de programas'),
-(7, 'Revisión de informes, programas, etc.'),
-(8, 'Verificación de programas'),
-(9, 'Formación de usuarios'),
+(7, 'Revisi&oacute;n de informes, programas, etc.'),
+(8, 'Verificaci&oacute;n de programas'),
+(9, 'Formaci&oacute;n de usuarios'),
 (10, 'Varios (sin clasificar)');
 
 -- Datos de cada tipo de usuario de SEPROSO

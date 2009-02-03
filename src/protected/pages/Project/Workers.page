@@ -21,7 +21,9 @@
 	<td><%# h($this->DataItem['Percentage']) %></td>	</tr>  </prop:ItemTemplate>  <prop:FooterTemplate>	</table>  </prop:FooterTemplate>
 </com:TRepeater>
 </div>
-<br/><com:TButton Text="Nuevo participante" Onclick="newWorkerToProject" />
+  <com:TPlaceHolder	Visible=<%= !$this->isProjectStarted() %> >
+	<br/><com:TButton Text="Nuevo participante" Onclick="newWorkerToProject" />
+  </com:TPlaceHolder>
 </fieldset>
 </com:TView>
 

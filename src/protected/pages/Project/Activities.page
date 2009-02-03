@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Gesti&oacute;n de actividades</h1>
+<h2>Gesti&oacute;n de actividades</h2>
 
 <fieldset>
 	<legend>Actividades</legend>
@@ -60,11 +60,22 @@
 		</prop:ItemTemplate>
 		<prop:EditItemTemplate>
 		  <tr>
-		  	<td><com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> /></td>
-		  	<td><com:TTextBox ID="description" Text=<%# $this->DataItem->Description %> /></td>
-		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-				Value=<%# $this->DataItem->EstimateDate %> /></td>
-		  	<td><com:TTextBox ID="hours" Text=<%# $this->DataItem->EstimateDuration %> /></td>
+		  	<td><img src="<%= $this->Page->getStateImage($this->DataItem->State) %>" 
+		    	width="16" height="16" alt=""></td>
+		    <td><%# h($this->DataItem->ID) %></td>
+		  	<td class="name">
+		  		<com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> />
+		  	</td>
+		  	<td class="description">
+		  		<com:TTextBox ID="description" Text=<%# $this->DataItem->Description %> />
+		  	</td>
+		  	<td class="date">
+		  		<com:TDatePicker InputMode="DropDownList" ID="date" 
+	  				TimeStamp=<%# $this->DataItem->EstinateDate %> />
+		  	<td class="value">
+		  		<com:TTextBox ID="hours" Text=<%# $this->DataItem->EstimateDuration %> />
+		  	</td>
+		  	<td><%# h($this->DataItem->Preds) %></td>
 		  	<td>
 		  		<com:TButton Text="Guardar" CommandName="update" />
 		  		<com:TButton Text="Cancelar" CommandName="cancel" />
@@ -76,9 +87,11 @@
 	
 	<div class="actions"> &nbsp;
 	<div class="buttons">
+	<com:TPlaceHolder Visible=<%= !$this->isProjectStarted() %> >
 		<com:TValidationSummary	AutoUpdate="false" />
 		<com:TButton Text="Agregar actividad" Onclick="addActivity"/>
-		<com:TButton ID="beginButton" Text="Iniciar proyecto" Onclick="beginProject"/>
+		<com:TButton Text="Iniciar proyecto" Onclick="beginProject"/>
+	</com:TPlaceHolder>
 	</div>	
 	</div>
 </fieldset>

@@ -1,8 +1,5 @@
 <com:TContent ID="Main">
 
-<fieldset class="project-list">
-<legend>Tipos de informes </legend>
-
 <style type="text/css">
 	table {	border-collapse: separate; }
 	td, th {
@@ -13,7 +10,9 @@
 	th { text-align: center; }	
 </style>
 
-<table>
+<h2>Generaci&oacute;n de informes</h2>
+<fieldset><legend>Tipos de informes </legend>
+	<table>
 		<tr>
 			<th><b>Nombre del informe</b></th>
 			<th><b>Descripci&oacute;n de contenidos</b></th>
@@ -56,10 +55,9 @@
 		</tr>
 		<tr>
 			<td><a href="?page=Report.Summary">Resumen </a></td>
-			<td>Resumen sobre la evoluci&oacute;n del proyecto respecto a la planificaci&oacute;n inicial.</td>
+			<td>Resumen sobre evoluci&oacute;n de proyectos ya finalizados.</td>
 		</tr>
 	</table>
 
 </fieldset>
-
 </com:TContent>

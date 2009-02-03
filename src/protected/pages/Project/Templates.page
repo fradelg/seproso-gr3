@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Selecci&oacute;n de modelo de proceso</h1>
+<h2>Selecci&oacute;n de modelo de proceso</h2>
 
 <fieldset class="selection-page">
 	<legend>Plantillas</legend>
@@ -7,6 +7,7 @@
 	<h2>Seleccione modelo de proceso</h2>
 	<com:TLabel ForControl="templateList" 
 		Text="Seleccione una plantilla de la lista para ver su estructura de fases."/>
+	<span class="required">*</span><br/>
 	<com:TListBox 
 		ID="templateList" 
 		CssClass="items" 
@@ -20,7 +21,7 @@
 		Display="None" />
 	</div>
 	
-	<div class="list" align="center">
+	<div class="content" align="center">
 	<h2>Esquema de fases</h2>
 	<com:TRepeater ID="phaseList" >
 	 	<prop:HeaderTemplate>

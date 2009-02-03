@@ -66,24 +66,47 @@ class SiteMap extends TTemplateControl
 		$active = null;
 		switch($page[count($page)-1])
 		{
-			case 'ProjectList':
-			case 'ProjectDetails':
-				$active = $this->ProjAdminMenu;
-				break;
 			case 'UserList':
 			case 'UserCreate':
 				$active = $this->UserAdminMenu;
 				break;
-			case 'ReportProject':
-			case 'ReportResource':
-				$active = $this->ReportPersonalMenu;
+			case 'ProjectList':
+			case 'ProjectCreate':
+				$active = $this->ProjAdminMenu;
+				break;
+			case 'Configuration':
+				$active = $this->ConfMenu;
+				break;
+			case 'Phases':
+			case 'Activities':
+			case 'Workers':
+				$active = $this->ProjectMenu;
+				break;
+			case 'MonitorAct':
+				$active = $this->ActManagementMenu;
+				break;
+			case 'ReportList':
+				$active = $this->ReportManagerMenu;
+				break;
+			case 'WorkRegister':
+				$active = $this->ActRegisterMenu;
+				break;
+			case 'WorkRegisters':
+			case 'Summary':
+				$active = $this->ReportDeveloperMenu;
+				break;
+			case 'Holidays':
+				$active = $this->HolidaysMenu;
+				break;
+			case 'Worker':
+				$active = $this->ReportWorkerMenu;
 				break;
 			default:
-				$active = $this->ActManagementMenu;
+				$active = $this->ReportWorkersMenu;
 				break;
 		}
 		
-		//add 'active' string to place holder body.
+		// add 'active' string to place holder body.
 		if(!is_null($active))
 			$active->Controls[] = 'active';
 	}

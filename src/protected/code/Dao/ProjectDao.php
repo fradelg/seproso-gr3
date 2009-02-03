@@ -38,6 +38,12 @@ class ProjectDao extends BaseDao
 		return $sqlmap->queryForObject('ModelTemplateExists', $projectName);
 	}
 
+	public function projectWorkersExists($projectName)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('ProjectWorkersExists', $projectName);
+	}
+	
 	public function getProjectByID($projectID)
 	{
 		$sqlmap = $this->getSqlMap();
@@ -50,10 +56,22 @@ class ProjectDao extends BaseDao
 		return $sqlmap->queryForList('GetProjectByWorker', $name);
 	}
 	
+	public function getProjectsByState($state)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetProjectsByState', $state);
+	}
+	
 	public function getProjectModel($name)
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForObject('GetProjectModel', $name);
+	}
+	
+	public function getProjectManager($name)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetProjectManager', $name);
 	}
 	
 	public function getProjectState($name)
@@ -62,10 +80,10 @@ class ProjectDao extends BaseDao
 		return $sqlmap->queryForObject('GetProjectState', $name);
 	}
 	
-	public function getPhasesByTemplate($template)
+	public function getPhasesByModel($model)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetPhasesByTemplate', $template);
+		return $sqlmap->queryForList('GetPhasesByModel', $model);
 	}
 	
 	public function getPhasesByProject($project)
@@ -107,7 +125,7 @@ class ProjectDao extends BaseDao
 	public function addNewProject($project)
 	{
 		$sqlmap = $this->getSqlMap();
-		$sqlmap->insert('CreateNewProject', $project);
+		$sqlmap->insert('AddNewProject', $project);
 	}
 	
 	public function addNewPhase($phase)
@@ -119,7 +137,7 @@ class ProjectDao extends BaseDao
 	public function addNewModel($model)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->insert('AddNewModel', $model);
+		$sqlmap->insert('AddNewModel', $model);
 	}
 
 	public function updateProject($project)

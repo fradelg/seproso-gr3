@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Informe de actividades finalizadas o activas</h1>
+<h2>Informe de actividades finalizadas o activas</h2>
 
 <fieldset class="report">
 	<legend>Actividades finalizadas o activas</legend>

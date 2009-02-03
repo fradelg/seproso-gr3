@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Informe de registros de actividad</h1>
+<h2>Informe de registros de actividad</h2>
 
 <fieldset class="report">
 	<legend>Estado de mis informes de actividad</legend>

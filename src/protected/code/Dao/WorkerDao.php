@@ -13,6 +13,30 @@
 class WorkerDao extends BaseDao
 {
 	/**
+	 * @param $worker username
+	 * @return boolean true if worker participates some project
+	 */
+	public function workerHasProject($worker)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('WorkerHasProject', $worker);
+	}
+
+	/**
+	 * 
+	 * @param $worker worker username
+	 * @param $project project title
+	 * @return boolean true if worker is participating in project
+	 */
+	public function participationExists($worker, $project)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['user'] = $worker;
+		$param['project'] = $project;
+		return $sqlmap->queryForObject('ParticipationExists', $param);
+	}
+	
+	/**
 	 * @return array list with all workers.
 	 */
 	public function getAllWorkers()
@@ -48,7 +72,7 @@ class WorkerDao extends BaseDao
 		return $sqlmap->queryForList('GetWorkersForProject', $project);
 	}
 	
-	/**
+	/** 
 	 * @return array list of project manager.
 	 */
 	public function getProjectManagers()
@@ -65,6 +89,44 @@ class WorkerDao extends BaseDao
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForObject('GetUsername', $name);
+	}
+	
+	/** 
+	 * @param $name username of worker
+	 * @return string name of worker
+	 */
+	public function getWorkerName($name)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetWorkerName', $name);
+	}
+	
+	/**
+	 * @return array list of all roles.
+	 */
+	public function getAllRoles()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetAllRoles');
+	}
+	
+	/**
+	 * @return array list with greater roles.
+	 */
+	public function getGreaterRoles($minRole)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetGreaterRoles', $minRole);
+	}
+	
+	/**
+	 * @param worker identifier
+	 * @return array list with allowed roles for worker.
+	 */
+	public function getRoles($workerID)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetRoles', $workerID);
 	}
 	
 	/**
@@ -139,34 +201,6 @@ class WorkerDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		$sqlmap->delete('DeleteWorkerByName', $username);
 	}
-
-	/**
-	 * @return array list of all roles.
-	 */
-	public function getAllRoles()
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetAllRoles');
-	}
-	
-	/**
-	 * @return array list with greater roles.
-	 */
-	public function getGreaterRoles($minRole)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetGreaterRoles', $minRole);
-	}
-	
-	/**
-	 * @param worker identifier
-	 * @return array list with allowed roles for worker.
-	 */
-	public function getRoles($workerID)
-	{
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetRoles', $workerID);
-	}
 	
 	/**
 	 * Updates the worker data modified by admin.
@@ -179,13 +213,43 @@ class WorkerDao extends BaseDao
 	}
 	
 	/**
+	 * Updates the worker data modified by admin.
+	 * @param $user project worker 
+	 * @param $project project title
+	 * @param $role $worker role
+	 * @param $perc	$percentage
+	 */
+	public function updateParticipation($user, $project, $role, $perc)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['user'] = $user;
+		$param['project'] = $project;
+		$param['role'] = $role;
+		$param['perc'] = $perc;
+		$sqlmap->update('UpdateParticipation', $param);
+	}
+	
+	/**
 	 * Deletes the worker from database.
-	 * @param workers identifier
+	 * @param $workerID worker identifier
 	 */
 	public function deleteWorker($workerID)
 	{
 		$sqlmap = $this->getSqlMap();
 		$sqlmap->delete('DeleteWorkerByName', $workerID);
+	}
+	
+	/**
+	 * Deletes the participation entry.
+	 * @param $workerID worker identifier
+	 * @param $projectID project identifier
+	 */
+	public function deleteParticipation($workerID, $projectID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['worker'] = $workerID;
+		$param['project'] = $projectID;
+		$sqlmap->delete('DeleteParticipation', $param);
 	}
 }
 

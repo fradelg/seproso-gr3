@@ -9,8 +9,8 @@
 class ProjectRecord
 {
 	public $Title = '';
-	public $ManagerID = NULL;
-	public $ProcessID = NULL;
+	public $ManagerID = '';
+	public $ProcessID = 1;
 	
 	public $Description = '';
 	public $Date = 0;

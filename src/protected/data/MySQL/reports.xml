@@ -135,7 +135,6 @@
 			Trabajador.idUsuario = Trabajador_has_Actividad.idUsuario
 	WHERE
 		Proyecto.titulo = #project#
-		AND Actividad.estado = 1
 		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
 		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
 	GROUP BY
@@ -207,8 +206,9 @@
 		LEFT JOIN RegistroTrabajo Informe ON Informe.idActividad = Actividad.idActividad
 		LEFT JOIN Trabajador ON Trabajador.idUsuario = Informe.idUsuario
 	WHERE
-		Proyecto.titulo = #value#
-		AND Informe.estado = 1
+		Proyecto.titulo = #value# AND Informe.estado = 1
+	ORDER BY
+		Trabajador.idUsuario
 </select>
 
 <resultMap id="plan-act-report" class="PlanActivityReport" groupBy="ActivityID">
@@ -351,7 +351,7 @@
 		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
 	WHERE
 		Proyecto.titulo = #value#
-		AND Proyecto.activo = 2
+		AND Proyecto.estado = 2
 		AND Actividad.estado = 2
 </select>
 
@@ -395,7 +395,7 @@
 		LEFT JOIN RegistroTrabajo Trabajo ON Trabajo.idActividad = Actividad.idActividad
 	WHERE
 		Proyecto.titulo = #project#
-		AND Proyecto.activo = 0
+		AND Proyecto.estado = 0
 		AND Trabajo.idUsuario = #user#
 	GROUP BY
 		Actividad.idActividad
@@ -420,7 +420,7 @@
 		LEFT JOIN Proyecto ON Proyecto.titulo = Participacion.idProyecto
 	WHERE
 		Participacion.idUsuario = #value#
-		AND Proyecto.activo = 1
+		AND Proyecto.estado = 1
 </select>
 
 <resultMap id="holiday-result" class="HolidayRecord" >
@@ -465,7 +465,7 @@
 		Actividad.inicioEstimado as Date,
 		Actividad.tiempoEstimado as Effort
 	FROM 
-		Trabajador_has_Actividad Worker 
+		Trabajador_has_Actividad Worker
 		LEFT JOIN Actividad ON Actividad.idActividad = Worker.idActividad
 		LEFT JOIN Fase ON Fase.idFase = Actividad.idFase
 		LEFT JOIN Proyecto ON Proyecto.idModelo = Fase.idModelo

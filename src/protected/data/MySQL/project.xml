@@ -38,7 +38,7 @@
 
 <select id="ProjectModelExists" resultClass="boolean">
 	SELECT COUNT(titulo) FROM Proyecto 
-	WHERE titulo = #value# AND idModelo IS NOT NULL
+	WHERE titulo = #value# AND idModelo > 1 
 </select>
 
 <select id="ModelTemplateExists" resultClass="boolean">
@@ -51,9 +51,15 @@
 		Proyecto.titulo = #value# AND Modelo.plantilla IS NOT NULL
 </select>
 
+<select id="ProjectWorkersExists" resultClass="boolean">
+	SELECT COUNT(idUsuario) FROM Participacion 
+	WHERE idProyecto = #value# AND idRol != 'Jefe de proyecto'
+</select>
+
 <select id="GetAllProjects" resultMap="project-result">
 	SELECT
 		titulo as Title,
+		idModelo as ProcessID,
 		idJefe as ManagerID,
 		descripcion as Description,
 		fecha as Date,
@@ -63,22 +69,19 @@
 		Proyecto
 </select>
 
-<select id="GetProjectByTitle" resultMap="project-result">
+<select id="GetProjectByID" resultMap="project-result">
 	SELECT 
-		Proyecto.idModelo as ProcessID,
-		Proyecto.idJefe as ManagerID,
-		Proyecto.titulo as Title,
-		Proyecto.descripcion Description,
-		Proyecto.fecha as Date,
-		Proyecto.presupuesto as Burchet,
-		Proyecto.estado as State
-	FROM Proyecto
+		titulo as Title,
+		idModelo as ProcessID,
+		idJefe as ManagerID,
+		descripcion as Description,
+		fecha as Date,
+		presupuesto as Burchet,
+		estado as State
+	FROM 
+		Proyecto
 	WHERE 
-		Proyecto.idProyecto = #value# 
-	GROUP BY
-		Proyecto.idProyecto
-	ORDER BY
-		Proyecto.titulo
+		titulo = #value#
 </select>
 
 <select id="GetProjectByWorker" resultMap="project-result">
@@ -90,27 +93,59 @@
 		Proyecto.fecha as Date,
 		Proyecto.presupuesto as Burchet,
 		Proyecto.estado as State
-	FROM Proyecto, participacion
+	FROM 
+		Participacion
+		LEFT JOIN Proyecto ON Proyecto.idProyecto = Participacion.idProyecto  
 	WHERE 
-		participacion.idUsuario = #value# 
-		AND Proyecto.idProyecto = participacion.idProyecto 
+		Participacion.idUsuario = #value# 
 	ORDER BY
 		Proyecto.titulo
+</select>
+
+<select id="GetProjectsByState" parameterClass="int" resultMap="project-result">
+	SELECT 
+		idModelo as ProcessID,
+		idJefe as ManagerID,
+		titulo as Title,
+		descripcion Description,
+		fecha as Date,
+		presupuesto as Burchet,
+		estado as State
+	FROM 
+		Proyecto
+	WHERE 
+		estado = #value# 
+	ORDER BY
+		titulo
 </select>
 
 <select id="GetProjectModel" resultClass="int">
 	SELECT idModelo FROM Proyecto WHERE titulo = #value#
 </select>
 
+<select id="GetProjectManager">
+	SELECT idJefe FROM Proyecto WHERE titulo = #value#
+</select>
+
 <select id="GetProjectState" resultClass="int">
 	SELECT estado FROM Proyecto WHERE titulo = #value#
 </select>
 
-<select id="GetAllModelTemplates" resultClass="string">
-	SELECT plantilla FROM Modelo WHERE plantilla IS NOT NULL GROUP BY plantilla
+<select id="GetAllModelTemplates" resultMap="model-result">
+	SELECT 
+		idModelo as ID,
+		plantilla as Template,
+		nombre as Name,
+		descripcion as Description
+	FROM 
+		Modelo
+	WHERE 
+		plantilla IS NOT NULL
+	GROUP BY
+		plantilla
 </select>
 
-<select id="GetPhasesByTemplate" resultMap="phase-result">
+<select id="GetPhasesByModel" resultMap="phase-result">
 	SELECT 
 		Fase.idFase as ID,
 		Fase.idModelo as ProcessID,
@@ -121,7 +156,7 @@
 		Fase
 		LEFT JOIN Modelo ON Modelo.idModelo = Fase.idModelo
 	WHERE 
-		Modelo.plantilla = #value#
+		Modelo.idModelo = #value#
 </select>
 
 <select id="GetModelByTemplate" resultMap="model-result">
@@ -133,9 +168,7 @@
 	FROM 
 		Modelo
 	WHERE 
-		plantilla = #value#
-	GROUP BY
-		plantilla
+		idModelo = #value#
 </select>
 
 <select id="GetPhasesByProject" resultMap="phase-result">
@@ -169,17 +202,17 @@
 	SELECT * FROM Configuracion
 </select>
 
-<insert id="CreateNewProject" parameterClass="ProjectRecord">
+<insert id="AddNewProject" parameterClass="ProjectRecord">
 	INSERT INTO Proyecto
 	(titulo, idJefe, idModelo, descripcion, fecha, presupuesto, estado)
 	VALUES
 	(#Title#, #ManagerID#, #ProcessID#,	#Description#, NOW(), #Burchet#, #State#)
 </insert>
 
-<insert id="AddNewModel" parameterClass="ProcessRecord" resultClass="int" >
+<insert id="AddNewModel" parameterClass="ProcessRecord">
 	INSERT INTO Modelo (plantilla, nombre, descripcion)
 	VALUES (#Template#, #Name#, #Description#)
-	<selectKey type="post" resultClass="int">
+	<selectKey property="ID" type="post" resultClass="int">
 		select LAST_INSERT_ID() as value
     </selectKey>
 </insert>

@@ -8,6 +8,12 @@ class Activities extends TPage
 	{
 		return $this->Application->Modules['daos']->getDao('ProjectDao');
 	}
+	
+	public function isProjectStarted()
+	{
+		$project = $this->Session['project'];
+		return ($this->getProjectDao()->getProjectState($project) != 0);
+	}
 
 	protected function getActivityDao()
 	{
@@ -24,9 +30,6 @@ class Activities extends TPage
 			$this->phaseList->DataSource = $phases; 
 			$this->phaseList->dataBind();
 			$this->showList(key($phases));
-
-			if ($this->getProjectDao()->getProjectState($this->Project) != 0)
-				$this->beginButton->Visible = false;
 		}
 	}
 	
@@ -117,9 +120,7 @@ class Activities extends TPage
 		if($item->ItemType==='Item' || $item->ItemType==='AlternatingItem'){
 			$item->DataItem->Preds = $this->getPredActivities($item->DataItem->ID);
 		} else if($param->Item->ItemType == 'EditItem' && $param->Item->DataItem) {
-//			$param->Item->category->DataSource = $this->getCategories();	
-//			$param->Item->category->dataBind();
-//			$param->Item->category->SelectedValue = $param->Item->DataItem->Category->ID;
+			$item->DataItem->Preds = $this->getPredActivities($item->DataItem->ID);
 		}
 	}
 	
@@ -136,11 +137,22 @@ class Activities extends TPage
 				$this->getActivityDao()->beginActivity($act);
 		}
 		
-		// When not exists posterior activities, project is finished
-		if (count($actPost) == 0) 
-			$this->getProjectDao()->updateProjectState($this->Project, 2);
+		// When not exists posterior activities -> project is finished
+		if (count($actPost) == 0) $this->closeProject();
 		
 		$this->refreshEntryList();
+	}
+	
+	private function closeProject()
+	{
+		// change project state
+		$this->getProjectDao()->updateProjectState($this->Project, 2);
+		
+		// clear worker participation on it
+		$project = $this->Session['project'];
+		$dao = $this->Application->Modules['daos']->getDao('WorkerDao');
+		foreach ($dao->getWorkersForProject($project) as $worker) 
+			$dao->deleteParticipation($worker['Worker'], $project);
 	}
 	
 	// Redirect to AddActivity page
@@ -152,7 +164,6 @@ class Activities extends TPage
 	// Change project state to mark as active
 	public function beginProject($sender, $param)
 	{
-		$this->beginButton->Visible = false;
 		$this->getProjectDao()->updateProjectState($this->Project, 1);
 		
 		// Start activities without precedents

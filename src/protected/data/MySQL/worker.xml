@@ -25,6 +25,15 @@
 	<result property="Reason" column="razon" />
 </resultMap>
 
+<select id="WorkerHasProject" resultClass="boolean">
+	SELECT COUNT(idUsuario) FROM Participacion WHERE idUsuario = #value#
+</select>
+
+<select id="ParticipationExists" parameterClass="array" resultClass="boolean">
+	SELECT COUNT(idUsuario) FROM Participacion 
+	WHERE idUsuario = #user# AND idProyecto = #project#
+</select>
+
 <select id="GetWorkerByID" resultMap="seproso-worker">
 	SELECT 
 		idUsuario as UserName,
@@ -61,7 +70,8 @@
 		Trabajador
 		LEFT JOIN Participacion ON Participacion.idUsuario = Trabajador.idUsuario
 	WHERE
-		Trabajador.idUsuario NOT IN
+		Trabajador.idRol != 'Administrador' AND Trabajador.idRol != 'Jefe de proyecto'
+		AND Trabajador.idUsuario NOT IN
 			<!-- Workers already in project -->
 			(SELECT idUsuario FROM Participacion WHERE idProyecto = #value#)
 		AND Trabajador.idUsuario NOT IN
@@ -96,17 +106,18 @@
 		Participacion.idProyecto = #value#
 </select>
 
-<select id="GetProjectManagers" resultClass="string">
+<select id="GetProjectManagers" resultMap="participation-result">
 	SELECT 
-		nombre  
+		idUsuario as UserName,
+		CONCAT(nombre, ' ', apellidos) as Worker
 	FROM 
 		Trabajador
 	WHERE
 		idRol = 'Jefe de proyecto'
 	AND NOT EXISTS 
-		(SELECT * FROM Participacion 
-		WHERE Participacion.idRol = 'Jefe de proyecto' 
-		AND Participacion.idUsuario = Trabajador.idUsuario)
+		(SELECT idProyecto FROM Participacion 
+		WHERE Participacion.idUsuario = Trabajador.idUsuario 
+		AND Participacion.idRol = 'Jefe de proyecto')
 </select>
 
 <select id="GetProjectWorkers" resultMap="participation-result">
@@ -124,6 +135,10 @@
 
 <select id="GetUsername" resultClass="string">
 	SELECT idUsuario FROM Trabajador WHERE nombre = #value#
+</select>
+
+<select id="GetWorkerName" resultClass="string">
+	SELECT CONCAT(nombre, ' ', apellidos) FROM Trabajador WHERE idUsuario = #value#
 </select>
 
 <select id="GetAllRoles" resultClass="string">
@@ -196,8 +211,22 @@
 		idUsuario = #UserID#
 </update>
 
+<update id="UpdateParticipation" parameterClass="array">
+	UPDATE 
+		Participacion
+	SET 
+		idRol = #role#,
+		porcentaje = #perc#
+	WHERE 
+		idUsuario = #user# AND idProyecto = #project#
+</update>
+
 <update id="DeleteWorkerByName">
 	DELETE FROM Trabajador WHERE idUsuario = #value#
+</update>
+
+<update id="DeleteParticipation" parameterClass="array">
+	DELETE FROM Participacion WHERE idUsuario = #worker# AND idProyecto = #project#
 </update>
 
 </sqlMap>

@@ -6,7 +6,7 @@
 	  <allow pages="ReportList, ActiveActs, ActiveWorkers, ApprovedActs, 
                   AssignedActs, DelayedActs, FutureActs, FutureWorkers, 
                   PlannedActs, ReviewActs, Summary" roles="manager" />
-	  <allow pages="WorkRegisters, Summary" roles="developer" />
+	  <allow pages="WorkRegisters, Summary" roles="manager,developer" />
     <allow pages="Worker, WorkerActivities" roles="personal" />
     <deny users="*" />
   </authorization>

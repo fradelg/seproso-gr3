@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Gesti&oacute;n de fases del proyecto</h1>
+<h2>Gesti&oacute;n de fases del proyecto</h2>
 
 <com:TMultiView ID="views" ActiveViewIndex="0">
 
@@ -41,8 +41,10 @@
 	</prop:ItemTemplate>
 	<prop:EditItemTemplate>
 	  <tr>
-	  	<td><com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> /></td>
-	  	<td>
+	  	<td class="name">
+	  		<com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> />
+	  	</td>
+	  	<td class="description">
 	  		<com:TTextBox ID="description" TextMode="MultiLine"  
 	  		Text=<%# $this->DataItem->Description %> />
 	  	</td>
@@ -55,7 +57,10 @@
 	</com:TDataList>
 	</div>
 	<div>
-		<br/><com:TButton Text="Nueva fase" OnClick="newPhase" />
+		<br/>
+		<com:TPlaceHolder Visible=<%= !$this->isProjectStarted() %> >
+			<com:TButton Text="Nueva fase" OnClick="newPhase" />
+		</com:TPlaceHolder>
 		<com:TButton ID="newTemplateButton" Text="Establecer como plantilla" 
 				OnClick="defineTemplate" />
 		

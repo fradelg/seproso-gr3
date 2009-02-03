@@ -1,7 +1,8 @@
 <com:TContent ID="Main">
-<fieldset class="project-list">
-<legend>Proyectos en SEPROSO</legend>
-
+<h2>Proyectos registrados en SEPROSO</h2>
+<fieldset><legend>Lista de proyectos</legend>
+<com:TMultiView ID="views" ActiveViewIndex="0">
+<com:TView>
 <div class="list">
 <com:TDataList ID="list"
 	RepeatLayout="Raw"
@@ -16,7 +17,7 @@
 	</prop:EmptyTemplate>
 	<prop:HeaderTemplate>
 		<table>
-		<tr class="header">
+		<tr>
 			<th>Titulo</th>
 			<th>Jefe</th>
 			<th>Creado</th>
@@ -29,7 +30,7 @@
 	</prop:FooterTemplate>
 	
 	<prop:ItemTemplate>
-		<tr class="row0">
+		<tr>
 			<td><%# h($this->DataItem->Title) %></td>
 			<td><%# h($this->DataItem->ManagerID) %></td>
 			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
@@ -37,9 +38,9 @@
 			<td><%# h($this->DataItem->Description) %></td>
 			<td><%# h($this->DataItem->Burchet) %> EUR</td>
 			<td>
-	  		<com:TButton Text="Modificar" CommandName="edit"/>	  			
+	  		<com:TButton Text="Modificar" CommandName="edit"/>
 	  		<com:TButton Text="Borrar" CommandName="delete"
-	  			Attributes.onclick="if(!confirm('Est&aacute; seguro de borrar?')) return false;" />
+	  			Attributes.onclick="if(!confirm('Seguro que desea borrar?')) return false;" />
 	  		</td>
 		</tr>
   	</prop:ItemTemplate>
@@ -47,7 +48,7 @@
 	<prop:EditItemTemplate>
 	  <tr>
 	  	<td><%# h($this->DataItem->Title) %></td>
-	  	<td><com:TDropDownList ID="manager" /></td>
+	  	<td class="selection"><com:TDropDownList ID="manager" /></td>
 	  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
 				Value=<%# $this->DataItem->Date %> />
 		</td>
@@ -55,7 +56,7 @@
 	  		TextMode="MultiLine" 
 	  		Text=<%# $this->DataItem->Description %> />
 	  	</td>
-	  	<td><com:TTextBox ID="burchet" Text=<%# $this->DataItem->Burchet %> /></td>
+	  	<td class="name"><com:TTextBox ID="burchet" Text=<%# $this->DataItem->Burchet %> /></td>
 	  	<td>
 	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
 	  		<com:TButton Text="Cancelar" CommandName="cancel" />
@@ -65,6 +66,17 @@
 		
 </com:TDataList>
 </div>
+</com:TView>
+<com:TView>
+	<!-- Redirection after 2 secons to previous form -->
+	<script language="javascript">
+		function redirect() { window.location = "?page=Project.ProjectList" } 
+		setTimeout('redirect()', 2000); 
+	</script>
+	<img src="<%= $this->Page->Theme->BaseUrl %>/error.gif" width="32" height="32" alt="">
+	Este proyecto no puede ser eliminado del sistema porque su planificaci&oacute;n ha comenzado.
+	<h5> A continuaci&oacute;n ser&aacute; redirigido a la lista de proyectos.</h5>
+</com:TView>
+</com:TMultiView>
 </fieldset>
-
 </com:TContent>

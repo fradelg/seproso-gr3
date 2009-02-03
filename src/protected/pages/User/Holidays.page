@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Gesti&oacute;n de periodos vacacionales</h1>
+<h2>Gesti&oacute;n de periodos vacacionales</h2>
 
 <com:TMultiView ID="views" ActiveViewIndex="0">
 

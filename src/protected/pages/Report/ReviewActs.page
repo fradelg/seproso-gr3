@@ -1,8 +1,8 @@
 <com:TContent ID="Main">
-<h1>Informe de actividades asignadas</h1>
+<h2>Actividades pendientes de supervisi&oacute;n</h2>
 
 <fieldset class="report">
-	<legend>Actividades asignadas</legend>
+	<legend>Informes sin supervisar</legend>
 	<div class="list">
 	<com:TDataList ID="workRecords"	RepeatLayout="Raw"
 			DataKeyField="ID" OnEditCommand="openRecord" >

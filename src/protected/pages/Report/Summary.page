@@ -1,18 +1,19 @@
 <com:TContent ID="Main">
-<h1>Resumen de realizaci&oacute;n del proyecto <%= h($this->Session['project']) %></h1>
+<h2>Resumen de realizaci&oacute;n de proyectos</h2>
 
-<fieldset class="resource-report">
-	<legend>Resumen de actividades</legend>
-	<com:TMultiView ID="views">
-	<com:TView>
-		<br/>Este proyecto todav&iacute;a no ha comenzado a desarrollarse.
-	</com:TView>
-		<com:TView>
-		<br/>Este proyecto todav&iacute;a est&aacute; en desarrollo.
-	</com:TView>
-	<com:TView>
+<fieldset>
+	<legend>Resumen de proyectos</legend>
+	
+	<div class="phase-select">
+	<com:TLabel ForControl="projectList" 
+		Text="Seleccione uno de los proyectos que ya han finalizado:"/>
+	<span class="required">*</span>
+	<com:TDropDownList ID="projectList" CssClass="items" AutoPostBack="True"
+		OnSelectedIndexChanged="projectChanged" /><br/><hr/>
+	</div>
+	
+	<div class="list">
 	<com:TRepeater ID="activityList">
-	 	<div class="list">
 	 	<prop:HeaderTemplate>
 		  <table>
 		  	<tr>
@@ -41,12 +42,7 @@
 		  </tr>
 		</prop:ItemTemplate>
 	</com:TRepeater>
-	</com:TView>
-	<com:TView>
-		<br/>Este proyecto todav&iacute;a no ha comenzado a desarrollarse.
-	</com:TView>
-		<com:TView>
-		<br/>Este proyecto todav&iacute;a est&aacute; en desarrollo.
-	</com:TView>
-	</fieldset>
+	</div>
+	
+</fieldset>
 </com:TContent>

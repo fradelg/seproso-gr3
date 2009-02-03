@@ -1,8 +1,6 @@
 <com:TContent ID="Main">
-
-<fieldset>
-<legend>Bienvenido!!! </legend>
-	<h1>Bienvenido a SEPROSO</h1>
+<h2>Bienvenido a SEPROSO</h2>
+<fieldset><legend>SEguimiento de PROyectos SOftware</legend>
 	<h3>Mediante esta pr&aacute;ctica herramienta Web usted podr&aacute; ...
 	<ul>
 		<li>Planificar sus proyectos software.</li>

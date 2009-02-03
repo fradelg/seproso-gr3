@@ -10,6 +10,12 @@ class Phases extends TPage
 		return $this->Application->Modules['daos']->getDao('ProjectDao');
 	}
 	
+	public function isProjectStarted()
+	{
+		$project = $this->Session['project'];
+		return ($this->getProjectDao()->getProjectState($project) != 0);
+	}
+	
 	protected function getUserDao()
 	{
 		return $this->Application->Modules['daos']->getDao('UserDao');
@@ -33,7 +39,7 @@ class Phases extends TPage
 	protected function showList()
 	{
 		$this->Phases = $this->getProjectDao()->getPhasesByProject($this->Project);
-		$this->phaseList->DataSource = $this->sortPhaseTree();
+		$this->phaseList->DataSource = $this->getPhaseTree();
 		$this->phaseList->dataBind();
 		
 		$this->newTemplateButton->Visible = 
@@ -41,10 +47,10 @@ class Phases extends TPage
 	}
 	
 	/**
-	 * Sort phase list sort by parentID
-	 * @return array phase list
+	 * Get project phase list sorted by parentID
+	 * @return array phase list sorted
 	 */
-	private function sortPhaseTree()
+	private function getPhaseTree()
 	{
 		$result = array();
 		foreach ($this->Phases as $phase)

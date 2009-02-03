@@ -2,7 +2,7 @@
 <h2>Actividades pendientes de aprobaci&oacute;n</h2>
 
 <fieldset class="report">
-	<legend>Actividades sin aprobar</legend>
+	<legend>Informes sin aprobar</legend>
 	<div class="list">
 	<com:TDataList ID="workRecords"	RepeatLayout="Raw"
 			DataKeyField="ID" OnEditCommand="openRecord" >

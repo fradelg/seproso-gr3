@@ -54,11 +54,14 @@ class UserCreate extends TPage
 	public function getRoles()
 	{ 
 		$roles = array();
-		$roles['admin'] = "Administrador";
-		$roles['personal'] = "Jefe de personal";
-		$roles['manager'] = "Jefe de proyecto";
-		foreach ($this->getWorkerDao()->getAllRoles() as $role){ 
-			if ($role != 'Jefe de proyecto')
+		foreach ($this->getWorkerDao()->getAllRoles() as $role){
+			if ($role == 'Administrador')
+				$roles['admin'] = "Administrador"; 
+			else if ($role == 'Jefe de personal')
+				$roles['personal'] = "Jefe de personal";
+			else if ($role == 'Jefe de proyecto')
+				$roles['manager'] = "Jefe de proyecto";
+			else
 				$roles[$role] = $role;
 		}
 		return $roles;
@@ -99,12 +102,8 @@ class UserCreate extends TPage
 				$newUser->Roles = 'developer';
 				
 	
-			// save the user
+			// save user
 			$this->getUserDao()->addNewUser($newUser, $this->password->Text);
-			
-			if ($this->role->SelectedValue == 'admin' ||
-				$this->role->SelectedValue == 'personal')
-				return;
 				
 			// configure the worker
 			$newWorker = new WorkerRecord();
@@ -114,7 +113,7 @@ class UserCreate extends TPage
 			$newWorker->Surname = $this->surname->Text;
 			$newWorker->BirthDate = $this->birthDate->TimeStamp;
 			
-			// save the worker
+			// save worker
 			$this->getWorkerDao()->addNewWorker($newWorker);
 			
 			// Redirect to user list

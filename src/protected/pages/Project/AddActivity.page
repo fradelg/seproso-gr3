@@ -21,7 +21,7 @@
 	<com:TListBox ID="actList" CssClass="items" SelectionMode="Multiple" />
 	</div>
 	
-	<div class="list" align="center">
+	<div class="content" align="center">
 	<h2>Trabajadores implicados</h2>
 	<com:TLabel ForControl="workerList" 
 		Text="Seleccione los trabajadores del proyecto que realizar&aacute;n la actividad. 

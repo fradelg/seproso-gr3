@@ -12,7 +12,6 @@ class ProjectCreate extends TPage
 		return $this->Application->Modules['daos']->getDao('WorkerDao');
 	}
 	
-	
 	public function onLoad($param)
 	{
 		if(!$this->IsPostBack)
@@ -24,24 +23,33 @@ class ProjectCreate extends TPage
 	
 	protected function getProjectManagers()
 	{
-		return $this->getWorkerDao()->getProjectManagers();
+		$managers = array();
+		foreach ($this->getWorkerDao()->getProjectManagers() as $manager)
+			$managers[$manager['UserID']] = $manager['Worker'];
+		return $managers; 
 	}
 	
 	public function saveProject($sender, $param)
 	{	
 		if ($this->IsValid){
 			$newProject = new ProjectRecord;
-			$userNick = $this->getWorkerDao()->getUsername(
-								$this->manager->SelectedItem->Text);
-			
 			$newProject->Title = $this->projectName->Text;
 			$newProject->Description = $this->description->Text;
 			$newProject->Burchet = floatval($this->burchet->Text);
-			$newProject->ManagerID = $userNick;
+			$newProject->ManagerID = $this->manager->SelectedValue;
 		
+			// add project to database
 			$this->getProjectDao()->addNewProject($newProject);
-			$this->getWorkerDao()->addParticipation($newProject->ManagerID,
-								$newProject->Title, 'Jefe de proyecto', 100);
+			
+			// check if worker is already participating in project
+			$worker = $newProject->ManagerID;
+			$title = $newProject->Title;
+			if ($this->getWorkerDao()->participationExists($worker, $title))
+				$this->getWorkerDao()->updateParticipation(
+					$worker, $title, 'Jefe de proyecto', 50);
+			else
+				$this->getWorkerDao()->addParticipation(
+					$worker, $title, 'Jefe de proyecto', 50);
 		
 			$this->Response->redirect("?page=Project.ProjectList");
 		}

@@ -25,7 +25,7 @@
 </select>
 
 <select id="GetAllActivities" parameterClass="int" resultMap="activity-result">
-	SELECT * FROM Actividad WHERE idFase = #value# GROUP BY idActividad
+	SELECT * FROM Actividad WHERE idFase = #value# ORDER BY inicioEstimado
 </select>
 
 <select id="GetAllActivitiesByProject" resultMap="activity-result">
@@ -69,7 +69,7 @@
 		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
 		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase 
 	WHERE 
-		Proyecto.titulo = #value# AND NOT IN
+		Proyecto.titulo = #value# AND Actividad.idActividad NOT IN
 		(SELECT actividad FROM Actividad_Predecesora)
 </select>
 
@@ -111,13 +111,12 @@
 </insert>
 
 <insert id="AddNewArtifact" parameterClass="array">
-	INSERT INTO Artefacto
-	(nombre, descripcion)
+	INSERT INTO Artefacto (nombre, descripcion)
 	VALUES (#name#, #description#)
 </insert>
 
 <insert id="AddPrecedentActivity" parameterClass="array">
-	INSERT INTO Actividad_predecesora 
+	INSERT INTO Actividad_Predecesora 
 	(actividad, predecesora)
 	VALUES (#act#, #pred#)
 </insert>

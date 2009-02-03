@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Informe de actividades por realizar</h1>
+<h2>Informe de actividades por realizar</h2>
 
 <fieldset class="resource-report">
 	<legend>Actividades y recursos planificados</legend>

@@ -1,5 +1,5 @@
 <com:TContent ID="Main">
-<h1>Informe de actividades retrasadas</h1>
+<h2>Informe de actividades retrasadas</h2>
 
 <fieldset><legend>Actividades retrasadas</legend>
 	<div class="list">

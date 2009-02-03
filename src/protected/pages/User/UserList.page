@@ -1,8 +1,8 @@
 <com:TContent ID="Main">
 <h2>Usuarios registrados en SEPROSO</h2>
-<fieldset>
-  <legend>Lista de usuarios</legend>
-
+<fieldset><legend>Lista de usuarios</legend>
+<com:TMultiView ID="views" ActiveViewIndex="0">
+<com:TView>
 <div class="list">
 <com:TDataList ID="list"
 	RepeatLayout="Raw"
@@ -16,8 +16,8 @@
 		No existen usuarios registrados en el sistema.
 	</prop:EmptyTemplate>
 	<prop:HeaderTemplate>
-		<table cellpadding="1" class="time-entries">
-		<tr class="header">
+		<table>
+		<tr>
 			<th>Nombre</th>
 			<th>Apellidos</th>
 			<th>Nacido</th>
@@ -31,7 +31,7 @@
 	</prop:FooterTemplate>
 	
 	<prop:ItemTemplate>
-		<tr class="row0">
+		<tr>
 			<td><%# h($this->DataItem->Name) %></td>
 			<td><%# h($this->DataItem->Surname) %></td>
 			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
@@ -40,24 +40,24 @@
 			<td><%# h($this->DataItem->Password) %></td>
 			<td><%# h($this->DataItem->EmailAddress) %></td>
 			<td>
-	  		<com:TButton Text="Modificar" CommandName="edit"/>	  			
+	  		<com:TButton Text="Modificar" CommandName="edit"/>
 	  		<com:TButton Text="Borrar" CommandName="delete"
-	  			Attributes.onclick="if(!confirm('Est&aacute; seguro de borrar?')) return false;" />
+	  			Attributes.onclick="if(!confirm('Seguro que desea borrar?')) return false;" />
 	  		</td>
 		</tr>
   	</prop:ItemTemplate>
 	
 	<prop:EditItemTemplate>
 	  <tr>
-	  	<td><com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> /></td>
-	  	<td><com:TTextBox ID="surname" Text=<%# $this->DataItem->Surname %> /></td>
-	  	<td><com:TDatePicker InputMode="DropDownList" ID="date" 
+	  	<td class="name"><com:TTextBox ID="name" Text=<%# $this->DataItem->Name %> /></td>
+	  	<td class="name"><com:TTextBox ID="surname" Text=<%# $this->DataItem->Surname %> /></td>
+	  	<td class="date"><com:TDatePicker InputMode="DropDownList" ID="date" 
 	  			TimeStamp=<%# $this->DataItem->BirthDate %>
 	  			FromYear = <%= $this->Page->getYear() - 65 %>
 				UpToYear = <%= $this->Page->getYear() - 18 %> /></td>
-	  	<td><com:TDropDownList ID="role" /></td>
-	  	<td><com:TTextBox ID="password" Text=<%# $this->DataItem->Password %> /></td>
-	  	<td><com:TTextBox ID="email" Text=<%# $this->DataItem->EmailAddress %> /></td>
+	  	<td class="selection"><com:TDropDownList ID="role" /></td>
+	  	<td class="name"><com:TTextBox ID="password" Text=<%# $this->DataItem->Password %> /></td>
+	  	<td class="name"><com:TTextBox ID="email" Text=<%# $this->DataItem->EmailAddress %> /></td>
 	  	<td>
 	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
 	  		<com:TButton Text="Cancelar" CommandName="cancel" />
@@ -67,5 +67,17 @@
 		
 </com:TDataList>
 </div>
+</com:TView>
+<com:TView>
+	<!-- Redirection after 2 secons to previous form -->
+	<script language="javascript">
+		function redirect() { window.location = "?page=User.UserList" } 
+		setTimeout('redirect()', 2000); 
+	</script>
+	<img src="<%= $this->Page->Theme->BaseUrl %>/error.gif" width="32" height="32" alt="">
+	Este trabajador no puede ser eliminado del sistema porque ya participa en al menos un proyecto.
+	<h5> A continuaci&oacute;n ser&aacute; redirigido a la lista de usuarios.</h5>
+</com:TView>
+</com:TMultiView>
 </fieldset>
 </com:TContent>

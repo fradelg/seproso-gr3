@@ -20,6 +20,18 @@
  */
 class Workers extends TPage
 {
+	protected function getProjectDao()
+	{
+		return $this->Application->Modules['daos']->getDao('ProjectDao');
+	}
+	
+	public function isProjectStarted()
+	{
+		$project = $this->Session['project'];
+		return ($this->getProjectDao()->getProjectState($project) != 0);
+	}
+	
+	
 	protected function getWorkerDao()
 	{
 		return $this->Application->Modules['daos']->getDao('WorkerDao');

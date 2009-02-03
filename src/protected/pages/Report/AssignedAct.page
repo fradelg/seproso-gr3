@@ -1,22 +1,22 @@
 <com:TContent ID="Main">
 <h2>Informe de actividades asignadas</h2>
 
-<fieldset class="report">
+<fieldset class="resource-report">
 	<legend>Actividades asignadas</legend>
 	<com:TMultiView ID="views" ActiveViewIndex="0">
 	<com:TView>
-		<div align="center">
+		<div class="step1">
 		<h2>Seleccione un periodo de tiempo</h2>
 		<div class="date-from">
 		<com:TLabel ForControl="dateFrom" Text="Desde la fecha:"/>
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateFrom" 
 			DateFormat="dd/MM/yyyy"
-			TimeStamp=<%= strtotime("-1 month") %>
+			TimeStamp=<%= strtotime("-1 year") %>
 			InputMode="DropDownList" />
 		</div>
 		<div class="date-to">
-		<com:TLabel ForControl="dateTo" Text="Hasta la fecha:"/>
+		<com:TLabel ForControl="dateTo" Text="Hasta:"/>
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateTo" DateFormat="dd/MM/yyyy" InputMode="DropDownList"/>
 		<com:TCompareValidator
@@ -47,40 +47,28 @@
 		 <h4 class="begin"><%= h($this->dateFrom->Date) %></h4> 	 
 		 <h3 class="end">Fecha final:</h3>
 		 <h4 class="end"><%= h($this->dateTo->Date) %></h4>
-		</div>
-		<div class="list">
-		<com:TRepeater ID="workerList" onItemCreated="workerCreated">
-		<prop:ItemTemplate>
-			<h3><%# h($this->DataItem->Worker) %></h3>
-			<com:TRepeater ID="activityList">
-			<prop:EmptyTemplate>
-				No tiene asignadas actividades durante este periodo.
-			</prop:EmptyTemplate>
-			<prop:HeaderTemplate>
-	  			<table>
-	  			<tr>
-	  				<th>Nombre</th>
-	  				<th>Descripci&oacute;n</th>
-	  				<th>Inicio</th>
-	  				<th>Esfuerzo</th>
-	  			</tr>
-			</prop:HeaderTemplate>
-			<prop:FooterTemplate>
-	  			</table>
-			</prop:FooterTemplate>
-			<prop:ItemTemplate>
-				<tr>
-					<td><%# h($this->DataItem->Activity) %></td>
-					<td><%# h($this->DataItem->Description) %></td>
-					<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-						Value=<%# $this->DataItem->Date %> /></td>
-					<td><%# h($this->DataItem->Effort) %></td>
-	  			</tr>
-			</prop:ItemTemplate>	
-			</com:TRepeater>
-		</prop:ItemTemplate>
+		</div> 
+		<com:TRepeater ID="workers">
+		 	<div class="resource">
+		 	<prop:HeaderTemplate>
+				<table class="project">
+			 	<tr>
+			 		<th class="user">Trabajador</th>
+			 		<th class="category">Actividad</th>
+			 		<th class="description">Descripci&oacute;n</th>
+			 	</tr>
+			 </prop:HeaderTemplate>
+			 <prop:FooterTemplate>
+			 	</table>
+			 </prop:FooterTemplate>
+			 <prop:ItemTemplate>
+			 	<tr>
+			 		<td class="user"><%# h($this->DataItem->UserName) %></td>
+			 		<td class="category"><%# h($this->DataItem->ActivityName) %></td>
+			 		<td class="description"><%# h($this->DataItem->Description) %></td>
+			 	</tr>
+			 </prop:ItemTemplate>
 		</com:TRepeater>
-		</div>
 	</com:TView>
 	
 	</com:TMultiView>

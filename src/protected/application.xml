@@ -5,7 +5,7 @@
 	<using namespace="System.Data.*" />
 	<using namespace="System.Security.*" />
 	<using namespace="Application.code.*" />
-	<using namespace="Application.code.DAO.*" />
+	<using namespace="Application.code.Dao.*" />
 	<using namespace="Application.data.*" />
 	<using namespace="Application.controls.*" />
   </paths>

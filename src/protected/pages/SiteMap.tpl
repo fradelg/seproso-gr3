@@ -66,7 +66,11 @@
 	<li class="<com:TPlaceHolder ID="ReportDeveloperMenu" />">
 		<a class="menuitem" href="?page=Report.WorkRegisters">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
-		<span>Informe de actividades</span></a>
+		<span>Informes</span></a>
+		<ul class="level2">
+			<li><a href="?page=Report.WorkRegisters">Actividades</a></li>
+			<li><a href="?page=Report.Summary">Resumenes</a></li>
+		</ul>
 	</li>
 	<li class="<com:TPlaceHolder ID="HolidaysMenu" />">
 		<a class="menuitem" href="?page=User.Holidays">
@@ -81,12 +85,12 @@
 <!-- PERSONAL MANAGER menu definition. Items: informe de personal, informe de ocupación -->
 <ul class="level1">
 	<com:TPlaceHolder Visible=<%= $this->isViewType('personal') %> >
-	<li class="<com:TPlaceHolder ID="ReportPersonalMenu" />">
+	<li class="<com:TPlaceHolder ID="ReportWorkerMenu" />">
 		<a class="menuitem" href="?page=Report.Worker">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
 		<span>Situaci&oacute;n de personal</span></a>
 	</li>
-	<li class="<com:TPlaceHolder ID="ReportWorkerMenu" />">
+	<li class="<com:TPlaceHolder ID="ReportWorkersMenu" />">
 		<a class="menuitem" href="?page=Report.WorkerActivities">
 		<img src="<%= $this->Page->Theme->BaseUrl %>/report.gif" width="16" height="16" alt="">
 		<span>Informe de ocupaci&oacute;n</span></a>

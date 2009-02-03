@@ -276,14 +276,24 @@ fieldset.selection-page .content table td
 	font-size: small;
 }
 
-.list input
+.list td.description input
 {
-	max-width: 7em;
+	width: 20em;
 }
 
-.list select
+.list td.name input
 {
-	max-width: 7em;
+	width: 7em;
+}
+
+.list td.value input
+{
+	width: 2em;
+}
+
+.list td.selection select
+{
+	width: 8em;
 }
 
 /* Create new template */

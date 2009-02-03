@@ -1,11 +1,7 @@
 <com:TContent ID="Main">
-<h1>Configuraci&oacute;n del sistema</h1>
-
-<style type="text/css">
-	input { max-width: 6em; }	
-</style>
-
+<h2>Configuraci&oacute;n del sistema</h2>
 <fieldset><legend>Par&aacute;metros</legend>
+
 <div class="list">
 <com:TDataList ID="paramList"
 	RepeatLayout="Raw"
@@ -38,7 +34,11 @@
 	  	<tr>
 			<td><%# h($this->DataItem->Parameter) %></td>
 			<td><%# h($this->DataItem->Description) %></td>
-	  		<td><com:TTextBox ID="valueBox" Text=<%# $this->DataItem->Value %> /></td>
+	  		<td>
+	  			<div class="configuration">
+	  			<com:TTextBox ID="valueBox" Text=<%# $this->DataItem->Value %> />
+	  			</div>
+	  		</td>
 	  		<td>
 	  		<com:TButton Text="Guardar" CommandName="update" ValidationGroup="entry-update"/>
 	  		<com:TButton Text="Cancelar" CommandName="cancel" />

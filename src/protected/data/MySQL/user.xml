@@ -56,9 +56,9 @@
 		(#user.Name#, #password#, #user.EMailAddress#, #role#)
 </insert>
 
-<update id="DeleteUserByName">
-	UPDATE Usuario SET Disabled = 1  WHERE nick = #value#
-</update>
+<delete id="DeleteUserByName">
+	DELETE FROM Usuario WHERE nick = #value#
+</delete>
 
 <insert id="RegisterAutoSignon" parameterClass="array">
 	INSERT INTO 

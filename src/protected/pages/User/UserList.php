@@ -61,13 +61,6 @@ class UserList extends TPage
 		$this->list->EditItemIndex = -1;
 		$this->showList();
 	}
-
-	public function deleteEntryItem($sender, $param)
-	{
-		$id = $this->list->DataKeys[$param->Item->ItemIndex];
-		$this->getWorkerDao()->deleteWorker($id);
-		$this->refreshEntryList();
-	}
 			
 	public function updateEntryItem($sender, $param)
 	{		
@@ -102,6 +95,16 @@ class UserList extends TPage
 		$this->refreshEntryList();
 	}
 
+	public function deleteEntryItem($sender, $param)
+	{
+		$id = $this->list->DataKeys[$param->Item->ItemIndex];
+		if (!$this->getWorkerDao()->workerHasProject($id))
+			$this->getWorkerDao()->deleteWorker($id);
+		else
+			$this->views->ActiveViewIndex = 1;
+		$this->refreshEntryList($sender, $param);
+	}
+	
 	public function EntryItemCreated($sender, $param)
 	{
 		if($param->Item->ItemType == 'EditItem' && $param->Item->DataItem)
