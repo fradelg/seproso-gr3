@@ -102,7 +102,7 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 \hline
 1.0 & 22/01/09 & Añadidas etapas de construcción. & Francisco y Rubén.\\
 \hline
-1.1 & 29/01/09 & Añadida etapa de producción. & Francisco.\\
+1.1 & 31/01/09 & Añadida etapa de producción. & Francisco.\\
 \hline
 \end{tabular}
 
@@ -147,9 +147,9 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 	\item \textbf{PRADO Template Control}: plantilla para alojar páginas Web o componentes de PRADO. Se utiliza para definir esquemas de contenidos para índices o menús. Es muy similar a un componente PRADO Page sólo que ésta se puede insertar en otra PRADO Page. También lleva asociada una PRADO PHP Class del mismo nombre pero diferente extensión que define su comportamiento. Su extensión es .tpl.
 
-	\item \textbf{XML SQL Map}: descripción en XML de las consultas SQL que se realizan a una base de datos y del mapeo automático que se realiza de los resultados obtenidos como entradas de tablas hacia objetos de la aplicación (también llamado "binding"). A estas consultas se las identifica con un nombre que será utilizado por un DAO para ejecutar la consulta y devolver los objetos correspondientes según mapeo.
+	\item \textbf{XML SQL Map}: descripción utilizando XML de las consultas SQL que se realizan a una base de datos y del mapeo automático de los resultados obtenidos (entradas de tablas) hacia objetos del \it{"Dataset"} la aplicación (también llamado "binding"). A estas consultas se las identifica con un nombre único que será utilizado por un DAO para ejecutar la consulta y devolver uno o varios objetos resultantes.
 
-	\item \textbf{DAO (Data Access Object)}: objeto que permite enlazar la lógica de negocio orientada a objeto con una base de datos relacional, ejecutando las consultas como métodos gracias a ficheros XML SQL Map.
+	\item \textbf{DAO (Data Access Object)}: objeto que permite enlazar la lógica de negocio en un diseño orientado a objeto con una base de datos relacional, ejecutando las consultas como métodos y devolviendo objetos, gracias a los ficheros XML SQL Map.
 \end{itemize}
 
 
@@ -181,7 +181,9 @@ Después el documento contiene varios apartados, uno por cada iteración con activ
 
 \indent \indent En la siguiente sección se presenta el Diagrama Global UML del Modelo de Implementación (con componentes y paquetes) y los diagramas UML con el contenido de los paquetes a mayor nivel de detalle. Esto provee una visión general de todos los componentes que serán implementados en SEPROSO.\\
 
+\figura{Images/completo.jpg}{width=1.1\linewidth}{Diagrama Globar UML del modelo de implementación}{completo}
 
+\newpage
 \chapter{Elaboración}
 
 \section{Componetes y subsistemas.}
@@ -239,7 +241,14 @@ La numeración de esta lista establece el orden en que deben ser implementados lo
 
 En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Prototipo GUI).\\
 
+\figura{Images/pMain.jpg}{width=1.1\linewidth}{Prototipo: Main.}{completo}
+\figura{Images/pTheme.jpg}{width=1.1\linewidth}{Prototipo: Theme.}{completo}
+\figura{Images/pUser.jpg}{width=1.1\linewidth}{Prototipo: User.}{completo}
+\figura{Images/pProject.jpg}{width=1.1\linewidth}{Prototipo: Project.}{completo}
+\figura{Images/pReport.jpg}{width=1.1\linewidth}{Prototipo: Report.}{completo}
 
+
+\newpage
 \section{Producto.}
 
 \indent \indent Se \textsl{construye} integrando todos los componentes y subsistemas listados en la sección 3.1.1 de este documento generando una herramienta básica no funcional: login y logout, informe básico con selección de periodo y formulario de introducción de datos de fases y actividades.\\
@@ -323,6 +332,7 @@ Para \textsl{probarlo} se siguen los apartados de todas las pruebas del Plan de 
 	\item		Paquete DataBase
 \begin{itemize}
 	\item SeprosoUserTypeHandler (PRADO PHP Class)
+	\item DateTimeTypeHandler (PRADO PHP Class)
 	\item Project (XML SQL Map)
 	\item Worker (XML SQL Map)
 	\item WorkRecord (XML SQL Map)
@@ -339,7 +349,16 @@ La numeración de esta lista establece el orden en que deben ser implementados lo
 
 En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Versión Alpha).\\
 
+\figura{Images/aMain.jpg}{width=1.1\linewidth}{Versión Alpha: Main.}{completo}
+\figura{Images/aTheme.jpg}{width=1.1\linewidth}{Versión Alpha: Theme.}{completo}
+\figura{Images/aUser.jpg}{width=1.1\linewidth}{Versión Alpha: User.}{completo}
+\figura{Images/aProject.jpg}{width=1.1\linewidth}{Versión Alpha: Project.}{completo}
+\figura{Images/aReport.jpg}{width=1.1\linewidth}{Versión Alpha: Report.}{completo}
+\figura{Images/aLogin.jpg}{width=1.1\linewidth}{Versión Alpha: Login.}{completo}
+\figura{Images/aDatabase.jpg}{width=1.1\linewidth}{Versión Alpha: Database.}{completo}
+\figura{Images/aDAO.jpg}{width=1.1\linewidth}{Versión Alpha: DAO.}{completo}
 
+\newpage
 \section{Producto.}
 
 \indent \indent Se \textsl{construye} integrando todos los componentes y subsistemas listados en la sección 4.1.1 de este documento produciendo una herramienta con la siguiente funcionalidad: sesión de usuario, gestión de proyecto, generación de informes (algunos, no todos), y registro de informes de actividad. \\
@@ -383,24 +402,31 @@ El orden de esta lista determina implícitamente el orden en que deben ser implem
 	\item Paquete DAO
 \begin{itemize}
 	\item ActivityDao (PRADO PHP Class)
-	\item ProcessDao (PRADO PHP Class)
-	\item PhaseDao (PRADO PHP Class)
 	\item ReportsDao (PRADO PHP Class)
 	\item ActivityRecord (PRADO PHP Class)
 	\item ProcessRecord (PRADO PHP Class)
 	\item PhaseRecord (PRADO PHP Class)
+\end{itemize}
 	\item Paquete DataBase
-	\item DataTimeTypeHandler (PRADO PHP Class)
+\begin{itemize}
 	\item Activity (XML SQL Map)
-	\item Process (XML SQL Map)
-	\item Phase (XML SQL Map)
+	\item Project (XML SQL Map)
 	\item Reports (XML SQL Map)
 \end{itemize}
 \end{enumerate}
 
-En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Versión Beta).
+En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Versión Beta).\\
 
+\figura{Images/bMain.jpg}{width=1.1\linewidth}{Versión Beta: Main.}{completo}
+\figura{Images/bTheme.jpg}{width=1.1\linewidth}{Versión Beta: Theme.}{completo}
+\figura{Images/bUser.jpg}{width=1.1\linewidth}{Versión Beta: User.}{completo}
+\figura{Images/bProject.jpg}{width=1.1\linewidth}{Versión Beta: Project.}{completo}
+\figura{Images/bReport.jpg}{width=1.1\linewidth}{Versión Beta: Report.}{completo}
+\figura{Images/bLogin.jpg}{width=1.1\linewidth}{Versión Beta: Login.}{completo}
+\figura{Images/bDatabase.jpg}{width=1.1\linewidth}{Versión Beta: Database.}{completo}
+\figura{Images/bDAO.jpg}{width=1.1\linewidth}{Versión Beta: DAO.}{completo}
 
+\newpage
 \section{Producto.}
 
 
@@ -440,18 +466,14 @@ Las \textsl{pruebas} consisten en pasar todos los casos de prueba diseñados por 
 	\item 	Paquete DAO
 \begin{itemize}
 	\item ActivityDao (PRADO PHP Class)
-	\item ArtifactDao (PRADO PHP Class)
-	\item ConfigurationDao (PRADO PHP Class)
+	\item ProjectDao (PRADO PHP Class)
 	\item ReportsDao (PRADO PHP Class)
 	\item ActivityRecord (PRADO PHP Class)
-	\item ArtifactRecord (PRADO PHP Class)
 	\item ConfigurationRecord (PRADO PHP Class)
 \end{itemize}
 	\item 	Paquete DataBase
 \begin{itemize}
 	\item Activity (XML SQL Map)
-	\item Artifact (XML SQL Map)
-	\item Configuration (XML SQL Map)
 	\item Reports (XML SQL Map)
 \end{itemize}
 \end{enumerate}
@@ -465,10 +487,19 @@ La numeración de esta lista establece un orden para diseño TOP-DOWN de implement
 
 En las siguientes figuras se muestra un Diagrama de Implementación a diferentes niveles de detalle del producto a construir como resultado de esta iteración (Versión Final).\\
 
+\figura{Images/fMain.jpg}{width=1.1\linewidth}{Versión Final: Main.}{completo}
+\figura{Images/fTheme.jpg}{width=1.1\linewidth}{Versión Final: Theme.}{completo}
+\figura{Images/fUser.jpg}{width=1.1\linewidth}{Versión Final: User.}{completo}
+\figura{Images/fProject.jpg}{width=1.1\linewidth}{Versión Final: Project.}{completo}
+\figura{Images/fReport.jpg}{width=1.1\linewidth}{Versión Final: Report.}{completo}
+\figura{Images/fLogin.jpg}{width=1.1\linewidth}{Versión Final: Login.}{completo}
+\figura{Images/fDatabase.jpg}{width=1.1\linewidth}{Versión Final: Database.}{completo}
+\figura{Images/fDAO.jpg}{width=1.1\linewidth}{Versión Final: DAO.}{completo}
 
+\newpage
 \section{Producto.}
 
-Se \textsl{construye} integrando todos los componentes y subsistemas de la lista (sección 6.1.1). De aquí se obtiene una herramienta plenamente funcional y sin errores, lista para ser puesta a disposición del cliente y en fase de mantenimiento. Esto implica que permite desarrollar al usuario todos los casos de uso de forma correcta.\\
+\indent \indent Se \textsl{construye} integrando todos los componentes y subsistemas de la lista (sección 6.1.1). De aquí se obtiene una herramienta plenamente funcional y sin errores, lista para ser puesta a disposición del cliente y en fase de mantenimiento. Esto implica que permite desarrollar al usuario todos los casos de uso de forma correcta.\\
 
 Se \textsl{utiliza} para depurar todos los errores que quedaron pendientes en la versión beta, además de añadir pequeños detalles de funcionalidad a los casos de uso que se implementaron parcialmente entonces.\\
 
