@@ -2,8 +2,8 @@
 
 $basePath=dirname(__FILE__);
 $frameworkPath='../framework/prado.php';
-$assetsPath=$basePath."/assets";
-$runtimePath=$basePath."/protected/runtime";
+$assetsPath=$basePath."./assets";
+$runtimePath=$basePath."./protected/runtime";
 
 if(!is_file($frameworkPath))
 	die("Unable to find prado framework path $frameworkPath.");

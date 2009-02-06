@@ -7,9 +7,12 @@ class WorkRegisters extends TPage
 	{
 		return $this->Application->Modules['daos']->getDao('ReportsDao');
 	}
-	
+
 	public function onLoad($param)
 	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+			
 		// Check for current project state
 		$dao = $this->Application->Modules['daos']->getDao('ProjectDao');
 		$state = $dao->getProjectState($this->Session['project']);

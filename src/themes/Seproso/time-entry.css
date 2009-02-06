@@ -77,27 +77,26 @@
 
 .activityRegister .worker
 {
-	font-weight: bold;
+	font-size: x-large;
 	font-style: italic;
 	color: purple;
 }
 
 .activityRegister .effort
 {
-	font-weight: bold;
-	color: red;
+	color: olive;
 }
 
 .activityRegister .project,
-.activityRegister .date2,
-.activityRegister .comment
+.activityRegister .date2
 {
 	float: left;
-	width: 17em;
+	width: 15em;
 }
 
-.activityRegister .comment
+.activityRegister .comments
 {
-	width: 95%;
-	height: 4em;
+	padding-left: 50pt;
+    padding-right: 50pt;
+	width: 80%;
 }

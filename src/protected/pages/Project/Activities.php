@@ -22,6 +22,9 @@ class Activities extends TPage
 	
 	public function onLoad($param)
 	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+			
 		$this->Project = $this->Session['project'];
 		
 		if(!$this->IsPostBack)

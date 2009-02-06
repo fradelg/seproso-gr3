@@ -110,19 +110,6 @@ class UserDao extends BaseDao
 			$param['role'] = $role;
 		$sqlmap->update('UpdateUser', $param);
 	}
-	
-	/**
-	 * Updates user last working project
-	 * @param user username
-	 * @param project project name
-	 */
-	public function updateProject($user, $project)
-	{
-		$sqlmap = $this->getSqlMap();
-		$param['user'] = $user;
-		$param['project'] = $project;
-		$sqlmap->update('UpdateCurrentProject', $param);
-	}
 
 	/**
 	 * @param string username to be validated
@@ -135,58 +122,6 @@ class UserDao extends BaseDao
 		$param['username'] = $username;
 		$param['password'] = $password;
 		return $sqlmap->queryForObject('ValidateUser', $param);
-	}
-
-	/**
-	 * @param string unique persistent session token
-	 * @return SeprosoUser user details if valid token, null otherwise.
-	 */
-	public function validateSignon($token)
-	{
-		$sqlmap = $this->getSqlMap();
-		$sqlmap->update('UpdateSignon', $token);
-		return $sqlmap->queryForObject('ValidateAutoSignon', $token);
-	}
-
-	/**
-	 * @param SeprosoUser user details to generate the token
-	 * @return string unique persistent login token.
-	 */
-	public function createSignonToken($user)
-	{
-		$sqlmap = $this->getSqlMap();
-		$param['username'] = $user->getName();
-		$param['token'] = md5(microtime().$param['username']);
-		$sqlmap->insert('RegisterAutoSignon', $param);
-		return $param['token'];
-	}
-
-	/**
-	 * @param SeprosoUser deletes all signon token for given user, null to delete all
-	 * tokens.
-	 */
-	public function clearSignonTokens($user=null)
-	{
-		$sqlmap = $this->getSqlMap();
-		if($user !== null)
-			$sqlmap->delete('DeleteAutoSignon', $user->getName());
-		else
-			$sqlmap->delete('DeleteAllSignon');
-	}
-
-	/**
-	 * @param SeprosoUser user details for updating the assigned roles.
-	 */
-	public function updateUserRoles($user)
-	{
-		$sqlmap = $this->getSqlMap();
-		$sqlmap->delete('DeleteUserRoles', $user);
-		foreach($user->getRoles() as $role)
-		{
-			$param['username'] = $user->getName();
-			$param['role'] = $role;
-			$sqlmap->update('AddUserRole', $param);
-		}
 	}
 }
 

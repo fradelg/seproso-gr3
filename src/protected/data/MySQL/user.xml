@@ -60,31 +60,6 @@
 	DELETE FROM Usuario WHERE nick = #value#
 </delete>
 
-<insert id="RegisterAutoSignon" parameterClass="array">
-	INSERT INTO 
-		signon (SessionToken, nick, LastSignOnDate)
-	VALUES
-		(#token#, #nick#, NOW())
-</insert>
-
-<select id="ValidateAutoSignon" resultMap="seproso-user">
-	SELECT
-		Usuario.nick as Name,
-		Usuario.email as EmailAddress,
-		Rol.tipo as role
-	FROM
-		Usuario LEFT JOIN Rol ON Usuario.nick = Rol.UserID,
-		signon
-	WHERE
-		Usuario.nick = signon.nick
-		AND signon.SessionToken = #value#
-</select>
-
-<update id="UpdateSignon">
-	UPDATE signon SET LastSignOnDate = NOW() 
-	WHERE SessionToken = #value#
-</update>
-
 <update id="UpdateUser" parameterClass="array" >
 	UPDATE 
 		Usuario
@@ -95,13 +70,5 @@
 	WHERE 
 		nick = #user.Name#
 </update>
-
-<delete id="DeleteAutoSignon">
-	DELETE FROM signon WHERE nick = #value#
-</delete>
-
-<delete id="DeleteAllSignon">
-	DELETE FROM signon
-</delete>
 
 </sqlMap>

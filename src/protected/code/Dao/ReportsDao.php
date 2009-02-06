@@ -1,55 +1,5 @@
 <?php
 
-class ProjectReport extends TComponent
-{
-	public $ProjectName = '';
-	public $EstimateHours = 0;
-	public $EstimateCompletion = 0;
-	public $Categories;
-
-	public function __construct()
-	{
-		$this->Categories = new TList;
-	}
-
-	public function getActualHours()
-	{
-		$total = 0;
-		foreach($this->Categories as $cat)
-			$total += $cat->getActualHours();
-		return $total;
-	}
-}
-
-class CategoryReport extends TComponent
-{
-	public $CategoryName = '';
-	public $EstimateHours = 0;
-	public $members = array();
-
-	public function getActualHours()
-	{
-		$total = 0;
-		foreach($this->members as $member)
-			$total += $member['hours'];
-		return $total;
-	}
-}
-
-class UserReport extends TComponent
-{
-	public $Username;
-	public $Projects = array();
-
-	public function getTotalHours()
-	{
-		$hours = 0;
-		foreach($this->Projects as $project)
-			$hours += $project->Duration;
-		return $hours;
-	}
-}
-
 class WorkerProjectReport
 {
 	public $Project = '';
@@ -98,30 +48,22 @@ class ProjectActivityReport
 	public $Effort = 0.0;
 }
 
+class ProjectStatsReport
+{
+	public $EstimateStart = 0;
+	public $EstimateEnd = 0;
+	public $EstimateDuration = 0.0;
+	public $RealStart = 0;
+	public $RealEnd = 0;
+	public $RealDuration = 0.0;
+	public $StartDelay = 0;
+	public $EndDelay = 0;
+	public $DurationDelay = 0.0;
+}
 
 class ReportsDao extends BaseDao
 {
-	public function getTimeReportsByProjectIDs($projects)
-	{
-		$ids = implode(',', array_map('intval', $projects));
-		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetTimeReportByProjectIDs', $ids);
-	}
-
-	public function getUserProjectTimeReports($users, $projects, $startDate, $endDate)
-	{
-		$sqlmap = $this->getSqlMap();
-		$ids = implode(',', array_map('intval', $projects));
-		$sqlmap->getDbConnection()->setActive(true); //db connection needs to be open for quoteString
-		$usernames = implode(',', array_map(array($sqlmap->getDbConnection(), 'quoteString'), $users));
-
-		$param['projects'] = $ids;
-		$param['members'] = $usernames;
-		$param['startDate'] = intval($startDate);
-		$param['endDate'] = intval($endDate);
-
-		return $sqlmap->queryForList('GetTimeReportByUsername', $param);
-	}
+	/******************** PROJECT DATES ****************************/
 	
 	/**
 	 * Get first activity date of a project
@@ -283,6 +225,17 @@ class ReportsDao extends BaseDao
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForList('GetSummary', $project);
+	}
+	
+	/**
+	 * Get general project stats about duration and dates 
+	 * @param $project project name 
+	 * @return ProjectStatsReport
+	 */
+	public function getProjectStats($project)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetProjectStats', $project);
 	}
 	
 	/************************* DEVELOPER *****************************/

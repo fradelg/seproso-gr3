@@ -101,6 +101,16 @@ class WorkerDao extends BaseDao
 		return $sqlmap->queryForObject('GetWorkerName', $name);
 	}
 	
+	/** 
+	 * @param $name username
+	 * @return float participation porcentage
+	 */
+	public function getParticipation($name)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetParticipation', $name);
+	}
+	
 	/**
 	 * @return array list of all roles.
 	 */
@@ -130,7 +140,7 @@ class WorkerDao extends BaseDao
 	}
 	
 	/**
-	 * @param user name
+	 * @param $name username
 	 * @return array list with all holiday periods
 	 */
 	public function getWorkerHolidays($name)
@@ -140,7 +150,7 @@ class WorkerDao extends BaseDao
 	}
 
 	/** 
-	 * @param user name
+	 * @param $name username
 	 * @return int number of holiday period used by worker
 	 */
 	public function getNoHolidayPeriods($name)
@@ -150,13 +160,26 @@ class WorkerDao extends BaseDao
 	}
 	
 	/** 
-	 * @param user name
+	 * @param $name username
 	 * @return int number of weeks consumed by worker
 	 */
 	public function getHolidayWeeks($name)
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForObject('GetHolidayWeeks', $name);
+	}
+	
+	/** 
+	 * @param $name username
+	 * @param $date date to check
+	 * @return boolean true if 
+	 */
+	public function workerIsInHolidays($name, $date)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['user'] = $name;
+		$param['date'] = $date;
+		return $sqlmap->queryForObject('WorkerIsInHolidays', $param);
 	}
 	
 	/**

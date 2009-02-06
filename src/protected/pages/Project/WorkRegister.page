@@ -19,30 +19,41 @@
 <com:TLabel ForControl="day" Text="Fecha:" />
 <span class="required">*</span><br />
 <com:TDatePicker ID="day" InputMode="DropDownList" />
+<com:TCustomValidator
+	ControlToValidate="day"
+	CssClass="validator"
+	Display="None"
+	ValidationGroup="hours-add"
+	ControlCssClass="required-input"
+	OnServerValidate="validateDate" />
 </div>
 
 <div class="hours">
 <com:TLabel ForControl="hours" Text="Horas de trabajo:" />
 <span class="required">*</span><br />
 <com:TTextBox ID="hours" />
- 	<com:TRequiredFieldValidator
-  		ControlToValidate="hours"
-  		Display="None"
-  		CssClass="validator"
-  		ValidationGroup="hours-add"
-  		ControlCssClass="required-input"
-  		ErrorMessage="Por favor, introduzca el n&uacute;mero de horas empleado." />
-  	<com:TRangeValidator 
-  		ControlToValidate="hours"
-  		DataType="Float"
-  		MinValue="0"
-  		MaxValue="9999"
-  		CssClass="validator"
-  		Display="None"
-  		ValidationGroup="hours-add"
-  		ControlCssClass="required-input1"
-  		ErrorMessage="El n&uacute;mero de horas debe estar entre 0 y 9999" />
-  </div>
+<com:TRequiredFieldValidator
+  	ControlToValidate="hours"
+  	Display="None"
+  	CssClass="validator"
+  	ValidationGroup="hours-add"
+  	ControlCssClass="required-input"
+  	ErrorMessage="Por favor, introduzca el n&uacute;mero de horas empleado." />
+<com:TRangeValidator 
+  	ControlToValidate="hours"
+  	DataType="Float"
+  	MinValue="0"
+  	MaxValue="9999"
+  	CssClass="validator"
+  	Display="None"
+  	ValidationGroup="hours-add"
+  	ControlCssClass="required-input1"
+  	ErrorMessage="El n&uacute;mero de horas debe estar entre 0 y 9999" />
+</div>
+
+
+<!-- <com:TLabel ForControl="artifact" Text="Artefacto:" /><br/>
+<com:TFileUpload ID="artifact" />  -->
 
 <div class="description">
 <com:TLabel ForControl="comment" Text="Comentarios:" /><br/>

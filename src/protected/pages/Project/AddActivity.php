@@ -24,7 +24,7 @@ class AddActivity extends TPage
 			$phases = $this->getPhases();
 			$this->phaseList->DataSource = $phases;
 			$this->phaseList->dataBind();
-			$this->actList->DataSource = $this->getActivities(key($phases));
+			$this->actList->DataSource = $this->getActivities();
 			$this->actList->dataBind();
 			$this->workerList->DataSource = $this->getWorkers();
 			$this->workerList->dataBind();
@@ -39,9 +39,10 @@ class AddActivity extends TPage
 		return $phases;
 	}
 	
-	public function getActivities($phase){ 
+	public function getActivities(){ 
 		$activities = array();
-		foreach ($this->getActivityDao()->getAllActivities($phase) as $act) 
+		$project = $this->Session['project'];
+		foreach ($this->getActivityDao()->getAllActivitiesByProject($project) as $act) 
 			$activities[$act->ID] = $act->Name;
 		return $activities;
 	}
@@ -66,12 +67,6 @@ class AddActivity extends TPage
 		foreach ($this->getActivityDao()->getArtifactSet() as $art) 
 			$artifacts[$art] = $art;
 		return $artifacts;
-	}
-		
-	public function phaseChanged($sender, $param)
-	{
-		$this->actList->DataSource = $this->getActivities($sender->SelectedValue);
-		$this->actList->dataBind();
 	}
 	
 	// Changes to next step page
@@ -102,7 +97,10 @@ class AddActivity extends TPage
 	}
 		
 	public function addNewActivity($sender, $param)
-	{	
+	{
+		// check for controls validity
+		if (!$this->IsValid) return;
+		
 		// save artifact data if it is new
 		if ($this->newArtifact->Visible)
 			$this->getActivityDao()->addNewArtifact(
@@ -132,6 +130,26 @@ class AddActivity extends TPage
 		}
 					
 		$this->Response->redirect("?page=Project.Activities");
+	}
+	
+	/**
+	 * Verify that workers don`t have holidays 
+	 * @param TControl custom validator that created the event.
+	 * @param TServerValidateEventParameter validation parameters.
+	 */
+	public function validateWorkerAvaleability($sender, $param)
+	{
+		foreach($this->workerList->Items as $item){
+			if($item->Selected){
+				$worker = $item->Value;
+				$date = $this->date->TimeStamp;
+				if ($this->getWorkerDao()->workerIsInHolidays($worker, $date)){
+					$param->IsValid = false;
+					$sender->ErrorMessage =	"En esta fecha ".$item->Text.
+											" disfruta de vacaciones.";
+				}
+			}
+		}
 	}
 }
 

@@ -2,6 +2,8 @@
 
 class Summary extends TPage
 {
+	private $ProjectStats;
+	
 	// Bind report data to Repeater
 	public function onLoad($param)
 	{
@@ -32,9 +34,22 @@ class Summary extends TPage
 	{
 		// Get report DAO
 		$reportDao = $this->Application->Modules['daos']->getDao('ReportsDao');
+		
 		// Bind query data to TRepeater
 		$this->activityList->DataSource = $reportDao->getSummary($projectID);
 		$this->activityList->dataBind();
+		
+		// Get project general stats
+		$this->ProjectStats = $reportDao->getProjectStats($projectID);
+		$this->ProjectStats->StartDelay = floor(($this->ProjectStats->RealStart - 
+			$this->ProjectStats->EstimateStart)/(60*60*24));
+		$this->ProjectStats->EndDelay = floor(($this->ProjectStats->RealEnd - 
+			$this->ProjectStats->EstimateEnd)/(60*60*24));
+		$this->ProjectStats->DurationDelay = 100.0*($this->ProjectStats->RealDuration - 
+			$this->ProjectStats->EstimateDuration)/$this->ProjectStats->EstimateDuration;
+		$this->projectStats->DataSource = array("0" => $this->ProjectStats);
+		$this->projectStats->dataBind();
+		
 	}
 }
 

@@ -39,8 +39,8 @@ CREATE TABLE `TipoActividad` (
 
 CREATE TABLE `Rol` (
   `tipo` varchar(45) NOT NULL,
-  `valor` int(11) NOT NULL
-  PRIMARY KEY  (`tipo`)
+  `valor` int(11) NOT NULL,
+  PRIMARY KEY (`tipo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -207,14 +207,14 @@ CREATE TABLE `Trabajador` (
 --
 
 ALTER TABLE `PeriodoVacacional`
-  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`);
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`) ON DELETE CASCADE;
 
 ALTER TABLE `RegistroTrabajo`
-  ADD FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`),
-  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`);
+  ADD FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`) ON DELETE CASCADE,
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`) ON DELETE CASCADE;
 
 ALTER TABLE `Proyecto`
-  ADD FOREIGN KEY (`idJefe`) REFERENCES `Usuario` (`nick`),
+  ADD FOREIGN KEY (`idJefe`) REFERENCES `Usuario` (`nick`) ON DELETE CASCADE,
   ADD FOREIGN KEY (`idModelo`) REFERENCES `Modelo` (`idModelo`);
 
 ALTER TABLE `Trabajador`
@@ -222,25 +222,25 @@ ALTER TABLE `Trabajador`
   ADD FOREIGN KEY (`idRol`) REFERENCES `Rol` (`tipo`);
 
 ALTER TABLE `Trabajador_has_Actividad`
-  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`),
-  ADD FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`);
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`) ON DELETE CASCADE,
+  ADD FOREIGN KEY (`idActividad`) REFERENCES `Actividad` (`idActividad`) ON DELETE CASCADE;
 
 ALTER TABLE `Participacion`
-  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`),
-  ADD FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto` (`titulo`),
+  ADD FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`nick`) ON DELETE CASCADE,
+  ADD FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto` (`titulo`) ON DELETE CASCADE,
   ADD FOREIGN KEY (`idRol`) REFERENCES `Rol` (`tipo`);
 
 ALTER TABLE `Fase`
-  ADD FOREIGN KEY (`idModelo`) REFERENCES `Modelo` (`idModelo`);
+  ADD FOREIGN KEY (`idModelo`) REFERENCES `Modelo` (`idModelo`) ON DELETE CASCADE;
 
 ALTER TABLE `Actividad`
-  ADD FOREIGN KEY (`idFase`) REFERENCES `Fase` (`idFase`),
+  ADD FOREIGN KEY (`idFase`) REFERENCES `Fase` (`idFase`) ON DELETE CASCADE,
   ADD FOREIGN KEY (`idTipo`) REFERENCES `TipoActividad` (`idTipoActividad`),
   ADD FOREIGN KEY (`idArtefacto`) REFERENCES `Artefacto` (`nombre`);
   
 ALTER TABLE `Actividad_Predecesora`
-  ADD FOREIGN KEY (`actividad`) REFERENCES `Actividad` (`idActividad`),
-  ADD FOREIGN KEY (`predecesora`) REFERENCES `Actividad` (`idActividad`);
+  ADD FOREIGN KEY (`actividad`) REFERENCES `Actividad` (`idActividad`) ON DELETE CASCADE,
+  ADD FOREIGN KEY (`predecesora`) REFERENCES `Actividad` (`idActividad`) ON DELETE CASCADE;
 
 --
 -- Adición de los datos predefinidos de algunas tablas
@@ -269,7 +269,7 @@ INSERT INTO `Fase` (`idFase`, `idModelo`, `idFasePadre`, `nombre`, `descripcion`
 
 -- Tipos de roles permitidos
 
-INSERT INTO `Rol` (`tipo`, `valor`, `usuario`) VALUES
+INSERT INTO `Rol` (`tipo`, `valor`) VALUES
 ('Administrador', 0),
 ('Jefe de personal', 0),
 ('Jefe de proyecto', 1),
@@ -305,4 +305,4 @@ INSERT INTO `Usuario` (`nick`, `password`, `email`, `tipo`) VALUES
 -- Parámetros configurables
 
 INSERT INTO `Configuracion` (`parametro`, `valor`, `descripcion`) VALUES 
-('partipacion_max', 4, 'M&aacute;ximo n&uacute;mero de proyectos en que puede participar un trabajador.');
+('partipacion_max', 4, 'Maximo numero de proyectos en que puede participar un trabajador.');

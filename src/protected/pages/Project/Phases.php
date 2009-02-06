@@ -25,6 +25,9 @@ class Phases extends TPage
 	// If there are not phases loads templates page
 	public function onLoad($param)
 	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+		
 		$this->Project = $this->Session['project'];
 		if (!$this->IsPostBack){
 			// Redirects templates page if there isn`t process model
@@ -138,7 +141,7 @@ class Phases extends TPage
 	public function deleteEntryItem($sender, $param)
 	{
 		$id = $this->phaseList->DataKeys[$param->Item->ItemIndex];
-		$this->getProjectDao()->deleteProject($id);
+		$this->getProjectDao()->deletePhase($id);
 		$this->refreshEntryList();
 	}
 			

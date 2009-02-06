@@ -21,9 +21,7 @@
 		ErrorMessage="Por favor, introduzca su contrase&ntilde;a."
 		ControlCssClass="required-field" />
   </div>
-  <div class="remember">
-  	<com:TCheckBox ID="remember" Text="Recordarme en este equipo" />
-  </div>
+ 
   <com:TCustomValidator
 	ControlToValidate="password"
 	Display="Dynamic"

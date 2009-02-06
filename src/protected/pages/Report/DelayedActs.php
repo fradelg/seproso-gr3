@@ -5,6 +5,9 @@ class DelayedActs extends TPage
 	// Bind report data to Repeater 
 	public function onload($param)
 	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+			
 		if(!$this->IsPostBack){
 			// Retrieve data from data base query aql
 			$dao = $this->Application->Modules['daos']->getDao('ReportsDao');

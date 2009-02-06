@@ -4,7 +4,6 @@
  * SeprosoException class file.
  *
  * @author Grupo3 - ISO2 -UVA
- * @copyright
  */
 
 /**

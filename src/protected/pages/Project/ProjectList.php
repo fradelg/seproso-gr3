@@ -47,8 +47,7 @@ class ProjectList extends TPage
 		
 		// check project manager changes
 		if ($project->ManagerID != $newManager){
-			$this->getWorkerDao()->updateParticipation(
-				$project->ManagerID, $project->Title, 'Analista', 50);
+			$this->getWorkerDao()->deleteParticipation($project->ManagerID, $project->Title);
 			if ($this->getWorkerDao()->participationExists($newManager, $project->Title))
 				$this->getWorkerDao()->updateParticipation(
 					$newManager, $project->Title, 'Jefe de proyecto', 50);

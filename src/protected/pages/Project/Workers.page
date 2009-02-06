@@ -50,35 +50,35 @@
 	<com:TLabel ForControl="roles" Text="Rol: "/>
 	<span class="required">*</span>
 	<com:TDropDownList ID="roles" CssClass="sheetfor"/>
-	<com:TRequiredFieldValidator
-		ControlToValidate="roles"
-		Display="None"
-		CssClass="validator"
-		ValidationGroup="addWorker"
-		ControlCssClass="required-input"
-		ErrorMessage="Por favor, seleccione un rol para el proyecto." />
 	
 	<br /><br /><br />
 	<com:TLabel ForControl="participation" Text="Participaci&oacute;n: "/>
 	<span class="required">*</span>
 	<com:TTextBox ID="participation" />
-		<com:TRequiredFieldValidator
-	  		ControlToValidate="participation"
-	  		Display="None"
-	  		CssClass="validator"
-	  		ValidationGroup="addWorker"
-	  		ControlCssClass="required-input"
-	  		ErrorMessage="Por favor, introduzca un porcentaje de participaci&oacute;n." />
-  		<com:TRangeValidator 
-	  		ControlToValidate="participation"
-	  		DataType="Float"
-	  		MinValue="1"
-	  		MaxValue="100"
-	  		CssClass="validator"
-	  		Display="None"
-	  		ValidationGroup="addWorker"
-	  		ControlCssClass="required-input1"
-	  		ErrorMessage="El porcentaje debe estar comprendido entre 1 y 100" />
+	<com:TRequiredFieldValidator
+  		ControlToValidate="participation"
+  		Display="None"
+  		CssClass="validator"
+  		ValidationGroup="addWorker"
+  		ControlCssClass="required-input"
+  		ErrorMessage="Por favor, introduzca un porcentaje de participaci&oacute;n." />
+  	<com:TRangeValidator 
+  		ControlToValidate="participation"
+  		DataType="Float"
+  		MinValue="1"
+  		MaxValue="100"
+  		CssClass="validator"
+  		Display="None"
+  		ValidationGroup="addWorker"
+  		ControlCssClass="required-input1"
+  		ErrorMessage="El porcentaje debe estar comprendido entre 1 y 100" />
+  	<com:TCustomValidator
+		ControlToValidate="participation"
+		CssClass="validator"
+		Display="None"
+		ValidationGroup="addWorker"
+		ControlCssClass="required-input1"
+		OnServerValidate="validatePorcentage" />
 	</div>
 	
 	<div class="actions"> &nbsp;

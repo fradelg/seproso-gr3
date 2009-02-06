@@ -2,6 +2,13 @@
 
 class FutureWorkers extends TPage
 {
+	// Page load event
+	public function onLoad($param)
+	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+	}
+	
 	// Bind report data to Repeater 
 	public function generateReport($sender, $param)
 	{

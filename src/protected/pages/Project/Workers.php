@@ -42,6 +42,9 @@ class Workers extends TPage
 	 */
 	function onLoad($param)
 	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+			
 		if (!$this->IsPostBack){
 			// Loads current workers data
 			$this->participants->DataSource = 
@@ -93,14 +96,32 @@ class Workers extends TPage
 	// Add selected user to current project
 	public function linkWorkerToProject($sender, $param)
 	{
-		$user = $this->workerList->SelectedValue;
-		$project = $this->Session['project'];
-		$role = $this->roles->SelectedValue;
-		$perc = floatval($this->participation->Text);
-		$this->getWorkerDao()->addParticipation($user, $project, $role, $perc);
-		
-		// Refresh page and worker list
-		$this->Response->reload();
+		if ($this->IsValid){
+			$user = $this->workerList->SelectedValue;
+			$project = $this->Session['project'];
+			$role = $this->roles->SelectedValue;
+			$perc = floatval($this->participation->Text);
+			$this->getWorkerDao()->addParticipation($user, $project, $role, $perc);
+			
+			// Refresh page and worker list
+			$this->Response->reload();
+		}
+	}
+	
+	/**
+	 * Verify that participation porcentage is less or equal than 100%
+	 * @param TControl custom validator that created the event.
+	 * @param TServerValidateEventParameter validation parameters.
+	 */
+	public function validatePorcentage($sender, $param)
+	{
+		$p = $this->getWorkerDao()->getParticipation($this->workerList->SelectedValue);
+		$p = 100.0 - $p;
+		if ($p < floatval($this->participation->Text)){
+			$param->IsValid = false;
+			$sender->ErrorMessage =	"Este trabajador puede participar en el proyecto
+				como m&aacute;ximo al ".$p."%.";
+		}
 	}
 }
 

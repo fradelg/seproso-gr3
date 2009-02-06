@@ -13,6 +13,50 @@
 	</div>
 	
 	<div class="list">
+	
+	<h3>Estad&iacute;sticas generales</h3>
+	<com:TRepeater ID="projectStats">
+	 	<prop:HeaderTemplate>
+		  <table>
+			<tr>
+				<th></th>
+				<th>Estimado</th>
+				<th>Real</th>
+				<th>Diferencia</th>
+			</tr>
+		</prop:HeaderTemplate>
+		<prop:FooterTemplate>
+		  </table>
+		</prop:FooterTemplate>
+		<prop:ItemTemplate>
+		<tr>
+			<td>Fecha inicial</td>
+			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->EstimateStart %> /></td>
+		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->RealStart %> /></td>
+		  	<td><%# h( $this->DataItem->StartDelay ) %> d</td>
+		</tr>
+		<tr>
+			<td>Fecha final</td>
+			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->EstimateEnd %> /></td>
+		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+				Value=<%# $this->DataItem->RealEnd %> /></td>
+		  	<td><%# h( $this->DataItem->EndDelay ) %> d</td>
+		</tr>
+		<tr>
+			<td>Esfuerzo</td>
+			<td><%# h($this->DataItem->EstimateDuration) %> h</td>
+		  	<td><%# h($this->DataItem->RealDuration) %> h</td>
+		  	<td><%# h(floor($this->DataItem->DurationDelay)) %> %</td>
+		</tr>
+		</prop:ItemTemplate>
+	</com:TRepeater>
+	
+	<br/><hr/>
+	
+	<h3>Estad&iacute;sticas de actividades</h3>
 	<com:TRepeater ID="activityList">
 	 	<prop:HeaderTemplate>
 		  <table>
@@ -32,13 +76,14 @@
 		  	<td><%# h($this->DataItem->Name) %></td>
 		  	<td><%# h($this->DataItem->Description) %></td>
 		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-				Value=<%# $this->DataItem->EstimateDate %> /> -
-		  		<%# h($this->DataItem->EstimateDuration) %></td>
+				Value=<%# $this->DataItem->EstimateDate %> /><br/>
+		  		<%# h($this->DataItem->EstimateDuration ) %>h</td>
 		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-				Value=<%# $this->DataItem->RealDate %> /> -
-		  		<%# h($this->DataItem->RealDuration) %></td>
-		  	<td><%# h($this->DataItem->RealDuration - 
-		  			$this->DataItem->EstimateDuration) %></td>
+				Value=<%# $this->DataItem->RealDate %> /><br/> 
+		  		<%# h($this->DataItem->RealDuration ) %>h</td>
+		  	<td><%# h( floor(100*($this->DataItem->RealDuration - 
+		  				$this->DataItem->EstimateDuration) / 
+		  				$this->DataItem->EstimateDuration) ) %>%</td>
 		  </tr>
 		</prop:ItemTemplate>
 	</com:TRepeater>

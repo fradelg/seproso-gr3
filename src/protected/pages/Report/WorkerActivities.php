@@ -1,9 +1,7 @@
 <?php
 
 class WorkerActivities extends TPage
-{
-	public function onLoad($param){}	
-	
+{		
 	public function generateReport($sender, $param)
 	{
 		// Change to report view

@@ -2,11 +2,9 @@
 /**
  * Custom Authentication manager permits authentication using
  * a string token saved in the cookie.
+ * SEPROSO doesn`t use this function due to database 'signon' required
  *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @version $Id: SeprosoAuthManager.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
- * @since 3.1
+ * @author Grupo3 - ISO 2 - UVA
  */
 class SeprosoAuthManager extends TAuthManager
 {

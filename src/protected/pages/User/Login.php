@@ -2,25 +2,10 @@
 /**
  * Login Page class file.
  *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2006 PradoSoft
- * @license http://www.pradosoft.com/license/
- * @version $Id: Login.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
+ * @author Grupo2 - ISO 2 - UVA
+ * @link http://jair.lab.fi.uva.es/~fradelg/fray/seproso/
  */
 
-/**
- * Login page class.
- * 
- * Validate the user credentials and redirect to requested page 
- * if successful.
- *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @version $Id: Login.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
- * @since 3.1
- */
 class Login extends TPage
 {
 	/**
@@ -45,9 +30,6 @@ class Login extends TPage
 		if($this->Page->IsValid)
 		{
 			$auth = $this->Application->getModule('auth');
-			if($this->remember->Checked)
-				$auth->rememberSignon($this->User);
-			
 			$dao = $this->Application->Modules['daos']->getDao('UserDao');
 			
 			// Set project session data for managers or developers
@@ -70,7 +52,8 @@ class Login extends TPage
 			
 
 			// Redirect to requested page
-			$this->Response->redirect($auth->getReturnUrl());
+			$url = $this->Service->constructUrl($this->Service->DefaultPage);
+			$this->Response->redirect($url);
 		}
 	}
 }

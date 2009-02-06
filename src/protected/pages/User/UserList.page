@@ -75,7 +75,7 @@
 		setTimeout('redirect()', 2000); 
 	</script>
 	<img src="<%= $this->Page->Theme->BaseUrl %>/error.gif" width="32" height="32" alt="">
-	Este trabajador no puede ser eliminado del sistema porque ya participa en al menos un proyecto.
+	Este usuario no puede ser eliminado del sistema porque ya participa en alg&uacute;n proyecto.
 	<h5> A continuaci&oacute;n ser&aacute; redirigido a la lista de usuarios.</h5>
 </com:TView>
 </com:TMultiView>

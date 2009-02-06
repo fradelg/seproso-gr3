@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-	<title>Welcome</title>
+	<title>Gu&iacute;a de ayuda básica de SEPROSO</title>
 	<style type="text/css">
 		html {
 			background: url(background.png) repeat-x top;
@@ -24,119 +24,247 @@
 	</style>
 </head>
 <body>
-	<h1>Time Tracker Starter Kit</h1>
-	<p>
-		Welcome to your new <strong>Time Tracker</strong> sample application. The key features are:</p>
+	<h1>Gu&iacute;a r&aacute;pida de SEPROSO</h1>
+	<p>Bienvenido a la herramienta Web <strong>SEPROSO</strong>.
+	Existen 4 tipos de usuarios que tienen asignadas operaciones:</p>
+	<h2>Administrador</h2>
 	<ul>
-		<li><strong>Projects.</strong> Define project information like due dates, hours to complete,
+		<li><strong>Usuarios:</strong> gestione (cree, modifique o borre) los usuarios del sistema.
+		<li><strong>Proyectos:</strong> gestione (cree, modifique o borre) los proyectos del sistema
+			asignando un responsabla a cada uno.
+		<li><strong>Configuraci&oacute;n:</strong> modifique los par&aacute;metros del sistema.
+	</ul> 
+	<p>Las principales operaciones que usted puede realizar son:</p>
+	<h2>Jefe de proyecto</h2> 
+	<p>Las principales operaciones que usted puede realizar son:</p>
+	<ul>
+		<li><strong>Proyectos:</strong> planifique su proyecto software en fases y actividades
+			y asigne responsables a cada actividad.
 			project resources, and more.</li>
-		<li><strong>Track Time.</strong> Track time spent each day by category and project.</li>
-		<li><strong>Reports.</strong> Generate progress and team resource reports across multiple projects.</li>
+		<li><strong>Monitorizaci&oacute;n:</strong> consulte el tiempo que los responsables dedican a 
+			las actividades que tienen asignadas y controle el avance del proyecto.</li>
+		<li><strong>Informes:</strong> genere todo tipo de informes que le ayuden a gestionar
+			de la forma m&aacute;s eficiente su proyecto</li>
 	</ul>
-	<p>
-		The <a href="index.php">Time Tracker site is ready to run!</a> No changes are needed.</p>
-		
-	<hr />
-		
-	<h2>Site Members and Roles</h2>
-	<p>
-		Your Time Tracker Web site allows visitors to register as members and then log in.
-		Members have specific privileges defined by roles such as administrator or guest.
-		Each Time Tracker Web site defines site-specific roles.
-		The following table describes what features are available to visitors in different roles.</p>
-	<table>
-		<tr>
-			<th>Visitor</th>
-			<th>Privileges</th>
-			<th>Default Login</th>
-		</tr>
-		<tr>
-			<td>
-				Not logged in</td>
-			<td>
-				No privileges.</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Logged in</td>
-			<td>
-				No privileges. All members must be associated at least with the role <strong>Consultant</strong>.</td>
-			<td>N/A</td> 
-		</tr>
-		<tr>
-			<td>Logged in as <br />
-				<strong>Consultant</strong></td>
-			<td>May log time entries only.</td>
-			<td>username: <tt>consultant</tt><br />
-				password: <tt>consultant</tt></td>
-		</tr>
-		<tr>
-			<td>
-				Logged in as<br />
-				<strong>Project Manager</strong></td>
-			<td>
-				May additionally edit all projects and view reports.</td>
-			<td>username: <tt>manager</tt><br />
-				password: <tt>manager</tt></td>
-		</tr>
-		<tr>
-			<td>
-				Logged in as<br />
-				<strong>Project Administrator</strong></td>
-			<td>
-				May additionally view the list of all users.</td>
-			<td>username: <tt>admin</tt><br />
-				password: <tt>admin</tt></td>
-		</tr>
-	</table>
-	<p>
-		Be sure to create a user name for yourself and assign yourself to a role (such as administrator) that can manage the site.</p>
-	<p>
-		Visitors can register by clicking the <strong>Create new </strong>user link on the home page.
-		New members are activated automatically, and are assigned to a role as specified in the <tt>application.xml</tt> file.
-		You can manage users (for example, assign them to a role) when login as administrator.
-	</p>		
+	<h2>Desarrollador</h2> 
+	<p>Las principales operaciones que usted puede realizar son:</p>
+	<ul>
+		<li><strong>Informes de actividad:</strong> notifique sus progresos en las actividades asignadas
+			al jefe de su proyecto.
+		<li><strong>Informes:</strong> consulte el estado de sus informes de actividad en un periodo o 
+			eche un vistazo a planificaciones de proyectos ya finalizados.
+		<li><strong>Vacaciones:</strong> defina sus semanas de vacaciones (4) por periodos (3).
+	</ul>
+	<h2>Jefe de personal</h2> 
+	<p>Las principales operaciones que usted puede realizar son:</p>
+	<ul>
+		<li><strong>Situaci&oacute;n de trabajador:</strong> consulte toda la informaci&oacute;n del sistema sobre
+			uno de los trabajadores registrados (vacaciones, actividades, proyectos, etc).
+		<li><strong>Ocupaci&oacute;n de trabajadores:</strong> consulte las actividades y los trabajadores
+			ocupados durante un periodo de tiempo.
+	</ul>
+				
 	<hr />
 	
-	<h2>Projects and Time Entries</h2>
-	<h3>To add a project and categories</h3>
+	<h2>Configuraci&oacute;n</h2>
+	<h3>Modificar par&aacute;metro del sistema</h3>
 	<ol>
-		<li>Log in to the site as a member in the role <strong>Project Manager</strong> or <strong>Project Administrator</strong>.</li>
-		<li>Click the <strong>Projects</strong> tab and then click <strong>Create New Project</strong>.</li>
-		<li>Specify a project name, project manager, estimated complete date, estimated duration, and description.</li>
-		<li>Under <strong>Specify Project Members</strong>, select a resource. You must select at least one resource. </li>
-		<li>Click <strong>Save</strong>. A category pane is displayed on the right.</li>
-		<li>Specify a category name, category abbreviation, and duration.</li>
-		<li>Click <strong>Add</strong>. The new category is displayed in the categories list. </li>
-		<li>Repeat steps 6 and 7 to create additional categories.</li>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Configuraci&oacute;n</strong>.</li>
+		<li>En el par&aacute;metro de la lista cuyo valor desee cambiar haga clic sobre <strong>Modificar</strong></li>
+		<li>Asigne el valor que estime oportuno y haga clic en <strong>Guardar</strong> para consolidar el cambio.</li>
+		<li>Haga clic en <strong>Cancelar</strong> si no desea guardar los cambios.</li>
+		<li>A continuaci&oacute;n se volver&aacute;n a cargar los par&aacute;metros del sistema.</li>
 	</ol>
-	<h3>Log a Time Entry</h3>
+	
+	<h2>Usuarios</h2>
+	<h3>A&ntilde;adir nuevo usuario</h3>
 	<ol>
-		<li>Log in to the site as a consultant (member in the role <strong>Consultant</strong>).</li>
-		<li>Click the <strong>Log</strong> tab.</li>
-		<li>Under <strong>Log your hours</strong>, choose a project and a category and fill in the day, hours, and description.</li>
-		<li>Make sure the correct consultant is selected in the <strong>Time Sheet For</strong> list. </li>
-		<li>Click <strong>Add Entry</strong>.</li>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Usuarios</strong> y luego sobre <strong>Crear</strong>.</li>
+		<li>Escriba el nombre de usuario asignado (&uacute;nico), contrase&ntilde;a y e-mail del usuario.</li>
+		<li>Clic sobre <strong>Next</strong>. En la siguiente p&aacute;gina introduzca nombre, apellidos, rol y fecha de nacimiento.</li>
+		<li>Clic sobre <strong>Complete</strong>. El nuevo usuario se ha creado y ser&aacute; redirigido a la lista de usuarios.</li>
+	</ol>
+	<h3>Modificar un usuario</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Usuarios</strong> y luego sobre <strong>Listar</strong>.</li>
+		<li>En el usuario de la lista que quiera modificar haga clic sobre <strong>Modificar</strong></li>
+		<li>Cambie los datos que estime oportunos y haga clic en <strong>Guardar</strong> si esta de acuerdo.</li>
+		<li>Haga clic en <strong>Cancelar</strong> si no desea guardar los cambios.</li>
+		<li>A continuaci&oacute;n se volver&aacute; a cargar la lista de usuarios.</li>
+	</ol>
+	<h3>Eliminar un usuario</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Usuarios</strong> y luego sobre <strong>Listar</strong>.</li>
+		<li>En la entrada de la lista que desee eliminar haga clic sobre <strong>Borrar</strong></li>
+		<li>Aparecer&aacute; un mensaje de confirmaci&oacute;n al que debe responder S&iacute; si desea continuar</li>
+		<li>A continuaci&oacute;n se volver&aacute; a cargar la lista de usuarios.</li>
+	</ol>
+	<h3>Seleccionar vacaciones</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Vacaciones</strong> y luego sobre <strong>Nuevo periodo</strong>.</li>
+		<li>Seleccione un d&iacute;a cualquiera de la semana y el n&uacute;mero de semanas de vacaciones deseado.</li>
+		<li>Haga clic sobre <strong>A&ntilde;adir periodo</strong> para que el sistema valide su selecci&ocute;n.
+		<li>Si es correcta el nuevo periodo queda asignado. Si no, debe volver al paso anterior y corregir los errores.</li>
 	</ol>
 
 	<hr />
 	
-	<h2>Reports</h2>
-	<h3>To create a project report</h3>
-	<ol>
-		<li>Log in to the site as a member in the role <strong>Project Manager</strong> or <strong>Project Administrator</strong>.</li>
-		<li>Click the <strong>Reports</strong> tab and then click <strong>Project Reports</strong>. </li>
-		<li>Under <strong>Select a project</strong>,<strong> </strong>choose one or more projects.</li>
-		<li>Click <strong>Generate Report</strong>.</li>
+	<h2>Proyectos</h2>
+	<h3>A&ntilde;adir nuevo proyecto</h3>
+		<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Crear</strong>.</li>
+		<li>Escriba el nombre del proyecto, jefe de proyecto, presupuesto estimado y una breve descripci&oacute;n.</li>
+		<li>Haga clic sobre <strong>Guardar</strong>. Se indicar&aacute;n posibles errores o se crear&aacute; el nuevo 
+		proyecto y a continuaci&oacute;n ser&aacute; redirigido a la lista de proyectos.</li>
 	</ol>
-	<h3>To create a resource report</h3>
+	<h3>Modificar un proyecto</h3>
 	<ol>
-		<li>Log in to the site as a member in the role <strong>Project Manager</strong> or <strong>Project Administrator</strong>.</li>
-		<li>Click the <strong>Reports</strong> tab and then click <strong>Resources Report</strong>. </li>
-		<li>Select one or more projects, select one or more resources, and then specify a date range. </li>
-		<li>Click <strong>Generate Report</strong>.</li>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Listar</strong>.</li>
+		<li>En el proyecto de la lista que desee modificar haga clic sobre <strong>Modificar</strong></li>
+		<li>Cambie los datos del proyecto que estime oportunos y haga clic en <strong>Guardar</strong> para confirmar.</li>
+		<li>Haga clic en <strong>Cancelar</strong> si no desea guardar los cambios.</li>
+		<li>A continuaci&oacute;n se volver&aacute; a cargar la lista de proyectos.</li>
+	</ol>
+	<h3>Eliminar un proyecto</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Listar</strong>.</li>
+		<li>En el proyecto de la lista que desee eliminar haga clic sobre <strong>Borrar</strong>.</li>
+		<li>Aparecer&aacute; un mensaje de confirmaci&oacute;n al que debe responder S&iacute; para continuar</li>
+		<li>A continuaci&oacute;n se volver&aacute; a cargar la lista de proyectos.</li>
+	</ol>
+	<h3>Asignar plantilla de modelo de proceso al proyecto</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyecto</strong> y luego sobre <strong>Fases</strong>.</li>
+		<li>Si el proyecto no tienen todav&iacute;a asignado un modelo de proceso podrá seleccionar una plantilla.</strong></li>
+		<li>Seleccione la plantilla deseada en el panel izquierdo. Se muestran las fases que contiene a su derecha.</li>
+		<li>Haga clic en <strong>Usar plantilla</strong> si desea utilizar ese modelo o en <strong>Definir personalizada</strong>
+			si desea definir su propio conjunto de fases.</li>
+		<li>A continuaci&oacute;n se mostrará la lista de fases del proyecto.</li>
+	</ol>
+	<h3>Crear plantilla de modelo de proceso</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyecto</strong> y luego sobre <strong>Fases</strong>.</li>
+		<li>Bajo la lista de fases si no se est&eacute; usando una plantilla aparece <strong>Establecer plantilla</strong>.</li>
+		<li>Haga clic sobre <strong>Establecer plantilla</strong> e introduzca un nombre y descripci&oacute;n.</li>
+		<li>Haga clic en <strong>Guardar</strong> si desea que otros usuarios utilicen su modleo como plantilla.</li>
+	</ol>
+	<h3>A&ntilde;adir una fase</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Fases</strong>.</li>
+		<li>Haga clic sobre el bot&oacute;n <strong>Nueva fase</strong>.</li>
+		<li>Introduzca el nombre y descripci&oacute;n de la nueva fase, as&iacute; como su fase padre si tuviera.</li>
+		<li>Haga clic sobre <strong>Agregar fase</strong>. Se indicar&aacute;n errores o se crear&aacute; la fase</li>
+		<li>A continuaci&oacute;n ser&aacute; redirigido a la lista de fases.</li>
+	</ol>
+	<h3>Modificar una fase</h3>
+		<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Fases</strong>.</li>
+		<li>Sobre la fase en la lista que desee modificar haga clic sobre <strong>Modificar</strong>.</li>
+		<li>Cambie el nombre o descripci&oacute;n de la fase y haga clic en <strong>Guardar</strong> para confirmar.</li>
+		<li>Haga clic en <strong>Cancelar</strong> si no desea guardar los cambios.</li>
+		<li>A continuaci&oacute;n se volver&aacute; a cargar la lista de fases.</li>
+	</ol>
+	<h3>Eliminar una fase</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Fases</strong>.</li>
+		<li>Sobre la fase que desee eliminar haga clic en el bot&oacute;n a su derecha <strong>Borrar</strong>.</li>
+		<li>Aparecer&aacute; un mensaje de confirmaci&oacute;n al que debe responder S&iacute; para continuar.</li>
+		<li>A continuaci&oacute;n se volver&aacute; a cargar la lista de fases.</li>
+	</ol>
+	<h3>A&ntilde;adir una actividad</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Actividades</strong>.</li>
+		<li>Haga clic sobre el bot&oacute;n <strong>Nueva actividad</strong>.</li>
+		<li>Seleccione la fase y las actividades que preceden a la nueva en el panel de la izquierda (Ctrl + clic para varias).</li>
+		<li>En el panel de la derecha seleccione los trabajadores que realizar&aacute;n la actividad y pulse <strong>Siguiente</strong>.</li>
+		<li>En la siguiente p&aacute;gina introduzca nombre, artefacto, fecha, duraci&oacute;n y descripci&oacute;n.</li>
+		<li>Clic sobre <strong>Agregar actividad</strong>. El sistema valida los datos introducidos y si son correctos 
+			crea la nueva actividad.</li>
+		<li>Finalmente ser&aacute; redirigido a la lista de actividades de nuevo.</li>
+	</ol>
+	<h3>Modificar una actividad</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego sobre <strong>Actividades</strong>.</li>
+		<li>En la actividad que desea modificar haga clic sobre el bot&oacute;n <strong>Modificar</strong>.</li>
+		<li>Cambie el nombre o la descripci&oacute;n y haga clic en <strong>Guardar</strong> para confirmar.</li>
+		<li>Haga clic en <strong>Cancelar</strong> si no desea guardar los cambios.</li>
+		<li>A continuaci&oacute;n se volver&aacute; a cargar la lista de actividades actualizada.</li>
+	</ol>
+	<h3>Finalizar una actividad</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego en <strong>Actividades</strong>.</li>
+		<li>A la derecha de la actividad que desee finalizar haga clic sobre <strong>Finalizar</strong>.</li>
+		<li>Aparecer&aacute; un mensaje de confirmaci&oacute;n al que debe responder S&iacute; para continuar.</li>
+		<li>Despu&eacute;s se vuelve; a cargar la lista de actividades.</li>
+	</ol>
+	<h3>Iniciar proyecto</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyectos</strong> y luego en <strong>Actividades</strong>.</li>
+		<li>Al final de la lista debe hacer clic sobre el bot&oacute;n <strong>Iniciar proyecto</strong>.</li>
+		<li>Se vuelve a cargar la lista de actividades pero con las que no tienen precedentes iniciadas.</li>
+	</ol>
+	<h3>A&ntilde;adir un trabajador</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyecto</strong> y luego sobre <strong>Trabajadores</strong>.</li>
+		<li>Al final de la lista debe hacer clic sobre el bot&oacute;n <strong>Nuevo participante</strong>.</li>
+		<li>Seleccione un trabajador disponible en la lista de su izquierda y elija el rol y porcentaje a su derecha.</li>
+		<li>Haga clic sobre <strong>Agregar trabajador</strong> para que el sistema valide los datos introducidos.
+		<li>Si no hay errores el trabajador es asignado. Si no, debe volver al paso anterior y corregir los errores.</li>
+	</ol>
+	<h3>A&ntilde;adir un informe de actividad</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Actividades</strong>.</li>
+		<li>Seleccione una de sus actividades en curso e introduza las horas empleadas, la fecha del informe y comentarios.</li>
+		<li>Haga clic sobre <strong>Registrar informe</strong> para que el sistema almacene los datos introducidos.
+		<li>Se le mostrar&aacute; una p&aacute;gina de confirmaci&oacute;n y en segundos ser&aacute; redirigido a la p&aacute;gina anterior.</li>
+	</ol>
+	<h3>Aprobar/supervisar informe de actividad</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Actividades</strong></li>
+		<li>Aparecen tres campos que seleccionar: en el primero elija el trabajador, en el segundo la actividad
+			y en el tercero la fecha del informe de actividad que desea monitorizar.</li>
+		<li>Se le mostrar&aacute; una p&aacute;gina con el contenido del informe y dos botones: Supervisar o Aprobar y Rechazar</li>
+		<li>Haga clic en uno de los dos si desea cambiar el estado del informe de actividad.</li>
+		<li>Se le redirige hacia la p&aacute;gina de selecci&oacute;n de informe anterior.</li>
 	</ol>
 	
-	
+	<h2>Informes</h2>
+	<h3>Generar un informe de proyecto</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Informes</strong></li>
+		<li>En la lista de informes que aparece haga clic sobre uno de ellos.</li>
+		<li>Seleccione la fecha inicial y final del periodo de consulta (si fuese necesario).</li>
+		<li>Haga clic en <strong>Generar informe</strong> para que el sistema lo produzca.</li>
+		<li>El informe aparecer&acute; en una nueva p&aacute;gina.</li>
+	</ol>
+	<p>NOTA: en los informes de actividades sin supervisar/aprobar podr&aacute; ir directamente
+	al informe de actividad si pulsa el bot&oacute;n que aparece a la derecha de cada entrada.</p>
+	<h3>Generar informe de actividades</h3>
+		<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Informes</strong>y despu&eacute;s en <strong>Actividades</strong>.</li>
+		<li>Seleccione la fecha inicial y final del periodo de consulta.</li>
+		<li>Haga clic en <strong>Generar informe</strong> para que el sistema busque los datos.</li>
+		<li>El informe aparecer&acute; en la siguiente p&aacute;gina.</li>
+	</ol>
+	<h3>Generar resumen de proyecto</h3>
+		<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Informes</strong> y despu&eacute;s en <strong>Resumen</strong>.</li>
+		<li>Seleccione el proyecto ya finalizado que desea consultar de la lista.</li>
+		<li>El informe aparecer&acute; m&aacute;s abajo.</li>
+	</ol>	
+	<h3>Generar informe de trabajador</h3>
+	<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Situaci&oacute;n de personal</strong></li>
+		<li>En el panel de la izquierda indique el trabajador y el periodo de consulta.</li>
+		<li>Haga clic en <strong>Generar informe</strong> para que el sistema obtenga los datos.</li>
+		<li>En el panel de la derecha aparecer&acute; la informaci&oacute;n del trabajador.</li>
+	</ol>
+	<h3>Generar informe de ocupaci&oacute;n</h3>
+		<ol>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Informe de ocupaci&oacute;n</strong>.</li>
+		<li>Seleccione la fecha inicial y final del periodo de consulta.</li>
+		<li>Haga clic en <strong>Generar informe</strong>.</li>
+		<li>El informe aparecer&acute; en una nueva p&aacute;gina, agrupado por trabajadores.</li>
+	</ol>
 </body>
 </html>

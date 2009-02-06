@@ -70,7 +70,7 @@
 		Trabajador
 		LEFT JOIN Participacion ON Participacion.idUsuario = Trabajador.idUsuario
 	WHERE
-		Trabajador.idRol != 'Administrador' AND Trabajador.idRol != 'Jefe de proyecto'
+		Trabajador.idRol != 'Administrador' AND Trabajador.idRol != 'Jefe de personal'
 		AND Trabajador.idUsuario NOT IN
 			<!-- Workers already in project -->
 			(SELECT idUsuario FROM Participacion WHERE idProyecto = #value#)
@@ -88,9 +88,10 @@
 				GROUP BY idUsuario) NumProyectos
 				LEFT JOIN Participacion ON Participacion.idUsuario = NumProyectos.nombre
 			WHERE
-				Configuracion.parametro = 'participacion_max'
-				AND (NumProyectos.numero = Configuracion.valor
-				OR (NumProyectos.numero = 2	AND Participacion.idRol = 'Jefe de proyecto'))
+				(Configuracion.parametro = 'participacion_max'
+				AND NumProyectos.numero = Configuracion.valor) OR 
+				(NumProyectos.numero = 2 
+				AND Participacion.idRol = 'Jefe de proyecto')
 				OR NumProyectos.porcentaje = 100)
 </select>
 
@@ -141,6 +142,10 @@
 	SELECT CONCAT(nombre, ' ', apellidos) FROM Trabajador WHERE idUsuario = #value#
 </select>
 
+<select id="GetParticipation" resultClass="float">
+	SELECT SUM(porcentaje) FROM Participacion WHERE idUsuario = #value#
+</select>
+
 <select id="GetAllRoles" resultClass="string">
 	SELECT tipo FROM Rol
 </select>
@@ -154,8 +159,10 @@
 
 <select id="GetRoles" resultClass="string">
 	<![CDATA[
-		SELECT tipo FROM Rol WHERE valor >= (
-		SELECT 
+		SELECT tipo FROM Rol 
+		WHERE tipo != 'Jefe de proyecto' 
+		AND valor >= 
+		(SELECT 
 			Rol.valor 
 		FROM 
 			Trabajador
@@ -175,6 +182,15 @@
 
 <select id="GetHolidayWeeks" resultClass="int">
 	SELECT SUM(duracion) FROM PeriodoVacacional WHERE idUsuario = #value#
+</select>
+
+<select id="WorkerIsInHolidays" parameterClass="array" resultClass="boolean">
+	<![CDATA[
+	SELECT COUNT(idUsuario) FROM PeriodoVacacional 
+	WHERE idUsuario = #user#
+	AND #date, typeHandler=DateTimeTypeHandler# >= fechaInicio
+	AND #date, typeHandler=DateTimeTypeHandler# < ADDDATE(fechaInicio, 7*duracion)
+	]]>
 </select>
 
 <insert id="AddNewWorker" parameterClass="WorkerRecord">

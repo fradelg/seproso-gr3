@@ -33,9 +33,11 @@
 	  	<td><%# h($this->DataItem->Name) %></td>
 	  	<td><%# h($this->DataItem->Description) %></td>
 	  	<td>
+	  	<com:TPlaceHolder Visible=<%= !$this->Page->isProjectStarted() %> >	  	
 	  		<com:TButton Text="Editar" CommandName="edit"/>	  			
 	  		<com:TButton Text="Borrar" CommandName="delete"
 	  			Attributes.onclick="if(!confirm('Est&aacute; seguro?')) return false;" />
+	  	</com:TPlaceHolder>
 	  	</td>
 	  </tr>
 	</prop:ItemTemplate>
@@ -56,13 +58,11 @@
 	</prop:EditItemTemplate>
 	</com:TDataList>
 	</div>
-	<div>
-		<br/>
-		<com:TPlaceHolder Visible=<%= !$this->isProjectStarted() %> >
-			<com:TButton Text="Nueva fase" OnClick="newPhase" />
-		</com:TPlaceHolder>
+	<div><br/>
+		<com:TButton Text="Nueva fase" OnClick="newPhase" 
+			 Visible=<%= !$this->isProjectStarted() %>/>
 		<com:TButton ID="newTemplateButton" Text="Establecer como plantilla" 
-				OnClick="defineTemplate" />
+			OnClick="defineTemplate" />
 		
 		<com:TPanel ID="setTemplatePanel" Visible="false">
 		<br/><br/>
@@ -122,5 +122,6 @@
 	</div>
 	</fieldset>
 </com:TView>
+
 </com:TMultiView>
 </com:TContent>

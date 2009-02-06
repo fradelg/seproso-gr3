@@ -1,23 +1,12 @@
 <?php
 /**
  * UserList page class file.
- *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2006 PradoSoft
- * @license http://www.pradosoft.com/license/
- * @version $Id: UserList.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
+ * List all users with a TDataList.
+ * 
+ * @author Grupo3 - ISO2 -UVA
+ * @version 1.0
  */
 
-/**
- * List all users in a repeater.
- *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @version $Id: UserList.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
- * @since 3.1
- */
 class UserList extends TPage
 {
 	protected function getUserDao()
@@ -99,7 +88,7 @@ class UserList extends TPage
 	{
 		$id = $this->list->DataKeys[$param->Item->ItemIndex];
 		if (!$this->getWorkerDao()->workerHasProject($id))
-			$this->getWorkerDao()->deleteWorker($id);
+			$this->getUserDao()->deleteUserByName($id);
 		else
 			$this->views->ActiveViewIndex = 1;
 		$this->refreshEntryList($sender, $param);

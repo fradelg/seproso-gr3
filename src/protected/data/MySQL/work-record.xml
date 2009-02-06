@@ -19,6 +19,7 @@
 	<result property="ID" column="ID" type="integer" />
 	<result property="Worker" column="Worker" />
 	<result property="Activity" column="Activity" />
+	<result property="Artifact" column="Artifact" />
 	
 	<result property="Date" column="Date" typeHandler="DateTime" />
 	<result property="StartDate" column="StartDate" typeHandler="DateTime" />
@@ -29,10 +30,18 @@
 	<result property="State" column="State" type="integer" />
 </resultMap>
 
+<select id="WorkRecordExists" resultClass="boolean">
+	SELECT COUNT(idUsuario) FROM RegistroTrabajo 
+	WHERE idUsuario = #user# AND idActividad = #act#
+	AND WEEK(#date, typeHandler=DateTimeTypeHandler#) = WEEK(inicio)
+	AND YEAR(#date, typeHandler=DateTimeTypeHandler#) = YEAR(inicio)
+</select>
+
 <select id="GetWorkRecordByID" resultMap="work-report-result">
 	SELECT
 		CONCAT(Trabajador.nombre, ' ', Trabajador.apellidos) as Worker,
 		Actividad.nombre as Activity,
+		Actividad.idArtefacto as Artifact,
 		RegistroTrabajo.idRegistroTrabajo as ID,
 		RegistroTrabajo.fecha as Date,
 		RegistroTrabajo.inicio as StartDate,

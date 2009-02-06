@@ -52,23 +52,28 @@
 	<com:TView>
 		<div class="activityRegister">
 			<div class="worker">
-				Trabajador: <%= h($this->Report->Worker) %>
+				<%= h($this->Report->Worker) %>
 			</div>
 			<div class="project">
-				Proyecto: <%= h($this->Session['project']) %>
+				<strong>Proyecto:</strong> <%= h($this->Session['project']) %>
 			</div>
 			<div class="activity">
-				Actividad: <%= h($this->Report->Activity) %>
+				<strong>Actividad:</strong> <%= h($this->Report->Activity) %>
+			</div>
+			<div class="artifact">
+				<strong>Artefacto:</strong> <%= h($this->Report->Artifact) %>
 			</div>
 			<div class="date2">
-				Fecha: <com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-							Value=<%= $this->Report->Date %> />
+				<strong>Fecha:</strong> 
+				<com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+					Value=<%= $this->Report->Date %> />
 			</div>
 			<div class="effort">
-				Esfuerzo: <%= h($this->Report->Effort) %> h
+				<strong>Esfuerzo:</strong> <%= h($this->Report->Effort) %> h
 			</div>
+			<h4>Comentarios:</h4>
 			<div class="comments">
-				Comentarios: <%= h($this->Report->Comentary) %>
+				<%= h($this->Report->Comentary) %>
 			</div>
 		</div>
 		<com:TButton Text="Supervisar" Onclick="reviewReport" 

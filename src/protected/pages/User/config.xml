@@ -4,7 +4,7 @@
 
   <authorization>
     <allow pages="UserList, UserCreate" roles="admin" />
-    <allow pages="Holidays" roles="manager,developer" />
+    <allow pages="Holidays, NoProject" roles="manager,developer" />
     <allow pages="Home" users="@" />
 	<allow pages="Logout, Login" users="*" />
     <deny users="*" />

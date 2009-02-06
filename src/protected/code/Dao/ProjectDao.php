@@ -187,6 +187,12 @@ class ProjectDao extends BaseDao
 		$sqlmap = $this->getSqlMap();
 		$sqlmap->delete('DeleteProject', $projectID);
 	}
+	
+	public function deletePhase($phaseID)
+	{
+		$sqlmap = $this->getSqlMap();
+		$sqlmap->delete('DeletePhase', $phaseID);
+	}
 }
 
 ?>

@@ -51,7 +51,8 @@
 		  	<td><%# h($this->DataItem->EstimateDuration) %></td>
 		  	<td><%# h($this->DataItem->Preds) %></td>
 		  	<td>
-		  		<com:TButton Text="Editar" CommandName="edit"/>	  			
+		  		<com:TButton Text="Editar" CommandName="edit"
+		  			Visible=<%= !$this->Page->isProjectStarted() %> />	  			
 		  		<com:TButton Text="Finalizar" CommandName="delete"
 		  			Attributes.onclick="if(!confirm(
 		  			'Esto da por finalizada esta actividad. Continuar?')) return false;" />
@@ -89,7 +90,7 @@
 	<div class="buttons">
 	<com:TPlaceHolder Visible=<%= !$this->isProjectStarted() %> >
 		<com:TValidationSummary	AutoUpdate="false" />
-		<com:TButton Text="Agregar actividad" Onclick="addActivity"/>
+		<com:TButton Text="Nueva actividad" Onclick="addActivity"/>
 		<com:TButton Text="Iniciar proyecto" Onclick="beginProject"/>
 	</com:TPlaceHolder>
 	</div>	

@@ -2,12 +2,8 @@
 /**
  * SeprosoUser class file.
  *
- * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
- * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2006 PradoSoft
- * @license http://www.pradosoft.com/license/
- * @version $Id: SeprosoUser.php 1400 2006-09-09 03:13:44Z wei $
- * @package Demos
+ * @author Grupo3 - ISO2 -UVA
+ * @version 1.0
  */
 
 // Include TUserManager.php file which defines TUser

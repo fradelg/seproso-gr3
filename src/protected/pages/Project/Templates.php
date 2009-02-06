@@ -11,6 +11,9 @@ class Templates extends TPage
 	
 	public function onLoad($param)
 	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+			
 		if(!$this->IsPostBack)
 		{
 			if ($this->getProjectDao()->projectModelExists($this->Session['project']))

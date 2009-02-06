@@ -2,11 +2,12 @@
 
 class Activities extends TPage
 {
-	// Carga los datos en los componentes al cargar la página
+	// Page load event
 	public function onLoad($param)
 	{
-		if(!$this->IsPostBack){}
-	}	
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+	}
 	
 	// Genera el informe de datos asociado a esta página
 	public function generateReport($sender, $param)

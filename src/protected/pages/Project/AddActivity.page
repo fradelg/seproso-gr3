@@ -11,8 +11,7 @@
 	<div class="phase-selection">
 	<com:TLabel Text="Seleccione la fase contenedora:"/>
 	<span class="required">*</span><br/>
-	<com:TDropDownList ID="phaseList" AutoPostBack="True"
-		OnSelectedIndexChanged="phaseChanged" /><br/><br/>
+	<com:TDropDownList ID="phaseList" /><br/><br/>
 	</div>
 	
 	<com:TLabel ForControl="actList" 
@@ -92,10 +91,15 @@
 	<span class="required">*</span><br/>
 	<com:TDatePicker ID="date" DateFormat="dd/MM/yyyy" 
 		TimeStamp=<%= strtotime("+10 day") %> InputMode="DropDownList" />
+	<com:TCustomValidator
+		ControlToValidate="date"
+		Display="None"
+		ValidationGroup="act-add"
+		OnServerValidate="validateWorkerAvaleability" />
 	</div>
 	<com:TLabel/><com:TLabel/><com:TLabel/><com:TLabel/>
 	<div class="hours">
-	<com:TLabel ForControl="hours" Text="Horas / hombre:" />
+	<com:TLabel ForControl="hours" Text="Horas totales:" />
 	<span class="required">*</span><br/>
 	<com:TTextBox ID="hours" />
 	 	<com:TRequiredFieldValidator

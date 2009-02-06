@@ -5,6 +5,7 @@ class WorkReport
 	public $ID = 0;
 	public $Worker = '';
 	public $Activity = '';
+	public $Artifact = '';
 	
 	public $Date = 0;
 	public $StartDate = 0;
@@ -17,6 +18,15 @@ class WorkReport
 
 class WorkRecordDao extends BaseDao
 {
+	public function workRecordExists($user, $activity, $date)
+	{
+		$sqlmap = $this->getSqlMap();
+		$param['user'] = $user;
+		$param['act'] = $activity;
+		$param['date'] = $date;
+		return $sqlmap->queryForObject('WorkRecordExists', $param);
+	}
+	
 	public function addWorkRecord($record)
 	{
 		$sqlmap = $this->getSqlMap();

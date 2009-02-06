@@ -12,6 +12,9 @@ class MonitorAct extends TPage
 	
 	public function onLoad($param)
 	{
+		if (is_null($this->Session['project']))
+			$this->Response->redirect("?page=User.NoProject");
+			
 		if(!$this->IsPostBack)
 		{
 			$this->workerList->DataSource = $this->getWorkers();
@@ -64,10 +67,9 @@ class MonitorAct extends TPage
 	
 	protected function getWorkRecords($worker, $act)
 	{
-		$dao = $this->getWorkRecordDao();
 		$records = array();
-		foreach($dao->getWorkRecordsByWA($worker, $act) as $record)
-				$records[$record->ID] = date('d - m - Y', $record->Date);
+		foreach($this->getWorkRecordDao()->getWorkRecordsByWA($worker, $act) as $rec)
+				$records[$rec->ID] = date('d - m - Y', $rec->Date);
 		return $records;
 	}
 

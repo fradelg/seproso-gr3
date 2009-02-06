@@ -283,4 +283,8 @@
 	DELETE FROM Proyecto WHERE titulo = #value#
 </delete>
 
+<delete id="DeletePhase">
+	DELETE FROM Fase WHERE idFase = #value#
+</delete>
+
 </sqlMap>

@@ -47,7 +47,7 @@
 	SELECT nombre FROM Artefacto
 </select>
 
-<select id="GetActivitiesByWorker" resultMap="activity-result">
+<select id="GetActivitiesByWorker" parameterClass="array" resultMap="activity-result">
 	SELECT
 		Actividad.*
 	FROM 
@@ -59,6 +59,7 @@
 	WHERE
 		Proyecto.titulo = #project#
 		AND Trabajador_has_Actividad.idUsuario = #worker#
+		AND Actividad.estado = 1
 </select>
 
 <select id="GetInitActivities" resultClass="int">
@@ -94,7 +95,8 @@
 </select>
 
 <select id="GetActivityDuration" parameterClass="int" resultClass="float">
-	SELECT SUM(esfuerzo) FROM RegistroTrabajo WHERE idActividad = #value#
+	SELECT SUM(esfuerzo) FROM RegistroTrabajo 
+	WHERE idActividad = #value# AND estado = 2
 </select>
 
 <insert id="AddNewActivity" parameterClass="ActivityRecord">
