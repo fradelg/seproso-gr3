@@ -1,0 +1,229 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Manual Administrador.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Enero, 2009} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+1.0 & 25/01/09 & Manual de administrador completo. & Rubén.\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent En este documento se presenta la funcionalidad básica de SEPROSO desde el punto de vista de un administrador que utiliza la herramienta. El objetivo de este manual es proporcionar al administrador del sistema la información necesaria para utilizar la herramienta SEPROSO.
+
+
+\section{Ámbito.}
+
+\indent \indent Mediante esta práctica herramienta Web se pretender dar capacidad para
+
+\begin{itemize}
+	\item Planificar sus proyectos software.
+  \item Seguir y monitorizar el desarrollo del proyecto.
+  \item Controlar y aprobar los informes de trabajo de los desarrolladores.
+  \item Conocer en cada momento la situación de un trabajador.
+\end{itemize}
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{itemize}
+	\item Glosario, Grupo 3.
+	\item Especificación de Casos de Uso, Grupo 3.
+	\item Especificación Suplementaria, Grupo 3.
+	\item Documento de requisitos, Grupo 3.
+\end{itemize}
+
+\section{Visión general.}
+
+\indent \indent En las siguientes secciones veremos con más detalle algunos aspectos de la utilización de la herramienta SEPROSO. Pretende dar a conocer al administrador de la aplicación la utilización de toda la funcionalidad que implementa SEPROSO y cómo debe ser utilzada correctamente.\\
+
+\chapter{Login.}
+
+\indent \indent El login del \textbf{Administrador} del sistema se realiza desde la pantalla de inicio de la herramienta SEPROSO. A continuación se muestra la pantalla inicial del sistema \ref{log} y que sirve de Login para cualquier tipo de usuario. El administrador solamente se debe de encargar de introducir un password correcto asociado a la cuenta de administrador.\\
+
+\figura{Images/login.png}{width=0.9\linewidth}{Login de la herramienta SEPROSO.}{log}
+
+En caso de introducir una contraseña errónea se mostrará al usuario el siguiente mensaje de error  \ref{log_e}.\\
+
+\figura{Images/Login_errno.png}{width=0.9\linewidth}{Mensaje de error ante un login inválido.}{log_e}
+
+Una vez conseguido el acceso a la herramienta se recibe un mensaje de bienvenida, identificándose cómo un usuario determinado por los menús superiores que se le presentan a cada usuario \ref{bienvenida}. En el caso del Administrador se le muestran los menús de configuración de Usuarios, Proyectos y Configuración de los usuarios existentes. Se puede observar en la siguiente figura \ref{men_admin}.\\
+
+\figura{Images/Bienvenido.png}{width=0.9\linewidth}{Mensaje de bienvenida a la herramienta.}{bienvenida}
+
+\figura{Images/menu_admin.png}{width=0.9\linewidth}{Menu de edición del administrador del sistema.}{men_admin}
+
+\chapter{Gestión de empleados.}
+\section{Modificar o consultar perfil de usuario.}
+
+\indent \indent Para la modificación de un perfil de usuario se utiliza la pestaña \textit{USUARIOS}, y se accede a la opción de Listado de usuarios, \textit{Listar}. Con ello se observan todos los empleados que se encuetran registrados en la herramienta Seproso. Con la opción de \textbf{Modificar} anexa a cada uno de los Usuarios que se listan en la tabla se puede acceder a la modificación de cualquiera de sus parámetros.\\
+
+\section{Eliminar cuentas de usuario.}
+
+\indent \indent Para la eliminación de un perfil de usuario se utiliza la pestaña \textit{USUARIOS}, y se accede a la opción de Listado de usuarios, \textit{Listar}. Con ello se observan todos los empleados que se encuetran registrados en la herramienta Seproso. Con la opción de \textbf{Borrar} anexa a cada uno de los Usuarios que se listan en la tabla se elimina el usuario seleccionado de la tabla de usuarios (con la excepción de que el usuario que se quiera borrar no participe activamente en un proyecto actual).\\
+
+\section{Añadir cuentas de usuario.}
+
+\indent \indent Para la adición de cuentas de usuario debemos de acceder a la sección de USUARIOS, y desde allí acceder a la subsección \textbf{Crear}. Una vez allí tendremos que rellenar la siguiente plantilla \ref{user_crear}. La plantilla se compone de los siguientes campos, todos ellos obligatorios:
+\begin{itemize}
+	\item Nick de usuario.
+	\item Password.
+	\item Email.
+\end{itemize}
+Tras completar el primer paso de creación clicaremos en la pestaña \textbf{Next}.\\
+
+\figura{Images/plantilla_crear_user.png}{width=0.9\linewidth}{Plantilla para la creación de un usuario.}{user_crear}
+
+El primer paso de la creación de Usuario se ha completado, ahora nos aparece una nueva plantilla en la que determinaremos más carcterísticas del Usuario. La plantilla a rellenar se muestra en la siguiente imagen \ref{user_crear_2}. Los campos son todos obligatorios y es necesario determinar:
+\begin{itemize}
+	\item Nombre de usuario.
+	\item Apellidos del usuario.
+	\item Fecha de nacimiento.
+	\item Rol de acceso a la herramienta: Administrador, Jefe de personal, Jefe de Proyecto, Analista, Analista-Programador, Diseñador, Probador, Programador, Responsable de equipo de pruebas.
+\end{itemize}
+
+Una vez creado el usuario se debe pulsar en la pestalla \textit{COMPLETE}, para completar la creación de usuario. Fianlmente la herramienta muestra la confirmación de la creación correcta del usuario por pantalla \ref{fin_crear}.\\
+
+\figura{Images/plantilla_crear_user_2.png}{width=0.9\linewidth}{Nueva plantilla para la creación de un usuario.}{user_crear_2}
+
+\figura{Images/fin_user_correctly.png}{width=0.9\linewidth}{Nueva plantilla para la creación de un usuario.}{fin_crear}
+
+Para comprobar que un Usuario ha sido creado correctamente, podemos observarlo desde la sección \textit{USUARIOS}  y posteriormente en la opción \textbf{Listar}, para obtener un listado de todos los usuarios existententes en el sistema.\\
+
+
+\chapter{Creación de proyectos.}
+\section{Crear nuevo proyecto.}	
+
+\indent \indent La creación de proyecto se realiza desde la pestaña \textit{PROYECTOS}, a aprtir d eella podemos acceder a la sección \textbf{Crear}. Cuando accedamos obtendremos una plantilla \ref{crear_proyecto} a rellenar para la creación de un nuevo proyecto. La plantilla para la creación de un proyecto requiere los siguientes campos que deben ser rellenados: Nombre del proyecto, Jefe de proyecto, presupuesto del mismo. Además permite la inclusión de una descripción del mismo.\\
+
+\figura{Images/crear_proyecto.png}{height=0.6\linewidth, angle=90}{Plantilla de creación de proyecto.}{crear_proyecto}
+
+\section{Modificar proyectos.}
+
+\indent \indent Una vez creado un proyecto, se puede Listar los proyectos que existen con la opción \textbf{Listar} del menú de \textit{PROYECTOS}. Desde el Listado de proyectos podemos modificar un proyecto determinado, clicando en la opción elegida \ref{modificar}.\\
+
+\figura{Images/borrar_proy.png}{width=0.9\linewidth}{Modificar proyecto.}{modificar}
+
+\section{Borrar proyectos.}
+
+\indent \indent Una vez creado un proyecto, con la opción \textbf{Listar} del menú de \textit{PROYECTOS} podemos observar los diferentes proyectos que se encuentran en la Base de datos de la herramienta. Desde el Listado de proyectos podemos borrar un proyecto determinado, clicando en la opción elegida \ref{Borrar}.\\
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}

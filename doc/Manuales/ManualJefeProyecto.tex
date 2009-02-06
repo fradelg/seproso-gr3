@@ -1,0 +1,285 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Manual Jefe Proyecto.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Enero, 2009} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+1.0 & 31/01/09 & Manual de jefe de proyecto completo. & Rubén.\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent En este documento se presenta la funcionalidad básica de SEPROSO desde el punto de vista de un jefe de proyecto que utiliza la herramienta. El objetivo de este manual es proporcionar al jefe de proyecto la información necesaria para utilizar la herramienta SEPROSO.
+
+
+\section{Ámbito.}
+
+\indent \indent Mediante esta práctica herramienta Web se pretender dar capacidad para
+
+\begin{itemize}
+	\item Planificar sus proyectos software.
+  \item Seguir y monitorizar el desarrollo del proyecto.
+  \item Controlar y aprobar los informes de trabajo de los desarrolladores.
+  \item Conocer en cada momento la situación de un trabajador.
+\end{itemize}
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{itemize}
+	\item Glosario, Grupo 3.
+	\item Especificación de Casos de Uso, Grupo 3.
+	\item Especificación Suplementaria, Grupo 3.
+	\item Documento de requisitos, Grupo 3.
+\end{itemize}
+
+\section{Visión general.}
+
+\indent \indent En las siguientes secciones veremos con más detalle algunos aspectos de la utilización de la herramienta SEPROSO. Pretende dar a conocer a un usuario novel de la aplicación la utilización de toda la funcionalidad que implementa SEPROSO y cómo debe ser utilzada correctamente.\\
+
+\chapter{Login}
+
+\indent \indent El login del \textbf{Jefe de Proyecto} del sistema se realiza desde la pantalla de inicio de la herramienta SEPROSO. A continuación se muestra la pantalla inicial del sistema \ref{log} y que sirve de Login para cualquier tipo de usuario. El jefe de proyecto solamente se debe de encargar de introducir un password correcto asociado a la cuenta de usuario cuyo rol sea jefe de proyecto.\\
+
+\figura{Images/login.png}{width=0.9\linewidth}{Login de la herramienta SEPROSO.}{log}
+
+En caso de introducir una contraseña errónea se mostrará al usuario el siguiente mensaje de error  \ref{log_e}.\\
+
+\figura{Images/Login_errno.png}{width=0.9\linewidth}{Mensaje de error ante un login inválido.}{log_e}
+
+Una vez conseguido el acceso a la herramienta se recibe un mensaje de bienvenida, identificándose cómo un usuario determinado por los menús superiores que se le presentan a cada usuario \ref{bienvenida}. En el caso del Jefe de proyecto se le muestran los menús de configuración de Proyecto, Actividades, Informes y la opción de volver a la visión de Desarrollador. Se puede observar en la siguiente figura \ref{men_admin}.\\
+
+\figura{Images/Bienvenido.png}{width=0.9\linewidth}{Mensaje de bienvenida a la herramienta.}{bienvenida}
+
+\figura{Images/menu_jproy.png}{width=0.9\linewidth}{Menu de edición del administrador del sistema.}{men_admin}
+
+\chapter{Proyecto.}
+\label{Pry}
+
+\section{Modelo de Proceso. Definición de Fases.}
+
+\subsection{Definir nuevo modelo de fases.}
+
+\indent \indent La definición del modelo de proceso de un proyecto se realiza desde la pestaña de \textit{PROYECTO}, y en su submenu de \textbf{Fases}. para la determinación del modelo se debe seleccionar una de las plantillas predeterminada, o bien determinar el nuevo modelo predefinido de forma manual. Podemos ver el menú en la siguiente imagen \ref{modelo}.\\
+
+\figura{Images/modelo.png}{height=0.8\linewidth, angle=90}{Menú para determinar nuevo Modelo de proceso .}{modelo}
+
+Si se quiere definir un nuevo modelo de fases se precisa seleccionar la opción de \textbf{Definir Personalizada}. Tras ello obtendremos las opciones de ir añadiendo nuevas fases al modelo de proceso actual para el Proyecto seleccionado. En la imagen \ref{gestion} vemos cómo es el menú de determinación de las diferentes fases inicialmente. Se irán añadiendo las diferentes fases usando el botón de \textbf{Nueva Fase}. Finalmente podremos obtener un modelo similar al siguiente ejemplo \ref{modelo_ejem}, en el que se han añadido solo 3 fases: Ingenieria de Software, Desarrollo y pruebas y la fase de Implantación . \\
+
+\figura{Images/gestion_fases.png}{width=1.0\linewidth}{Definir modelo de fases de forma manual. Añadir fases del proyecto.}{gestion}
+
+\figura{Images/fases_completo.png}{width=1.0\linewidth}{Ejemplo de modelo de proceso generado manualmente.}{modelo_ejem}
+
+Se puede implantar el nuevo modelo de proceso creado cómo una nueva plantilla por defecto generada para los siguientes proyectos que se creen. Para ello hay que pulsar sobre la opción de \textbf{Establecer como plantilla}. Obtendremos la siguiente plantilla a rellenar \ref{nueva_plantilla}. Dotando de nombre a la plantilla y una breve descripción podremos almacenar el resultado.
+
+\figura{Images/nueva_plantilla.png}{width=1.0\linewidth}{Generar nueva plantilla de modelo.}{nueva_plantilla}
+
+Tras rellenar la plantilla pulsaremos la opción \textbf{Guardar}, y obtendremos un nuevo modelo de plantilla que se puede utilizar en los siguientes proyectos que se implementen. Podemos ver el resultado aquí \ref{guardar_plantilla}.
+
+\figura{Images/guardar_plantilla.png}{width=1.0\linewidth}{Ejemplo de nueva plantilla de modelo de proceso para un proyecto.}{guardar_plantilla}
+
+\newpage
+\subsection{Usar modelo de proyecto existente.}
+
+\indent \indent La definición del modelo de proceso de un proyecto se realiza desde la pestaña de \textit{PROYECTO}, y en su submenu de \textbf{Fases}. para la determinación del modelo se debe seleccionar una de las plantillas predeterminada, o bien determinar el nuevo modelo predefinido de forma manual. Podemos ver el menú en la siguiente imagen \ref{modelo}.\\
+
+Si clicásemos sobre cualquier modelo predefinido, se mostrará un desglose de las fases que componen el modelo elegido. En la imagen anexa \ref{modelo_cascada} anteriormente se puede ver el ejemplo para el modelo en cascada.\\
+
+\figura{Images/modelo_cascada.png}{height=0.9\linewidth, angle=90}{Modelo en cascada.}{modelo_cascada}
+
+Una vez determinado el modelo que se va utilizar a partir de una de las plantillas obtendremos el siguiente resultado \ref{}.
+
+\newpage
+\subsection{Iniciar Proyecto.}
+
+\indent \indent Una vez definido el modelo de proceso de un proyecto se deben definir las actividades y los trabajadores que lo componen. Para ello visitar las opciones del manual: \ref{acts} y \ref{trabs}. Finalmente cuando el proyecto se de por concluida su planificaicón se puede comenzar, para ello desde el menú de \textit{PROYECTO}  y la opción \textbf{Fases}, existe un botón para dar comienzo al proyecto, desde el cuál puede comenzar su gestión.\\
+
+Una vez comenzado un proyecto no se podrá volver a editar la división en fases ni las actividades que lo componen.\\
+
+
+\newpage
+\section{Gestión de Actividades.}
+\label{acts}
+
+\indent \indent La gestión de actividades se realiza desde el menú PROYECTO, en la subsección de Actividades. Allí se obtiene la visualización de todas las actividades definidas para cada fase que compone el Proyecto software asociado al Jefe de Proyecto actual. Podemos ver en la imagen siguiente \ref{prueba} un ejemplo de visualización de actividades en varias fases de un proyecto de ejemplo.\\
+
+\figura{Images/prueba.png}{width=0.9\linewidth}{Modelo de actividades para la fase de Planificación y análisis de un proyecto.}{prueba}
+
+\newpage
+\subsection{Crear Actividad.}
+
+\indent \indent La definición de actividades de un proyecto viene precedida por la creación del modelo de proceso (ver \ref{Pry}) del proyecto. Una vez establecido el modelo de fases del proyecto, se pueden definiar las actividades que compondrá cada una de las fases del proyecto. Para ello accedemos al menú \textit{PROYECTO}, y a la opción marcada cómo \textbf{Actividades}.\\
+
+La creación de una nueva actividad se realiza con el submenú inferior de la herramienta, ver \ref{menu_crear_act} para observar la opción de creación de actividades. Una vez iniciada la creación de una actividad, veremos la primera plantilla a rellenar \ref{Actividades1}, dónde se indica la fase a la cuál se asocia la Actividad, las posibles actividades precedentes y el Trabajador asociado a la actividad. Todos los campos son obligatorios, aunque la actividad puede no tener actividaes predecesoras, dejando entonces ese campo sin marcar.\\
+
+Una vez determinada la posición temporal de la actividad, accedemos a la siguiente fase de creación pulsando \textbf{Siguiente}. En esta nueva plantilla de configuración, se indicará el tipo de actividad de una lista desplegable, el artefacto asociado a la finalización de la actividad y la fecha de inicio de la propia actividad. Así mismo se incluyen el número de horas/hombre que conllevará su realización y el Nombre que tendra la actividad. Además se permite incluir una breve descripción, ver imagen anexa: \ref{Actividades2}.
+
+
+\figura{Images/activities1.png}{width=0.6\linewidth}{Crear nueva actividad.}{menu_crear_act}
+\figura{Images/activities.png}{width=1.1\linewidth}{Crear nueva actividad: plantilla situación.}{Actividades1}
+\figura{Images/activities2.png}{width=1.1\linewidth}{Crear nueva actividad: plantilla actividad.}{Actividades2}
+
+\newpage
+\subsection{Modificar Actividad.}
+
+\indent \indent Desde el menú de gestión de actividades se permite editar una actividad ya determinada. Se realiza mediante el botón anexo a cada actividad \textbf{Editar}. Con ello permitimos modificar la plantilla de la actividad creada precedentemente.\\
+
+\subsection{Finalizar Actividad.}
+
+\indent \indent El jefe de proyecto es el único que puede dar por finalizada una actividad, ésto se realiza con el botón Finalizar anexo a las actividades y que indicará que la actividad que estaba en curso ha finalizado. Es necesaria una confirmación de la acción antes de proseguir.\\
+
+
+\newpage
+\section{Gestión de Trabajadores.}
+\label{trabs}
+
+\indent \indent La gestión de trabajadores se realiza desde el menú de \textit{PROYECTO} y la opción interna de \textbf{Trabajadores}. Desde allí se pueden ver los Trabajadores actuales del proyecto y el porcentaje de esfuerzo implicado en el mismo, así cómo el rol que desempeñan, se observa un ejemplo en la imagen \ref{trabs}.\\
+
+
+\figura{Images/trabajadores.png}{width=1.1\linewidth}{Trabajadores asociados a un proyecto.}{trabs}
+
+\subsection{Agregar Trabajador.}
+
+\indent \indent Para poder agregar un trabjador al proyecto actual es necesario que se encuentre libre de trabajo y no haya sido agregado anteriormente. Si cumple esas premisas, se puede asociar al proyecto en curso. Es tan sencillo cómo acceder al menú \textbf{Nuevo Participante}, dónde nos aparece una plantilla en la que se rellena el Nuevo trabajador que se encuentre libre, y el rol que desempeñará, así cómo su porcentaje de participación el proyecto actual. Podemos ver la plantilla en la siguiente imagen: \ref{t}.\\
+
+\figura{Images/nuevoTrabajador.png}{width=1.1\linewidth}{Plantilla nuevo trabajador.}{t}
+
+
+\newpage
+\chapter{Informe de Actividades.}
+
+\indent  \indent Mediante esta opción del menú se controla la gestión de los informes de actividades realizados por los trabajadores. Mediante una plantilla se selecciona el trabajador, la actividad asociada a él y el informe que ha generado para poderlo observar. A continuación se muestra un ejemplo concreto de su uso \ref{u_act} y de la plantilla \ref{p_act}.\\
+
+Una ver obtenido un informe de actividades se puede \textbf{rechazar}, o \textbf{supervisar} por parte del Jefe de proyecto, mediante un submenu en la parte inferior del informe. Normalmente la mayoría de informes se supervisarán, y el sistema mostrará un mensaje de confirmación de la acción. Si un informe ha sido supervisado por el jefe de proyecto, la siguiente o sucesivas veces q se consulte puede ser \textbf{aprobado}, y por ello dicho informe se almacenará para su visualización cómo actividades aprobadas. Igualmente el informe de un trabjador puede ser \textbf{rechazado} con sus respectiva opción.\\
+
+\figura{Images/gestion_act.png}{height=0.8\linewidth, angle=90}{Plantilla de gestión de actividades.}{p_act}
+\figura{Images/ejemplo_act.png}{width=1.1\linewidth}{Ejemplo de informe de gestión de una actividad concreta.}{u_act}
+
+
+\chapter{Informes generales.}
+
+\indent \indent  El jefe de proyecto tiene acceso a una serie de informes globales del proyecto en curso. Los informes que se permite acceder son los siguientes \ref{informs}. En las secciones siguientes se puede observar cómo se genera cada uno de los informes y la información que recogen explícitamente.\\
+
+\figura{Images/informs.png}{width=1.1\linewidth}{Informes del jefe de proyecto.}{informs}
+
+Simplemente para el acceso a cualquier informe del proyecto basta con clicar sobre el mismo, y seguir las instrucciones por pantalla. Indicando en cada uno de ellos las características para el visionado del informe.\\
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}

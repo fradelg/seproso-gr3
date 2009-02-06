@@ -1,0 +1,201 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Manual Empleado.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Enero, 2009} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+1.0 & 25/01/09 & Manual de empleado completo. & Rubén.\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent En este documento se presenta la funcionalidad básica de SEPROSO desde el punto de vista de un desarrollador que utiliza la herramienta. El objetivo de este manual es proporcionar al usuario la información necesaria para utilizar la herramienta SEPROSO.
+
+
+\section{Ámbito.}
+
+\indent \indent Mediante esta práctica herramienta Web se pretender dar capacidad para
+
+\begin{itemize}
+	\item Planificar sus proyectos software.
+  \item Seguir y monitorizar el desarrollo del proyecto.
+  \item Controlar y aprobar los informes de trabajo de los desarrolladores.
+  \item Conocer en cada momento la situación de un trabajador.
+\end{itemize}
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{itemize}
+	\item Glosario, Grupo 3.
+	\item Especificación de Casos de Uso, Grupo 3.
+	\item Especificación Suplementaria, Grupo 3.
+	\item Documento de requisitos, Grupo 3.
+\end{itemize}
+
+\section{Visión general.}
+
+\indent \indent En las siguientes secciones veremos con más detalle algunos aspectos de la utilización de la herramienta SEPROSO. Pretende dar a conocer a un usuario novel de la aplicación la utilización de toda la funcionalidad que implementa SEPROSO y cómo debe ser utilzada correctamente.\\
+
+\chapter{Login.}
+
+\indent \indent El login de cualquier \textbf{empleado} del sistema se realiza desde la pantalla de inicio de la herramienta SEPROSO. A continuación se muestra la pantalla inicial del sistema \ref{log} y que sirve de Login para cualquier tipo de usuario. Un empleado cuyo rol no sea específico solamente se debe de encargar de introducir un password correcto asociado a la cuenta de usuario.\\
+
+\figura{Images/login.png}{width=0.9\linewidth}{Login de la herramienta SEPROSO.}{log}
+
+En caso de introducir una contraseña errónea se mostrará al usuario el siguiente mensaje de error  \ref{log_e}.\\
+
+\figura{Images/Login_errno.png}{width=0.9\linewidth}{Mensaje de error ante un login inválido.}{log_e}
+
+Una vez conseguido el acceso a la herramienta se recibe un mensaje de bienvenida, identificándose cómo un usuario determinado por los menús superiores que se le presentan a cada usuario \ref{bienvenida}. En el caso de un desarrollador normal se le muestran los menús Actividades, Informes de Actividad y Configuración de vacaciones. Se puede observar en la siguiente figura \ref{men_admin}.\\
+
+\figura{Images/Bienvenido.png}{width=0.9\linewidth}{Mensaje de bienvenida a la herramienta.}{bienvenida}
+
+\figura{Images/menu_empleado.png}{width=0.9\linewidth}{Menu de edición del administrador del sistema.}{men_admin}
+
+\chapter{Editar perfil.}
+\section{Modificar perfil.}
+\section{Modificar Vacaciones.}
+
+\indent \indent La vacaciones se pueden modificar desde el menú \textit{VACACIONES}, a través del cuál se puede añadir un nuevo período vacacional al empleado actual del proyecto. Así cómo visualizar los períodos que tiene ya asignados.\\
+
+\figura{Images/plantilla_vac.png}{width=0.9\linewidth}{Gestión de vacaciones.}{men_admin2}
+\figura{Images/vacances.png}{width=0.9\linewidth}{Plantilla de gestión de vacaciones.}{men_admin3}
+
+
+\newpage
+\chapter{Registrar informe de Actividad.}
+
+\indent \indent Cualquier desarrollador es capaz de registrar el informe de una actividad que tiene asociada. Para ello debe acceder a la herramienta y entrar en la opción \textit{ACTIVIDAD}. Una vez allí le aparecerá la plantilal de registro de actividad para registrar el informe de una actividada ya comenzada.\\
+
+Se debe indicar la actividad realizada, la fecha, el número de horas implicado en ella y un breve cometnario que es opcional. Podemos ver la plantilla en la imagen \ref{plantilla}. Una vez acabado se pulsará sobre la opción de registrar informe.\\
+
+\figura{Images/reg_act.png}{width=0.9\linewidth}{Plantilla de registro de actividad.}{plantilla}
+
+
+\chapter{Obtención de informes.}
+
+\indent \indent  Un desarrollador puede consultar informes sobre las actividades que ha llevado a cabo ya en el tiempo, y la herramienta se los proveerá desde la opción \textit{INFORMES}, y la pestaña \textbf{Actividad}. Sólo puede ver actividades que hayan sifo ya ejecutadas. En la siguiente imagen se puede observar un ejemplo \ref{??}.\\
+
+También se permite la visualización de resumenes de proyectos ya finalizados, para ello se accede a la pestaña \textbf{Resumenes}.\\
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}

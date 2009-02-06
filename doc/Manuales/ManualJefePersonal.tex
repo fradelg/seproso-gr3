@@ -1,0 +1,188 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Manual Jefe Personal.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Enero, 2009} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+1.0 & 31/01/09 & Manual de jefe de proyecto completo. & Rubén.\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent En este documento se presenta la funcionalidad básica de SEPROSO desde el punto de vista de un jefe de personal que utiliza la herramienta. El objetivo de este manual es proporcionar al jefe de proyecto la información necesaria para utilizar la herramienta SEPROSO.
+
+
+\section{Ámbito.}
+
+\indent \indent Mediante esta práctica herramienta Web se pretender dar capacidad para:
+
+\begin{itemize}
+	\item Planificar sus proyectos software.
+  \item Seguir y monitorizar el desarrollo del proyecto.
+  \item Controlar y aprobar los informes de trabajo de los desarrolladores.
+  \item Conocer en cada momento la situación de un trabajador.
+\end{itemize}
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{itemize}
+	\item Glosario, Grupo 3.
+	\item Especificación de Casos de Uso, Grupo 3.
+	\item Especificación Suplementaria, Grupo 3.
+	\item Documento de requisitos, Grupo 3.
+\end{itemize}
+
+\section{Visión general.}
+
+\indent \indent En las siguientes secciones veremos con más detalle algunos aspectos de la utilización de la herramienta SEPROSO. Pretende dar a conocer a un usuario novel de la aplicación la utilización de toda la funcionalidad que implementa SEPROSO y cómo debe ser utilzada correctamente desde el punto de vista del \textbf{JEFE DE PERSONAL}.\\
+
+\chapter{Login.}
+
+\indent \indent El login del \textbf{Jefe de Personal} del sistema se realiza desde la pantalla de inicio de la herramienta SEPROSO. A continuación se muestra la pantalla inicial del sistema \ref{log} y que sirve de Login para cualquier tipo de usuario. El jefe de personal solamente se debe de encargar de introducir un password correcto asociado a la cuenta de usuario cuyo rol sea jefe de personal.\\
+
+\figura{Images/login.png}{width=0.9\linewidth}{Login de la herramienta SEPROSO.}{log}
+
+En caso de introducir una contraseña errónea se mostrará al usuario el siguiente mensaje de error  \ref{log_e}.\\
+
+\figura{Images/Login_errno.png}{width=0.9\linewidth}{Mensaje de error ante un login inválido.}{log_e}
+
+Una vez conseguido el acceso a la herramienta se recibe un mensaje de bienvenida, identificándose cómo un usuario determinado por los menús superiores que se le presentan a cada usuario \ref{bienvenida}. En el caso del Jefe de personal se le muestran los menús de configuración de Situación de Personal e Informe de ocupación. Se puede observar en la siguiente figura \ref{men_admin}.\\
+
+\figura{Images/Bienvenido.png}{width=0.9\linewidth}{Mensaje de bienvenida a la herramienta.}{bienvenida}
+
+\figura{Images/menu_jp.png}{width=0.9\linewidth}{Menu de edición del administrador del sistema.}{men_admin}
+
+
+\newpage
+\chapter{Situación de Personal.}
+
+
+\newpage
+\chapter{Informe de ocupación.}
+
+\indent \indent Para la obtención del informe de ocupación basta con seleccionar el menú \textit{OCUPACIóN}, y seleccionar las fechas entre las cuáles se quiere ver la ocupación de los trabajadores en las diferentes actividades. Podemos ver un ejemplo en la imagen \ref{ocup}.\\
+
+\figura{Images/inform_actividades.png}{width=0.9\linewidth}{Informe de ocupación.}{ocup}
+
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
