@@ -32,23 +32,54 @@
 		toda la documentaci&oacute;n elaborada durante este proceso de desarrollo, enlazada directamente con el
 		documento PDF correspondiente:
 	<ul>
+	
+		<h2>Documentos Globales. </h2>
 		<li><b><a href="../../doc/Glosario.pdf">Glosario</a></b></li>
-		<li><b><a href="../../doc/">Lista de riesgos</a></b></li>
-		<li><b><a href="../../doc/">Plan de desarrollo de Software</a></b></li>
-		<li><b><a href="../../doc/">Plan de iteraci&oacute;n 1</a></b></li>
-		<li><b><a href="../../doc/">Plan de iteraci&oacute;n 2</a></b></li>
-		<li><b><a href="../../doc/">Plan de iteraci&oacute;n 3</a></b></li>
-		<li><b><a href="../../doc/">Plan de iteraci&oacute;n 4</a></b></li>
-		<li><b><a href="../../doc/">Plan de iteraci&oacute;n 5</a></b></li>
-		<li><b><a href="../../doc/">Plan de gesti&oacute;n de configuraciones</a></b></li>
-		<li><b><a href="../../doc/">Plan de mediciones</a></b></li>
-		<li><b><a href="../../doc/">Especificaci&oacute;n de requisitos del software</a></b></li>
-		<li><b><a href="../../doc/">Especificaci&oacute;n suplementaria</a></b></li>
-		<li><b><a href="../../doc/">Modelo de casos de uso</a></b></li>
-		<li><b><a href="../../doc/">Modelo de dise&ntilde;o</a></b></li>
-		<li><b><a href="../../doc/">Modelo de implementaci&oacute;n</a></b></li>
-		<li><b><a href="../../doc/">Descripci&oacute;n de la arquitectura</a></b></li>
-		<li><b><a href="../../doc/">Plan de pruebas</a></b></li>
+		<li><b><a href="../../doc/Resumen.pdf">Resumen del Proyecto</a></b></li>
+		<li><b><a href="../../doc/Revisión[1-DIC].pdf">Revisión 1 DIC</a></b></li>
+		<li><b><a href="../../doc/Revisión[15-DIC].pdf">Revisión 15 DIC</a></b></li>
+		<li><b><a href="../../doc/Revisión[30-DIC].pdf">Revisión 30 DIC</a></b></li>
+		<li><b><a href="../../doc/Revisión[15-ENE].pdf">Revisión 15 ENE</a></b></li>
+
+		
+		<h2>Documentación de la Etapa de Inicio. </h2>
+		<li><b><a href="../../doc/SRS.pdf">Especificación de requisitos</a></b></li>
+		<li><b><a href="../../doc/SSS.pdf">Especificaciones suplementarias</a></b></li>
+		<li><b><a href="../../doc/SPMP.pdf">Plan de desarrollo software</a></b></li>
+		<li><b><a href="../../doc/PI_Inicio.pdf">Plan de iteración de la fase de inicio</a></b></li>
+		<li><b><a href="../../doc/PI_Elaboracion.pdf">Plan de iteración de la fase de elaboración</a></b></li>
+		<li><b><a href="../../doc/Riesgos.pdf">Lista de Riesgos/a></b></li>
+		<li><b><a href="../../doc/Plan_mediciones.pdf">Plan de medidas</a></b></li>
+		<li><b><a href="../../doc/Gestion_configuracion.pdf">Gestión de configuración</a></b></li>
+		
+		<h2>Documentación de la Etapa de Elaboración. </h2>
+		<li><b><a href="../../doc/Use Case Model.pdf">Modelo de Casos de Uso</a></b></li>
+		<li><b><a href="../../doc/Modelo de análisis.pdf">Modelo de análisis</a></b></li>
+		<li><b><a href="../../doc/Diagramas de secuencia.pdf">Modelo de análisis: diagramas de interación</a></b></li>
+		<li><b><a href="../../doc/Arquitectura.pdf">Arquitectura del Sistema</a></b></li>
+		<li><b><a href="../../doc/PI_Construccion1.pdf">Planificación iteración Construcción 1</a></b></li>
+		
+		
+		<h2>Documentación de la Etapa de Construcción 1. </h2>
+		<li><b><a href="../../doc/DataBase.pdf">Base de datos</a></b></li>
+		<li><b><a href="../../doc/Modelo de diseño.pdf">Modelo de diseño</a></b></li>
+		<li><b><a href="../../doc/Realización de los casos de Uso.pdf">Realización de casos de uso</a></b></li>
+		<li><b><a href="../../doc/PI_Construccion2.pdf">Planificación iteración Construcción 2</a></b></li>
+		
+		<h2>Documentación de la Etapa de Construcción 2. </h2>
+		<li><b><a href="../../doc/TestPlan.pdf">Plan de pruebas</a></b></li>
+		<li><b><a href="../../doc/Modelo Implementacion.pdf">Modelo de implementación</a></b></li>
+		<li><b><a href="../../doc/PI_Transicion.pdf">Planificación iteración Prodicción</a></b></li>
+		
+		<h2>Documentación de la Etapa de Transicion. </h2>
+		<li><b><a href="../../doc/Resultados Pruebas.pdf">Resultados de las pruebas</a></b></li>
+		<li><b><a href="../../doc/Informe de evaluacion de pruebas.pdf">Evaluación de pruebas</a></b></li>
+		<li><b><a href="../../doc/ManualAdministrador.pdf">Manual de Administrador</a></b></li>
+		<li><b><a href="../../doc/ManualJefeProyecto.pdf">Manual de Jefe de Proyecto</a></b></li>
+		<li><b><a href="../../doc/ManualJefePersonal.pdf">Manual de Jefe de Personal</a></b></li>
+		<li><b><a href="../../doc/ManualTrabajador.pdf">Manual de Trabajador</a></b></li>
+		<li><b><a href="../../doc/ManualInstalacion.pdf">Manual de Instalación</a></b></li>
+		
 	</ul>
 	</p>
 	<hr />
@@ -56,10 +87,12 @@
 	<h1>Manuales de la herramienta</h1>
 	<p>
 		Para poder utilizar y gestionar adecuadamente la herramienta Web SEPROSO se han elaborado una serie 
-		de manuales imprescindibles. Son los 3 siguientes, enlzados con su correspondiente PDF:
+		de manuales imprescindibles. Son los siguientes, enlazados con su correspondiente PDF:
 	</p>
 	<ul>
 		<li><b><a href="">Manual del administrador</a></b></li>
+		<li><b><a href="">Manual del jefe de proyecto</a></b></li>
+		<li><b><a href="">Manual del jefe de personal</a></b></li>
 		<li><b><a href="">Manual del usuario</a></b></li>
 		<li><b><a href="">Manual de instalaci&oaute;</a></b></li>
 	</ul>
