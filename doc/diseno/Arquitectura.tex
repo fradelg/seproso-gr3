@@ -201,7 +201,9 @@ Véase el documento de Realización de Casos de Uso para más información.
 \indent \indent En esta sección se describen las partes del modelo de diseño del sistema que son significativas para la arquitectura,  como son sus subsistemas internos y paquetes. Por cada paquete significativo se muestra su composición interna. Para las elementos internos más relevantes y complejos se realiza  una descripción de responsabilidad, relaciones con otras, operaciones y atributos. \\
 
 \section{Visión general.}
-\indent \indent En la siguiente imagen se muestra la vista lógica del sistema descomponiendo el modelo de diseño en una colección de paquetes relacionados jerárquicamente. Agrupando los paquetes desde un punto de vista lógico (funcional) y según las dependencias que muestra la jerarquía, tenemos las capas de la arquitectura.\\
+\indent \indent En la siguiente imagen \ref{1} se muestra la vista lógica del sistema descomponiendo el modelo de diseño en una colección de paquetes relacionados jerárquicamente. Agrupando los paquetes desde un punto de vista lógico (funcional) y según las dependencias que muestra la jerarquía, tenemos las capas de la arquitectura.\\
+
+\figura{images/subsistemas1.jpg}{width=1.0\linewidth}{Diagrama de subsistemas. Nivel 1.}{subs1} 
 
 \section{Diagrama de despliegue.}
 
@@ -250,10 +252,32 @@ Véase el documento de Realización de Casos de Uso para más información.
 
 
 \section{Paquetes de diseño significativos.}
-\indent \indent A continuación se especifica más detalladamente la composición de cada uno de los paquetes del modelo de diseño presentado en la sección anterior. Para cada uno se incluye una nueva subsección que contiene una breve descripción del paquete y un diagrama de contenidos que muestra sus clases y subpaquetes. Después se describe también las clases más significativas internas al paquete.
+\indent \indent A continuación se especifica más detalladamente la composición de cada uno de los paquetes del modelo de diseño presentado en la sección anterior a través de sendas representaciones gráficas desglosadas \ref{subs1}, \ref{subs2} y \ref{subs3}. Para cada diagrama de componentes si es necesaria se presenta una división del mismo en un nivel más detallado. Después se describe también las clases más significativas internas al paquete dentro del \textit{Modelo de diseño}.
 
+\figura{images/subsistemas1.jpg}{width=1.0\linewidth}{Diagrama de componentes. Nivel 1.}{subs1} 
+\figura{images/subsistemas2.jpg}{width=1.0\linewidth}{Diagrama de componentes. Nivel 2.}{subs2} 
+\figura{images/subsistemas3.jpg}{width=1.0\linewidth}{Diagrama de componentes. Nivel 3.}{subs3} 
+
+\newpage
 \chapter{Descripción de la interfaz.}
 \indent \indent Las clases de gestión de la interfaz de usuario manejan  formatos de visualización en pantalla, entradas válidas,  salidas resultantes, etc. A continuación se describen las más importantes:
+
+\section{INTERFAZ DE ADMINISTRADOR}
+
+\indent \indent  La interfaz del administrador consta de varias partes, una vez logueado en el sistema dispone de un menu para el tratamiento de Usuarios, donde puede ver los que hay en uso, crear usuarios nuevos o bien eliminar alguno que no tenga trabajo pendiente. Además cuenta con un menú para la gestión de proeyctos, creación, modificado y eliminación. Finalmente puede acceder a un menú de configuración de parámetros de control de la aplicación.\\
+
+\section{INTERFAZ DE JEFE DE PROYECTO}
+
+\indent \indent  La interfaz del jefe de proyecto cuenta con varios menús:
+\begin{enumerate}
+	\item Menú de proyecto, a partir del cuál se gestiona el modelo de proceso y la división en fases del proyecto actual en el que se trabaje. Además permite la gestión de actividades del proyecto, adicción y modificación de las mismas, así cómo la supervisión y finalización de ellas. Permite este submenú realizar la gestión de trabajadores del proyecto.
+	\item Menú de gestión de actividades, para la gestión de los informes de actividad creados por los usuarios.
+	\item Menú de Informes, donde visualizar los informes almacenados en el sistema de proyectos anteriores y recursos del proyecto en curso.\\
+\end{enumerate}
+
+\section{INTERFAZ DE USUARIO}
+
+\indent \indent La interfaz de usuarios es simple, permite la creación de informes de actividades en curso y la obtención de informes de actividad. Además permite la edición de los periodos vacacionales de un usuario y la visualización de los mismos.\\
 
 \chapter{Tamaño y prestaciones.}
 \indent \indent La arquitectura utilizada soporta perfectamente los requisitos de tamaño y tiempo de respuesta en interacción con el usuario planteados inicialmente, cuando se ejecuta en modo cliente-servidor. \\

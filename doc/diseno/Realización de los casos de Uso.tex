@@ -162,7 +162,7 @@ El modelo de diseñon dinámico provee una visión de la interación entre usuario y
 
 \section{Visión general.}
 
-El resto de este documento contiene la especificación de los diagramas de interacción relacionados con los casos de uso definidos por el usuario.
+El resto de este documento contiene la especificación de los diagramas de interacción relacionados con los casos de uso definidos en la fase de análisis. A continuación se muestran los diagramas de secuencia de los casos de uso expuestos en análisis, pero utilizando los casos más relevantes previstas en diseño, para mostrar el funcionamiento interno de la aplicación en cuanto paso de mensajes entre los objetos involucrados en la interacción.\\
 
 \chapter{Realización de Casos de Uso.}
 
@@ -185,10 +185,10 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Crear nuevo rol [\ref{creaRol}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{creaRol} 
+\figura{images/crearRol.jpg}{width=1.1\linewidth}{Crear Rol.}{creaRol} 
 
 
-
+\newpage
 \section{CU: Creación de Usuarios}
 
 \indent \indent \textbf{Descripción}\\
@@ -210,19 +210,19 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Creación de usuarios [\ref{creaUser}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Creación de Usuarios.}{creaUser} 
+\figura{images/crearUsers.jpg}{width=1.1\linewidth}{Creación de Usuarios.}{creaUser} 
 
-
+\newpage
 \section{CU: Editar Usuario}
 
 \indent \indent \textbf{Descripción}\\
 
-Se indica la interacción entre el usuario y la herramienta para la edición de los datos de un usuario. Partimos de que el Usuario se encuentra logueado en el sistema y es quién inicia la interación.\\
+Se indica la interacción entre el administrador y la herramienta para la edición de los datos de un usuario. Partimos de que el Administrador se encuentra logueado en el sistema y es quién inicia la interación.\\
 
 \textbf{Flujo de Eventos}\\ \\
-El usuario accede a la página web de edición de datos de usuario.\\
+El administrador accede a la página web de edición de datos de usuario.\\
 El sistema muestra en la página web los datos del usuario actual.\\
-El usuario rellena una serie de campos para la edición de un nuevo usuario.\\
+El administrador rellena una serie de campos para la edición de un nuevo usuario.\\
 El sistema almacena en la base de datos el nuevo trabajador.\\
 El sistema muestra al administrador los datos del nuevo trabajador que se ha creado.\\
 
@@ -233,9 +233,9 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Edición de datos de usuario [\ref{dataUser}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{dataUser} 
+\figura{images/editarUsers.jpg}{width=1.1\linewidth}{Editar Usuarios.}{dataUser} 
 
-
+\newpage
 \section{CU: Configurar vacaciones}
 
 \indent \indent \textbf{Descripción}\\
@@ -257,9 +257,9 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Edición de periodo vacacional[\ref{vacaciones}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{vacaciones} 
+\figura{images/vacances2.jpg}{width=1.1\linewidth}{Configurar vacaciones.}{vacaciones} 
 
-
+\newpage
 \section{CU: Obtener Informe}
 
 \indent \indent \textbf{Descripción}\\
@@ -283,15 +283,25 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Obtener informe[\ref{actPendientes}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{actpendientes} 
+\figura{images/informe.jpg}{width=1.1\linewidth}{Generar Informe.}{actpendientes} 
 
+\newpage
 \section{CU: Crear Proyecto}
 
 \indent \indent \textbf{Descripción}\\
 
-.\\
+La creación de un proyecto depende de dos actores, el Administrador que es el encargado de crear el proyecto y asignarle un jefe de proyecto. Y el propio Jefe de proyecto que es el encargado de configurarlo, introduciendo el modelo de proceso que definirá las fases que configuran el proyecto.\\
 
-\textbf{Flujo de Eventos}\\ \\
+\textbf{Flujo de Eventos}\\ 
+El administrador elige la opción de crear un nuevo proyecto.\\
+El administrador rellena una plantilal para configurar el proyecto.\\
+El sistema muestra el proyecto creado al administrador del sistema.\\
+El jefe de proyecto editará un proyecto al que ha sido asignado.\\
+El sistema comprueba su autenticidad en el proyecto.\\
+El sistema muestra una serie de plantillas para rellenar los diversos campos editables de un proyecto.\\
+El jefe de proyecto completa la plantilla de creación de proyecto, etapas, actividades y trabajadores.\\
+El sistema muestra el resultado al usuario.\\
+
 
 \textbf{Diagramas de interacción}\\
 
@@ -300,17 +310,17 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Crear proyecto [\ref{creaProy}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{creaProy} 
+\figura{images/crearProy.jpg}{height=1.1\linewidth, angle=90}{Crear Proyecto.}{creaProy} 
 
-
+\newpage
 \section{CU: Seguimiento del Proyecto}
 
 \indent \indent \textbf{Descripción}\\
 
-.\\
+Un jefe de proyecto debe ser capaz de realizar un seguimiento de las actividades que se realizan y es el encargado de supervisarlas y cerrarlas. El sistema dotaría al jefe de proyecto de una interfaz correcta para ésta tarea.\\
 
 \textbf{Flujo de Eventos}\\ \\
-
+\textit{No se edita por ser demasiado completo.}
 
 \textbf{Diagramas de interacción}\\
 
@@ -319,17 +329,17 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Seguimiento del Proyecto [\ref{seqProy}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{segProy} 
+\figura{images/seguimiento.jpg}{width=1.5\linewidth, height=1.1\linewidth, angle=90}{Seguimietno del proyecto.}{seqProy} 
 
-
+\newpage
 \section{CU: Planificar Proyecto}
 
 \indent \indent \textbf{Descripción}\\
 
-.\\
+Un jefe de proyecto debe ser capaz de realizar la planificación de un proyecto, agregando las tareas y trabajadores del proyecto mediante una interfaz adecuada.\\
 
 \textbf{Flujo de Eventos}\\
-
+\textit{No se edita por ser demasiado completo.}
 
 \textbf{Diagramas de interacción}\\
 
@@ -338,7 +348,7 @@ Los siguientes diagramas de interacción muestran el flujo de eventos:
 	\item Planificar Proyecto [\ref{planProy}].
 \end{itemize}
 
-%\figura{images/GenerarInforme.jpg}{width=16cm,height=15cm,angle=0}{Generar Informe.}{genInf} 
+\figura{images/planificar.jpg}{width=1.2\linewidth}{Planificar proyecto.}{planProy} 
 
 
 

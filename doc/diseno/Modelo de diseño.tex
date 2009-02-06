@@ -1,0 +1,369 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Modelo de Diseño.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Diciembre, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|p{2cm}|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+0.1 & 22/12/08 & Primera versión de modelo de diseño. & Rubén y Yuri\\
+\hline
+0.5 & 28/12/08 & Versión 0.5 del diagrama de clases. & Francisco, Abel y Rubén\\
+\hline
+1.0 & 30/12/08 & Versión completa del modelo de diseño estático. & Grupo III\\
+\hline
+1.1 & 05/01/08 & Completado el modelo de diseño. & Rubén.\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+\listoffigures % Índice de figuras 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent El objetivo de este documento es la especificación del modelo de diseño completo del sistema de SEguimiento de PROyectos SOftware (SEPROSO). En dicho documento se definen los diagramas complementarios a la realización de casos de uso, completando el modelo de diseño. Incluye el modelo de clases de diseño esquemático y los controladores previstos. Este documento será referencia para el uso posterior por los desarrolladores y en consecuencia por más documentos de planificación, completar diseño software y desarrollo de la aplicación.\\
+
+Anexo a este documento se tiene
+
+\section{Ámbito.}
+
+\indent \indent El sistema a desarrollar se denominará SEPROSO. Es una herramienta para la gestión y seguimiento de proyectos software. La interación con la herramienta depende del rol a desempeñar por el usuario de la aplicación, distinguiéndose los siguientes roles:
+\begin{itemize}
+	\item Administrador.
+	\item Jefe de Proyecto.
+	\item Desarrollador.
+	\item Responsable de personal.\\
+\end{itemize}
+
+El sistema atenderá las peticiones de cada uno de ellos en función del trabajo que desempeñana\\.
+
+El modelo de análisis de uso provee una visión de la interación entre usuario y la aplicación dentro de la herramienta SEPROSO.
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{enumerate}
+	\item Plantilla de elicitación de requisitos para Proceso Unificado UPEDU. www.upedu.org
+	\item Documento del estandar IEEE 830 sobre recomendaciones para la especifiación de requisitos software secciones 4, 5 y anexo A.3.
+	\item Visión general de la herramienta propuesta por el profesor de la asignatura.
+	\item Plan de Proyecto SoftwareGrupo III, Universidad de Valladolid.
+	\item Documento de especificación de recursos software, SRS, Grupo III, Universidad de Valladolid.
+	\item Modelo de Casos de UsoGrupo III, Universidad de Valladolid.
+	\item Diagramas de análisis realizados en la herramienta StarUMLGrupo III, Universidad de Valladolid.
+	\item Realización de Casos de Uso, Grupo III, Universidad de Valladolid.
+\end{enumerate}
+
+\section{Visión general.}
+
+El resto de este documento contiene los diagramas correspondientes al modelo de análisis.
+
+\chapter{Modelo de diseño.}
+
+\section{Diagrama de Clases de Diseño.}
+
+\subsection {Paquete ADMIN}
+
+\figura{images/pAdmin.jpg}{width=1.0\linewidth}{Paquede de administrador.}{act}
+
+
+\indent \indent \textbf{AppControl}\\ \\
++calendar()	
+Muestra el calendario general donde aparecen los dias de fiesta, trabajo y vacaciones. \\
++start\_session(tipo, name)
+	Inicia la sesión de tipo con el nombre de usuario indicado.\\
++end\_session 
+Termina la sesión de empleado actua. \\
+
+\textbf{TrabajadorControl}\\ \\
++index() 
+Muestra la pantalla inicial de gestión de empleados. +create() Crea un empleado nuevo.\\
++delete() 
+Borra un empleado. 
++edit() 	
+Actualiza los datos de un empleado existente.
+
+
+\textbf{LoginControl}\\ \\
++index() 
+Muestra la pantalla de login. \\
++login() 
+Hace login en el sistema. \\
++logout() 
+Se desconecta del sistema.\\
+
+\textbf{ProyectoControl}\\ \\
++index() 
+Muestra los proyectos actuales. \\
++create() 
+Crea un nuevo proyecto.\\
+
+\textbf{InformeControl} \\ \\
++index() 
+Muestra una pantalla de acceso al sistema.\\
+
+\textbf{RolControl}\\ \\
++index() 
+Muestra la lista de roles actuales. \\
+ +inc\_level() 
+Sube a un rol, un nivel.  \\
++dec\_level() 
+Baja a un rol, un nivel. \\
++create() 
+Crea un nuevo rol. \\
++destroy() 
+Oculta un rol.\\
+
+\textbf{EtapasControl} \\ \\
++edit() 
+Permite editar una etapa. \\
++view() 
+Visualiza una etapa. \\
++save() 
+Almacena los datos de una etapa.  \\
++add\_task() 
+Añade una tarea a una etapa. \\
++delete\_task() 
+Borra una tarea de una etapa.\\
+
+\textbf{TareasControl} \\ \\
++edit() 
+Altera los valores de una tarea. \\
++view() 
+Visualiza los datos de una tarea. \\
++save() 
+Almacena los valores de una tarea modificada.\\
+
+\newpage
+\section{Paquete Trabajador.}
+
+\figura{images/pAdmin.jpg}{width=1.0\linewidth}{Paquede de trabajador.}{act}
+
+\indent \indent\textbf{ActividadControl}\\\\
++index() 
+Muestra las tareas activas en las que se está asignado.  \\
++create() 
+Crea una nueva actividad. \\
++edit() 
+Edita un informe de actividad. \\
++save() 
+Almacena un informe de actividad editado \\
++destroy() 
+Elimina un informe de actividad sin aceptar.\\
+
+\textbf{LoginControl}\\\\
++index() 
+Muestra la pantalla de login de usuario. \\
++login() 
+Hace login del usuario.\\
+ +logout() 
+Termina la sesión del usuario.\\
+
+\textbf{ManagerControl}\\\\
++index() 
+Muestra los proyectos a administrar por el jefe de proyectos. \\
++list() 
+Muestra datos de un proyecto concreto.\\
+
+\textbf{PlanificarControl}\\\\
++index() 
+Muestra los proyectos para planificar. \\
++edit() 
+Permite editar un proyecto. \\
++view() 
+Permite ver los datos de un proyecto. \\
++save() 
+Salva los datos de un proyecto modificado. \\
++start() 
+Inicia un proyecto.\\
+
+\textbf{InformControl}\\\\
++index() 
+Muestra el índice con los informes disponibles.\\
++finalizados() 
+Muestra los proyectos finalizados.\\
+
+
+\textbf{EtapasControl}\\\\
++edit() 
+Editar una etapa. \\
++view() 
+Ver los datos concretos de una etapa. \\
++save() 
+Salvar los datos de una etapa editada. \\
++add\_task() 
+Añadir una tarea a la etapa.\\
++delete\_task() 
+Borrar una tarea de la etapa.\\
+
+\textbf{TareasControl}\\\\
++edit() 
+Editar una tarea.\\
+ +view() 
+Ver los datos concretos de una tarea. \\
++save() 
+Guardar los cambios de una tarea editada.\\
+
+\textbf{VacacionesControl}\\\\
++add() 
+Añade un periodo vacacional. \\
++edit() 
+Formulario de edición de un nuevo periodo vacacional.\\
+
+\newpage
+\section{Paquete Jefe}
+
+\indent \indent \textbf{LoginControl}\\\\
++index() 
+Muestra la pantalla de login de usuario. \\
++login() 
+Hace login del usuario.\\
+ +logout() 
+Termina la sesión del usuario.\\
+
+\indent \indent \textbf{AppControl}\\ \\
++calendar()	
+Muestra el calendario general donde aparecen los dias de fiesta, trabajo y vacaciones. \\
++start\_session(tipo, name)
+	Inicia la sesión de tipo con el nombre de usuario indicado.\\
++end\_session 
+Termina la sesión de empleado actua. \\
+
+\textbf{InformControl}\\\\
++index() 
+Muestra el índice con los informes disponibles.\\
++finalizados() 
+Muestra los proyectos finalizados.\\
+
+\figura{images/pJefe.jpg}{width=1.0\linewidth}{Paquede de Jefe de Proyecto.}{act}
+
+\newpage
+\chapter{Vistas}
+
+\indent \indent Las vistas no se diseñaron, ya que por cada acción en el controlador se supone la posibilidad de tener una vista. Aquí se listan las vistas resultantes el modelo de diseño, pero existen bastantes más y se detallan posteeriormente en el modelo de implementación.\\ 
+
+\figura{images/vistas.jpg}{width=1.0\linewidth}{Vistas del modelo.}{act}
+
+
+
+\newpage
+\chapter{Modelo de clases}
+
+\indent \indent El modelo infiere los atributos directamente de la base de datos, que se han especificado en el esquema de la base de datos en el documento alterno. De todas formas es necesaria la determinación de una serie de métodos para recuperar la información de la base de datos y realizar diversas tareas.\\ 
+
+\figura{images/modelo.jpg}{width=1.0\linewidth}{Modelo de clases.}{act}
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
