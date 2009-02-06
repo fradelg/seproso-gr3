@@ -164,7 +164,7 @@ Se han realizado un total de más de 200 pruebas de usuarios diferentes, engloban
 \hline
 Paquete &  Pruebas ejecutadas & Test OK & Test Failed\\
 \hline
-Total &  100\% & 84\% & 27\%\\
+Total &  100\% & 92\% & 8\%\\
 \hline
 \end{tabular}\\
 
@@ -176,21 +176,23 @@ Total &  100\% & 84\% & 27\%\\
 \hline
 Paquete &  Pruebas ejecutadas & Test OK & Test Failed\\
 \hline
-Servidor &   &  & \\
+Usuario: Administrador &  42 & 40 & 2\\
 \hline
-Usuario: Administrador &   &  & \\
+Usuario: Desarrollador & 19  & 17  & 2\\
 \hline
-Usuario: Desarrollador &   &  & \\
+Usuario: Jefe Proyecto & 5  & 5 & 0\\
 \hline
-Usuario: Jefe Proyecto &   &  & \\
+Usuario: Jefe Personal & 4  & 4 & 0\\
 \hline
-Usuario &   &  & \\
+Usuario & 14  & 12 & 2\\
 \hline
 \end{tabular}\\
 
 Las pruebas demuestran que los errores más comunes que se han producido son:
 \begin{itemize}
-	\item 
+	\item Problemas de coherencia en la secuenia de búsqueda en la bse de datos. Simplemente solucionables con cambiar la sentencia de búsqueda.
+	\item Problemas de visualización de los diferentes navegadores, corregido usando un estilo CSS común en la web.
+	\item Problemas ante usuarios mal itencionados que utilizan entradas erróneas al sistema. Corregido con control de errores.
 \end{itemize}
 
 \section{Tipos de errores}
@@ -204,7 +206,7 @@ Las pruebas demuestran que los errores más comunes que se han producido son:
 
 \subsection{Efecto de borde}
 
-\indent \indent Este error se produce por la salida de rango de los parámetros de las funciones. En la aplicación no se controlan los rangos de los parámetros y esto puede producir errores.
+\indent \indent Este error se produce por la salida de rango de los parámetros de las funciones. En la aplicación se controlan los rangos de los parámetros pero aú con esto puede producir errores si están mal limitados.
 
 \section{Frecuencia de los tipos de errores}
 
@@ -214,19 +216,18 @@ Las pruebas demuestran que los errores más comunes que se han producido son:
 \hline
 TIPO DE ERROR & FRECUENCIA \\
 \hline
-Integridad de datos & \\
+Integridad de datos & 90\% \\
 \hline
-Efecto Borde & \\
+Efecto Borde & 5\% \\
+\hline
+Otros & 5\% \\
 \hline
 \end{tabular}\\
 
 \chapter{Cobertura de pruebas basadas en el código ejecutado}
 
-\indent \indent Las pruebas se han realizado sobre un prototipo con el 74 \% de código preparado, para evaluar la bondad de ejecución de la aplicación y verificar la calidad del código desarrollado. Posteriormetne en las siguientes iteraciones se realizarán las pruebas sobre la totalidad del código desarrollado. La finalidad de las pruebas es obtener resultados sobre un prototipo con más del 90 \% de desarrollo completado.
+\indent \indent Las pruebas se han realizado sobre un prototipo con el 84 \% de código preparado, para evaluar la bondad de ejecución de la aplicación y verificar la calidad del código desarrollado. Posteriormetne en las siguientes iteraciones se realizarán las pruebas sobre la totalidad del código desarrollado. La finalidad de las pruebas es obtener resultados sobre un prototipo con más del 90 \% de desarrollo completado.
 
-\chapter{diagramas}
-
-\indent \indent  A continuación se muestran una serie de diagramas indicando los porcentages de errores de forma gráfica.\\
 
 % Parte final de la memoria
 \backmatter 

@@ -111,10 +111,6 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 \tableofcontents % Tabla de contenido 
 \newpage 
-\listoffigures % Índice de figuras 
-\newpage 
-\listoftables % Índice de tablas 
-\newpage 
 
 % Parte central de la memoria
 \mainmatter
@@ -152,7 +148,7 @@ VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
 
 \indent \indent Todas la pruebas realizadas se condesan en los casos de Prueba referidos al Plan de pruebas.\\
 
-Noticias: Puede haber algun caso de pruebas que no se haya validado por problemas con el servidor de la base de datos.\\
+Eventualidades: Puede haber algun caso de pruebas que no se haya validado por problemas con el servidor de la base de datos.\\
 
 
 \chapter{Resumen de resultados}
@@ -166,13 +162,14 @@ Noticias: Puede haber algun caso de pruebas que no se haya validado por problema
 \hline
 \textbf{CASO DE PRUEBA} & \textbf{Estado}\\
 \hline
-CT 1-40 & Pasado.\\
+CT 1-13 & Pasado.\\
 \hline
-CT 40-42 & Fallado.\\
+CT 13-14 & Fallado.\\
 \hline
-\end{tabular}
+\end{tabular}\\
+\end{center} 
 
-
+\begin{center}
 \begin{tabular}{|p{8cm}|c|}
 \hline
 \multicolumn{2}{|c|}{Casos de prueba para ADMINISTRADOR}\\
@@ -183,35 +180,54 @@ CT 1-40 & Pasado.\\
 \hline
 CT 40-42 & Fallado.\\
 \hline
-\end{tabular}
+\end{tabular}\\
+\end{center} 
 
-
+\begin{center}
 \begin{tabular}{|p{8cm}|c|}
 \hline
 \multicolumn{2}{|c|}{Casos de prueba para DESARROLLADOR}\\
 \hline
 \textbf{CASO DE PRUEBA} & \textbf{Estado}\\
 \hline
-CT 1-40 & Pasado.\\
+CT 1-2 & Pasado.\\
 \hline
-CT 40-42 & Fallado.\\
+CT 3 & Fallado.\\
 \hline
-\end{tabular}
+CT 4-5 & Pasado.\\
+\hline
+CT 6 & Fallado.\\
+\hline
+CT 7-19 & Pasado.\\
+\hline
+\end{tabular}\\
+\end{center} 
 
 
-
+\begin{center}
 \begin{tabular}{|p{8cm}|c|}
 \hline
-\multicolumn{2}{|c|}{Casos de prueba para JEFE DE PROYECTO}\\
+\multicolumn{2}{|c|}{Casos de prueba para DESARROLLADOR}\\
 \hline
 \textbf{CASO DE PRUEBA }& \textbf{Estado}\\
 \hline
-CT 1-40 & Pasado.\\
+CT 1-5 & Pasado.\\
 \hline
-CT 40-42 & Fallado.\\
+\end{tabular}\\
+\end{center}  
+
+\begin{center}
+\begin{tabular}{|p{8cm}|c|}
 \hline
-\end{tabular}
-\end{center}
+\multicolumn{2}{|c|}{Casos de prueba para JEFE DE PERSONAL}\\
+\hline
+\textbf{CASO DE PRUEBA }& \textbf{Estado}\\
+\hline
+CT 1-4 & Pasado.\\
+\hline
+\end{tabular}\\
+\end{center} 
+
 
 
 \chapter{Descripción de los errores}
@@ -219,19 +235,58 @@ CT 40-42 & Fallado.\\
 \indent \indent En este apartado se describen los errores que se han detectado, y se muestra cuál ha sido el fallo que se ha corregido. 
 
 \begin{center}
-\begin{tabular}{|c|p{8cm}|}
+\begin{tabular}{|p{4cm}|p{8cm}|}
 \hline
-\multicolumn{2}{|c|}{Casos de prueba para ???}\\
+\multicolumn{2}{|c|}{Casos de prueba para Administrador}\\
 \hline
-\textbf{TEST ID }& \textbf{Descrip error}\\
+\textbf{Cuestión de funcionamiento }& \textbf{Borrado de proyectos}\\
 \hline
-Acción & .\\
+Acción & Borrar proyecto.\\
 \hline
-Resultado esperado & .\\
+Resultado esperado & Eliminar entrada de la Base de datos.\\
 \hline
-Resultado obtenido & .\\
+Resultado obtenido & Problema de acceso con la base de datos, y problemas de claves foráneas.\\
 \hline
-Error corregido & .\\
+Error corregido & Se ha determinado el uso de ON DELETE CASCADE en la base de datos para eliminar todas las entradas.\\
+& O bien sólo se permite el borrado de proyectos que no tengan usuarios trabajando en ellos.\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\multicolumn{2}{|c|}{Casos de prueba para Administrador}\\
+\hline
+\textbf{Funcionalidad }& \textbf{Problemas en la generación de informe de trabajadores activos.}\\
+\hline
+Acción & Obtener informe de trabajadores activo.\\
+\hline
+Resultado esperado & Obtener lista de trabajadores activos.\\
+\hline
+Resultado obtenido & Lista vacía, formulario sin campos.\\
+\hline
+Error corregido & Se ha determinado los usuarios mediante otro sistema.\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\multicolumn{2}{|c|}{Casos de prueba para funcionalidad}\\
+\hline
+\textbf{Funcionalidad }& \textbf{Problema al acceso por primera vez a la herramienta}\\
+\hline
+Acción & Login por primera vez.\\
+\hline
+Resultado esperado & Acceso a SEPROSO.\\
+\hline
+Resultado obtenido & Ventana vacía del navegador.\\
+\hline
+Error corregido & Se han eliminado las cookies que no se utilizaban, y producían este error.\\
 \hline
 \end{tabular}
 \end{center}
