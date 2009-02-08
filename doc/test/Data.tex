@@ -1,0 +1,293 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Plan de iteracion
+% 17/11/08 -> 07/12/2009
+% Universidad de Valladolid
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\documentclass[a4paper,oneside,11pt]{book}
+
+% Incluimos todos los paquetes necesarios 
+\usepackage[latin1]{inputenc} % Caracteres con acentos. 
+\usepackage{latexsym} % Símbolos 
+\usepackage{graphicx} % Inclusión de gráficos. Soporte para \figure
+\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref} % Soporte hipertexto
+\usepackage{rotating}
+
+% usamos cualquier medida de márgenes y controlamos los márgenes {izquierda}{derecha}{arriba}{abajo}
+%\usepackage{anysize}
+%\marginsize{4.9cm}{2.1cm}{1.5cm}{4.7cm}
+
+% Título, autor(es), fecha. 
+\title{
+%\begin{titlepage}
+%  \begin{figure}
+%    \begin{center}
+%      \includegraphics[width=5cm]{images/portada.png}
+%    \end{center}
+%  \end{figure}
+%\end{titlepage} \\
+\Huge \textbf{SEPROSO. \\Base de datos de pruebas.\\}}
+\author{\huge \textit{Francisco Javier Delgado del Hoyo} \and 
+	\huge \textit{Yuri Torres de la Sierra} \and 
+	\huge \textit{Rubén Martínez García} \and
+	\huge \textit{Abel Lozoya de Diego}} 
+\date{\Large Febrero, 2008} 
+
+\sloppy % suaviza las reglas de ruptura de líneas de LaTeX
+\frenchspacing % usar espaciado normal después de '.'
+\pagestyle{headings} % páginas con encabezado y pie básico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Comando: 
+% \figura{nombre-fichero}{argumentos}{título}{etiqueta} 
+% Resultado: inserta una figura. "La figura \ref{etiqueta} muestra..." 
+% permite referenciar la figura desde el texto. 
+% Argumentos: width=Xcm,height=Ycm,angle=Z 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\figura}[4]{
+  \begin{figure} 
+  \begin{center} 
+  \includegraphics[#2]{#1} 
+  \caption{#3} 
+  \label{#4} 
+  \end{center} 
+  \end{figure} 
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Entorno: 
+% \begin{tabla}{título}{etiqueta} 
+% ... (contenido tabla) 
+% \end{tabla} 
+% Resultado: inserta una tabla. 
+% El contenido de la tabla se define mediante un entorno 'tabular'. 
+% "La tabla~\ref{etiqueta}" permite referenciar la tabla. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newenvironment{tabla}[2]{ 
+  \begin{table} 
+  \begin{center} 
+  \caption{#1} 
+  \label{#2} 
+}{ 
+  \end{center} 
+  \end{table}
+} 
+
+
+\begin{document} % Inicio del documento 
+
+\renewcommand{\contentsname}{Indice} 
+\renewcommand{\partname}{Parte} 
+\renewcommand{\chaptername}{Capítulo} 
+\renewcommand{\appendixname}{Apéndice} 
+\renewcommand{\bibname}{Bibliografía} 
+\renewcommand{\figurename}{Figura} 
+\renewcommand{\listfigurename}{Indice de figuras} 
+\renewcommand{\tablename}{Tabla} 
+\renewcommand{\listtablename}{Indice de tablas} 
+
+% Parte inicial de la memoria: portada, título, prólogo e índices
+\frontmatter
+
+\maketitle % Título 
+
+\chapter{Revisiones del documento} % Historial
+
+\textbf{Historial de revisiones del documento}\\\\
+\begin{tabular}{|c|c|p{8cm}|c|}
+\hline
+VERSIÓN & FECHA & DESCRIPCIÓN & AUTOR\\
+\hline
+1.0 & 19/01/09 & Objetivos y visión general. & Grupo III\\
+\hline
+1.1 & 04/02/09 & Documentación de la Base de datos de pruebas completada. & Grupo III\\
+\hline
+\end{tabular}
+
+
+% inserta todos los epígrafes hasta el nivel \paragraph en la tabla de contenidos
+\setcounter{tocdepth}{3} 
+% numera todos los epígrafes hasta nivel \subparagraph en el cuerpo del documento
+\setcounter{secnumdepth}{4} 
+
+\tableofcontents % Tabla de contenido 
+\newpage 
+
+% Parte central de la memoria
+\mainmatter
+
+\chapter{Introducción.} 
+
+\section{Propósito.}
+
+\indent \indent En este documento se presenta la colección de todos los datos de la aplicación necesarios para probar todas las funcionalidades que debe proporcionar.\\
+
+Indicará todos los modos de acción en la herramienta, usuarios y la funcionalidad que desarrollen además de la forma que se deben realizar las pruebas.\\
+
+\section{Definiciones.}
+
+\indent  \indent Véase el Glosario.
+
+\section{Referencias.}
+
+\begin{itemize}
+	\item Glosario, Grupo 3.
+	\item Database documentación, SEPROSO, Grupo 3.
+	\item SEPROSO, herramienta de planificación, Grupo 3.
+\end{itemize}
+
+
+\chapter{Database de Pruebas.}
+
+\section{Gestión de Usuarios comúnes}
+
+En la siguiente tabla se muestra los usuarios comúnes de la aplicación, generados por defecto en la misma.\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Usuario & Rol & Password\\
+\hline
+admin	 & Administrador & admin \\
+\hline
+personal	 & Jefe de Personal & personal \\
+\hline
+manager	 & Jefe de Proyecto (sin proyectos) & manager \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\section{Proyecto en desarrollo: Practica S.O.}
+
+\indent \indent Para las pruebas a realizar sobre un proyecto en desarrollo se ha seleccionado una planificacion de una practica de Sistemas Operativos a semejanza de las realizadas en el segundo curso de cualquiera de las Ingenierías técnicas de informática.\\
+
+En este tipo de proyecto se puede obtener pruebas sobre los siguientes casos:
+\begin{itemize}
+	\item Obtener informes del proyecto en curso.
+	\item El desarrollador es único en el proyecto, un alumno ficticio en este caso, y puede realizar informes de actividades aun en desarrollo, o acceder a los informes ya realizados de actividades en fases anteriores.
+	\item Crear registro de trabajo de actividades aun en desarrollo, como Implementacion o bien Documentacion si se cree q sea necesario acabar la actividad de Implementacion.
+	\item Accediendo cómo Jefe de Proyecto se puede obtener cualquier tipo de Informe puesto que todos ellos tendrán información para devolver al usuario.
+	\item Permite definir su modelo de proceso cómo plantilla predefinida para otros proyectos.
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Usuario & Rol & Password\\
+\hline
+Eduardo	 & Jefe-Proyecto & edurodr \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\section{Proyecto en desarrollo: Modelo en cascada}
+
+\indent \indent Con este proyecto se pretenden realizar la prueba de la generación de un proyecto utilizando una Plantilla para el modelo de proceso, el modelo en cascada, y además se define cómo usuario del proyecto a uno de los trabajadores ya existentes, Francisco, y cómo jefe de proyecto a uno nuevo definido. \\
+
+A través de este ejemplo podremos probar custiones específicas, aunque también permite pruebas sobre conceptos generales, cómo:
+\begin{itemize}
+	\item Uso de una plantilla cómo modelo de Proceso: modelo en cascada.
+	\item Ejemplo de proyecto recién planificado.
+	\item Permite empezar a realizar la planificación, asignación de trabajadores, asignación de actividades...
+	\item Permite el inicio del proyecto cuando se pretenda.
+\end{itemize}
+
+A continuación mostramos los Usuarios implicados:\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Usuario & Rol & Password\\
+\hline
+JProyecto	 & Jefe-Proyecto & jproyecto \\
+\hline
+Francisco & Desarrollador & fradelg \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\newpage
+\section{Proyecto Finalizado: SEPROSO}
+
+\indent \indent  Ejemplo de Proyecto que ha finalizado, y se quiera acceder a la planificación realizada por parte de los desarrolladores del propio proyecto. Es un resumen de la planificación del proyecto realizada para la herramiena SEPROSO que se ha desarrollado y que se ha utiliza ella misma para llevar una planificación de su propia planificación.\\
+
+En este proyecto se pueden ver cómo se ha desarrollado un proyecto y toda la planificación completa de un proyecto. Las pruebas realizadas se adhieren sobre todo al rol de Desarrollador, y Jefe de Personal que son a partir de los cuáles se obtienen los resumenes e informes accesibles del Proyecto SEPROSO una vez finalizado.\\
+
+A continuación se describen los trabajadores y el rol que desempeñan en este proyecto. \\
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Usuario & Rol & Password\\
+\hline
+Yuri & Analista-programador & yurtorr \\
+\hline
+Abel & Programador & abelozo \\
+\hline
+Ruben & Analista & rubmart \\
+\hline
+Fran & Jefe de Personal & fradelg\\
+\hline
+Fran-Jefe & Jefe de Proyecto & fradelg\\
+\hline
+Francisco & Analista-Programador & fradelg\\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+\newpage
+\section{Proyectos de una pequeña PYME ficticia: InfoJobs}
+
+\indent \indent En este pequeño ejemplo se quiere enseñar el funcionamiento de la aplicación para una pequeña PYME ficticia, que trabajará sobre 3 proyectos de forma consecutiva, coincidiendo 2 de ellos en el tiempo (Año pasado 2008), y tendrá 1 proyecto ya terminado para consultas de resultados y compartirán entre todos ellos los trabajadores.\\
+
+A continuación presentamos los proyectos de ejemplo, definidos como una división simple de fases pero que para las pruebas de funcionalidad de la aplicación son totalmente válidas.\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Proyecto} & Inicio & Fin\\
+\hline
+InfoJobs - Sanidad & Enero 2008 & Diciembre 2008 \\
+\hline
+InfoJobs - Trafico & Septiembre 2008 & Diciembre 2009\\
+\hline
+InfoJobs - Database & Enero 2009 & Marzo 2009 \\
+\hline
+\end{tabular}
+\end{center}
+
+A continuación se describen los trabajadores y el rol que desempeñan en este proyecto. \\
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Usuario & Rol & Password\\
+\hline
+IJ\_JP1 & Analista-programador & infojobsJP1 \\
+\hline
+IJ\_JP2 & Programador & infojobsJP2 \\
+\hline
+IJ\_JP3 & Analista & infojobsJP3 \\
+\hline
+IJ\_DES1 & Jefe de Personal & infojobsDES1\\
+\hline
+IJ\_DES2 & Jefe de Proyecto & infojobsDES2\\
+\hline
+IJ\_JPer & Analista-Programador & infojobsJPer\\
+\hline
+\end{tabular}
+\end{center}
+
+A partir del ejemplo podemos ver la funcionalidad ampliada de la herramienta pare la definicion de planificaciones simultaneas, con trabajadores en participacion diferente en varios proyectos. En este caso no se ha preparado para la visualización de informes y no se encuentra completa la planificación.
+
+% Parte final de la memoria
+\backmatter 
+
+
+% Fin del documento
+\end{document}
