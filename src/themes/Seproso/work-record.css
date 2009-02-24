@@ -87,11 +87,16 @@
 	color: olive;
 }
 
-.activityRegister .project,
-.activityRegister .date2
+.activityRegister .project
 {
 	float: left;
-	width: 15em;
+	width: 18em;
+}
+
+.activityRegister .week
+{
+	float: left;
+	width: 18em;
 }
 
 .activityRegister .comments

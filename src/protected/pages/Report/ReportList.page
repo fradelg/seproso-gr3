@@ -30,7 +30,7 @@
 			<td>Trabajadores con informes de actividad pendientes de supervisi&oacute;n y fecha.</td>
 		</tr>
 		<tr>
-			<td><a href="?page=Report.AprobbedActs">Actividades sin aprobar</a></td>
+			<td><a href="?page=Report.ApprovedActs">Actividades sin aprobar</a></td>
 			<td>Trabajadores con informes de actividad pendientes de aprobaci&oacute;n y fecha.</td>
 		</tr>
 		<tr>

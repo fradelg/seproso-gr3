@@ -94,6 +94,17 @@
 ]]>
 </select>
 
+<select id="ExistsCurrentActivities" resultClass="boolean">
+	SELECT 
+		COUNT(Actividad.idActividad) 
+	FROM
+		Proyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase 
+	WHERE 
+		Proyecto.titulo = #value# AND Actividad.estado != 2
+</select>
+
 <select id="GetActivityDuration" parameterClass="int" resultClass="float">
 	SELECT SUM(esfuerzo) FROM RegistroTrabajo 
 	WHERE idActividad = #value# AND estado = 2

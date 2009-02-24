@@ -39,6 +39,22 @@ class WorkerActivitiesReport extends TComponent
 	}
 }
 
+class WorkReport
+{
+	public $ID = 0;
+	public $Worker = '';
+	public $Activity = '';
+	public $Artifact = '';
+	
+	public $Date = 0;
+	public $StartDate = 0;
+	public $EndDate = 0;
+	
+	public $Effort = 0.0;
+	public $State = 0;
+	public $Comentary = '';
+}
+
 class ProjectActivityReport
 {
 	public $Project = '';
@@ -276,17 +292,23 @@ class ReportsDao extends BaseDao
 	
 	/** 
 	 * Get report of projects for a worker
-	 * @param worker name
+	 * @param $user worker name
+	 * @param $start start date
+	 * @param $end end date
 	 * @return array project list
 	 */
-	public function getWorkerProjects($name)
+	public function getWorkerProjects($user, $start, $end)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('GetWorkerProjects', $name);
+		$param['user'] = $user;
+		$param['start'] = $start;
+		$param['end'] = $end;
+		return $sqlmap->queryForList('GetWorkerProjects', $param);
 	}
 	
 	/**
 	 * Get report of holidays for a worker
+	 * @param $user worker name
 	 * @param $start start date
 	 * @param $end end date
 	 * @return array holiday periods

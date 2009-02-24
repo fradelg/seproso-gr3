@@ -48,7 +48,7 @@ class WorkRegisters extends TPage
 	 */
 	public function getImage($state)
 	{
-		if ($state == 0)
+		if ($state == 0 || $state == 1)
 			$img = $this->Page->Theme->BaseUrl.'/comment.png';
 		else if ($state == 2)
 			$img = $this->Page->Theme->BaseUrl.'/accept.png';

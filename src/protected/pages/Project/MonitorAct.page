@@ -63,10 +63,12 @@
 			<div class="artifact">
 				<strong>Artefacto:</strong> <%= h($this->Report->Artifact) %>
 			</div>
-			<div class="date2">
-				<strong>Fecha:</strong> 
+			<div class="week">
+				<strong>Semana:</strong> 
 				<com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
-					Value=<%= $this->Report->Date %> />
+					Value=<%= $this->Report->StartDate %> /> -
+				<com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
+					Value=<%= $this->Report->EndDate %> />
 			</div>
 			<div class="effort">
 				<strong>Esfuerzo:</strong> <%= h($this->Report->Effort) %> h

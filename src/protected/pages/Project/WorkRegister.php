@@ -39,7 +39,7 @@ class WorkRegister extends TPage
 		$record->WorkerID = $this->User->Name;
 		$record->ActivityID = $this->activityList->SelectedValue;
 		$record->StartDate = $dateStart;
-		$record->EndDate = strtotime('+1 week', $dateStart);
+		$record->EndDate = strtotime('+5 day', $dateStart);
 		$record->Effort = floatval($this->hours->Text);
 		$record->Comentary = $this->comment->Text;
 		

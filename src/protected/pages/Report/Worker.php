@@ -57,7 +57,7 @@ class Worker extends TPage
 		$end = $this->dateTo->TimeStamp;
 		
 		// Queries
-		$projects = $this->getReportDao()->getWorkerProjects($worker);
+		$projects = $this->getReportDao()->getWorkerProjects($worker, $start, $end);
 		$this->projectList->dataSource = $projects;
 		
 		$holidays = $this->getReportDao()->getWorkerHolidays($worker, $start, $end);

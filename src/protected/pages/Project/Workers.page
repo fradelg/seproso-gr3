@@ -34,6 +34,7 @@
 	<h2>Trabajadores disponibles</h2>
 	<com:TLabel ForControl="workerList" 
 		Text="Seleccione el trabajador que desea agregar al proyecto"/>
+	<br/>
 	<com:TListBox ID="workerList" CssClass="items" 
 		AutoPostBack="True" OnSelectedIndexChanged="workerSelected" />
 	<com:TRequiredFieldValidator

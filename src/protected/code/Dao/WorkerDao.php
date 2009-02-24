@@ -35,6 +35,15 @@ class WorkerDao extends BaseDao
 		$param['project'] = $project;
 		return $sqlmap->queryForObject('ParticipationExists', $param);
 	}
+
+	/**
+	 * @return array list with all registered users.
+	 */
+	public function getAllSeprosoUsers()
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForList('GetAllSeprosoUsers');
+	}
 	
 	/**
 	 * @return array list with all workers.
@@ -79,6 +88,16 @@ class WorkerDao extends BaseDao
 	{
 		$sqlmap = $this->getSqlMap();
 		return $sqlmap->queryForList('GetProjectManagers');
+	}
+	
+	/** 
+	 * Look for finished project for manager
+	 * @return string project name
+	 */
+	public function getFinishedProject($user)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('GetFinishedProject', $user);
 	}
 	
 	/** 

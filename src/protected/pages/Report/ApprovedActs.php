@@ -12,8 +12,8 @@ class ApprovedActs extends TPage
 		{
 			// Retrieve data from database with SQL query
 			$reportDao = $this->Application->Modules['daos']->getDao('ReportsDao');
-				$this->workRecords->DataSource = 
-			$reportDao->getApproveWorkRecords($this->Session['project']);
+			$this->workRecords->DataSource = 
+				$reportDao->getApproveWorkRecords($this->Session['project']);
 			// Bind query data to TRepeater
 			$this->workRecords->dataBind();
 		}		

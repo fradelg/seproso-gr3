@@ -21,7 +21,7 @@ class Login extends TPage
 	}
 	
 	/**
-	 * Called when login is successful. Init session data
+	 * Called when login is successful. Init session data.
 	 * @param TControl button control that created the event.
 	 * @param TEventParameter event parameters.
 	 */
@@ -32,6 +32,14 @@ class Login extends TPage
 			$auth = $this->Application->getModule('auth');
 			$dao = $this->Application->Modules['daos']->getDao('UserDao');
 			
+			// Delete manager participation in finished project
+			if ($this->User->IsInRole('manager')){
+				$workerDao = $this->Application->Modules['daos']->getDao('WorkerDao');
+				$project = $workerDao->getFinishedProject($this->User->Name);
+				if (!is_null($project))
+					$workerDao->deleteParticipation($this->User->Name, $project);
+			}
+			
 			// Set project session data for managers or developers
 			if ($this->User->IsInRole('manager') || $this->User->IsInRole('developer')){
 				$projects = $dao->getProjectsByUser($this->User->Name);
@@ -39,16 +47,17 @@ class Login extends TPage
 			}
 
 			// Set user view session data
-			$this->Session['managing'] = false;
-			if ($this->User->IsInRole('manager') && $projects != NULL){
+			if ($this->User->IsInRole('manager')){
 				$role = $dao->getRoleInProject($this->User->Name, $this->Session['project']);
-				if ($role === 'Jefe de proyecto'){ 
+				if ($role === 'Jefe de proyecto' || $projects == NULL){ 
 					$this->Session['view'] = 'manager';
 					$this->Session['managing'] = true;
 				} else 
 					$this->Session['view'] = 'developer';
-			} else
+			} else {
 				$this->Session['view'] = current($this->User->Roles);
+				$this->Session['managing'] = false;
+			}
 			
 
 			// Redirect to requested page

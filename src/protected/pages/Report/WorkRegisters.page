@@ -12,7 +12,7 @@
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateFrom" 
 			DateFormat="dd/MM/yyyy"
-			TimeStamp=<%= strtotime("+1 day") %>
+			TimeStamp=<%= strtotime("-1 month") %>
 			InputMode="DropDownList" />
 		<com:TCompareValidator
 			ControlToValidate="dateFrom"
@@ -29,7 +29,7 @@
 		<span class="required">*</span><br />
 		<com:TDatePicker id="dateTo" 
 			DateFormat="dd/MM/yyyy" 
-			TimeStamp=<%= strtotime("today") %>
+			TimeStamp=<%= strtotime("-1 day") %>
 			InputMode="DropDownList"/>
 		<com:TCompareValidator
 			ControlToValidate="dateTo"
@@ -94,7 +94,7 @@
 					<td><%# h($this->DataItem->Comentary) %></td>
 					<td><%# h($this->DataItem->Effort) %></td>
 					<td><img src="<%= $this->Page->getImage($this->DataItem->State) %>" 
-		    			width="24" height="24" alt=""></td>
+		    			width="16" height="16" alt=""></td>
 	  			</tr>
 		</prop:ItemTemplate>	
 		</com:TRepeater>

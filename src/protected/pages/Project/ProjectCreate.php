@@ -41,15 +41,12 @@ class ProjectCreate extends TPage
 			// add project to database
 			$this->getProjectDao()->addNewProject($newProject);
 			
-			// check if worker is already participating in project
+			// add manager data to project participants
 			$worker = $newProject->ManagerID;
 			$title = $newProject->Title;
-			if ($this->getWorkerDao()->participationExists($worker, $title))
-				$this->getWorkerDao()->updateParticipation(
-					$worker, $title, 'Jefe de proyecto', 50);
-			else
-				$this->getWorkerDao()->addParticipation(
-					$worker, $title, 'Jefe de proyecto', 50);
+			$perc = floatval($this->participation->Text);
+			$this->getWorkerDao()->addParticipation(
+				$worker, $title, 'Jefe de proyecto', $perc);
 		
 			$this->Response->redirect("?page=Project.ProjectList");
 		}
@@ -66,6 +63,22 @@ class ProjectCreate extends TPage
 		{
 			$param->IsValid = false;
 			$sender->ErrorMessage =	"El nombre del proyecto ya existe. Utilice otro distinto.";
+		}
+	}
+	
+	/**
+	 * Verify that participation porcentage is less than or equal 100%
+	 * @param TControl custom validator that created the event.
+	 * @param TServerValidateEventParameter validation parameters.
+	 */
+	public function validatePorcentage($sender, $param)
+	{
+		$p = $this->getWorkerDao()->getParticipation($this->manager->SelectedValue);
+		$p = 100.0 - $p;
+		if ($p < floatval($this->participation->Text)){
+			$param->IsValid = false;
+			$sender->ErrorMessage =	"Este trabajador s&oacute;lo puede participar como 
+				Jefe de proyecto hasta el ".$p."%.";
 		}
 	}
 }

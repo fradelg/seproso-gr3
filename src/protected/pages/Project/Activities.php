@@ -139,9 +139,11 @@ class Activities extends TPage
 			if (!$this->getActivityDao()->existsActivePrecedents($act))
 				$this->getActivityDao()->beginActivity($act);
 		}
-		
-		// When not exists posterior activities -> project is finished
-		if (count($actPost) == 0) $this->closeProject();
+	    
+		// Check for all activities finished -> project is finished
+		$this->Project = $this->Session['project'];
+		if (!$this->getActivityDao()->existsCurrentActivities($this->Project)) 
+			$this->closeProject();
 		
 		$this->refreshEntryList();
 	}
@@ -152,10 +154,12 @@ class Activities extends TPage
 		$this->getProjectDao()->updateProjectState($this->Project, 2);
 		
 		// clear worker participation on it
-		$project = $this->Session['project'];
 		$dao = $this->Application->Modules['daos']->getDao('WorkerDao');
-		foreach ($dao->getWorkersForProject($project) as $worker) 
-			$dao->deleteParticipation($worker['Worker'], $project);
+		foreach ($dao->getProjectWorkers($this->Project) as $worker){
+			if ($worker['Role'] != 'Jefe de proyecto')
+				$dao->deleteParticipation($worker['UserID'], $this->Project);
+				var_dump($worker);
+		}
 	}
 	
 	// Redirect to AddActivity page

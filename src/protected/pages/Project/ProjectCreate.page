@@ -37,6 +37,43 @@
   	<com:TLabel ForControl="manager" Text="Jefe de proyecto" />
   	<span class="required">*</span><br />
   	<com:TDropDownList ID="manager" />
+  	<com:TRequiredFieldValidator
+  		ControlToValidate="manager"
+  		Display="None"
+  		CssClass="validator"
+  		ValidationGroup="project-add"
+  		ControlCssClass="required-input"
+  		ErrorMessage="Se necesita obligatoriamente un jefe de proyecto."/>
+  	</div>
+  	
+  	<div class="hours">
+  	<com:TLabel ForControl="participation" Text="Participaci&oacute;n:"/>
+  	<span class="required">*</span><br />
+  	<com:TTextBox ID="participation" />
+  	<com:TRequiredFieldValidator
+  		ControlToValidate="participation"
+  		Display="None"
+  		CssClass="validator"
+  		ValidationGroup="project-add"
+  		ControlCssClass="required-input"
+  		ErrorMessage="Por favor, introduzca un porcentaje de participaci&oacute;n" />
+  	<com:TRangeValidator 
+  		ControlToValidate="participation"
+  		DataType="Float"
+  		MinValue="1"
+  		MaxValue="100"
+  		CssClass="validator"
+  		Display="None"
+  		ValidationGroup="project-add"
+  		ControlCssClass="required-input"
+  		ErrorMessage="El porcentaje debe estar comprendido entre 1 y 100" />
+  	<com:TCustomValidator
+		ControlToValidate="participation"
+		CssClass="validator"
+		Display="None"
+		ValidationGroup="project-add"
+		ControlCssClass="required-input"
+		OnServerValidate="validatePorcentage" />
   	</div>
   	
   	<div class="hours">

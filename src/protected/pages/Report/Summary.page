@@ -77,13 +77,14 @@
 		  	<td><%# h($this->DataItem->Description) %></td>
 		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
 				Value=<%# $this->DataItem->EstimateDate %> /><br/>
-		  		<%# h($this->DataItem->EstimateDuration ) %>h</td>
+		  		<%# h($this->DataItem->EstimateDuration ) %> h</td>
 		  	<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
 				Value=<%# $this->DataItem->RealDate %> /><br/> 
-		  		<%# h($this->DataItem->RealDuration ) %>h</td>
-		  	<td><%# h( floor(100*($this->DataItem->RealDuration - 
-		  				$this->DataItem->EstimateDuration) / 
-		  				$this->DataItem->EstimateDuration) ) %>%</td>
+		  		<%# h($this->DataItem->RealDuration ) %> h</td>
+		  	<td><%# h( floor(($this->DataItem->RealDate - $this->DataItem->EstimateDate)/ 
+		  		(60*60*24)) ) %> d <br/><%# h( floor(100*($this->DataItem->RealDuration - 
+		  		$this->DataItem->EstimateDuration)/$this->DataItem->EstimateDuration) ) %> %
+		  	</td>
 		  </tr>
 		</prop:ItemTemplate>
 	</com:TRepeater>

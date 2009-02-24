@@ -347,7 +347,8 @@
 	<result property="Part" column="Part" type="float" />
 </resultMap>
 
-<select id="GetWorkerProjects" resultMap="project-worker-report">
+<select id="GetWorkerProjects" parameterClass="array" resultMap="project-worker-report">
+<![CDATA[
 	SELECT
 		Proyecto.titulo as Project,
 		Participacion.idRol as Role,
@@ -355,9 +356,15 @@
 	FROM
 		Participacion
 		LEFT JOIN Proyecto ON Proyecto.titulo = Participacion.idProyecto
+		LEFT JOIN Fase ON Fase.idModelo = Proyecto.idModelo
+		LEFT JOIN Actividad ON Actividad.idFase = Fase.idFase
 	WHERE
-		Participacion.idUsuario = #value#
-		AND Proyecto.estado = 1
+		Participacion.idUsuario = #user#
+		AND Actividad.inicioEstimado >= #start, typeHandler=DateTimeTypeHandler#
+		AND Actividad.inicioEstimado <= #end, typeHandler=DateTimeTypeHandler#
+	GROUP BY
+		Proyecto.titulo
+]]>
 </select>
 
 <resultMap id="holiday-result" class="HolidayRecord" >

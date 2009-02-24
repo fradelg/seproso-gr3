@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-	<title>Gu&iacute;a de ayuda básica de SEPROSO</title>
+	<title>Gu&iacute;a de ayuda b&aacute;sica de SEPROSO</title>
 	<style type="text/css">
 		html {
 			background: url(background.png) repeat-x top;
@@ -28,23 +28,22 @@
 	<p>Bienvenido a la herramienta Web <strong>SEPROSO</strong>.
 	Existen 4 tipos de usuarios que tienen asignadas operaciones:</p>
 	<h2>Administrador</h2>
+	<p>Las principales operaciones que usted puede realizar son:</p>
 	<ul>
 		<li><strong>Usuarios:</strong> gestione (cree, modifique o borre) los usuarios del sistema.
 		<li><strong>Proyectos:</strong> gestione (cree, modifique o borre) los proyectos del sistema
 			asignando un responsabla a cada uno.
 		<li><strong>Configuraci&oacute;n:</strong> modifique los par&aacute;metros del sistema.
 	</ul> 
-	<p>Las principales operaciones que usted puede realizar son:</p>
 	<h2>Jefe de proyecto</h2> 
 	<p>Las principales operaciones que usted puede realizar son:</p>
 	<ul>
-		<li><strong>Proyectos:</strong> planifique su proyecto software en fases y actividades
-			y asigne responsables a cada actividad.
-			project resources, and more.</li>
+		<li><strong>Proyectos:</strong> planifique su proyecto software en fases y actividades.
+			y asigne responsables a cada actividad.</li>
 		<li><strong>Monitorizaci&oacute;n:</strong> consulte el tiempo que los responsables dedican a 
 			las actividades que tienen asignadas y controle el avance del proyecto.</li>
 		<li><strong>Informes:</strong> genere todo tipo de informes que le ayuden a gestionar
-			de la forma m&aacute;s eficiente su proyecto</li>
+			de la forma m&aacute;s eficiente su proyecto.</li>
 	</ul>
 	<h2>Desarrollador</h2> 
 	<p>Las principales operaciones que usted puede realizar son:</p>
@@ -103,7 +102,7 @@
 	<ol>
 		<li>Haga clic sobre la pesta&ntilde;a <strong>Vacaciones</strong> y luego sobre <strong>Nuevo periodo</strong>.</li>
 		<li>Seleccione un d&iacute;a cualquiera de la semana y el n&uacute;mero de semanas de vacaciones deseado.</li>
-		<li>Haga clic sobre <strong>A&ntilde;adir periodo</strong> para que el sistema valide su selecci&ocute;n.
+		<li>Haga clic sobre <strong>A&ntilde;adir periodo</strong> para que el sistema valide su selecci&oacute;n.
 		<li>Si es correcta el nuevo periodo queda asignado. Si no, debe volver al paso anterior y corregir los errores.</li>
 	</ol>
 
@@ -135,11 +134,11 @@
 	<h3>Asignar plantilla de modelo de proceso al proyecto</h3>
 	<ol>
 		<li>Haga clic sobre la pesta&ntilde;a <strong>Proyecto</strong> y luego sobre <strong>Fases</strong>.</li>
-		<li>Si el proyecto no tienen todav&iacute;a asignado un modelo de proceso podrá seleccionar una plantilla.</strong></li>
+		<li>Si el proyecto no tienen todav&iacute;a asignado un modelo de proceso podr&aacute; seleccionar una plantilla.</strong></li>
 		<li>Seleccione la plantilla deseada en el panel izquierdo. Se muestran las fases que contiene a su derecha.</li>
 		<li>Haga clic en <strong>Usar plantilla</strong> si desea utilizar ese modelo o en <strong>Definir personalizada</strong>
 			si desea definir su propio conjunto de fases.</li>
-		<li>A continuaci&oacute;n se mostrará la lista de fases del proyecto.</li>
+		<li>A continuaci&oacute;n se mostrar&aacute; la lista de fases del proyecto.</li>
 	</ol>
 	<h3>Crear plantilla de modelo de proceso</h3>
 	<ol>
@@ -235,36 +234,36 @@
 		<li>En la lista de informes que aparece haga clic sobre uno de ellos.</li>
 		<li>Seleccione la fecha inicial y final del periodo de consulta (si fuese necesario).</li>
 		<li>Haga clic en <strong>Generar informe</strong> para que el sistema lo produzca.</li>
-		<li>El informe aparecer&acute; en una nueva p&aacute;gina.</li>
+		<li>El informe aparecer&aacute; en una nueva p&aacute;gina.</li>
 	</ol>
 	<p>NOTA: en los informes de actividades sin supervisar/aprobar podr&aacute; ir directamente
 	al informe de actividad si pulsa el bot&oacute;n que aparece a la derecha de cada entrada.</p>
 	<h3>Generar informe de actividades</h3>
 		<ol>
-		<li>Haga clic sobre la pesta&ntilde;a <strong>Informes</strong>y despu&eacute;s en <strong>Actividades</strong>.</li>
+		<li>Haga clic sobre la pesta&ntilde;a <strong>Informes</strong> y despu&eacute;s en <strong>Actividades</strong>.</li>
 		<li>Seleccione la fecha inicial y final del periodo de consulta.</li>
 		<li>Haga clic en <strong>Generar informe</strong> para que el sistema busque los datos.</li>
-		<li>El informe aparecer&acute; en la siguiente p&aacute;gina.</li>
+		<li>El informe aparecer&aacute; en la siguiente p&aacute;gina.</li>
 	</ol>
 	<h3>Generar resumen de proyecto</h3>
 		<ol>
 		<li>Haga clic sobre la pesta&ntilde;a <strong>Informes</strong> y despu&eacute;s en <strong>Resumen</strong>.</li>
 		<li>Seleccione el proyecto ya finalizado que desea consultar de la lista.</li>
-		<li>El informe aparecer&acute; m&aacute;s abajo.</li>
+		<li>El informe aparecer&aacute; m&aacute;s abajo.</li>
 	</ol>	
 	<h3>Generar informe de trabajador</h3>
 	<ol>
 		<li>Haga clic sobre la pesta&ntilde;a <strong>Situaci&oacute;n de personal</strong></li>
 		<li>En el panel de la izquierda indique el trabajador y el periodo de consulta.</li>
 		<li>Haga clic en <strong>Generar informe</strong> para que el sistema obtenga los datos.</li>
-		<li>En el panel de la derecha aparecer&acute; la informaci&oacute;n del trabajador.</li>
+		<li>En el panel de la derecha aparecer&aacute; la informaci&oacute;n del trabajador.</li>
 	</ol>
 	<h3>Generar informe de ocupaci&oacute;n</h3>
 		<ol>
 		<li>Haga clic sobre la pesta&ntilde;a <strong>Informe de ocupaci&oacute;n</strong>.</li>
 		<li>Seleccione la fecha inicial y final del periodo de consulta.</li>
 		<li>Haga clic en <strong>Generar informe</strong>.</li>
-		<li>El informe aparecer&acute; en una nueva p&aacute;gina, agrupado por trabajadores.</li>
+		<li>El informe aparecer&aacute; en una nueva p&aacute;gina, agrupado por trabajadores.</li>
 	</ol>
 </body>
 </html>

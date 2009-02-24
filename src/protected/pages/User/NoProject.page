@@ -4,7 +4,7 @@
 	<legend>No hay participaci&oacute;n en proyecto</legend>
 	<img src="<%= $this->Page->Theme->BaseUrl %>/error.gif" width="32" height="32" alt="">
 	No puede acceder a esta funcionalidad de la herramienta.
-	<h3>Usted no tiene ning&uacute;n proyecto asignado todav&iacute;a.</h3>
+	<h3>Usted no tiene ning&uacute;n proyecto asignado en estos momentos.</h3>
 	<h5>Hable con su jefe de proyecto o administrador para que le asigne como participante
 	en alguno o como jefe de proyecto respectivamente. Hasta entonces no podr&aacute; 
 	realizar ninguna operaci&oacute;n relacionada con proyecto</h5>  

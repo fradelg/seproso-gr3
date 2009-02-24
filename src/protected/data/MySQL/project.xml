@@ -247,9 +247,7 @@
 <update id="UpdatePhase" parameterClass="PhaseRecord">
 	UPDATE 
 		Fase
-	SET 
-		idModelo = #ProcessID#,
-		idFasePadre = #ParentID#,
+	SET
 		nombre = #Name#,
 		descripcion = #Description#
 	WHERE 

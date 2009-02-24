@@ -22,7 +22,7 @@
 			<th>Apellidos</th>
 			<th>Nacido</th>
 			<th>Rol</th>
-			<th>Password</th>
+			<th>User/Pass</th>
 			<th>E-mail</th>
 		</tr>
   	</prop:HeaderTemplate>
@@ -37,7 +37,8 @@
 			<td><com:System.I18N.TDateFormat Pattern="dd/MM/yyyy"
 				Value=<%# $this->DataItem->BirthDate %> /></td>
 			<td><%# h($this->DataItem->RoleID) %></td>
-			<td><%# h($this->DataItem->Password) %></td>
+			<td><%# h($this->DataItem->UserID) %><br/>
+				<%# h($this->DataItem->Password) %></td>
 			<td><%# h($this->DataItem->EmailAddress) %></td>
 			<td>
 	  		<com:TButton Text="Modificar" CommandName="edit"/>

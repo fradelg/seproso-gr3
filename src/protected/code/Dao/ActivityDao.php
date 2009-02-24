@@ -35,7 +35,13 @@ class ActivityDao extends BaseDao
 	function existsActivePrecedents($actID)
 	{
 		$sqlmap = $this->getSqlMap();
-		return $sqlmap->queryForList('ExistsActivePrecedents', $actID);
+		return $sqlmap->queryForObject('ExistsActivePrecedents', $actID);
+	}
+	
+	function existsCurrentActivities($project)
+	{
+		$sqlmap = $this->getSqlMap();
+		return $sqlmap->queryForObject('ExistsCurrentActivities', $project);
 	}
 	
 	function getActivityByID($actID)

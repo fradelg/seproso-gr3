@@ -47,6 +47,20 @@
 		idUsuario = #value#
 </select>
 
+<select id="GetAllSeprosoUsers" resultMap="seproso-worker">
+	SELECT
+		Trabajador.nombre as Name,
+		Trabajador.apellidos as Surname,
+		Trabajador.fnacimiento as BirthDate,
+		Trabajador.idRol as Role,
+		Usuario.nick as UserName,
+		Usuario.password as `Password`,
+		Usuario.email as EmailAddress
+	FROM 
+		Trabajador
+		LEFT JOIN Usuario ON Usuario.nick = Trabajador.idUsuario
+</select>
+
 <select id="GetAllWorkers" resultMap="seproso-worker">
 	SELECT
 		Trabajador.nombre as Name,
@@ -59,6 +73,8 @@
 	FROM 
 		Trabajador
 		LEFT JOIN Usuario ON Usuario.nick = Trabajador.idUsuario
+	WHERE
+		Usuario.tipo != 'admin' AND Usuario.tipo != 'personal'
 </select>
 
 <select id="GetWorkersForProject" resultMap="seproso-worker">
@@ -132,6 +148,18 @@
 		LEFT JOIN Participacion ON Participacion.idUsuario = Trabajador.idUsuario
 	WHERE
 		Participacion.idProyecto = #value#
+</select>
+
+<select id="GetFinishedProject">
+	SELECT
+		Proyecto.titulo
+	FROM 
+		Participacion
+		LEFT JOIN Proyecto ON Proyecto.titulo = Participacion.idProyecto
+	WHERE
+		Participacion.idUsuario = #value#
+		AND Participacion.idRol = 'Jefe de proyecto'
+		AND Proyecto.estado = 2
 </select>
 
 <select id="GetUsername" resultClass="string">

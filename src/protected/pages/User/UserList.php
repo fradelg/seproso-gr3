@@ -35,7 +35,7 @@ class UserList extends TPage
 	
 	protected function showList()
 	{
-		$this->list->DataSource = $this->getWorkerDao()->getAllWorkers();
+		$this->list->DataSource = $this->getWorkerDao()->getAllSeprosoUsers();
 		$this->list->dataBind(); 	
 	}
 	
