@@ -1,6 +1,6 @@
 # Goal
 
-SEPROSO is a web application to track and report software development projects. 
+SEPROSO is a web application to track and report software development projects. It allows to track the software development process defined by the project leader. Progress reports help to understand project deviations showing the difference between the estimated and real time for each task. The results can be used to iteratively improve the development methodology taking into account valuable lessons extracted from time monitoring.
 
 ## Features
 
